@@ -4,7 +4,7 @@ Donate link: http://www.kevinsspace.ca/testimonial-basics/
 Tags: testimonial,testimonials,praise,user comments,widgets,translation ready
 Requires at least: 3.1
 Tested up to: 3.4.1
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/
 
@@ -53,12 +53,22 @@ The faq will be developed as common questions arise.
 
 == Screenshots ==
 
-1. Administration Page for managing your testimonials
-2. Example of testimonials displayed in main content and in a widget
-3. Input form in main content and in a widget
+1. Admin_Panel_Screenshot-1.JPG
+2. Input_Forms_Screenshot-2.JPG
+3. Display_Testimonials_Screenshot-3.JPG
 
 == Changelog ==
 
-= 1.0 =
+= 1.0.3 =
+* still changing the readme to get the svn figured out
+
+= 1.0.2 =
+* readme.txt updated
+
+= 1.0.1 =
 * Initial release
 
+== Upgrade Notice ==
+
+= 1.0.1 =
+* Initial Release
