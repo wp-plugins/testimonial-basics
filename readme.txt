@@ -4,7 +4,7 @@ Donate link: http://www.kevinsspace.ca/testimonial-basics/
 Tags: testimonial,testimonials,praise,user comments,widgets,translation ready
 Requires at least: 3.1
 Tested up to: 3.4.1
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/
 
@@ -59,16 +59,10 @@ The faq will be developed as common questions arise.
 
 == Changelog ==
 
-= 1.0.3 =
-* still changing the readme to get the svn figured out
-
-= 1.0.2 =
-* readme.txt updated
-
-= 1.0.1 =
-* Initial release
+= 1.0.4 =
+* Initial Release
 
 == Upgrade Notice ==
 
-= 1.0.1 =
+= 1.0.4 =
 * Initial Release
