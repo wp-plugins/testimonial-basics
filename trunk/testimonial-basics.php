@@ -3,7 +3,7 @@
 Plugin Name: Testimonial Basics
 Plugin URI: http://www.kevinsspace.ca/testimonial-basics-wordpress-plugin/
 Description: This plugin facilitates easy management of customer testimonials. The user can set up an input form in a page or in a widget, and display all or selected testimonials in a page or a widget. The plug in is very easy to use and modify.
-Version: 1.0.4
+Version: 1.0.5
 Author: Kevin Archibald
 Author URI: http://www.kevinsspace.ca
 License: GPLv3
