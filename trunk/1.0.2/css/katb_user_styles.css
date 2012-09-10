@@ -1,0 +1,206 @@
+/*
+ * User styles for Testimonial Basics Plugin
+ */
+
+/* ---------------------------- User Editable Styles ----------------------- */
+
+/* -------------------------- Fonts ---------------------------------------- */
+/* content testimonial display font default: Verdana, Geneva, Arial, Helvetica, sans-serif; */
+.katb_test_wrap {font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;}
+/* widget testimonial display font default: Verdana, Geneva, Arial, Helvetica, sans-serif; */
+.katb_widget_test_wrap {font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;}
+
+/* --------------------- Color Options Main Display ----------------------- */
+/* background wrap for content testimonial display default:#EDEDED */
+.katb_test_wrap {background-color: #EDEDED;}
+/* testimonial box for content testimonial display default:#DBDBDB */
+.katb_test_box {background-color: #DBDBDB;}
+/* font color for testimonial default:black */
+.katb_test_box {color: black;}
+/* Author and Location font color default:black */
+.katb_test_meta {color: black;}
+/* website link color default: blue */
+.katb_test_box a {color: blue;}
+/* website link hover color default: white */
+.katb_test_box a:hover {color: white;}
+
+/* --------------------- Color Options Widget Display ----------------------- */
+/* widget background color default:#EDEDED and font color default:black */
+.katb_widget_test_wrap {
+	background-color: #EDEDED;
+	color: black;
+}
+/* widget author and location font color default:black */
+.katb_widget_test_meta {color: black;}
+/* widget website link color default:blue */
+.katb_widget_test_meta a {color: blue !important;}
+/* widget website link hover color default:white */
+.katb_widget_test_wrap a:hover {color: white !important;}
+
+/* ------------Should not Edit below here -------------- */
+
+/*
+ * ------ Main Input Form Styles ----------------------- */
+
+
+
+.katb_input_style label{
+	clear: both;
+	width: 100px;
+	float:left;
+	margin: 5px;
+	/*margin-top: 5px;
+	margin-bottom: 5px;*/
+	}
+
+.katb_input_style input {
+	float:left;
+	margin: 5px;
+	/*margin-top: 5px;
+	margin-bottom: 5px;*/
+}
+
+.katb_input_style textarea {
+	float:left;
+	margin: 5px;
+	/*margin-top: 5px;
+	margin-bottom: 5px;*/
+	width:95%;
+}
+
+.katb_submit {clear:both;}
+
+.katb_captcha {float:left;}
+
+.katb_clearboth {clear: both;}
+
+/*
+ * ------ Widget Input Form Styles ----------------------- */
+
+.katb_widget_form input {margin-left:10px;}
+
+.katb_widget_form input.katb_input,.katb_widget_form textarea, .katb_widget_form p {
+	margin: 5px 10px 5px 10px;
+	width:90%;
+}
+
+.katb_widget_submit {clear:both;}
+
+/*
+ * ------ Display Testimonial Styles ----------------------- */
+
+.katb_test_wrap {
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+	padding: 10px 0px 10px 0px;
+	clear:both;
+	margin-top:10px;
+}
+
+.katb_test_box {
+	padding: 10px;
+	margin: 15px;
+	/* CSS3 rounded corners */
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+   	/* CSS3 shadow */
+	-webkit-box-shadow: 2px 5px 5px 0 rgba(72,72,72,0.8);
+	-moz-box-shadow: 2px 5px 5px 0 rgba(72,72,72,0.8);
+	box-shadow: 2px 5px 5px 0 rgba(72,72,72,0.8);
+}
+
+.katb_test_text {
+	padding: 0;
+	margin: 0;
+	line-height: 1.0em;
+	font-style:italic;
+}
+
+.katb_test_meta {
+	padding: 0;
+	margin: 0;
+	font-size: 0.8em;
+	font-weight: bold;
+}
+
+.katb_test_box a {
+	padding: 0;
+	margin: 0;
+}
+
+.katb_test_box a:hover {
+	padding: 0;
+	margin: 0;
+	text-decoration: none;
+}
+
+/*
+ * ------ Widget Display Testimonial Styles ----------------------- */
+
+.katb_widget_test_wrap {
+	padding: 10px 10px 10px 10px;
+	margin: 0;
+	width: 85%;
+	overflow-x: auto;
+	/* CSS3 rounded corners */
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+   	/* CSS3 shadow */
+	-webkit-box-shadow: 2px 5px 5px 0 rgba(72,72,72,0.8);
+	-moz-box-shadow: 2px 5px 5px 0 rgba(72,72,72,0.8);
+	box-shadow: 2px 5px 5px 0 rgba(72,72,72,0.8)
+}
+
+.katb_widget_test_box {
+	padding: 10px 10px 10px 10px;
+	margin: 0;
+	height: 12em;
+	overflow:auto;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+
+}
+
+.katb_widget_text {
+	padding: 0;
+	margin: 0;
+	line-height: 1.2em;
+	font-style:italic;
+
+}
+
+.katb_widget_test_meta {
+	padding: 0;
+	margin: 0;
+	font-size: 10px;
+	font-weight: bold;
+}
+
+.katb_widget_test_meta a {
+	padding: 0;
+	margin: 0;
+	font-size: 10px !important;
+	font-weight:bold !important;
+}
+
+.katb_widget_test_wrap a:hover {
+	padding: 0;
+	margin: 0;
+	text-decoration: none;
+}
+
+.katb_error {
+	background-color: #FFC9DA;
+	font-size: 12px;
+	border: 3px solid red;
+	padding: 5px;
+}
+
+.katb_widget_error,.katb_display_widget_error {color: red;}
+
+.katb_widget_sent,.katb_test_sent {color: green;}
+
