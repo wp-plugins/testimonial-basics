@@ -8,7 +8,8 @@ Stable tag: 1.0.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/
 
-Here is a short description of the plugin.  This should be no more than 150 characters.  No markup here.
+Testimonial Basics is a great plugin for managing testimonials for your site. It is 
+simple to use and comes with great user documentation.
 
 == Description ==
 
