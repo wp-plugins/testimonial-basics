@@ -36,16 +36,16 @@ page or a widget. The plug in is very easy to use and modify:
 
     6) A visitor input form is also available in widget form.
     
-    7) The user can include a captcha on input forms to reduce spam.</li>
+    7) The user can include a captcha on input forms to reduce spam.
     
     8) The plugin comes with detailed documentation.
 
 == Installation ==
 
-1) Upload Testimonial Basics to the plugin directory (wp-content/plugins/testimonial-basics) of your 
+1. Upload Testimonial Basics to the plugin directory (wp-content/plugins/testimonial-basics) of your 
 wordpress setup. 
-2) Ensure all sub directories are maintained. 
-3) Activate the theme through the Wordpress Admin panel under "Plugins".
+2. Ensure all sub directories are maintained. 
+3. Activate the theme through the Wordpress Admin panel under "Plugins".
 
 == Frequently Asked Questions ==
 
@@ -53,9 +53,9 @@ The faq will be developed as common questions arise.
 
 == Screenshots ==
 
-1. Administration Page for managing your testimonials.
-2. Example of testimonials displayed in main content and in a widget.
-2. Input form in main content and in a widget.
+1. Administration Page for managing your testimonials
+2. Example of testimonials displayed in main content and in a widget
+3. Input form in main content and in a widget
 
 == Changelog ==
 
