@@ -4,7 +4,7 @@ Donate link: http://www.kevinsspace.ca/testimonial-basics/
 Tags: testimonial,testimonials,praise,user comments,widgets,translation ready
 Requires at least: 3.1
 Tested up to: 3.4.1
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/
 
@@ -53,16 +53,16 @@ The faq will be developed as common questions arise.
 
 == Screenshots ==
 
-1. Admin_Panel_Screenshot-1.JPG
-2. Input_Forms_Screenshot-2.JPG
-3. Display_Testimonials_Screenshot-3.JPG
+1. Admin_Panel_Screenshot.jpg
+2. Input_Forms_Screenshot.jpg
+3. Display_Testimonials_Screenshot.jpg
 
 == Changelog ==
 
-= 1.0.5 =
+= 1.0.6 =
 * Initial Release
 
 == Upgrade Notice ==
 
-= 1.0.5 =
+= 1.0.6 =
 * Initial Release
