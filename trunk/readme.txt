@@ -1,6 +1,6 @@
 === Plugin Name ===
 Contributors: kevinhaig
-Donate link: http://demo1.kevinsspace.ca/testimonial-basics/
+Donate link: http://www.kevinsspace.ca/testimonial-basics/
 Tags: testimonial,testimonials,praise,user comments,widgets,translation ready
 Requires at least: 3.1
 Tested up to: 3.4.1
