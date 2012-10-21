@@ -4,7 +4,7 @@ Donate link: http://www.kevinsspace.ca/testimonial-basics/
 Tags: testimonial,testimonials,praise,user comments,widgets,translation ready
 Requires at least: 3.1
 Tested up to: 3.4.2
-Stable tag: 2.0.1
+Stable tag: 2.0.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/quick-guide-gplv3.html
 
