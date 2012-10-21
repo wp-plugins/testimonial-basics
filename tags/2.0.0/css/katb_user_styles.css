@@ -1,0 +1,261 @@
+/**
+ * Styles for Testimonial Basics Plugin
+ *
+ * Note that custom styles are in katb_display_custom_style.php ans katb_widget_custom_style.php
+ *
+ * @package		Testimonial Basics WordPress Plugin
+ * @copyright	Copyright (c) 2012, Kevin Archibald
+ * @license		http://www.gnu.org/licenses/quick-guide-gplv3.html  GNU Public License
+ * @author		Kevin Archibald <www.kevinsspace.ca/contact/>
+ */
+
+/* =====================================================================================================
+ *    Styles for unformated option
+ * ==================================================================================================== */
+/*
+ * ------ Display Testimonial Styles ----------------------- */
+
+.katb_test_wrap_basic {
+	padding: 0px 0px 10px 0px;
+	clear: both;
+	margin-top:10px;
+}
+
+.katb_test_box_basic {
+	padding: 0px 10px 10px 10px;
+	margin: 15px;
+}
+
+.katb_test_text_basic {
+	padding: 0;
+	margin: 0;
+	line-height: 1.5em;
+}
+
+.katb_test_meta_basic {
+	padding: 0px;
+	margin: 0px;
+	font-size: 0.9em;
+}
+
+.katb_test_box_basic a {
+	padding: 0;
+	margin: 0;
+}
+
+.katb_test_box_basic a:hover {
+	padding: 0;
+	margin: 0;
+	text-decoration: none;
+}
+
+/*
+ * ------ Widget Display Testimonial Styles ----------------------- */
+
+.katb_widget_test_wrap_basic {
+	padding: 0;
+	margin: 0;
+	width: 85%;
+	overflow-x: auto;
+}
+
+.katb_widget_test_box_basic {
+	padding: 0;
+	margin: 0;
+	max-height: 12em;
+	overflow: auto;
+}
+
+.katb_widget_text_basic {
+	padding: 0;
+	margin: 0;
+	line-height: 1.2em;
+	font-style: italic;
+}
+
+.katb_widget_test_meta_basic {
+	padding: 0;
+	margin-top: 10px;
+	font-size: 10px;
+}
+
+.katb_widget_test_meta_basic a {
+	padding: 0;
+	margin: 0;
+	font-size: 10px !important;
+}
+
+.katb_widget_test_wrap_basic a:hover {
+	padding: 0;
+	margin: 0;
+	text-decoration: none;
+}
+
+/* =====================================================================================================
+ *    Styles for formated option
+ * ==================================================================================================== */
+/*
+ * ------ Display Testimonial Styles ----------------------- */
+
+.katb_test_wrap {
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+	padding: 10px 0px 10px 0px;
+	clear: both;
+	margin-top: 10px;
+}
+
+.katb_test_box {
+	padding: 10px;
+	margin: 15px;
+	/* CSS3 rounded corners */
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+   	/* CSS3 shadow */
+	-webkit-box-shadow: 2px 5px 5px 0 rgba(72,72,72,0.8);
+	-moz-box-shadow: 2px 5px 5px 0 rgba(72,72,72,0.8);
+	box-shadow: 2px 5px 5px 0 rgba(72,72,72,0.8);
+}
+
+.katb_test_text {
+	padding: 0;
+	margin: 0;
+	line-height: 1.5em;
+	font-style: italic;
+}
+
+.katb_test_meta {
+	padding: 0;
+	margin: 0;
+	font-size: 0.8em;
+	font-weight: bold;
+}
+
+.katb_test_box a {
+	padding: 0;
+	margin: 0;
+}
+
+.katb_test_box a:hover {
+	padding: 0;
+	margin: 0;
+	text-decoration: none;
+}
+
+/*
+ * ------ Widget Display Testimonial Styles ----------------------- */
+
+.katb_widget_test_wrap {
+	padding: 10px 10px 20px 10px;
+	margin: 0;
+	width: 85%;
+	overflow-x: auto;
+	/* CSS3 rounded corners */
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+   	/* CSS3 shadow */
+	-webkit-box-shadow: 2px 5px 5px 0 rgba(72,72,72,0.8);
+	-moz-box-shadow: 2px 5px 5px 0 rgba(72,72,72,0.8);
+	box-shadow: 2px 5px 5px 0 rgba(72,72,72,0.8)
+}
+
+.katb_widget_test_box {
+	padding: 10px 10px 20px 10px;
+	margin: 0;
+	max-height: 12em;
+	overflow: auto;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+
+}
+
+.katb_widget_text {
+	padding: 0;
+	margin: 0;
+	line-height: 1.2em;
+	font-style: italic;
+}
+
+.katb_widget_test_meta {
+	padding: 0;
+	margin: 0;
+	font-size: 10px;
+	font-weight: bold;
+}
+
+.katb_widget_test_meta a {
+	padding: 0;
+	margin: 0;
+	font-size: 10px !important;
+	font-weight: bold !important;
+}
+
+.katb_widget_test_wrap a:hover {
+	padding: 0;
+	margin: 0;
+	text-decoration: none;
+}
+
+/* =====================================================================================================
+ *    Styles for Input Forms
+ * ==================================================================================================== */
+
+.katb_input_style {
+	margin-top:10px;
+}
+
+.katb_input_style label{
+	clear: both;
+	width: 110px;
+	float: left;
+	margin: 5px;
+}
+
+.katb_input_style input {
+	float: left;
+	margin: 5px;
+	max-width: 250px;
+}
+
+.katb_input_style textarea {
+	float: left;
+	margin: 5px;
+	width: 95%;
+}
+
+.katb_submit {clear: both;}
+
+.katb_captcha {float: left;margin:0;padding:0;}
+
+.katb_clearboth {clear: both;}
+
+/*
+ * ------ Widget Input Form Styles ----------------------- */
+.katb_widget_form input {margin-left: 10px;}
+
+.katb_widget_form input.katb_input,.katb_widget_form textarea, .katb_widget_form p {
+	margin: 5px 10px 5px 10px;
+	width: 90%;
+}
+
+.katb_widget_submit {clear: both;}
+
+/*
+ * -------------- Error Styles --------------------------------
+ */
+
+.katb_error {
+	background-color: white;
+	color: red;
+	font-size: 12px;
+	padding: 5px;
+}
+
+.katb_widget_error,.katb_display_widget_error {color: red;}
+
+.katb_widget_sent,.katb_test_sent {color: green;}
+
