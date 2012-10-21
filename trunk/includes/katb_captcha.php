@@ -1,7 +1,12 @@
 <?php
-/*
- * Testimonial Basics Plugin
- * captcha php script
+/**
+ * This file contains the that is called when users select to use the captcha.
+ *
+ *
+ * @package		Testimonial Basics WordPress Plugin
+ * @copyright	Copyright (c) 2012, Kevin Archibald
+ * @license		http://www.gnu.org/licenses/quick-guide-gplv3.html  GNU Public License
+ * @author		Kevin Archibald <www.kevinsspace.ca/contact/>
  */
 ?>
 <?php
@@ -10,8 +15,8 @@ if(!isset($_SESSION)) session_start();
 
   // Set some important CAPTCHA constants
   define('CAPTCHA_NUMCHARS', 6);  // number of characters in pass-phrase
-  define('CAPTCHA_WIDTH', 100);   // width of image
-  define('CAPTCHA_HEIGHT', 25);   // height of image
+  define('CAPTCHA_WIDTH', 110);   // width of image
+  define('CAPTCHA_HEIGHT', 22);   // height of image
 
   // Generate the random pass-phrase
   $pass_phrase = "";
