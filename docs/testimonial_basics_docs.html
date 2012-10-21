@@ -11,8 +11,6 @@
 
   		<link rel="stylesheet" href="testimonial_basics_docs_style.css" type="text/css" media="screen" /> 
  
-		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
-		<link rel="shortcut icon" href="/favicon.ico" />
 	</head>
 	
 	<body>
@@ -31,18 +29,20 @@
 				<li><a href="#2">Requirements</a></li>
 				<li><a href="#3">License and Credits</a></li>
 				<li><a href="#4">Installation</a></li>
-				<li><a href="#5">Administration Panel</a></li>
-				<li><a href="#6">Visitor Input Form</a></li>
-				<li><a href="#7">Displaying Testimonials</a></li>
-				<li><a href="#8">Advanced Users - Changing the Color Schemes and Fonts</a></li>
-				<li><a href="#9">Summary</a></li>
+				<li><a href="#5">Administration Panel - Testimonial Basics</a></li>
+				<li><a href="#6">Administration Panel - Edit Testimonials</a></li>
+				<li><a href="#7">Visitor Input Form</a></li>
+				<li><a href="#8">Displaying Testimonials</a></li>
+				<li><a href="#9">Administration Panel - Options</a></li>
+				<li><a href="#10">Advanced Function</a></li>
+				<li><a href="#11">Summary</a></li>
 			</ul>
 			<br/>
 			<h1><a id="1">&nbsp;</a>About Testimonial Basics</h1>
 			
 			<p>Testimonial Basics facilitates easy management of customer testimonials. The user can set 
 				up an input form in a page or in a widget, and display all or selected testimonials in a 
-				page or a widget. The plug in is very easy to use and modify:<br/><br/></p>
+				page or a widget. The plugin is very easy to use and modify:<br/><br/></p>
 			
 			<ol>
 				<li>Testimonials are saved in a database table integrated into WordPress.</li>
@@ -61,6 +61,19 @@
 					submit testimonials.</li>
 				<li>A visitor input form is also available in widget form.</li>
 				<li>The user can include a captcha on input forms to reduce spam.</li>
+				<li>User can use a display native to the theme or select a customizable display option.</li>
+				<li>The user now has a full set of option features
+					<ol>
+						<li>Including the Website link is an option</li>
+						<li>Including the Date is an option</li>
+						<li>Including the Location is an option</li>
+						<li>User can select a customizable display</li>
+						<li>Select one of nine fonts from a drop down list</li>
+						<li>Select text colors using a color wheel</li>
+						<li>Select background colors using a color wheel</li>
+					</ol>
+				</li>
+				<li>Display options for post or page content are separate from widget content</li>
 			</ol>
 			<br/>
 			<h1><a id="2">&nbsp;</a>Requirements</h1>
@@ -80,9 +93,9 @@
 				License URI: see the license.txt file for license details.<br/><br/></p>
 
     			<blockquote>
-    			Testimonial Basics is a WordPress Theme Plugin<br/>
+    			Testimonial Basics is a WordPress Plugin<br/>
     			Copyright (C) 2012 Kevin Archibald<br/>
-    			Version : 1.0.7 Released 20120910<br/><br/>	
+    			Version : 2.0.0 Released 20121020<br/><br/>	
     			
     			This program is free software: you can redistribute it and/or modify
     			it under the terms of the GNU General Public License as published by
@@ -100,7 +113,7 @@
 			<h1><a id="4">&nbsp;</a>Installation</h1>
 			
 			<p>Upload Testimonial Basics to the plugin directory (wp-content/plugins/testimonial-basics) of your 
-				wordpress setup. Ensure all sub directories are maintained. Activate the theme through the Wordpress 
+				wordpress setup. Ensure all sub directories are maintained. Activate the plugin through the Wordpress 
 				Admin panel under "Plugins".</p><br/>
 			
 			<p>Your opening screen will look like this :</p><br/>
@@ -115,23 +128,33 @@
 				you <q>Deacivate</q> the plugin is not loaded into WordPress, but it is still there. When you 
 				<q>Delete</q> it all files,options and database table are removed.</p>
 				
-			<h1><a id="5">&nbsp;</a>Administration Panel</h1>
+			<h1><a id="5">&nbsp;</a>Administration Panel - Testimonial Basics</h1>
 			
 			<p>Click on <q>Testimonial Basics</q> and the Administration Panel for the plugin will load, as shown below :</p><br/>
 			
 			<img src="images/tb_IMG_3.JPG" alt="Admin Panel 1" title="Admin Panel 1" /><br/><br/>
 			
-			<h4>Options</h4>
+			<p>The first thing to note is that there are three administration pages for Testimonial Basics. The first page is a 
+				quick summary of how to set up your input form and how to display testimonials. The second section is the Options 
+				that you have for your input forms, and for displaying your testimonials. The third page is where you go to manage 
+				your testimonials.</p><br/>
+				
+			<p>So when you can't quite remember the scripts for setting up input forms or displaying your testimonials, save your 
+				page come over here and copy them, that's what I do.</p><br/>
 			
-			<p>There is only one option in Testimonial Basics and that is whether or not to include a Captcha on the user 
-				input forms. Including the Captcha will help reduce spam. Click the checkbox and then save. There is no
-				successfuly saved message, just the correct status of the checkbox is returned.</p>
+			<h1><a id="6">&nbsp;</a>Administration Panel - Edit Testimonials</h1>
+			
+			<p>I think it's best to start with "Edit Testimonials" so click that panel and you will see:</p><br/>
+			
+			<img src="images/tb_IMG_4.JPG" alt="Edit Testimonial Panel" title="Edit Testimonial Panel" /><br/><br/>
+			
+			<p>This is where as an administrator you will manage your testimonials. You can can add or edit testimonials here.</p>
 				
 			<h4>Help</h4>
 			
-			<p>There is a drop down help section that provides a quick summary of how to use the plugin. It looks like :</p><br/>
+			<p>There is a drop down help section that provides a quick summary of how to use the "Edit Testimonials" Panel :</p><br/>
 
-			<img src="images/tb_IMG_4.JPG" alt="Help Section" title="Help Section" /><br/><br/>
+			<img src="images/tb_IMG_5.JPG" alt="Help Section" title="Help Section" /><br/><br/>
 			
 			<h4>Enter or Update a Testimonial</h4>
 			
@@ -143,10 +166,11 @@
 						order so your more favorite testimonials should have the highest number.</li>
 					<li>Approved - must be checked or the testimonial will not be displayed.</li>
 					<li>Author - Required, the name of the person who wrote the testimonial.</li>
-					<li>Website - Optional, input the Author Website and a link will be included in the display.</li>
+					<li>Website - Optional, input the Author Website and a link will be included in the display. 
+						Make sure you test the link...you don't want broken links on your site, it's bad for SEO.</li>
 					<li>Location - Optional, the location of the person who wrote the testimonial.</li>
-					<li>Date - If left blank on new testimonials the current date will be used.</li>
-					<li>Time - If left blank on new testimonials, the current time is used.</li>
+					<li>Date - If left blank on new testimonials the current date and time will be used.</li>
+					<li>Time - If left blank with a date set, the time is set to 00:00:00.</li>
 					<li>Testimonial - Required, enter the testimonial here.</li>
 				</ol><br/>
 				
@@ -154,40 +178,49 @@
 				database. The form refreshes to include the saved testimonial. If you want to change something you can do it now, 
 				or later if you want. Below is the screen with a couple of testimonials added.</p><br/>
 
-			<img src="images/tb_IMG_5.JPG" alt="Menu Panel 2" title="Menu Panel 2" /><br/><br/>
+			<img src="images/tb_IMG_6.JPG" alt="Testimonials Added" title="Testimonials Added" /><br/><br/>
 			
 			<p>To edit a testimonial click the button under the ID column for the testimonial you want to edit and it will come 
-				up in the edit screen. Make your changes and <q>Save Testimonial</q>. It is that simple.
+				up in the edit screen. Make your changes and <q>Save Testimonial</q>. It is that simple. 
 			</p><br/>
 			
-			<h1><a id="6">&nbsp;</a>Visitor Input Form</h1>
+			<p><em>Note: If you have a cache plugin installed such as WP Super Cache, the page you use to 
+				display your testimonials may be cached. What this means is that if you add and approve a testimonial 
+				it may not immediately display. Simply edit the page and update it or wait and the cached files will 
+				eventually be deleted and refreshed.</em></p><br>
 			
-			<p>You can set up a visitor input form very easily. Simply include <code><!-- katb_input_form --></code> in your page 
-				content :</p><br/>
+			<h1><a id="7">&nbsp;</a>Visitor Input Form</h1>
+			
+			<p>You can set up a visitor input form very easily. Simply include <code>&#60;!-- katb_input_form --&#62;</code> or 
+				<code>&#60;p&#62;&#60;!-- katb_input_form --&#62;&#60;/p&#62;</code> in your page content. <em><br/>Note : 1) Make sure you 
+					include a space between - k and m - or it won't work, 2) Make sure you are in HTML edit mode or it won't work.</em> Below 
+					is an example of a page set-up.</p><br/>
 					
-			<img src="images/tb_IMG_6.JPG" alt="Vistor Input Form" title="Visitor Input Form" /><br/>
+			<img src="images/tb_IMG_7.JPG" alt="Set Up Vistor Input Form" title="Set Up Visitor Input Form" /><br/><br/>
 			
 			<p>You can also use a widget as a user input form. Go to <q>Appearance</q> and then <q>Widgets</q> and drag the widget 
-				to the widgetized area :</p><br/>
+				to the widgetized area. You can also enter a different title for the Widget if you want.</p><br/>
 				
-			<img src="images/tb_IMG_7.JPG" alt="Input Widget" title="Input Widget" /><br/><br/>
+			<img src="images/tb_IMG_8.JPG" alt="Input Widget" title="Input Widget" /><br/><br/>
 			
 			<p>The image below shows the forms as the Visitor would see them. Both the main content form and the widget form are 
 				shown. In reality you probably should use one or the other. Visitors are required to enter an e-mail address, which is not saved. 
-				All WordPress Admin Users on your site are sent an e-mail about the testimonial. Once validation is OK, the testimonial is saved in the 
+				The Blog Administrator for your site are sent an e-mail about the testimonial. Once validation is OK, the testimonial is saved in the 
 				database. However it is saved as not approved so it is not displayed until you have a chance to log-in, edit if appropriate, 
 				and approve.</p><br/>
 				
-			<img src="images/tb_IMG_8.JPG" alt="Input Widget" title="Input Widget" /><br/><br/>
+			<p>Also note the captcha. This is an option in Testimonial Basics. There are a few other options for the input forms. I'll discuss them later.</p><br/><br/>
 				
-			<h1><a id="7">&nbsp;</a>Displaying Testimonials</h1>
+			<img src="images/tb_IMG_9.JPG" alt="Input Widget" title="Input Widget" /><br/><br/>
+				
+			<h1><a id="8">&nbsp;</a>Displaying Testimonials</h1>
 			
 			<p>You can display testimonials in the content of a page using a shortcode and you can also use a widget to display single testimonials.</p>
 			
 			<h4>Shortcode</h4>
 			
 			<p>To display testimonials create a new page and enter the following shortcode : <br/><br/>
-				<code>[katb_testimonial by="date" number="5" id=""]</code></p><br/>
+				<code>[katb_testimonial by="date" number="all" id=""]</code></p><br/>
 
 				<ol>
 					<li>Options for "by" : "order" - display highest to lowest,"date"- display most recent first</li>
@@ -195,13 +228,24 @@
 					<li>Options for "id" : "" - leave blank for multiple testimonials, "ID" - put in testimonial ID, "random" - single random testimonial</li>
 				</ol>
 			<br/>
-			<p>Note that if you put id="3" for example or id="random", then the <q>by</q> and <q>number</q> attributes are ignored. The image below show the set up.</p><br/>
+			<p><em>Note that if you put id="3" for example or id="random", then the <q>by</q> and <q>number</q> attributes are ignored.</em> The image below shows the set up.</p><br/>
 			
-			<img src="images/tb_IMG_9.JPG" alt="Display Testimonial Page Setup" title="Display Testimonial Page Setup" /><br/><br/>
+			<img src="images/tb_IMG_10.JPG" alt="Display Testimonial Page Setup" title="Display Testimonial Page Setup" /><br/><br/>
 			
-			<p>An example of the display is shown below :</p><br/>
+			<p>An example of the display is shown below. The testimonials are displayed in a simple format, allowing your themes colors and fonts to be used. You can 
+				also select a formatted option that can be customized, see the "Administration Panel-Options" section below.</p><br/>
 			
-			<img src="images/tb_IMG_10.JPG" alt="Display Testimonial Example" title="Display Testimonial Example" /><br/><br/>
+			<img src="images/tb_IMG_11.JPG" alt="Display Testimonial Example" title="Display Testimonial Example" /><br/><br/>
+			
+			<p>When you have quite a few testimonials the display options can help you out. In particular displaying by="order" gives 
+				you great flexibility. Just remember that the highest order number is displayed first. Another thing to remember is that if 
+				you display more testimonials than you have numbered, that's OK. The remaining testimonials will be un-ordered testimonials, 
+				displayed by most recent date.</p><br/>
+				
+			<p> One final note : There is no pagination in Testimonial Basics, you can display all your testimonials or a selection on one page. 
+				I did not feel there was a need to put in pagination as visitors will likely not want to read more than one page of testimonials. 
+				So put the best ones first, and I'd recommend displaying no more that 10 on a page. However you can display them all if you want. If 
+				there is demand I can include pagination an a future release.</p>
 			
 			<h4>Testimonial Display Widget</h4>
 			
@@ -209,88 +253,148 @@
 				display when a page reloads. You can input a title and the ID number of the testimonial you want to display or <q>random</q> to display 
 				a random testimonial from the approved list.</p><br/>
 				
-			<img src="images/tb_IMG_11.JPG" alt="Display Widget Setup" title="Display Widget Setup" /><br/><br/>
+			<img src="images/tb_IMG_12.JPG" alt="Display Widget Setup" title="Display Widget Setup" /><br/><br/>
 			
 			<p>The image below shows the page with both the regular display and the widget display: </p><br/>
-			<img src="images/tb_IMG_12.JPG" alt="Display Widget" title="Display Widget" /><br/><br/>
+			<img src="images/tb_IMG_13.JPG" alt="Display Widget" title="Display Widget" /><br/><br/>
 			
-			<p>The color scheme has been changed as an introduction to the last section of the user documentation. 
-				What if you need to change the color scheme?</p>
+			<p>The color scheme has been changed to show that the displays use the native colors and fonts.</p>
 			
-			<h1><a id="8">&nbsp;</a>Advanced Users - Changing the Color Schemes and Fonts</h1>
+			<h1><a id="9">&nbsp;</a>Administration Panel - Options</h1>
 			
-			<p>This section covers editing a CSS file. If you don't do this right it can cause issues with the plugin. But that said, it's really not 
-				that difficult. The file you need to change is testimonial-basics/css/katb_user_styles.css. If something goes wrong ensure you have a 
-				backup of the file to copy over the one you messed up.</p><br/>
+			<p>In the initial release of Testimonial Basics I showed the user how to go into the css file and change background colors, font colors and fonts. 
+				One of the problems with that method is that the edits are lost after an update. This is not too big a deal as there are not a lot of edits, but 
+				never the less they are a pain. Also the user must be quite careful when doing CSS edits or problems can occur. <em> Now all these changes can be 
+				made in the options panel, where data entry is much easier.</em></p><br/>
 				
-			<p>You can use Notepad to edit the file, or I like to use Notepad++. However you can also use the editor that comes with WordPress, 
-				which is what I will do for this section.</p>
+			<p>Start by clicking on "Testimonial Basics" => "Options". The Testimonial Basics Options panel will appear. The screen shot below shows the panel with the 
+				"Help" button clicked. A quick summary of using the Options panel is presented.</p><br/>
 				
-			<h4>Open the file</h4>
+			<img src="images/tb_IMG_14.JPG" alt="Options Panel Help" title="Options Panel Help" /><br/><br/>
 			
-			<p>Select <q>edit</q> from<q>Testimonial Basics</q>in the <q>Plugins</q> tab:</p><br/>
+			<p>The next screenshot shows the options panel. It is divided up into three sections :</p><br/>
 			
-			<img src="images/tb_IMG_13.JPG" alt="Plugin Edit" title="Plugin Edit" /><br/><br/>
+			<ol>
+				<li>Input Form Options</li>
+				<li>Testimonial Display Options</li>
+				<li>Widget Testimonial Display Options</li>
+			</ol>
+			<br/>
+			<img src="images/tb_IMG_15.JPG" alt="Testimonial Basics Options Panel" title="Testimonial Basics Options Panel" /><br/><br/>
+				
+			<h4>Input Form Options</h4>
 			
-			<p>Then select the katb_user_styles.css file :</p><br/>
+			<p> The options for this section are :</p><br/>
 			
-			<img src="images/tb_IMG_14.JPG" alt="Select CSS File" title="Select CSS File" /><br/><br/>
+			<ul>
+				<li>Use captcha on input forms - Include a captcha in the input by selecting the "Use captcha on input forms" checkbox. 
+					If for any reason the Captcha is not working, disable it here.</li>
+				<li>Include title on input form - This gives you the flexibility of displaying an input form title. 
+					It only applies to the content input form as the Display Widget has it's own title control.</li>
+				<li>Title for Input Form - If you don't like the default title change it here.</li>
+				<li>Include email not kept note - Check this box to include an email note. It is displayed on the content input form 
+					and the widget input form. Typically these kind of input forms include a "Emails are not kept" note so you can 
+					check this box and leave the default message.</li>
+				<li>Email note - If you don't like the email note you can input your own message here. Also keep in mind that really 
+					this is just a second line of text. For example, you may want to use "I'd love to hear from you!"</li>
+			</ul>
+			<br/>
+			<p>The screenshot below shows the input forms with these options enabled :</p><br/>
 			
-			<p>The image below shows the file in the edit screen. </p><br/>
+			<img src="images/tb_IMG_16.JPG" alt="Example Input Form Options Enabled" title="Example Input Form Options Enabled" /><br/><br/>
 			
-			<img src="images/tb_IMG_15.JPG" alt="Select CSS File" title="Select CSS File" /><br/><br/>
+			<h4>Display Options</h4>
 			
-			<p>The top part is where you can make changes. If you go below the warning line and make changes you do so at your peril. For those of 
-				you new to editing css files the text between the /* ..... */ are comments. They contain the defaults so you will always be able to 
-				go back.</p> 
+			<p>The "Testimonial Display Options" and "Widget Testimonial Display Options" sections are very similar so I'll address them together. The first part 
+				allows the user to select what is displayed in the testimonial author strip : </p><br/>
+				
+			<ul>
+				<li>Show website in testimonial - Click this box to display the website link. I'd recommend this for the content display but not for the widget display.</li>
+				<li>Show date in testimonial - Click this box to display the date in the author strip.</li>
+				<li>Show location in testimonial - Click this box to display the location in the author strip.</li>
+			</ul>
+			<br/>
+			<p>In a display Widget, you may only want to display the Author, and leave these options un-checked. Play around and decide what's best for your site.</p><br/>
+			
+			<p>Below is a screenshot with all three boxes checked for both the content and the widget displays. I've also checked the "Use formatted display" box for 
+				each display, as an introduction to the next section.</p><br/>
+				
+			<img src="images/tb_IMG_17.JPG" alt="Testimonial Basics Display 1" title="Testimonial Basics Display 1" /><br/><br/>
+			
+			<p>When you initially select a custom formatted display a default set of colors and fonts is loaded. The displays are pretty cool 
+				but if your theme has different colors like this one, some adjustments are necessary. With the new theme options panel, it is very 
+				easy to do.</p><br/>
 			
 			<h4>Changing Fonts</h4>
 			
-			<p>Use web safe fonts such as the ones below :</p><br/>
-			
-			<ul>
-				<li>font-family: Arial, Helvetica, sans-serif;</li>
-				<li>font-family: Impact, Charcoal, sans-serif;</li>
-				<li>font-family: Tahoma, Geneva, sans-serif;</li>
-				<li>font-family: 'Trebuchet MS', Helvetica, sans-serif;</li>
-				<li>font-family: Verdana, Geneva, sans-serif;</li>
-				<li>font-family: 'Book Antiqua', 'Palatino Linotype', Palatino, serif;</li>
-				<li>font-family: Georgia, serif;</li>
-				<li>font-family: 'MS Serif', 'New York', serif;</li>
-				<li>font-family: 'Times New Roman', Times, serif;</li>
-				<li>font-family: Cambria, Georgia, serif;</li>
-			</ul>
-			<br/>
+			<p>Select a font from the drop down list and click "Save Options".</p><br/>
+
 			<p>They look like :</p>
 			
-			<img src="images/tb_IMG_16.JPG" alt="Web Fonts" title="Web Fonts" /><br/><br/>
+			<img src="images/tb_IMG_18.JPG" alt="Web Fonts" title="Web Fonts" /><br/><br/>
 			
 			<p>To illustrate I'll change to Cambria for the main display and Trebuchet for the widget display.</p>
 			
-			<h4>Changing Colors</h4>
+			<h4>Changing Colors - Using the Color Wheel</h4>
 			
-			<p>The next two sections list the color options for the main display and the widget display. Before I change the colors I want to talk a bit 
-				about setting css colors.</p><br/>
-				
 			<ul>
-				<li>There are 17 standard colors : aqua, black, blue, fuchsia, gray, grey, green, lime, maroon, navy, olive, purple, red, silver, teal, 
-					white, and yellow. You can input these just by entering their names, for ex <code>color: blue;</code></li>
+				<li>Select the cell of the color you want to change</li>
+				<li>Select the middle of the square box</li>
+				<li>Selest the dot on the circle and drag it around to set the basic color</li>
+				<li>Select the dot in the square box and drag it to set the saturation</li>
+			</ul>
+			<br/>
+			<p>You could also enter a hex color number :</p><br/>
+			
+			<ul>
 				<li>Hex Color Codes are a 6 character designation preceded by the # sign. You can use the numbers 0 to 9, and A,a,B,b,C,c,D,d,E,e,F,f. So the following 
 					are all valid colors : #000000(black),#0000FF(blue),#FAEBD7(AntiqueWhite). The following sites are great color references :
 					<a href="http://www.w3schools.com/cssref/css_colornames.asp">Color Names Supported by all Browsers</a> and 
 					<a href="http://html-color-codes.info/">Html Color Codes</a></li>
-				<li>Another great tool is the ColorZilla add on to Firefox Mozilla. It has a color picker that lets you pick colors on your website, great for color matching. </li>
+				<li>Another great tool is the ColorZilla add on to Firefox Mozilla. It has a color picker that lets you pick colors on your 
+					website, great for color matching. </li>
 			</ul>
 			<br/>
-			<p>I've gone ahead and put in the colors for the new theme. The edited file is shown below :</p><br/>
+			<p><em>Make sure you save your options by clicking the "Save Options" button.</em></p>
 			
-			<img src="images/tb_IMG_17.JPG" alt="Select CSS File" title="Select CSS File" /><br/><br/>
+			<br/>
+			<p>I've gone ahead and put in the colors for the new theme. The edited panel is shown below. Note that normally 
+				you would put a Testimoial Display Widget in one spot or the other making it easier to custon design the colors. 
+				I have attempted to pick colors that fit in both areas</p><br/>
+			
+			<img src="images/tb_IMG_19.JPG" alt="Options Example" title="Options Example" /><br/><br/>
 			
 			<p>The results of the edit are shown below :</p><br/>
 			
-			<img src="images/tb_IMG_18.JPG" alt="Select CSS File" title="Select CSS File" /><br/><br/>			
+			<img src="images/tb_IMG_20.JPG" alt="Testimonial Basics Display 2" title="Testimonial Basics Display 2" /><br/><br/>			
 		
-			<h1><a id="9">&nbsp;</a>Summary</h1>
+			<h1><a id="10">&nbsp;</a>Advanced Function</h1>
+			
+			<p>I have developed a function that can be used in the coding of templates for displaying testimonials. It can come in handy when 
+				you want to display testimonials from within the code and not in the content of the page. An example of such an application 
+				would be in a preformatted page where there is a section you want to replace. Such was the case with one of the websites I look after, 
+				which was why I developed the function. Below is an example of how to use the function :<br/><br/>
+				
+				<code>&#60;div class="testimonialstext"&#62;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&#60;?php echo katb_testimonial_basics_display_in_code('date','20','random'); ?&#62;<br/>
+					&#60;/div&#62;</code><br/><br/>
+					
+				The first element must be "date" or "order", the second must be "all" or the number of testimonials you want to display 
+				and the third element can be "random" or "id" where id is the id number of the testimonial, or "" blank if you 
+				want to display multiple testimonials.<br/><br/>
+				
+				A string is returned for each testimonial to be displayed that will look as follows :<br/><br/>
+				
+				<code>&#60;p class="katb_p_test"&#62;Your Testimonial&#60;/p&#62;<br/>
+					&#60;p class="katb_p_authorstrip"&#62;&#60;b&#62;Author&#60;/b&#62;date(optional),location(optional),website(optional)&#60;/p&#62;
+				</code><br/><br/>
+				
+				The only formatting applied is to bold the author. You can apply your own custom formatting using the classes I have 
+				included in the return string. Such a thing would best be done by creating a child theme 
+				(<a href="http://codex.wordpress.org/Child_Themes">WordPress Child Themes</a>)
+			</p>
+			
+			<h1><a id="11">&nbsp;</a>Summary</h1>
 			
 			<p>I hope you enjoy using the plugin, if you have any suggestions or comments, contact me through my website. If you really like the plugin, 
 				buy me a coffee, a beer, or even a bottle of wine.</p><br/><br/>
@@ -303,11 +407,13 @@
 				<li><a href="#2">Requirements</a></li>
 				<li><a href="#3">License and Credits</a></li>
 				<li><a href="#4">Installation</a></li>
-				<li><a href="#5">Administration Panel</a></li>
-				<li><a href="#6">Visitor Input Form</a></li>
-				<li><a href="#7">Displaying Testimonials</a></li>
-				<li><a href="#8">Advanced Users - Changing the Color Schemes and Fonts</a></li>
-				<li><a href="#9">Summary</a></li>
+				<li><a href="#5">Administration Panel - Testimonial Basics</a></li>
+				<li><a href="#6">Administration Panel - Edit Testimonials</a></li>
+				<li><a href="#7">Visitor Input Form</a></li>
+				<li><a href="#8">Displaying Testimonials</a></li>
+				<li><a href="#9">Administration Panel - Options</a></li>
+				<li><a href="#10">Advanced Function</a></li>
+				<li><a href="#11">Summary</a></li>
 			</ul>
 		</div>
 	</body>
