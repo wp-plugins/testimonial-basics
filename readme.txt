@@ -3,8 +3,8 @@ Contributors: kevinhaig
 Donate link: http://www.kevinsspace.ca/testimonial-basics/
 Tags: testimonial,testimonials,praise,user comments,widgets,translation ready
 Requires at least: 3.1
-Tested up to: 3.4.2
-Stable tag: 2.0.0
+Tested up to: 3.5.0
+Stable tag: 2.8.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/quick-guide-gplv3.html
 
@@ -25,9 +25,10 @@ page or a widget. The plug in is very easy to use and modify:
     3) Testimonials are displayed in a pages content
 
        a) The user can display all testimonials or a selected number.
-       b) Testimonials can be displayed by most recent date, or by a 
+       b) New: The user can group testimonials for display on separate pages.
+       c) Testimonials can be displayed by most recent date, or by a 
           user selected order.
-       c) A single selected testimonial can be displayed, or a single 
+       d) A single selected testimonial can be displayed, or a single 
           testimonial can be randomly displayed every time the page 
           is loaded.
 
@@ -49,16 +50,20 @@ page or a widget. The plug in is very easy to use and modify:
        a) Including the Website link is an option
        b) Including the Date is an option
        c) Including the Location is an option
-       d) User can select a customizable display
-       e) Select one of nine fonts from a drop down list
-       f) Select text colors using a color wheel
-       g) Select background colors using a color wheel
-       h) Visitor input form options
+       d) New: Including italic style is an option
+       e) New: Including Gravatars is an option
+       f) User can select a customizable display
+       g) Select one of nine fonts from a drop down list
+       h) Select text colors using a color wheel
+       i) Select background colors using a color wheel
+       j) Visitor input form options
     
     10) There is a function that lets you display testimonials within 
         template code.
     
-    11) The plugin comes with detailed documentation.
+    11) Detailed documentation now available at the plugin site.
+    
+    12) New: Paragraphs and line breaks are now allowed in testimonials.
 
 == Installation ==
 
@@ -68,6 +73,13 @@ wordpress setup.
 3. Activate the theme through the Wordpress Admin panel under "Plugins".
 
 == Frequently Asked Questions ==
+
+= Page load speeds are slow =
+
+If your page load speed is slow it will likely be because you are using Gravatars 
+and you are not using a cache plugin. It is recommended that you use a cache plugin 
+for any site, whether or not you are using Gravatars for Testimonial Basics. I use 
+WP Super Cache.
 
 = I just downloaded version 2.0.0 and I lost all my formatting =
 
@@ -109,6 +121,19 @@ Then you can drag the dot around thw circle to select the base color.
 
 == Changelog ==
 
+= 2.8.4 =
+* allowed paragraph and line break tags in in comments
+* added default font to custom styling
+* added option for italic style both in basic and in custom styling
+* added groups so users can group testimonials and display them in separate pages.
+* added an option to use gravatars if present.
+* modified Edit Testimonials Panel to accomodate Groups and e-mail
+* removed user documentation from plugin, available at plugin site
+* website link now opens a new tab
+* optimized css styling
+* fixed strip slashes bug in input title and e-mail note
+
+
 = 2.0.0 =
 * added user options for input forms
 * added user options for content testimonial display
@@ -128,6 +153,13 @@ Then you can drag the dot around thw circle to select the base color.
 * Initial Release
 
 == Upgrade Notice ==
+
+= 2.8.4 = Release
+* please ensure your database is backed up before you upgrade
+* your database will be updated adding a Group column and a E-mail column
+* there should be no problem with the database but back-up to be safe
+* advanced function in code users must adjust the parameters in the function call
+* detailed documentation must now be obtained from the plugin site
 
 = 2.0.0 = Release
 * when you install this update you will start with the basic display format

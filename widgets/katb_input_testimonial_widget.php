@@ -3,7 +3,7 @@
 Plugin Name: Testimonial Basics Input Widget
 Plugin URI: http://demo1.kevinsspace.ca/
 Description: A plugin to input a testimonial
-Version: 1.0
+Version: 2.0.0
 Author: Kevin Archibald
 Author URI: http://www.kevinsspace.ca/
 License: GPLv3
@@ -98,6 +98,7 @@ class katb_input_testimonial_widget extends WP_Widget {
 		$katb_widget_website = __('Website - Optional','testimonial-basics');
 		$katb_widget_location = __('Location - Optional','testimonial-basics');
 		$katb_widget_testimonial = __('Testimonial - Required','testimonial-basics');
+		$katb_allowed_html = katb_allowed_html();
 		//Process input form
 		if ( isset($_POST['widget_submitted']) && wp_verify_nonce( $_POST['katb_widget_form_nonce'],'katb_nonce_2')) {
 			//Validate Input
@@ -127,7 +128,7 @@ class katb_input_testimonial_widget extends WP_Widget {
 			$katb_widget_location = sanitize_text_field($_POST['tb_location']);
 			if ( $katb_widget_location == __('Location - Optional','testimonial-basics') ) $katb_widget_location = '';
 			//validate testimonial
-			$katb_widget_testimonial = sanitize_text_field($_POST['tb_testimonial']);
+			$katb_widget_testimonial = wp_kses($_POST['tb_testimonial'],$katb_allowed_html);
 			if ( $katb_widget_testimonial == __('Testimonial - Required','testimonial-basics') || $katb_widget_testimonial == "" ) {
 				$katb_widget_input_error .= ':'.__('Testimonial','testimonial-basics');
 				$katb_widget_testimonial = __('Testimonial - Required','testimonial-basics');
@@ -148,7 +149,8 @@ class katb_input_testimonial_widget extends WP_Widget {
 					'tb_name' => $katb_widget_author,
 					'tb_location' => $katb_widget_location,
 					'tb_url' => $katb_widget_website,
-					'tb_testimonial' => $katb_widget_testimonial
+					'tb_testimonial' => $katb_widget_testimonial,
+					'tb_email' => $katb_widget_email
 				);
 				$formats_values = array('%s','%d','%d','%s','%s','%s','%s');
 				$wpdb->insert($tablename,$values,$formats_values);
@@ -156,8 +158,9 @@ class katb_input_testimonial_widget extends WP_Widget {
 				//email to administrators
 				$emailTo = get_option('admin_email');
 				$subject = __('You have received a testimonial from ','testimonial-basics').' '.$katb_widget_author;
-				$body = __('Name:','testimonial-basics').' '.$katb_widget_author." \n\n".__('Email: ','testimonial-basics').' '.$katb_widget_email." \n\n".__('Comments: ','testimonial-basics').' '.$katb_widget_testimonial;
+				$body = __('Name: ','testimonial-basics').' '.$katb_widget_author."<br/><br/>".__('Email: ','testimonial-basics').' '.$katb_widget_email."<br/><br/>".__('Comments: ','testimonial-basics')."<br/><br/>".stripslashes($katb_widget_testimonial);
 				$headers = 'From: '.$katb_widget_author.' <'.$katb_widget_email.'>';
+				add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
 				wp_mail($emailTo, $subject, $body, $headers);
 				//Now empty the variables
 				$katb_widget_id = "";
@@ -185,7 +188,7 @@ class katb_input_testimonial_widget extends WP_Widget {
 		?>
 		<div class="katb_widget_form">
 		<?php if($katb_options['katb_include_email_note'] == 1) { ?>
-			<p><?php echo $katb_options['katb_email_note']; ?></p>
+			<p><?php echo stripslashes($katb_options['katb_email_note']); ?></p>
 		<?php } ?>
 		<form method="POST" action="#">
 		<?php wp_nonce_field("katb_nonce_2","katb_widget_form_nonce"); ?>
@@ -194,6 +197,7 @@ class katb_input_testimonial_widget extends WP_Widget {
 		<input  class="katb_input" type="text" name="tb_website" value="<?php echo esc_attr( $katb_widget_website ); ?>" />
 		<input  class="katb_input" type="text" name="tb_location" value="<?php echo esc_attr( $katb_widget_location ); ?>" />
 		<textarea name="tb_testimonial" rows="5" ><?php echo esc_attr($katb_widget_testimonial); ?></textarea>
+		<p>HTML: <code>&#60;p&#62;&#60;/p&#62;&#60;br/&#62;</code></p>
 		<?php if ($katb_options['katb_use_captcha'] == TRUE || $katb_options['katb_use_captcha'] == 1 ) { ?>
 			<img width="85" src="<?php echo site_url() ?>/wp-content/plugins/testimonial-basics/includes/katb_captcha.php" alt="Verification Captcha" />
 			<input type="text" size="15" id="verify" name="verify" value="<?php _e('Enter Captcha','testimonial-basics') ?>" /><br/>
@@ -203,8 +207,10 @@ class katb_input_testimonial_widget extends WP_Widget {
 		</form>
 		</div>
 		<?php
+		if ($katb_options['katb_use_gravatars'] == 1 || $katb_options['katb_widget_use_gravatars'] == 1 ) { ?>
+			<br/><p><?php _e('Use Photo? ','testimonial-basics'); ?><a href="https://en.gravatar.com/" title="Gravatar Site" target="_blank" ><img class="gravatar_logo" src="<?php echo plugins_url(); ?>/testimonial-basics/includes/Gravatar80x16.JPG" alt="Gravatar Website" title="Gravatar Website" /></a></p>
+		<?php }
 		echo $after_widget; 
     }
- 
 }
 ?>

@@ -3,7 +3,7 @@
 Plugin Name: Testimonial Basics
 Plugin URI: http://www.kevinsspace.ca/testimonial-basics-wordpress-plugin/
 Description: This plugin facilitates easy management of customer testimonials. The user can set up an input form in a page or in a widget, and display all or selected testimonials in a page or a widget. The plug in is very easy to use and modify.
-Version: 2.0.0
+Version: 2.8.4
 Author: Kevin Archibald
 Author URI: http://www.kevinsspace.ca
 License: GPLv3
@@ -54,6 +54,9 @@ if ('testimonial-basics.php' == basename($_SERVER['SCRIPT_FILENAME']))
  * table name : database prefix + testimonial_basics
  * 
  *-------------------------------------------------------------------------- */
+ global $katb_db_new_version;
+ $katb_db_new_version = '1.1';
+ 
 function katb_testimomial_basics_activate() {
 	//Check version compatibilities
     if ( version_compare( get_bloginfo( 'version' ), '3.1', '<' ) ) {
@@ -62,27 +65,48 @@ function katb_testimomial_basics_activate() {
     }
 	//Check for database table and create if not there
 	global $wpdb;
-	$tableprefix = strtolower($wpdb->prefix);
+	global $katb_db_new_version;
+	$katb_tb_installed_version = get_option( 'katb_database_version' );
 	$tablename = $wpdb->prefix.'testimonial_basics';
+	$tableprefix = strtolower($wpdb->prefix);
 	if( $wpdb->get_var("SHOW TABLES LIKE '$tablename'") != $tablename && $wpdb->get_var("SHOW TABLES LIKE '$tablename'") != $tableprefix.'testimonial_basics' ) {
-		//table does not exist so create it
+		//table does not exist or requires upgrading
 		$sql = "CREATE TABLE `$tablename` (
 				`tb_id` int(4) UNSIGNED NOT NULL AUTO_INCREMENT,
   				`tb_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  				`tb_group` char(20) NOT NULL,
   				`tb_order` int(4) UNSIGNED NOT NULL,
   				`tb_approved` int(1) UNSIGNED NOT NULL,
   				`tb_name` char(100) NOT NULL,
   				`tb_location` char(100) NOT NULL,
+  				`tb_email` char(100) NOT NULL,
  				`tb_url` char(100) NOT NULL,
   				`tb_testimonial` text NOT NULL,
   				PRIMARY KEY (`tb_id`)
 			);";
 		require_once ( ABSPATH . 'wp-admin/includes/upgrade.php');
-		
 		dbDelta($sql);
+		update_option('katb_database_version',$katb_db_new_version);
+	} elseif ( $katb_tb_installed_version !== $katb_db_new_version ) {
+		//table requires upgrading
+		$sql = "CREATE TABLE `$tablename` (
+				`tb_group` char(20) NOT NULL,
+  				`tb_email` char(100) NOT NULL
+ 			);";
+		require_once ( ABSPATH . 'wp-admin/includes/upgrade.php');
+		dbDelta($sql);
+		update_option('katb_database_version',$katb_db_new_version);
 	}
 }
 register_activation_hook( __FILE__, 'katb_testimomial_basics_activate' );
+
+function katb_update_db_check() {
+    global $katb_db_new_version;
+    if (get_option('katb_database_version') != $katb_db_new_version) {
+        katb_testimomial_basics_activate();
+    }
+}
+add_action('plugins_loaded', 'katb_update_db_check');
 
 /** ------------- Plugin Deactivation ---------------------------------------
  *
@@ -151,9 +175,8 @@ add_action('wp_enqueue_scripts','katb_add_user_style');
  * 
  * ---------------------------------------------------------------------- */
 function katb_add_custom_styles(){
-	$katb_options = katb_get_options();
-	if( $katb_options['katb_use_formatted_display'] == 1 ) require_once( dirname(__FILE__).'/css/katb_display_custom_style.php' );
-    if( $katb_options['katb_widget_use_formatted_display'] == 1 ) require_once( dirname(__FILE__).'/css/katb_widget_custom_style.php' );
+	require_once( dirname(__FILE__).'/css/katb_display_custom_style.php' );
+	require_once( dirname(__FILE__).'/css/katb_widget_custom_style.php' );
  }
 add_action( 'wp_print_styles', 'katb_add_custom_styles' );
 
@@ -175,7 +198,7 @@ function katb_input_form(){
 	global $wpdb,$tablename;
 	$tablename = $wpdb->prefix.'testimonial_basics';
 	$katb_options = katb_get_options();
-	
+	$katb_allowed_html = katb_allowed_html();
 	if ( isset ( $_POST['submitted'] ) && wp_verify_nonce( $_POST['katb_main_form_nonce'],'katb_nonce_1')) {
 	
 		//Validate-Sanitize Input
@@ -201,7 +224,7 @@ function katb_input_form(){
 		//Validate Location
 		$katb_location = sanitize_text_field($_POST['tb_location']);
 		//Validate-Sanitize Testimonial
-		$katb_testimonial = sanitize_text_field($_POST['tb_testimonial']);
+		$katb_testimonial = wp_kses($_POST['tb_testimonial'],$katb_allowed_html);
 		if ($katb_testimonial == "" ) {
 			$error .= '*'.__('Testimonial is required','testimonial-basics').'*';
 		}
@@ -221,7 +244,8 @@ function katb_input_form(){
 				'tb_name' => $katb_author,
 				'tb_location' => $katb_location,
 				'tb_url' => $katb_website,
-				'tb_testimonial' => $katb_testimonial
+				'tb_testimonial' => $katb_testimonial,
+				'tb_email' => $katb_email				
 			);
 			$formats_values = array('%s','%d','%d','%s','%s','%s','%s');
 			$wpdb->insert($tablename,$values,$formats_values);
@@ -229,9 +253,9 @@ function katb_input_form(){
 			//email to administrators
 			$emailto = get_option('admin_email');
 			$subject = __('You have received a testimonial from ','testimonial-basics').' '.$katb_author;
-			//$body = __('Name:','blogBox').' '.$name."\n\n".__('Email: ','blogBox').' '.$email."\n\n".__('Comments:','blogBox').' '.$comments;
-			$body = __('Name: ','testimonial-basics').' '.$katb_author."\n\n".__('Email: ','testimonial-basics').' '.$katb_email."\n\n".__('Comments: ','testimonial-basics').' '.$katb_testimonial;
+			$body = __('Name: ','testimonial-basics').' '.$katb_author."<br/><br/>".__('Email: ','testimonial-basics').' '.$katb_email."<br/><br/>".__('Comments: ','testimonial-basics')."<br/><br/>".stripslashes($katb_testimonial);
 			$headers = 'From: '.$katb_author.' <'.$katb_email.'>';
+			add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
 			wp_mail( $emailto, $subject, $body, $headers );
 			//Now empty the variables
 			$katb_id = "";
@@ -271,18 +295,19 @@ function katb_input_form(){
 	//Now lets prepare the return string
 	//$html_string = '';
 	if ($katb_options['katb_include_input_title'] == 1){
-		$html_string .= "<h4>".$katb_options['katb_input_title']."</h4>";
+		$html_string .= "<h4>".stripslashes($katb_options['katb_input_title'])."</h4>";
 	}
 	if ($katb_options['katb_include_email_note'] == 1) {
-		$html_string .= '<p>'.$katb_options['katb_email_note'].'</p>';
+		$html_string .= '<p>'.stripslashes($katb_options['katb_email_note']).'</p>';
 	}
 	$html_string .= '<div class="katb_input_style">';
 	$html_string .= '<form method="POST" action="#">';
-	$html_string .= '<label>*'.__('Author','testimonial-basics').' : </label><input type="text"  maxlength="50" size="40" name="tb_author" value="'.stripcslashes($katb_author).'" /><br/>';
-	$html_string .= '<label>*'.__('Email','testimonial-basics').'  : </label><input type="text"  maxlength="50" size="40" name="tb_email" value="'.$katb_email.'" /><br/>';
-	$html_string .= '<label>'.__('Website','testimonial-basics').'  : </label><input type="text"  maxlength="50" size="40" name="tb_website" value="'.$katb_website.'" /><br/>';
-	$html_string .= '<label>'.__('Location','testimonial-basics').' : </label><input type="text"  maxlength="50" size="40" name="tb_location" value="'.stripcslashes($katb_location).'" /><br/>';
+	$html_string .= '<label>*'.__('Author','testimonial-basics').' : </label><input type="text"  maxlength="100" name="tb_author" value="'.stripcslashes($katb_author).'" /><br/>';
+	$html_string .= '<label>*'.__('Email','testimonial-basics').'  : </label><input type="text"  maxlength="100" name="tb_email" value="'.$katb_email.'" /><br/>';
+	$html_string .= '<label>'.__('Website','testimonial-basics').'  : </label><input type="text"  maxlength="100" name="tb_website" value="'.$katb_website.'" /><br/>';
+	$html_string .= '<label>'.__('Location','testimonial-basics').' : </label><input type="text"  maxlength="100" name="tb_location" value="'.stripcslashes($katb_location).'" /><br/>';
 	$html_string .= '<label>*'.__('Testimonial','testimonial-basics').' : </label><br/><textarea rows="5" name="tb_testimonial" >'.stripcslashes($katb_testimonial).'</textarea>';
+	$html_string .= '<p>HTML '.__('Allowed','testimonial-basics').': <code>&#60;p&#62;&#60;/p&#62;&#60;br/&#62;</code></p><br/>';
 	if ($katb_options['katb_use_captcha'] == TRUE || $katb_options['katb_use_captcha'] == 1 ) {
 		$html_string .= '<div class="katb_captcha">';
 		$html_string .=	'<label for="verify_main">'.__('Verification','testimonial-basics').' : </label>';
@@ -295,7 +320,10 @@ function katb_input_form(){
 	$html_string .= wp_nonce_field("katb_nonce_1","katb_main_form_nonce",false,false);
 	$html_string .= '</form>';
 	$html_string .= '</div>';
-	$html_string .= '<div class="katb_clearboth"></div><p>* Required</p>';
+	$html_string .= '<div class="katb_clearboth"></div><p>* '.__('Required','testimonial-basics').'</p>';
+	if ($katb_options['katb_use_gravatars'] == 1 || $katb_options['katb_widget_use_gravatars'] == 1 ) {
+		$html_string .= '<p>'.__('Add a photo? ','testimonial-basics').'<a href="https://en.gravatar.com/" title="Gravatar Site" target="_blank" ><img class="gravatar_logo" src="'.plugin_dir_url(__FILE__).'includes/Gravatar80x16.JPG" alt="Gravatar Website" title="Gravatar Website" /></a></p>';
+	}
 	return $html_string;
 }
 
