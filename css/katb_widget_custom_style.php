@@ -13,13 +13,24 @@
 /* Get the user choices for the plugin options */
 $katb_options = katb_get_options();
 ?>
-<style type="text/css" >
-	.katb_widget_test_wrap {
-		font-family: <?php echo $katb_options['katb_widget_font']; ?>;
-		background-color: <?php echo $katb_options['katb_widget_background_color']; ?>;
-		color: <?php echo $katb_options['katb_widget_font_color']; ?>;
-	}
-	.katb_widget_test_meta {color: <?php echo $katb_options['katb_widget_author_location_color']; ?>;}
-	.katb_widget_test_meta a {color: <?php echo $katb_options['katb_widget_website_link_color']; ?>!important;}
-	.katb_widget_test_wrap a:hover {color: <?php echo $katb_options['katb_widget_website_link_hover_color']; ?>!important;}
-</style>
+<?php if ( $katb_options['katb_widget_use_italic_style'] == 1 || $katb_options['katb_widget_use_formatted_display'] ==1 ) { ?>
+	<style type="text/css" >
+		<?php if ( $katb_options['katb_widget_use_italic_style'] == 1 && $katb_options['katb_widget_use_formatted_display'] !=1 ) { ?>
+			.katb_widget_text_basic {font-style: italic;}
+		<?php } elseif( $katb_options['katb_widget_use_formatted_display'] ==1 ) {
+			if ( $katb_options['katb_widget_use_italic_style'] == 1 ) { ?>
+				.katb_widget_text {font-style: italic;}
+			<?php } ?>
+			.katb_widget_test_wrap {
+				<?php if ( $katb_options['katb_widget_font'] != 'default font' ) { ?>
+					font-family: <?php echo $katb_options['katb_widget_font']; ?>;
+				<?php } ?>
+				background-color: <?php echo $katb_options['katb_widget_background_color']; ?>;
+				color: <?php echo $katb_options['katb_widget_font_color']; ?>;
+			}
+			.katb_widget_test_meta {color: <?php echo $katb_options['katb_widget_author_location_color']; ?>;}
+			.katb_widget_test_meta a {color: <?php echo $katb_options['katb_widget_website_link_color']; ?>!important;}
+			.katb_widget_test_wrap a:hover {color: <?php echo $katb_options['katb_widget_website_link_hover_color']; ?>!important;}
+		<?php } ?>
+	</style>
+<?php } ?>

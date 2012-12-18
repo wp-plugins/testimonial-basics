@@ -9,16 +9,16 @@
  * @author		Kevin Archibald <www.kevinsspace.ca/contact/>
  */
 
-/* =====================================================================================================
- *    Styles for unformated option
- * ==================================================================================================== */
+/* =========================================================
+ *    Main Display Styles 
+ * ========================================================= */
 /*
- * ------ Display Testimonial Styles ----------------------- */
+ * ------ Basic Display Styles ----------------------- */
 
 .katb_test_wrap_basic {
 	padding: 0px 0px 10px 0px;
 	clear: both;
-	margin-top:10px;
+	margin: 10px 0px 30px 0px;
 }
 
 .katb_test_box_basic {
@@ -27,75 +27,39 @@
 }
 
 .katb_test_text_basic {
-	padding: 0;
-	margin: 0;
-	line-height: 1.5em;
-}
-
-.katb_test_meta_basic {
 	padding: 0px;
 	margin: 0px;
+	line-height: 1.3em;
+}
+
+.katb_test_text_basic p { 
+	margin: 10px 0px 0px 0px!important;
+	padding: 0!important;
+	line-height: 1.3em!important;	
+}
+
+.katb_test_text_basic p:first-child{ margin-top: 0px!important;}
+
+.katb_test_meta_basic {
+	display: block;
+	clear: both;
+	padding: 5px 0px 0px 0px;
 	font-size: 0.9em;
 }
 
 .katb_test_box_basic a {
-	padding: 0;
-	margin: 0;
+	padding: 0px;
+	margin: 0px;
 }
 
 .katb_test_box_basic a:hover {
-	padding: 0;
-	margin: 0;
+	padding: 0px;
+	margin: 0px;
 	text-decoration: none;
 }
 
 /*
- * ------ Widget Display Testimonial Styles ----------------------- */
-
-.katb_widget_test_wrap_basic {
-	padding: 0;
-	margin: 0;
-	width: 85%;
-	overflow-x: auto;
-}
-
-.katb_widget_test_box_basic {
-	padding: 0;
-	margin: 0;
-	max-height: 12em;
-	overflow: auto;
-}
-
-.katb_widget_text_basic {
-	padding: 0;
-	margin: 0;
-	line-height: 1.2em;
-	font-style: italic;
-}
-
-.katb_widget_test_meta_basic {
-	padding: 0;
-	margin-top: 10px;
-	font-size: 10px;
-}
-
-.katb_widget_test_meta_basic a {
-	padding: 0;
-	margin: 0;
-	font-size: 10px !important;
-}
-
-.katb_widget_test_wrap_basic a:hover {
-	padding: 0;
-	margin: 0;
-	text-decoration: none;
-}
-
-/* =====================================================================================================
- *    Styles for formated option
- * ==================================================================================================== */
-/*
- * ------ Display Testimonial Styles ----------------------- */
+ * ------ Custon Display Styles ----------------------- */
 
 .katb_test_wrap {
 	-webkit-border-radius: 12px;
@@ -103,7 +67,7 @@
 	border-radius: 12px;
 	padding: 10px 0px 10px 0px;
 	clear: both;
-	margin-top: 10px;
+	margin: 10px 0px 30px 0px;
 }
 
 .katb_test_box {
@@ -120,36 +84,105 @@
 }
 
 .katb_test_text {
-	padding: 0;
-	margin: 0;
-	line-height: 1.5em;
-	font-style: italic;
+	padding: 0px;
+	margin: 0px;
+	line-height: 1.3em;
 }
 
+.katb_test_text p {
+	margin: 10px 0px 0px 0px!important;
+	padding: 0px!important;
+	line-height: 1.3em!important;	
+}
+
+.katb_test_text p:first-child {margin-top: 0px!important;}
+
 .katb_test_meta {
+	display: block;
+	clear: both;
 	padding: 0;
-	margin: 0;
+	margin: -0.5em 0em 0em 0em;
 	font-size: 0.8em;
 	font-weight: bold;
+	line-height: 1.3em;
+	vertical-align: middle;
 }
 
 .katb_test_box a {
-	padding: 0;
-	margin: 0;
+	padding: 0px;
+	margin: 0px;
 }
 
 .katb_test_box a:hover {
+	padding: 0px;
+	margin: 0px;
+	text-decoration: none;
+}
+
+/* =====================================================================================================
+ *    Widget Styles
+ * ==================================================================================================== */
+/*
+ * ------ Widget Basic Display Styles ----------------------- */
+
+#sidebar .katb_display_widget_class h2 {padding: 0px 5% 0px 5%;}
+
+.katb_widget_test_wrap_basic {
+	padding: 0px 5% 0px 5%;
+	margin: 0px;
+	width: 85%;
+	overflow-x: auto;
+}
+
+.katb_widget_test_box_basic {
+	padding: 0px;
+	margin: 0px;
+	max-height: 12em;
+	overflow: auto;
+}
+
+.katb_widget_text_basic {
+	display: block;
+	padding: 0px;
+	margin: 0px;
+	font-size: 12px;
+	line-height: 16px;
+}
+
+.katb_widget_text_basic p {
+	margin: 6px 0px 0px 0px!important;
+	padding: 0px!important;
+	font-size: 12px!important;
+	line-height: 16px!important;	
+}
+
+.katb_widget_test_meta_basic {
+	display: block;
+	clear: both;
+	float: left;
+	padding: 10px 0px 0px 0px;
+	margin: 0px;
+	font-size: 11px;
+}
+
+.katb_widget_test_meta_basic a {
+	padding: 0;
+	margin: 0;
+	font-size: 10px !important;
+}
+
+.katb_widget_test_wrap_basic a:hover {
 	padding: 0;
 	margin: 0;
 	text-decoration: none;
 }
 
 /*
- * ------ Widget Display Testimonial Styles ----------------------- */
+ * ------ Widget Custom Display Styles ----------------------- */
 
 .katb_widget_test_wrap {
-	padding: 10px 10px 20px 10px;
-	margin: 0;
+	padding: 10px 5% 10px 5%;
+	margin: 0px;
 	width: 85%;
 	overflow-x: auto;
 	/* CSS3 rounded corners */
@@ -163,40 +196,52 @@
 }
 
 .katb_widget_test_box {
-	padding: 10px 10px 20px 10px;
-	margin: 0;
+	padding: 10px 10px 0px 10px;
+	margin: 0px;
 	max-height: 12em;
 	overflow: auto;
 	-webkit-border-radius: 12px;
 	-moz-border-radius: 12px;
 	border-radius: 12px;
-
 }
 
 .katb_widget_text {
-	padding: 0;
-	margin: 0;
-	line-height: 1.2em;
-	font-style: italic;
+	display: block;
+	padding: 0px;
+	margin: 0px;
+	font-size: 12px;
+	line-height: 16px;
 }
 
+.katb_widget_text p {
+	margin: 6px 0px 0px 0px!important;
+	padding: 0px!important;
+	font-size: 12px!important;
+	line-height: 16px!important;	
+}
+
+.katb_widget_text p:first-child {margin-top: 0px!important}
+
 .katb_widget_test_meta {
-	padding: 0;
-	margin: 0;
-	font-size: 10px;
+	display: block;
+	clear: both;
+	float: left;
+	padding: 10px 10px 0px 10px;
+	margin: 0px;
+	font-size: 11px;
 	font-weight: bold;
 }
 
 .katb_widget_test_meta a {
-	padding: 0;
-	margin: 0;
-	font-size: 10px !important;
+	padding: 0px;
+	margin: 0px;
+	font-size: 11px !important;
 	font-weight: bold !important;
 }
 
 .katb_widget_test_wrap a:hover {
-	padding: 0;
-	margin: 0;
+	padding: 0px;
+	margin: 0px;
 	text-decoration: none;
 }
 
@@ -219,12 +264,23 @@
 	float: left;
 	margin: 5px;
 	max-width: 250px;
+	width: 95%;
+}
+
+.katb_input_style input.katb_submit, 
+.katb_input_style input.katb_reset {
+	max-width: 100px;
 }
 
 .katb_input_style textarea {
 	float: left;
 	margin: 5px;
 	width: 95%;
+}
+
+.katb_input_style p {
+	clear: both;
+	margin-left: 10px;
 }
 
 .katb_submit {clear: both;}
@@ -242,11 +298,13 @@
 	width: 90%;
 }
 
+.katb_widget_form img {margin-left: 10px;}
+
 .katb_widget_submit {clear: both;}
 
-/*
- * -------------- Error Styles --------------------------------
- */
+/* ======================================================================================================
+ *                               Error Styles 
+ * ====================================================================================================== */
 
 .katb_error {
 	background-color: white;
@@ -259,3 +317,28 @@
 
 .katb_widget_sent,.katb_test_sent {color: green;}
 
+/* ======================================================================================================
+ *                              Gravatar Styles 
+ * ====================================================================================================== */
+
+.katb_avatar img.avatar {
+	display: block;
+	float: left;
+	margin: 0px 10px 0px 0px;
+	border-radius: 10px;
+	float: left;
+	padding: 0;
+}
+
+.katb_widget_avatar img.avatar {
+	display: block;
+	float: left;
+	border-radius: 10px;
+	padding: 0;
+	margin: 0px 10px 0px 0px;
+}
+
+.post .gravatar_logo {
+	margin: 0 0 0 5px; 
+	padding: 0; 
+}
