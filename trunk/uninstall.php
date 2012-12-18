@@ -6,6 +6,7 @@
    delete_option( 'katb_testimonial_basics_options' );
    delete_option( 'widget_katb_display_testimonial_widget');
    delete_option('widget_katb_input_testimonial_widget');
+   delete_option('katb_database_version');
    // remove any additionsl options and dadabase tables not removed above
  	global $wpdb;
 	$tablename = $wpdb->prefix.'testimonial_basics';

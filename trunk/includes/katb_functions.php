@@ -108,7 +108,7 @@ function katb_get_option_parameters() {
 		),			
 		'katb_include_email_note' => array(
 			'name' => 'katb_include_email_note',
-			'title' => __( 'Include email not kept note' , 'testimonial-basics' ),
+			'title' => __( 'Include email note' , 'testimonial-basics' ),
 			'type' => 'checkbox',
 			'description' => __('Check to include','testimonial-basics'),
 			'section' => 'input',
@@ -119,9 +119,9 @@ function katb_get_option_parameters() {
 			'name' => 'katb_email_note',
 			'title' => __('Email note','testimonial-basics'),
 			'type' => 'text',
-			'description' => __('Default:Email is not kept','testimonial-basics'),
+			'description' => __('Default:Email is not published','testimonial-basics'),
 			'section' => 'input',
-			'default' => 'Email is not kept',
+			'default' => 'Email is not published',
 			'class' => 'nohtml'
 		),			
 // Content Display
@@ -152,6 +152,24 @@ function katb_get_option_parameters() {
 			'default' =>0, // 0 for off
 			'class' => 'checkbox'
 		),
+		'katb_use_gravatars' => array(
+			'name' => 'katb_use_gravatars',
+			'title' => __( 'Use gravatars' , 'testimonial-basics' ),
+			'type' => 'checkbox',
+			'description' => __('Check to include','testimonial-basics'),
+			'section' => 'content',
+			'default' =>0, // 0 for off
+			'class' => 'checkbox'
+		),		
+		'katb_use_italic_style' => array(
+			'name' => 'katb_use_italic_style',
+			'title' => __( 'Use italic font style' , 'testimonial-basics' ),
+			'type' => 'checkbox',
+			'description' => __('Check to include','testimonial-basics'),
+			'section' => 'content',
+			'default' =>0, // 0 for off
+			'class' => 'checkbox'
+		),		
 		'katb_use_formatted_display' => array(
 			'name' => 'katb_use_formatted_display',
 			'title' => __( 'Use formatted display' , 'testimonial-basics' ),
@@ -165,7 +183,8 @@ function katb_get_option_parameters() {
 			'name' => 'katb_content_font',
 			'title' => __('Font for Content Display','testimonial-basics'),
 			'type' => 'select',
-			'valid_options' => array( 
+			'valid_options' => array(
+				"default font", 
 				"Georgia, serif",
 				"Verdana, Geneva, sans-serif", 
 				"Arial, Helvetica, sans-serif",
@@ -178,7 +197,7 @@ function katb_get_option_parameters() {
 			),
 			'description' => __('default: Verdana','testimonial-basics'),
 			'section' => 'content',
-			'default' => 'Georgia, serif',
+			'default' => 'default font',
 			'class' => 'select'
 		), 			
 		'katb_background_wrap_color' => array(
@@ -263,6 +282,24 @@ function katb_get_option_parameters() {
 			'default' =>0, // 0 for off
 			'class' => 'checkbox'
 		),
+		'katb_widget_use_gravatars' => array(
+			'name' => 'katb_widget_use_gravatars',
+			'title' => __( 'Use gravatars' , 'testimonial-basics' ),
+			'type' => 'checkbox',
+			'description' => __('Check to include','testimonial-basics'),
+			'section' => 'widget',
+			'default' =>0, // 0 for off
+			'class' => 'checkbox'
+		),
+		'katb_widget_use_italic_style' => array(
+			'name' => 'katb_widget_use_italic_style',
+			'title' => __( 'Use italic font style' , 'testimonial-basics' ),
+			'type' => 'checkbox',
+			'description' => __('Check to include','testimonial-basics'),
+			'section' => 'widget',
+			'default' =>0, // 0 for off
+			'class' => 'checkbox'
+		),
 		'katb_widget_use_formatted_display' => array(
 			'name' => 'katb_widget_use_formatted_display',
 			'title' => __( 'Use formatted display' , 'testimonial-basics' ),
@@ -276,7 +313,8 @@ function katb_get_option_parameters() {
 			'name' => 'katb_widget_font',
 			'title' => __('Font for Widget Display','testimonial-basics'),
 			'type' => 'select',
-			'valid_options' => array( 
+			'valid_options' => array(
+				"default font", 
 				"Georgia, serif",				
 				"Verdana, Geneva, sans-serif", 
 				"Arial, Helvetica, sans-serif",
@@ -289,7 +327,7 @@ function katb_get_option_parameters() {
 			),
 			'description' => __('default: Verdana','testimonial-basics'),
 			'section' => 'widget',
-			'default' => 'Georgia, serif',
+			'default' => 'default font',
 			'class' => 'select'
 		),
 		'katb_widget_background_color' => array(
@@ -339,23 +377,24 @@ function katb_get_option_parameters() {
 		),																																				
 	);
 		
-    return apply_filters( 'blogBox_get_option_parameters', $options );
+    return apply_filters( 'katb_get_option_parameters', $options );
 }
 
-/**katb_testimonial_basics_display_in_code()
+/** katb_testimonial_basics_display_in_code()
  * 
  * This function allows you to use display testinonials in code
  * 
  * It accepts arguments just like in the shortcode and displays accordingly
  *
- * by: order or date
- * number: all or a number
- * id: random or id of the testimonial
- * 
+ * @param string $group groupin string used in database
+ * @param string $by: order or date
+ * @param string $number: all or a number
+ * @param string $id: random or id of the testimonial
+ * @param boolean $gravatar: true=show gravatars
  * 
  * @return	html_string
  */
- function katb_testimonial_basics_display_in_code($by,$number,$id){
+ function katb_testimonial_basics_display_in_code($group,$by,$number,$id,$use_gravatars){
  	//set up database table name for later use
 	global $wpdb,$tablename;
 	$tablename = $wpdb->prefix.'testimonial_basics';
@@ -368,23 +407,41 @@ function katb_get_option_parameters() {
 	if($by != 'date' && $by != 'order') $by = 'date';
 	if($number != 'all' && is_numeric($number) == false ) $number = 'all';
 	if($id != 'random' && is_numeric($id) == false) $id = '';
-	//Validate $by
+	if($group == '') $group = 'all';
+
+	//OK let's start by getting the testimonial data from the database
 	if ( $number == 'all' && $id == '' && $by == 'date' ) {
-		$katb_tdata = $wpdb->get_results( " SELECT * FROM `$tablename` WHERE `tb_approved` = '1' ORDER BY `tb_date` DESC ",ARRAY_A);
+		if ($group == 'all') {
+			$katb_tdata = $wpdb->get_results( " SELECT * FROM `$tablename` WHERE `tb_approved` = '1' ORDER BY `tb_date` DESC ",ARRAY_A);
+		} else {
+			$katb_tdata = $wpdb->get_results( " SELECT * FROM `$tablename` WHERE `tb_approved` = '1' AND `tb_group` = '$group' ORDER BY `tb_date` DESC ",ARRAY_A);
+		}
 		$katb_tnumber = $wpdb->num_rows;
 		if ( $katb_tnumber == 0 ) $katb_error = __('There are no approved testimonials to display!','testimonial_basics');
 	} elseif ( $number == 'all' && $id == '' && $by == 'order' ) {
-		$katb_tdata = $wpdb->get_results( " SELECT * FROM `$tablename` WHERE `tb_approved` = '1' ORDER BY `tb_order` DESC,`tb_date` DESC ",ARRAY_A);
+		if ($group == 'all') {
+			$katb_tdata = $wpdb->get_results( " SELECT * FROM `$tablename` WHERE `tb_approved` = '1' ORDER BY `tb_order` DESC,`tb_date` DESC ",ARRAY_A);
+		} else {
+			$katb_tdata = $wpdb->get_results( " SELECT * FROM `$tablename` WHERE `tb_approved` = '1' AND `tb_group` = '$group' ORDER BY `tb_order` DESC,`tb_date` DESC ",ARRAY_A);
+		}
 		$katb_tnumber = $wpdb->num_rows;
 		if ( $katb_tnumber == 0 ) $katb_error = __('There are no approved testimonials to display!','testimonial_basics');
 	} elseif ( intval($number) > 0 && $id == '' && $by == 'date' ) {
 		$number = intval( $number );
-		$katb_tdata = $wpdb->get_results( " SELECT * FROM `$tablename` WHERE `tb_approved` = '1' ORDER BY `tb_date` DESC LIMIT 0,$number ",ARRAY_A);
+		if ($group == 'all') {
+			$katb_tdata = $wpdb->get_results( " SELECT * FROM `$tablename` WHERE `tb_approved` = '1' ORDER BY `tb_date` DESC LIMIT 0,$number ",ARRAY_A);
+		} else {
+			$katb_tdata = $wpdb->get_results( " SELECT * FROM `$tablename` WHERE `tb_approved` = '1' AND `tb_group` = '$group' ORDER BY `tb_date` DESC LIMIT 0,$number ",ARRAY_A);
+		}
 		$katb_tnumber = $wpdb->num_rows;
 		if ( $katb_tnumber == 0 ) $katb_error = __('There are no approved testimonials to display!','testimonial_basics');
 	} elseif ( intval($number) > 0 && $id == '' && $by == 'order' ) {
 		$number = intval( $number );
-		$katb_tdata = $wpdb->get_results( " SELECT * FROM `$tablename` WHERE `tb_approved` = '1' ORDER BY `tb_order` DESC,`tb_date` DESC LIMIT 0,$number ",ARRAY_A);
+		if ($group == 'all') {
+			$katb_tdata = $wpdb->get_results( " SELECT * FROM `$tablename` WHERE `tb_approved` = '1' ORDER BY `tb_order` DESC,`tb_date` DESC LIMIT 0,$number ",ARRAY_A);
+		} else {
+			$katb_tdata = $wpdb->get_results( " SELECT * FROM `$tablename` WHERE `tb_approved` = '1' AND `tb_group` = '$group' ORDER BY `tb_order` DESC,`tb_date` DESC LIMIT 0,$number ",ARRAY_A);
+		}
 		$katb_tnumber = $wpdb->num_rows;
 		if ( $katb_tnumber == 0 ) $katb_error = __('There are no approved testimonials to display!','testimonial_basics');
 	} elseif ($id != '' ) {
@@ -394,7 +451,6 @@ function katb_get_option_parameters() {
 			if ( $katb_tnumber == 0 ) {
 				$katb_error = __('There are no approved testimonials to display!','testimonial_basics');
 			} else {	
-
 				$rand = rand(0, $katb_tnumber-1);
 				$random_id = $katb_tdata2[$rand]['tb_id'];
 				$katb_tdata = $wpdb->get_results("SELECT * FROM `$tablename` WHERE `tb_approved` = '1' AND `tb_id` = $random_id ",ARRAY_A );
@@ -420,8 +476,14 @@ function katb_get_option_parameters() {
 		$katb_html = '<div class="katb_error">'.$katb_error.'</div>';
 	} else {
 		for ( $i = 0 ; $i < $katb_tnumber; $i++ ) {
-				$katb_html .= '<p class="katb_p_test">'.stripcslashes($katb_tdata[$i]['tb_testimonial']).'</p>';
-				$katb_html .= '<p class="katb_p_authorstrip"><b>'.stripcslashes($katb_tdata[$i]['tb_name']).'</b>';
+				if ( $use_gravatars == 1 ) {
+					$has_valid_avatar = katb_validate_gravatar($katb_tdata[$i]['tb_email']);
+					If ( $has_valid_avatar == 1 ) {
+						$katb_html .= '<span class="katb_p_avatar">'.get_avatar( $katb_tdata[$i]['tb_email'], $size = '60' ).'</span>';
+					}
+				}			
+				$katb_html .= '<div class="katb_p_test">'.stripcslashes($katb_tdata[$i]['tb_testimonial']).'</div>';
+				$katb_html .= '<div class="katb_p_authorstrip"><b>'.stripcslashes($katb_tdata[$i]['tb_name']).'</b>';
 			if ($katb_options['katb_show_date'] == 1) {
 				$katb_date = $katb_tdata[$i]['tb_date'];
 				$year = intval(substr($katb_date,0,4));
@@ -434,11 +496,50 @@ function katb_get_option_parameters() {
 				if ( $katb_tdata[$i]['tb_location'] != "" ) $katb_html .= ', '.stripcslashes($katb_tdata[$i]['tb_location']);
 			}
 			if ($katb_options['katb_show_website'] == 1) {
-				if ( $katb_tdata[$i]['tb_url'] != "" ) $katb_html .= ', <a href="'.esc_url($katb_tdata[$i]['tb_url']).'" title="Testimonial_author_site" >'.$katb_tdata[$i]['tb_url'].'</a>';
+				if ( $katb_tdata[$i]['tb_url'] != "" ) $katb_html .= ', <a href="'.esc_url($katb_tdata[$i]['tb_url']).'" title="Testimonial_author_site" target="_blank" >'.$katb_tdata[$i]['tb_url'].'</a>';
 			}
-			$katb_html .= '</p>';
+			$katb_html .= '</div>';
 		}
 		
 	}	
 	return $katb_html;
 }
+
+/**
+ * Get Testimonial Basics HTML Filters
+ * 
+ * Array that holds all of the parameters
+ * for Testimonial Basics Plugin Options. 
+ *
+ * @return	array	$options	all elements for each option
+ */
+function katb_allowed_html() {
+	
+	$allowed_html = array (
+		'p' => array(),
+    	'br' => array(),
+	);
+		
+    return apply_filters( 'katb_allowed_html', $allowed_html );
+}
+
+/**
+ * Test if Gravatar Exists
+ * 
+ * source : http://codex.wordpress.org/Using_Gravatars
+ *
+ * @return	boolean	$has_valid_avatar
+ */
+function katb_validate_gravatar($email) {
+	// Craft a potential url and test its headers
+	$hash = md5(strtolower(trim($email)));
+	$uri = 'http://www.gravatar.com/avatar/' . $hash . '?d=404';
+	$headers = @get_headers($uri);
+	if (!preg_match("|200|", $headers[0])) {
+		$has_valid_avatar = FALSE;
+	} else {
+		$has_valid_avatar = TRUE;
+	}
+	return $has_valid_avatar;
+}
+?>

@@ -93,15 +93,27 @@ class katb_display_testimonial_widget extends WP_Widget {
 			if ($katb_options['katb_widget_use_formatted_display'] == 1 ) {	
 				$katb_html .= '<div class="katb_widget_test_wrap">';
 				$katb_html .= '<div class="katb_widget_test_box">';
-				$katb_html .= '<span class="katb_widget_text" >'.stripcslashes($katb_tdata[0]['tb_testimonial']).'</span><br/>';
+				if ( $katb_options['katb_widget_use_gravatars'] == 1 ){
+					$has_valid_avatar = katb_validate_gravatar($katb_tdata[0]['tb_email']);
+					If ( $has_valid_avatar == 1 ) {
+						$katb_html .= '<span class="katb_widget_avatar">'. get_avatar( $katb_tdata[0]['tb_email'], $size = '50' ).'</span>';
+					}
+				}					
+				$katb_html .= '<div class="katb_widget_text" >'.stripcslashes($katb_tdata[0]['tb_testimonial']).'</div>';
 				$katb_html .= '</div>';
 				$katb_html .= '<span class="katb_widget_test_meta">'.stripcslashes($katb_tdata[0]['tb_name']);
 			} else {
 				$katb_html .= '<div class="katb_widget_test_wrap_basic">';
 				$katb_html .= '<div class="katb_widget_test_box_basic">';
-				$katb_html .= '<span class="katb_widget_text_basic" >'.stripcslashes($katb_tdata[0]['tb_testimonial']).'</span><br/>';
+				if ( $katb_options['katb_widget_use_gravatars'] == 1 ){
+					$has_valid_avatar = katb_validate_gravatar($katb_tdata[0]['tb_email']);
+					If ( $has_valid_avatar == 1 ) {
+						$katb_html .= '<span class="katb_widget_avatar">'. get_avatar( $katb_tdata[0]['tb_email'], $size = '50' ).'</span>';
+					}
+				}					
+				$katb_html .= '<div class="katb_widget_text_basic" >'.stripcslashes($katb_tdata[0]['tb_testimonial']).'</div>';
 				$katb_html .= '</div>';
-				$katb_html .= '<span class="katb_widget_test_meta_basic"><b>'.stripcslashes($katb_tdata[0]['tb_name']).'</b>';
+				$katb_html .= '<span class="katb_widget_test_meta_basic"><strong>'.stripcslashes($katb_tdata[0]['tb_name']).'</strong>';
 			}
 			if ($katb_options['katb_widget_show_date'] == 1) {
 				$katb_date = $katb_tdata[0]['tb_date'];
@@ -115,7 +127,7 @@ class katb_display_testimonial_widget extends WP_Widget {
 				if ( $katb_tdata[0]['tb_location'] != "" ) $katb_html .= ', '.stripcslashes($katb_tdata[0]['tb_location']);
 			}
 			if ($katb_options['katb_widget_show_website'] == 1) {
-				if ( $katb_tdata[0]['tb_url'] != "" ) $katb_html .= ', <a href="'.esc_url($katb_tdata[0]['tb_url']).'" title="Testimonial_author_site" >Website</a>';
+				if ( $katb_tdata[0]['tb_url'] != "" ) $katb_html .= ', <a href="'.esc_url($katb_tdata[0]['tb_url']).'" title="Testimonial_author_site" target="_blank" >Website</a>';
 			}
 			$katb_html .= '</span>';
 			$katb_html .= '</div>';
