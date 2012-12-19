@@ -106,8 +106,9 @@ class katb_input_testimonial_widget extends WP_Widget {
 			$katb_widget_input_error = "";
 			//Set default variables
 			$katb_widget_order = "";
+			$katb_widget_group="";
 			$katb_widget_approved = 0;
-			$katb_datetime = current_time('mysql');
+			$katb_widget_datetime = current_time('mysql');
 			//validate author
 			$katb_widget_author = sanitize_text_field($_POST['tb_author']);
 			if ($katb_widget_author == __('Author - Required','testimonial-basics') || $katb_widget_author == "") {
@@ -143,16 +144,17 @@ class katb_input_testimonial_widget extends WP_Widget {
 			if($katb_widget_input_error == "") {
 				//OK $error is empty so let's update the database
 				$values = array(
-					'tb_date' => $katb_datetime,
-					'tb_order' => $katb_widget_order,
-					'tb_approved' => $katb_widget_approved,
-					'tb_name' => $katb_widget_author,
-					'tb_location' => $katb_widget_location,
-					'tb_url' => $katb_widget_website,
-					'tb_testimonial' => $katb_widget_testimonial,
-					'tb_email' => $katb_widget_email
+				'tb_date' => $katb_widget_datetime,
+				'tb_order' => $katb_widget_order,
+				'tb_approved' => $katb_widget_approved,
+				'tb_group' => $katb_widget_group,
+				'tb_name' => $katb_widget_author,
+				'tb_email' => $katb_widget_email,
+				'tb_location' => $katb_widget_location,
+				'tb_url' => $katb_widget_website,
+				'tb_testimonial' => $katb_widget_testimonial
 				);
-				$formats_values = array('%s','%d','%d','%s','%s','%s','%s');
+				$formats_values = array('%s','%d','%d','%s','%s','%s','%s','%s','%s');
 				$wpdb->insert($tablename,$values,$formats_values);
 				echo '<div class="katb_widget_sent">'.__('Submitted-Thankyou!','testimonial-basics').'</div>';
 				//email to administrators
@@ -208,7 +210,7 @@ class katb_input_testimonial_widget extends WP_Widget {
 		</div>
 		<?php
 		if ($katb_options['katb_use_gravatars'] == 1 || $katb_options['katb_widget_use_gravatars'] == 1 ) { ?>
-			<br/><p><?php _e('Use Photo? ','testimonial-basics'); ?><a href="https://en.gravatar.com/" title="Gravatar Site" target="_blank" ><img class="gravatar_logo" src="<?php echo plugins_url(); ?>/testimonial-basics/includes/Gravatar80x16.JPG" alt="Gravatar Website" title="Gravatar Website" /></a></p>
+			<br/><p><?php _e('Use Photo? ','testimonial-basics'); ?><a href="https://en.gravatar.com/" title="Gravatar Site" target="_blank" ><img class="gravatar_logo" src="<?php echo plugins_url(); ?>/testimonial-basics/includes/Gravatar80x16.jpg" alt="Gravatar Website" title="Gravatar Website" /></a></p>
 		<?php }
 		echo $after_widget; 
     }

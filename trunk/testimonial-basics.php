@@ -3,7 +3,7 @@
 Plugin Name: Testimonial Basics
 Plugin URI: http://www.kevinsspace.ca/testimonial-basics-wordpress-plugin/
 Description: This plugin facilitates easy management of customer testimonials. The user can set up an input form in a page or in a widget, and display all or selected testimonials in a page or a widget. The plug in is very easy to use and modify.
-Version: 2.8.5
+Version: 2.10.6
 Author: Kevin Archibald
 Author URI: http://www.kevinsspace.ca
 License: GPLv3
@@ -207,6 +207,7 @@ function katb_input_form(){
 		//Set Defaults
 		$katb_order = "";
 		$katb_approved = 0;
+		$katb_group = "";
 		$katb_datetime = current_time('mysql');
 		//Validate-Sanitize Author
 		$katb_author = sanitize_text_field($_POST['tb_author']);
@@ -241,13 +242,14 @@ function katb_input_form(){
 				'tb_date' => $katb_datetime,
 				'tb_order' => $katb_order,
 				'tb_approved' => $katb_approved,
+				'tb_group' => $katb_group,
 				'tb_name' => $katb_author,
+				'tb_email' => $katb_email,
 				'tb_location' => $katb_location,
 				'tb_url' => $katb_website,
-				'tb_testimonial' => $katb_testimonial,
-				'tb_email' => $katb_email				
+				'tb_testimonial' => $katb_testimonial
 			);
-			$formats_values = array('%s','%d','%d','%s','%s','%s','%s');
+			$formats_values = array('%s','%d','%d','%s','%s','%s','%s','%s','%s');
 			$wpdb->insert($tablename,$values,$formats_values);
 			$html_string .= '<span class="katb_test_sent">'.__('Submitted - Thankyou!','testimonial-basics').'</span>';
 			//email to administrators
@@ -322,7 +324,7 @@ function katb_input_form(){
 	$html_string .= '</div>';
 	$html_string .= '<div class="katb_clearboth"></div><p>* '.__('Required','testimonial-basics').'</p>';
 	if ($katb_options['katb_use_gravatars'] == 1 || $katb_options['katb_widget_use_gravatars'] == 1 ) {
-		$html_string .= '<p>'.__('Add a photo? ','testimonial-basics').'<a href="https://en.gravatar.com/" title="Gravatar Site" target="_blank" ><img class="gravatar_logo" src="'.plugin_dir_url(__FILE__).'includes/Gravatar80x16.JPG" alt="Gravatar Website" title="Gravatar Website" /></a></p>';
+		$html_string .= '<p>'.__('Add a photo? ','testimonial-basics').'<a href="https://en.gravatar.com/" title="Gravatar Site" target="_blank" ><img class="gravatar_logo" src="'.plugin_dir_url(__FILE__).'includes/Gravatar80x16.jpg" alt="Gravatar Website" title="Gravatar Website" /></a></p>';
 	}
 	return $html_string;
 }
