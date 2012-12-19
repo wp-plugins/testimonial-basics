@@ -4,7 +4,7 @@ Donate link: http://www.kevinsspace.ca/testimonial-basics/
 Tags: testimonial,testimonials,praise,user comments,widgets,translation ready
 Requires at least: 3.1
 Tested up to: 3.5.0
-Stable tag: 2.8.4
+Stable tag: 2.10.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/quick-guide-gplv3.html
 
@@ -121,7 +121,11 @@ Then you can drag the dot around thw circle to select the base color.
 
 == Changelog ==
 
-= 2.8.4 =
+= 2.10.6 =
+* fixed bug for uploading testimonials
+* fixed bug for loading gravatar logo
+
+= 2.8.4,2.8.5 =
 * allowed paragraph and line break tags in in comments
 * added default font to custom styling
 * added option for italic style both in basic and in custom styling
@@ -154,7 +158,14 @@ Then you can drag the dot around thw circle to select the base color.
 
 == Upgrade Notice ==
 
-= 2.8.4 = Release
+= 2.10.6 =
+
+* gravatar logo was not loading properly
+* Testimonial was not updating in the database for Windows server setups
+* These two issues should now be fixed
+* Thanks for the feed back, it lets me fix the problems.
+
+= 2.8.4, 2.8.5 = Release
 * please ensure your database is backed up before you upgrade
 * your database will be updated adding a Group column and a E-mail column
 * there should be no problem with the database but back-up to be safe
