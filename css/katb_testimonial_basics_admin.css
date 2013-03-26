@@ -6,11 +6,6 @@
  * @license		http://www.gnu.org/licenses/quick-guide-gplv3.html  GNU Public License
  * @author		Kevin Archibald <www.kevinsspace.ca/contact/>
  */
-#wpbody {
-	/*min-width: 960px;
-	margin: 0;*/
-}
-
 #katb_picker {
 	position: relative;
 	top: 900px;

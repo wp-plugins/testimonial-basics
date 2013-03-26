@@ -21,12 +21,26 @@ function katb_testimonial_basic_admin_style($hook) {
 	 if( 'testimonial-basics_page_katb_testimonial_basics_admin_options' != $hook  
 	      && 'toplevel_page_katb_testimonial_basics_admin' != $hook 
 		  && 'testimonial-basics_page_katb_testimonial_basics_admin_edit'!= $hook) return;
-	//Page is loaded so go ahead	
+	//Page is loaded so go ahead
+	global $wp_version;
+	//$wp_version = 3.5;	
 	wp_register_style( 'testimonial_basic_admin_style',plugins_url() . '/testimonial-basics/css/katb_testimonial_basics_admin.css',array(),'20120815','all' ); 
 	wp_enqueue_style( 'testimonial_basic_admin_style' );
-	wp_enqueue_script( 'testimonial_basics_options_js', plugins_url() . '/testimonial-basics/js/katb_testimonial_basics_doc_ready.js', array('jquery'), '1', true );
-	wp_enqueue_style('farbtastic');
-	wp_enqueue_script('farbtastic');
+	//wp_enqueue_script( 'testimonial_basics_options_js', plugins_url() . '/testimonial-basics/js/katb_testimonial_basics_doc_ready.js', array('jquery'), '1', true );
+	 //If the WordPress version is greater than or equal to 3.5, then load the new WordPress color picker.
+    if ( 3.5 <= $wp_version ){
+        //Both the necessary css and javascript have been registered already by WordPress, so all we have to do is load them with their handle.
+        wp_enqueue_style( 'wp-color-picker' );
+        wp_enqueue_script( 'wp-color-picker' );
+    }
+    //If the WordPress version is less than 3.5 load the older farbtasic color picker.
+    else {
+        //As with wp-color-picker the necessary css and javascript have been registered already by WordPress, so all we have to do is load them with their handle.
+        wp_enqueue_style( 'farbtastic' );
+        wp_enqueue_script( 'farbtastic' );
+    }
+    //Load our custom javascript file
+ 	wp_enqueue_script( 'testimonial_basics_options_js', plugins_url() . '/testimonial-basics/js/katb_testimonial_basics_doc_ready.js', array('jquery'), '1', true );
 }
 add_action('admin_enqueue_scripts', 'katb_testimonial_basic_admin_style');
 
@@ -56,8 +70,15 @@ function katb_testimomial_basics_create_menu() {
 	 *              duplicate the parent menu item, you need to set the name of the $menu_slug exactly the same as the parent slug. 
 	 * $function - (string / array) (optional) The function to be called to output the content for this page.
 	 */
+	 //Get user options
+	$katb_options = katb_get_options();
+	if($katb_options['katb_admin_access_level'] == 'Editor') {
+		$edit_testimonial_capability = 'moderate_comments';
+	} else {
+		$edit_testimonial_capability = 'manage_options';
+	}
 	$katb_testimonial_basics_admin_options_help = add_submenu_page('katb_testimonial_basics_admin','Testimonial Basics Options','Options','manage_options','katb_testimonial_basics_admin_options','katb_testimonial_basics_options_page');
-	$katb_testimonial_basics_admin_edit_help = add_submenu_page('katb_testimonial_basics_admin','Testimonial Basics Edit Testimonials','Edit Testimonials','manage_options','katb_testimonial_basics_admin_edit','katb_testimonial_basics_edit_page');
+	$katb_testimonial_basics_admin_edit_help = add_submenu_page('katb_testimonial_basics_admin','Testimonial Basics Edit Testimonials','Edit Testimonials',$edit_testimonial_capability,'katb_testimonial_basics_admin_edit','katb_testimonial_basics_edit_page');
 }
 add_action( 'admin_menu', 'katb_testimomial_basics_create_menu' );
 
@@ -96,6 +117,8 @@ function katb_testimonial_basics_introduction (){ ?>
 	<h3><?php _e("Visitor Input Form",'testimonial-basics'); ?></h3>
 	<p><?php _e('You can set up a visitor input form very easily.','testimonial-basics'); echo ' ';
 			_e('Simply include in your page content:','testimonial-basics'); echo ' '; ?>
+			<code>[katb_input_testimonials]</code><br/>
+			<?php _e('The following was used with older versions and still works with the latest version:','testimonial-basics');  echo ' '; ?>
 			<code>&#60;!-- katb_input_form --&#62;</code>
 			<?php echo ' '; _e('Note the space between the dash and the letters.','testimonial-basics'); echo ' ';
 			_e('It will not work without the spaces.','testimonial-basics'); echo ' ';
@@ -106,7 +129,7 @@ function katb_testimonial_basics_introduction (){ ?>
 			_e('Go to "Appearance" => "Widgets" and drag the widget to the widgetized area.','testimonial-basics'); ?></p>
 
 	<h3><?php _e('Displaying Testimonials','testimonial-basics'); ?></h3>
-	<p><?php _e('You can display testimonials in the content of a page using a shortcode and you can also use a widget to display single testimonials.','testimonial-basics'); ?></p>
+	<p><?php _e('You can display testimonials in the content of a page using shortcodes or you can use widgets to display testimonials.','testimonial-basics'); ?></p>
 			
 	<h4><?php _e('Shortcode','testimonial-basics'); ?></h4>
 	<p><?php _e('To display testimonials create a new page and enter the following shortcode :','testimonial-basics'); echo ' '; ?><br/>
@@ -114,20 +137,41 @@ function katb_testimonial_basics_introduction (){ ?>
 
 		<ol>
 			<li><?php _e('Options for','testimonial-basics'); echo ' "group" : "all" - ';_e('ignores groups','testimonial-basics');echo ',"group_name"- ';_e('display only this grouping','testimonial-basics'); ?></li>
-			<li><?php _e('Options for','testimonial-basics'); echo ' "by" : "order" - ';_e('display highest to lowest','testimonial-basics');echo ',"date"- ';_e('display most recent first','testimonial-basics'); ?></li>
+			<li><?php _e('Options for','testimonial-basics'); echo ' "by" : "order" - ';_e('display lowest to highest','testimonial-basics');echo ',"date"- ';_e('display most recent first','testimonial-basics'); ?></li>
 			<li><?php _e('Options for','testimonial-basics'); echo ' "number" : "all" - ';_e('displays all testimonials, or put in the number of testimonials you want to display','testimonial-basics'); ?></li>
 			<li><?php _e('Options for','testimonial-basics');echo' "id" : "" - ';_e('leave blank for multiple testimonials','testimonial-basics');echo ', "ID" - ';_e('put in testimonial ID','testimonial-basics');echo ', "random" - ';_e('single random testimonial','testimonial-basics'); ?></li>
 		</ol>
 
 	<p><?php _e('Note that if you put id="3" for example or id="random", then the "by" and "number" attributes are ignored.','testimonial-basics');echo' ';
 			_e('The id property must be blank to display (ie id="") multiple testimonials.','testimonial-basics'); ?></p>
-	
-	<h4><?php _e('Testimonial Display Widget','testimonial-basics'); ?></h4>
+			
+	<p><?php _e('To display multiple testimonials randomly :','testimonial-basics') ?></p>
+	<code>[katb_random_testimonials group="all" number="all"]</code>
+
+		<ol>
+			<li><?php _e('Options for','testimonial-basics'); echo ' "group" : "all" - ';_e('ignores groups','testimonial-basics');echo ',"group_name"- ';_e('display only this grouping','testimonial-basics'); ?></li>
+			<li><?php _e('Options for','testimonial-basics'); echo ' "number" : "all" - ';_e('displays all testimonials, or put in the number of testimonials you want to display','testimonial-basics'); ?></li>
+		</ol>
+		
+	<h4><?php _e('Single Testimonial Display Widget','testimonial-basics'); ?></h4>
 	
 	<p><?php _e('You can also use a widget to display a testimonial.','testimonial-basics');echo' ';
 			_e('The widget will display a selected testimonial or can randomly pick a testimonial to display when a page reloads.','testimonial-basics');echo' ';
-			_e('You can input a title and the ID number of the testimonial you want to display or "random" to display a random testimonial from the approved list.','testimonial-basics'); ?></p><br/>
+			_e('You can input a title and the ID number of the testimonial you want to display or "random" to display a random testimonial from the approved list.','testimonial-basics'); ?></p>
+	
+	<h4><?php _e('Multiple Testimonial Display Widget','testimonial-basics'); ?></h4>		
+	
+	<p><?php _e('You can also use a widget to display multiple testimonials.','testimonial-basics');echo' '; ?>
+		<ol>
+			<li><?php _e('Drag the widget to a widetized area and enter a title','testimonial-basics') ?></li>
+			<li><?php _e('Options for','testimonial-basics'); echo ' "Group" : "all" - ';_e('ignores groups','testimonial-basics');echo ',"group_name"- ';_e('display only this grouping','testimonial-basics'); ?></li>
+			<li><?php _e('Options for','testimonial-basics'); echo ' "By" : "order" - ';_e('display lowest to highest','testimonial-basics');echo ',"date"- ';_e('display most recent first','testimonial-basics');echo ',"random"- ';_e('randomly select','testimonial-basics'); ?></li>
+			<li><?php _e('Options for','testimonial-basics'); echo ' "number" : "all" - ';_e('displays all testimonials, or put in the number of testimonials you want to display','testimonial-basics'); ?></li>
+		</ol>
+	</p><br/>
+		
 <?php }
+
 /** ----------------- katb_testimonial_basics_options_page -------------------------
  * Called by add_submenu_page. Sets up the Testimonial basics Option Page
  * ---------------------------------------------------------------------------------- */
@@ -184,7 +228,7 @@ function katb_testimonial_basics_admin_init (){//Register and define settings
 	 * @param	callback	$callback	Name of the callback function in which section text is output **not used here
 	 * @param	string		$pageid		Name of the Settings page to which to add the section; passed to do_settings_sections()
 	 */
-	add_settings_section('katb_testimonial_basics_input','Input Form Options','katb_input_section_callback','katb_testimonial_basics_admin_options');
+	add_settings_section('katb_testimonial_basics_input','General Setup and Input Form Options','katb_input_section_callback','katb_testimonial_basics_admin_options');
 	add_settings_section('katb_testimonial_basics_content','Testimonial Display Options','katb_content_section_callback','katb_testimonial_basics_admin_options');
 	add_settings_section('katb_testimonial_basics_widget','Widget Testimonial Display Options','katb_widget_section_callback','katb_testimonial_basics_admin_options');
 	/**
@@ -256,7 +300,7 @@ function katb_setting_callback( $option ) { //Callback for get_settings_field()
 	// Output checkbox form field markup checked( $katb_options[$optionname] );
 	if ( 'checkbox' == $fieldtype ) {
 		?>
-		<input class="katb_Options <?php echo $katb_input_class ?>"  type="checkbox" name="<?php echo $fieldname; ?>" <?php if( $katb_options[$optionname] == true ) echo 'checked="checked"'; ?> />
+		<input class="katb_options <?php echo $katb_input_class ?>"  type="checkbox" name="<?php echo $fieldname; ?>" <?php if( $katb_options[$optionname] == true ) echo 'checked="checked"'; ?> />
 		<?php
 	}
 	// Output select form field markup
@@ -264,7 +308,7 @@ function katb_setting_callback( $option ) { //Callback for get_settings_field()
 		$valid_options = array();
 		$valid_options = $option['valid_options'];
 		?>
-		<select class="katb_Options <?php echo $katb_input_class ?>" name="<?php echo $fieldname; ?>">
+		<select class="katb_options <?php echo $katb_input_class ?>" name="<?php echo $fieldname; ?>">
 		<?php 
 		foreach ( $valid_options as $valid_option ) {
 			?>
@@ -277,7 +321,7 @@ function katb_setting_callback( $option ) { //Callback for get_settings_field()
 	} 
 	// Output text input form field markup
 	else if ( 'text' == $fieldtype ) { ?>
-		<input id="<?php echo $optionname; ?>" class="katb_Options <?php echo $katb_input_class ?>" type="text" name="<?php echo $fieldname; ?>" value="<?php echo wp_filter_nohtml_kses( $katb_options[$optionname] ); ?>" />
+		<input id="<?php echo $optionname; ?>" class="katb_options <?php echo $katb_input_class ?>" type="text" name="<?php echo $fieldname; ?>" value="<?php echo wp_filter_nohtml_kses( $katb_options[$optionname] ); ?>" />
 	<?php } ?>
  
 	<span class="description"><?php echo $optiondescription; ?></span>
@@ -356,8 +400,9 @@ function katb_testimonial_basics_edit_page(){
 		}
 		$katb_date = substr($katb_datetime,0,10);
 		$katb_time = substr($katb_datetime,11,8);
-		//Sanitize testimonial
+		//Sanitize testimonial - same html allowed as allowed in posts
 		$katb_testimonial = wp_kses($_POST['tb_testimonial'],$katb_allowed_html);
+		//$katb_testimonial = wp_kses_post( $_POST['tb_testimonial'] );
 		if ($katb_testimonial == "" ) {
 			$error .= '*'.__('Testimonial is required','testimonial-basics').'*';
 		}
@@ -560,21 +605,25 @@ function katb_testimonial_basics_admin_page_help( $contextual_help, $screen_id, 
 		$contextual_help .= '<ul><li>'.__('To add a testimonial simply enter the data and click the "Save Testimonial" button','testimonial-basics').'</li>';
 		$contextual_help .= '<li>'.__('To edit a testimonial click the ID button for the testimonial you want to edit, make your changes and "Save Testimonial"','testimonial-basics').'</li>';
 		$contextual_help .= '<li>'.__('Note that new testimonials that come in must be approved by clicking the approved box or they will not be displayed.','testimonial-basics').'</li>';
-		$contextual_help .= '<li>'.__('Enter an order number, and you can display testimonials highest order number first.','testimonial-basics').'</li>';
+		$contextual_help .= '<li>'.__('Enter an order number, and you can display testimonials lowest order number first.','testimonial-basics').'</li>';
 		$contextual_help .= '<li>'.__('Enter a group name up to 20 characters to allow you to display only the grouped testimonials.','testimonial-basics').'</li>';
 		$contextual_help .= '<li>'.__('If you are using gravatars but do not want to display a particular author gravatar, delete the author email.','testimonial-basics').'</li></ul>';
 		$contextual_help .= '<h4>Testimonial Basics - '.__('Detailed User Documentation','testimonial-basics').'</h4>';
 		$contextual_help .= '<ul><li>'.__('Detailed user documentation is available at the plugin site.','testimonial-basics').'</li></ul>';
 	} elseif ( $screen_id == $katb_testimonial_basics_admin_options_help ) {
 		$contextual_help .= '<h2>Testimonial Basics - '.__('Options Help','testimonial-basics').'</h2>';
-		$contextual_help .= '<h4>'.__('Input Form Options','testimonial-basics').'</h4>';
-		$contextual_help .= '<ul><li>'.__('Include a captcha in the input by selecting the "Use captcha on input forms" checkbox. ','testimonial-basics');
+		$contextual_help .= '<h4>'.__('General Setup and Input Form Options','testimonial-basics').'</h4>';
+		$contextual_help .= '<ul><li>'.__('Select the user role for permission to edit testimonials','testimonial-basics').'</li>';
+		$contextual_help .= '<ul><li>'.__('An email is sent to this address (or admin email if left blank) to notify that a testimonial has been submitted','testimonial-basics').'</li>';
+		$contextual_help .= '<li>'.__('Include a captcha in the input by selecting the "Use captcha on input forms" checkbox. ','testimonial-basics');
 		$contextual_help .= __('If for any reason the Captcha is not working, disable it here.','testimonial-basics').'</li>';
 		$contextual_help .= '<li>'.__('Input Form Title: You can choose not to display one, or you can change the title.','testimonial-basics').'</li>';
 		$contextual_help .= '<li>'.__('Email note: You can choose not to display one, or you can change it to any text you want.','testimonial-basics').'</li>';
-		$contextual_help .= '<li>'.__('Keep the text you enter to a reasonable length or it may look funny.','testimonial-basics').'</li></ul>';
+		$contextual_help .= '<li>'.__('Keep the text you enter to a reasonable length or it may look funny.','testimonial-basics').'</li>';
+		$contextual_help .= '<li>'.__('Optionally include an html allowed strip on input forms.','testimonial-basics').'</li></ul>';
 		$contextual_help .= '<h4>'.__('Testimonial Display Options','testimonial-basics').'</h4>';
-		$contextual_help .= '<ul><li>'.__('Website, Date and Location are optional for display in the testimonial, just click them if you want to show them.','testimonial-basics').'</li>';
+		$contextual_help .= '<ul><li>'.__('You can use excerpts with the specified character length to display your testimonials.','testimonial-basics').'</li>';
+		$contextual_help .= '<li>'.__('Website, Date and Location are optional for display in the testimonial, just click them if you want to show them.','testimonial-basics').'</li>';
 		$contextual_help .= '<li>'.__('Gravatars: If selected, images associated with the author e-mail will be shown if one exists.','testimonial-basics').'</li>';
 		$contextual_help .= '<li>'.__('Italic: If selected, the content, not the author strip, will be displayed in italic style.','testimonial-basics').'</li>';
 		$contextual_help .= '<li>'.__('Formatted Display: If you want to use a basic display that will use your theme\'s fonts and colors, leave this box unchecked.','testimonial-basics').'</li>';
@@ -589,7 +638,8 @@ function katb_testimonial_basics_admin_page_help( $contextual_help, $screen_id, 
 		$contextual_help .= '<li>'.__('Reset Options: If you click this all options are reset to defaults so be CAREFUL!','testimonial-basics').'</li></ul>';
 		$contextual_help .= '<h4>'.__('Widget Testimonial Display Options','testimonial-basics').'</h4>';
 		$contextual_help .= '<ul><li>'.__('These options are essentially the same as the previous section.','testimonial-basics');
-		$contextual_help .= __('The widget is much smaller than the content display, so you may want to have different display options.','testimonial-basics').'</li></ul>';
+		$contextual_help .= __('The widget is much smaller than the content display, so you may want to have different display options.','testimonial-basics').'</li>';
+		$contextual_help .= '<li>'.__('This section is also used to customize the display for the the multiple display widget','testimonial-basics').'</li></ul>';
 		$contextual_help .= '<h4>Testimonial Basics - '.__('Detailed User Documentation','testimonial-basics').'</h4>';
 		$contextual_help .= '<ul><li>'.__('Detailed user documentation is available at the plugin site.','testimonial-basics').'</li></ul>';
 	}
@@ -724,7 +774,7 @@ function katb_validate_options( $input ) {
 						If ( $valid_input[$setting] == '' ){
 							add_settings_error(
 								$setting, // setting title
-								'blogBox_email_error', // error ID
+								'testimonial_basics_email_error', // error ID
 								'Please enter a valid e-mail - blank returned', // error message
 								'error' // type of message
 							);
@@ -734,7 +784,7 @@ function katb_validate_options( $input ) {
 						$valid_input[$setting] = '';
 						add_settings_error(
 							$setting, // setting title
-							'blogBox_email_error', // error ID
+							'testimonial_basics_error', // error ID
 							'Please enter a valid e-mail - blank returned', // error message
 							'error' // type of message
 						);						
@@ -748,7 +798,7 @@ function katb_validate_options( $input ) {
 						$valid_input[$setting] = $option_defaults[$setting];
 						add_settings_error(
 							$setting, // setting title
-							'blogBox_hex_color_error', // error ID
+							'testimonial_basics_hex_color_error', // error ID
 							'Please enter a valid Hex Color Number-default returned.', // error message
 							'error' // type of message
 						);
@@ -758,14 +808,6 @@ function katb_validate_options( $input ) {
 					// Catch all
 					//Pass input data through the wp_filter_kses filter
 					$valid_input[$setting] = wp_filter_kses( $input[$setting] );
-				}
-			}
-			// Validate custom fields
-			else if ( 'custom' == $optiondetails['type'] ) {
-				// Validate the Varietal setting
-				if ( 'varietal' == $setting ) {
-					// Only update setting if input value is in the list of valid options
-					$valid_input[$setting] = ( array_key_exists( $input[$setting], $valid_options ) ? $input[$setting] : $valid_input[$setting] );
 				}
 			}
 		} 
