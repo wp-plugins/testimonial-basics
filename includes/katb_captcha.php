@@ -14,42 +14,46 @@
 if(!isset($_SESSION)) session_start();
 
   // Set some important CAPTCHA constants
-  define('CAPTCHA_NUMCHARS', 6);  // number of characters in pass-phrase
-  define('CAPTCHA_WIDTH', 110);   // width of image
-  define('CAPTCHA_HEIGHT', 22);   // height of image
-
+  $number_characters = 6; // number of characters in pass-phrase
+  $captcha_width = 110; // width of image
+  $captcha_height = 26; // height of image
+  
   // Generate the random pass-phrase
   $pass_phrase = "";
-  for ($i = 0; $i < CAPTCHA_NUMCHARS; $i++) {    $pass_phrase .= chr(rand(97, 122));  }
+  $characters = 'abcdefghijklmnopqrstuvwxyz';
+  for ($i = 0; $i < $number_characters; $i++) {
+  	$position = mt_rand( 0, strlen($characters) - 1 );
+	$pass_phrase .= $characters[$position];
+  }
   
     // Store the encrypted pass-phrase in a session variable
-  $_SESSION['pass_phrase'] = SHA1($pass_phrase);
+  $_SESSION['katb_pass_phrase'] = SHA1($pass_phrase);
 
   // Create the image  
-  $img = imagecreatetruecolor(CAPTCHA_WIDTH, CAPTCHA_HEIGHT);  
+  $katb_img = imagecreatetruecolor($captcha_width, $captcha_height);  
   // Set a white background with black text and gray graphics  
-  $bg_color = imagecolorallocate($img, 255, 255, 255);		// white  
-  $text_color = imagecolorallocate($img, 0, 0, 0);   		// black  
-  $graphic_color = imagecolorallocate($img, 64, 64, 64);   	// dark gray
+  $bg_color = imagecolorallocate($katb_img, 255, 255, 255);		// white  
+  $text_color = imagecolorallocate($katb_img, 0, 0, 0);   		// black  
+  $graphic_color = imagecolorallocate($katb_img, 64, 64, 64);   	// dark gray
 
   // Fill the background
-  imagefilledrectangle($img, 0, 0, CAPTCHA_WIDTH, CAPTCHA_HEIGHT, $bg_color);
+  imagefilledrectangle($katb_img, 0, 0, $captcha_width, $captcha_height, $bg_color);
   // Draw some random lines
   for ($i = 0; $i < 5; $i++) {
-    imageline($img, 0, rand() % CAPTCHA_HEIGHT, CAPTCHA_WIDTH, rand() % CAPTCHA_HEIGHT, $graphic_color);
+    imageline($katb_img, 0, rand() % $captcha_height, $captcha_width, rand() % $captcha_height, $graphic_color);
   }
 
   // Sprinkle in some random dots
   for ($i = 0; $i < 50; $i++) {
-    imagesetpixel($img, rand() % CAPTCHA_WIDTH, rand() % CAPTCHA_HEIGHT, $graphic_color);
+    imagesetpixel($katb_img, rand() % $captcha_width, rand() % $captcha_height, $graphic_color);
   }
   // Draw the pass-phrase string
-  imagettftext($img, 18, 0, 5, CAPTCHA_HEIGHT - 5, $text_color, 'Vera.ttf', $pass_phrase);
+  imagettftext($katb_img, 16, 0, 5, $captcha_height - 5, $text_color, 'Vera.ttf', $pass_phrase);
 
   // Output the image as a PNG using a header  
   header("Content-type: image/png");  
-  imagepng($img);
+  imagepng($katb_img);
 
   // Clean up
-  imagedestroy($img);
+  imagedestroy($katb_img);
 ?>

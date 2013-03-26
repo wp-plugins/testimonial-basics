@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Testimonial Basics Display Widget
-Plugin URI: http://demo1.kevinsspace.ca/
-Description: A plugin to input a testimonial
-Version: 2.0.0
+Plugin URI: http://kevinsspace.ca/testimonial-basics-wordpress-plugin/
+Description: A plugin to display a testimonial
+Version: 3.0.0
 Author: Kevin Archibald
-Author URI: http://www.kevinsspace.ca/
+Author URI: http://kevinsspace.ca/
 License: GPLv3
  */
  
@@ -90,6 +90,27 @@ class katb_display_testimonial_widget extends WP_Widget {
 		if( $katb_display_widget_error != '') {
 			$katb_html .= '<div class="katb_display_widget_error">'.$katb_display_widget_error.'</div>';
 		} else {
+			//set up hidden popup if excerpt is used	
+			if ( $katb_options['katb_use_widget_excerpts'] == 1 ) {
+				$katb_html .= '<div class="katb_topopup" id="katb_widget_single_'.$katb_tdata[0]['tb_id'].'">';
+				$katb_html .= '<div class="katb_close"></div>';
+				$katb_html .= '<div class="katb_popup_text">'.stripcslashes($katb_tdata[0]['tb_testimonial']).'</div><br/>';
+				$katb_html .= '<span class="katb_popup_meta">'.stripcslashes($katb_tdata[0]['tb_name']);
+				if ($katb_options['katb_widget_show_date'] == 1) {
+					$katb_date = $katb_tdata[0]['tb_date'];
+					$year = intval(substr($katb_date,0,4));
+					$month = intval(substr($katb_date,5,2));
+					$monthname = date("M", mktime(0, 0, 0, $month, 10));
+					$day = intval(substr($katb_date,8,2));
+					$katb_html .= ', '.$monthname.' '.$day.'\''.$year;
+				}
+				if ($katb_options['katb_widget_show_location'] == 1) {
+					if ( $katb_tdata[0]['tb_location'] != "" ) $katb_html .= ', '.stripcslashes($katb_tdata[0]['tb_location']);
+				}
+				$katb_html .= '</span></div>';
+				$katb_html .= '<div class="katb_loader"></div>';
+				$katb_html .= '<div class="katb_excerpt_popup_bg" id="katb_widget_single_'.$katb_tdata[0]['tb_id'].'_bg"></div>';
+			}
 			if ($katb_options['katb_widget_use_formatted_display'] == 1 ) {	
 				$katb_html .= '<div class="katb_widget_test_wrap">';
 				$katb_html .= '<div class="katb_widget_test_box">';
@@ -98,8 +119,16 @@ class katb_display_testimonial_widget extends WP_Widget {
 					If ( $has_valid_avatar == 1 ) {
 						$katb_html .= '<span class="katb_widget_avatar">'. get_avatar( $katb_tdata[0]['tb_email'], $size = '50' ).'</span>';
 					}
-				}					
-				$katb_html .= '<div class="katb_widget_text" >'.stripcslashes($katb_tdata[0]['tb_testimonial']).'</div>';
+				}
+				if ( $katb_options['katb_use_widget_excerpts'] == 1 ) {
+					$text = stripcslashes($katb_tdata[0]['tb_testimonial']);
+					$length = $katb_options['katb_widget_excerpt_length'];
+					$classID = 'katb_widget_single_'.$katb_tdata[0]['tb_id'];
+					$text = katb_testimonial_excerpt_filter($length,$text,$classID);
+					$katb_html .= '<div class="katb_widget_text" >'.$text.'</div>';
+				} else {
+					$katb_html .= '<div class="katb_widget_text" >'.stripcslashes($katb_tdata[0]['tb_testimonial']).'</div>';
+				}
 				$katb_html .= '</div>';
 				$katb_html .= '<span class="katb_widget_test_meta">'.stripcslashes($katb_tdata[0]['tb_name']);
 			} else {
@@ -110,8 +139,16 @@ class katb_display_testimonial_widget extends WP_Widget {
 					If ( $has_valid_avatar == 1 ) {
 						$katb_html .= '<span class="katb_widget_avatar">'. get_avatar( $katb_tdata[0]['tb_email'], $size = '50' ).'</span>';
 					}
-				}					
-				$katb_html .= '<div class="katb_widget_text_basic" >'.stripcslashes($katb_tdata[0]['tb_testimonial']).'</div>';
+				}
+				if ( $katb_options['katb_use_widget_excerpts'] == 1 ) {
+					$text = stripcslashes($katb_tdata[0]['tb_testimonial']);
+					$length = $katb_options['katb_widget_excerpt_length'];
+					$classID = 'katb_widget_single_'.$katb_tdata[0]['tb_id'];
+					$text = katb_testimonial_excerpt_filter($length,$text,$classID);
+					$katb_html .= '<div class="katb_widget_text_basic" >'.$text.'</div>';
+				} else {
+					$katb_html .= '<div class="katb_widget_text_basic" >'.stripcslashes($katb_tdata[0]['tb_testimonial']).'</div>';
+				}	
 				$katb_html .= '</div>';
 				$katb_html .= '<span class="katb_widget_test_meta_basic"><strong>'.stripcslashes($katb_tdata[0]['tb_name']).'</strong>';
 			}
@@ -121,13 +158,13 @@ class katb_display_testimonial_widget extends WP_Widget {
 				$month = intval(substr($katb_date,5,2));
 				$monthname = date("M", mktime(0, 0, 0, $month, 10));
 				$day = intval(substr($katb_date,8,2));
-				$katb_html .= ', '.$monthname.' '.$day.'\''.$year;
+				$katb_html .= ', <i>'.$monthname.' '.$day.'\''.$year.'</i>';
 			}
 			if ($katb_options['katb_widget_show_location'] == 1) {
-				if ( $katb_tdata[0]['tb_location'] != "" ) $katb_html .= ', '.stripcslashes($katb_tdata[0]['tb_location']);
+				if ( $katb_tdata[0]['tb_location'] != "" ) $katb_html .= ', <i>'.stripcslashes($katb_tdata[0]['tb_location']).'</i>';
 			}
 			if ($katb_options['katb_widget_show_website'] == 1) {
-				if ( $katb_tdata[0]['tb_url'] != "" ) $katb_html .= ', <a href="'.esc_url($katb_tdata[0]['tb_url']).'" title="Testimonial_author_site" target="_blank" >Website</a>';
+				if ( $katb_tdata[0]['tb_url'] != "" ) $katb_html .= ', <i><a href="'.esc_url($katb_tdata[0]['tb_url']).'" title="Testimonial_author_site" target="_blank" >Website</a></i>';
 			}
 			$katb_html .= '</span>';
 			$katb_html .= '</div>';
