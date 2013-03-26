@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Testimonial Basics Input Widget
-Plugin URI: http://demo1.kevinsspace.ca/
+Plugin URI: http://kevinsspace.ca/testimonial-basics-wordpress-plugin/
 Description: A plugin to input a testimonial
-Version: 2.0.0
+Version: 3.0.0
 Author: Kevin Archibald
-Author URI: http://www.kevinsspace.ca/
+Author URI: http://kevinsspace.ca/
 License: GPLv3
 */
 /** ----------- Session Start ----------------------------------------------
@@ -136,7 +136,8 @@ class katb_input_testimonial_widget extends WP_Widget {
 			}
 			//Captcha Validation
 			if ($katb_options['katb_use_captcha'] == TRUE || $katb_options['katb_use_captcha'] == 1 ) {
-				if ($_SESSION['pass_phrase'] !== sha1($_POST['verify'])){
+				$katb_captcha_entered = sanitize_text_field($_POST['verify']);
+				if ($_SESSION['katb_pass_phrase'] !== sha1($katb_captcha_entered)){
 					$katb_widget_input_error .= ':'.__('Captcha','testimonial-basics');
 				}
 			}	
@@ -157,11 +158,15 @@ class katb_input_testimonial_widget extends WP_Widget {
 				$formats_values = array('%s','%d','%d','%s','%s','%s','%s','%s','%s');
 				$wpdb->insert($tablename,$values,$formats_values);
 				echo '<div class="katb_widget_sent">'.__('Submitted-Thankyou!','testimonial-basics').'</div>';
-				//email to administrators
-				$emailTo = get_option('admin_email');
-				$subject = __('You have received a testimonial from ','testimonial-basics').' '.$katb_widget_author;
-				$body = __('Name: ','testimonial-basics').' '.$katb_widget_author."<br/><br/>".__('Email: ','testimonial-basics').' '.$katb_widget_email."<br/><br/>".__('Comments: ','testimonial-basics')."<br/><br/>".stripslashes($katb_widget_testimonial);
-				$headers = 'From: '.$katb_widget_author.' <'.$katb_widget_email.'>';
+				//send email
+				if ( $katb_options['katb_contact_email'] != '' ) {
+					$emailTo = $katb_options['katb_contact_email'];
+				} else {
+					$emailTo = get_option('admin_email');
+				}
+				$subject = __('You have received a testimonial!','testimonial-basics');
+				$body = __('Name: ','testimonial-basics').' '.stripcslashes($katb_widget_author)."<br/><br/>".__('Email: ','testimonial-basics').' '.stripcslashes($katb_widget_email)."<br/><br/>".__('Comments: ','testimonial-basics')."<br/><br/>".stripcslashes($katb_widget_testimonial);
+				$headers = 'From: '.stripcslashes($katb_widget_author).' <'.stripcslashes($katb_widget_email).'>';
 				add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
 				wp_mail($emailTo, $subject, $body, $headers);
 				//Now empty the variables
@@ -196,13 +201,16 @@ class katb_input_testimonial_widget extends WP_Widget {
 		<?php wp_nonce_field("katb_nonce_2","katb_widget_form_nonce"); ?>
 		<input  class="katb_input" type="text" name="tb_author" value="<?php echo esc_attr( $katb_widget_author ); ?>" />
 		<input  class="katb_input" type="text" name="tb_email" value="<?php echo esc_attr( $katb_widget_email ); ?>" />
-		<input  class="katb_input" type="text" name="tb_website" value="<?php echo esc_attr( $katb_widget_website ); ?>" />
+		<input  class="katb_input" type="text" name="tb_website" value="<?php echo esc_url( $katb_widget_website ); ?>" />
 		<input  class="katb_input" type="text" name="tb_location" value="<?php echo esc_attr( $katb_widget_location ); ?>" />
 		<textarea name="tb_testimonial" rows="5" ><?php echo esc_attr($katb_widget_testimonial); ?></textarea>
-		<p>HTML: <code>&#60;p&#62;&#60;/p&#62;&#60;br/&#62;</code></p>
-		<?php if ($katb_options['katb_use_captcha'] == TRUE || $katb_options['katb_use_captcha'] == 1 ) { ?>
+		<?php 
+			if ( $katb_options['katb_show_html_widget'] == TRUE || $katb_options['katb_show_html_widget'] == 1 ) { 
+				echo '<p>HTML: <code>p br i em strong q h1-h6</code></p>';
+			}
+		if ($katb_options['katb_use_captcha'] == TRUE || $katb_options['katb_use_captcha'] == 1 ) { ?>
 			<img width="85" src="<?php echo site_url() ?>/wp-content/plugins/testimonial-basics/includes/katb_captcha.php" alt="Verification Captcha" />
-			<input type="text" size="15" id="verify" name="verify" value="<?php _e('Enter Captcha','testimonial-basics') ?>" /><br/>
+			<input class="katb_captcha_widget_input" type="text" id="verify" name="verify" value="<?php _e('Enter Captcha','testimonial-basics') ?>" onclick="this.select();" /><br/>
 		<?php } ?>
 		<input class="katb_widget_submit" type="submit" name="widget_submitted" value="<?php _e('Submit','testimonial-basics') ?>" />
 		<input class="katb_widget_reset" type="submit" name="widget_reset" value="<?php _e('Reset','testimonial-basics') ?>" />

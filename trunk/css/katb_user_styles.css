@@ -16,8 +16,8 @@
  * ------ Basic Display Styles ----------------------- */
 
 .katb_test_wrap_basic {
-	padding: 0px 0px 10px 0px;
 	clear: both;
+	padding: 0px 0px 10px 0px;
 	margin: 10px 0px 30px 0px;
 }
 
@@ -34,7 +34,7 @@
 
 .katb_test_text_basic p { 
 	margin: 10px 0px 0px 0px!important;
-	padding: 0!important;
+	padding: 0px!important;
 	line-height: 1.3em!important;	
 }
 
@@ -100,8 +100,8 @@
 .katb_test_meta {
 	display: block;
 	clear: both;
-	padding: 0;
-	margin: -0.5em 0em 0em 0em;
+	padding: 0px;
+	margin: 0px;
 	font-size: 0.8em;
 	font-weight: bold;
 	line-height: 1.3em;
@@ -125,12 +125,17 @@
 /*
  * ------ Widget Basic Display Styles ----------------------- */
 
-#sidebar .katb_display_widget_class h2 {padding: 0px 5% 0px 5%;}
+.katb_display_widget_class h2,.katb_multiple_display_widget_class h2,
+.katb_display_widget_class h3,.katb_multiple_display_widget_class h3
+ {
+	margin: 0px!important;
+	padding: 0px 0px 10px 0px!important;
+}
 
 .katb_widget_test_wrap_basic {
-	padding: 0px 5% 0px 5%;
+	padding: 0px 0px 20px 0px;
 	margin: 0px;
-	width: 85%;
+	width: 90%;
 	overflow-x: auto;
 }
 
@@ -141,7 +146,21 @@
 	overflow: auto;
 }
 
+.katb_widget_multiple_box_basic {
+	clear: both;
+	padding: 0px 0px 30px 0px;
+	margin: 0px 0px 15px 0px;
+	width: 90%;
+}
+
 .katb_widget_text_basic {
+	padding: 0px;
+	margin: 0px;
+	font-size: 12px;
+	line-height: 16px;
+}
+
+.katb_widget_multiple_text_basic {
 	display: block;
 	padding: 0px;
 	margin: 0px;
@@ -156,7 +175,14 @@
 	line-height: 16px!important;	
 }
 
-.katb_widget_test_meta_basic {
+.katb_widget_multiple_text_basic p {
+	margin: 6px 0px 0px 0px!important;
+	padding: 0px!important;
+	font-size: 12px!important;
+	line-height: 16px!important;	
+}
+
+.katb_widget_test_meta_basic,.katb_widget_multiple_meta_basic {
 	display: block;
 	clear: both;
 	float: left;
@@ -165,13 +191,13 @@
 	font-size: 11px;
 }
 
-.katb_widget_test_meta_basic a {
+.katb_widget_test_meta_basic a,.katb_widget_multiple_meta_basic a {
 	padding: 0;
 	margin: 0;
-	font-size: 10px !important;
+	font-size: 11px !important;
 }
 
-.katb_widget_test_wrap_basic a:hover {
+.katb_widget_test_wrap_basic a:hover,.katb_widget_multiple_wrap_basic a:hover {
 	padding: 0;
 	margin: 0;
 	text-decoration: none;
@@ -181,10 +207,34 @@
  * ------ Widget Custom Display Styles ----------------------- */
 
 .katb_widget_test_wrap {
-	padding: 10px 5% 10px 5%;
-	margin: 0px;
+	padding: 15px;
+	margin: 0px 0px 15px 0px;
 	width: 85%;
 	overflow-x: auto;
+	/* CSS3 rounded corners */
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+   	/* CSS3 shadow */
+	-webkit-box-shadow: 2px 5px 5px 0 rgba(72,72,72,0.8);
+	-moz-box-shadow: 2px 5px 5px 0 rgba(72,72,72,0.8);
+	box-shadow: 2px 5px 5px 0 rgba(72,72,72,0.8);
+}
+
+.katb_widget_test_box {
+	padding: 5px;
+	margin: 0px;
+	max-height: 12em;
+	overflow: auto;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+}
+
+.katb_widget_multiple_box {
+	padding: 20px 10px 20px 20px;
+	margin: 0px 0px 15px 0px;
+	width: 85%;
 	/* CSS3 rounded corners */
 	-webkit-border-radius: 12px;
 	-moz-border-radius: 12px;
@@ -195,18 +245,16 @@
 	box-shadow: 2px 5px 5px 0 rgba(72,72,72,0.8)
 }
 
-.katb_widget_test_box {
-	padding: 10px 10px 0px 10px;
+.katb_widget_text  {
+	display: block;
+	padding: 0px;
 	margin: 0px;
-	max-height: 12em;
-	overflow: auto;
-	-webkit-border-radius: 12px;
-	-moz-border-radius: 12px;
-	border-radius: 12px;
+	font-size: 12px;
+	line-height: 16px;
 }
 
-.katb_widget_text {
-	display: block;
+.katb_widget_multiple_text {
+	display:block;
 	padding: 0px;
 	margin: 0px;
 	font-size: 12px;
@@ -220,26 +268,44 @@
 	line-height: 16px!important;	
 }
 
-.katb_widget_text p:first-child {margin-top: 0px!important}
+.katb_widget_multiple_text p {
+	margin: 6px 0px 0px 0px!important;
+	padding: 0px!important;
+	font-size: 12px!important;
+	line-height: 16px!important;
+}
+
+.katb_widget_text p:first-child,.katb_widget_multiple_text p:first-child  {margin-top: 0px!important}
 
 .katb_widget_test_meta {
 	display: block;
 	clear: both;
 	float: left;
-	padding: 10px 10px 0px 10px;
+	padding: 10px 10px 0px 5px;
 	margin: 0px;
 	font-size: 11px;
 	font-weight: bold;
 }
 
-.katb_widget_test_meta a {
+.katb_widget_multiple_meta {
+	display: block;
+	clear: both;
+	padding: 0px;
+	margin: 5px 0px 0px 0px;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+.katb_widget_test_meta a,.katb_widget_multiple_meta a {
 	padding: 0px;
 	margin: 0px;
 	font-size: 11px !important;
 	font-weight: bold !important;
 }
 
-.katb_widget_test_wrap a:hover {
+.katb_widget_multiple_meta a {}
+
+.katb_widget_test_wrap a:hover,.katb_widget_multiple_wrap a:hover {
 	padding: 0px;
 	margin: 0px;
 	text-decoration: none;
@@ -255,7 +321,7 @@
 
 .katb_input_style label{
 	clear: both;
-	width: 110px;
+	width: 130px;
 	float: left;
 	margin: 5px;
 }
@@ -285,20 +351,46 @@
 
 .katb_submit {clear: both;}
 
-.katb_captcha {float: left;margin:0;padding:0;}
+.katb_captcha img {
+	float: left;
+	margin: 0px 0px 0px 10px!important;
+	padding: 0px;
+	border:none!important;
+}
+
+.katb_captcha label {
+	width: auto;
+	float: left;
+	margin: 0px 0px 0px 10px;
+	padding: 0px;
+}
+
+.katb_captcha input {
+	width: 150px;
+	float: left;
+	margin: 0px 0px 0px 10px;
+	padding: 0px;
+}
 
 .katb_clearboth {clear: both;}
 
 /*
  * ------ Widget Input Form Styles ----------------------- */
-.katb_widget_form input {margin-left: 10px;}
+.katb_widget_form input {margin-left: 0px;}
 
 .katb_widget_form input.katb_input,.katb_widget_form textarea, .katb_widget_form p {
-	margin: 5px 10px 5px 10px;
+	margin: 5px 10px 5px 0px;
 	width: 90%;
 }
 
-.katb_widget_form img {margin-left: 10px;}
+.katb_widget_form img {
+	float: left;
+	margin: 0px!important;
+	padding: 0px;
+	border:none!important;
+}
+
+.katb_widget_form input.katb_captcha_widget_input {width: 120px;}
 
 .katb_widget_submit {clear: both;}
 
@@ -328,6 +420,8 @@
 	border-radius: 10px;
 	float: left;
 	padding: 0;
+	border: none;
+	box-shadow: none;
 }
 
 .katb_widget_avatar img.avatar {
@@ -336,9 +430,68 @@
 	border-radius: 10px;
 	padding: 0;
 	margin: 0px 10px 0px 0px;
+	border: none;
+	box-shadow: none;
 }
 
-.post .gravatar_logo {
-	margin: 0 0 0 5px; 
-	padding: 0; 
+.gravatar_logo {
+	margin: 0px!important; 
+	padding: 0px;
+	border: none!important; 
+}
+
+/* ======================================================================================================
+ *                              Popup Styles 
+ * ====================================================================================================== */
+
+.katb_excerpt_popup_bg {
+	z-index: 10000;
+	position: fixed;
+	display: none;
+	/*height: 100%;
+	width: 100%;*/
+	background: #000000;
+	top: 0px;
+	left: 0px;
+	bottom:-1000px;
+	right: 0px;
+}
+
+.katb_topopup {
+	font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+    background: none scroll repeat 0 0 #FFFFFF;
+    border: 10px solid #ccc;
+    border-radius: 3px 3px 3px 3px;
+    color: #333333;
+    display: none;
+	font-size: 14px;
+    position: fixed;
+    overflow: auto;
+    top: 25%;
+    bottom: 25%;
+    left: 10%;
+    width: 70%;
+    z-index: 10001;
+    padding: 10px;
+}
+
+.katb_popup_meta {
+	font-weight: bold;
+}
+
+.katb_popup_text {
+	margin: 15px 0px 0px 0px;
+}
+
+div.katb_close {
+    background: url("../includes/closebox.png") no-repeat scroll 0 0 transparent;
+    /*bottom: 24px;*/
+    cursor: pointer;
+    float: right;
+    height: 30px;
+    /*left: 27px;*/
+    position: relative;
+    width: 30px;
+    margin-right: 0px;
+	margin-top: 0px;
 }

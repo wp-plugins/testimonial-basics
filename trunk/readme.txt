@@ -2,9 +2,9 @@
 Contributors: kevinhaig
 Donate link: http://www.kevinsspace.ca/testimonial-basics/
 Tags: testimonial,testimonials,praise,user comments,widgets,translation ready
-Requires at least: 3.1
-Tested up to: 3.5.0
-Stable tag: 2.10.6
+Requires at least: 3.3
+Tested up to: 3.5.1
+Stable tag: 3.0.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/quick-guide-gplv3.html
 
@@ -25,15 +25,24 @@ page or a widget. The plug in is very easy to use and modify:
     3) Testimonials are displayed in a pages content
 
        a) The user can display all testimonials or a selected number.
-       b) New: The user can group testimonials for display on separate pages.
+       b) The user can group testimonials for display on separate pages.
        c) Testimonials can be displayed by most recent date, or by a 
           user selected order.
        d) A single selected testimonial can be displayed, or a single 
           testimonial can be randomly displayed every time the page 
           is loaded.
+       e) New: A new shortcode allows you to display multiple testimonials randomly 
+          selected from a group or from all testimonials.
+       f) New: Display excerpts of testimonials and when the user clicks a ...more link, the 
+          full testimonial is diaplayed in a pop up window.
 
-    4) A single selected or single random testimonial can be displayed 
-       in a widget.
+    4) Display Widgets
+    
+       a) A single selected or single random testimonial can be displayed.
+       b) New: A multiple display widget allows you to display multiple testimonials 
+          in a widget, by group, date, order or randomly.
+       c) New: Display excerpts of testimonials and when the user clicks a ...more link, the 
+          full testimonial is diaplayed in a pop up window.
 
     5) A visitor input form is easily set up in the content of a page, 
        allowing visitors to submit testimonials.
@@ -47,23 +56,28 @@ page or a widget. The plug in is very easy to use and modify:
     
     9) There is a full set of option features
     
-       a) Including the Website link is an option
-       b) Including the Date is an option
-       c) Including the Location is an option
-       d) New: Including italic style is an option
-       e) New: Including Gravatars is an option
-       f) User can select a customizable display
-       g) Select one of nine fonts from a drop down list
-       h) Select text colors using a color wheel
-       i) Select background colors using a color wheel
-       j) Visitor input form options
+       a) Including the Website link is an option.
+       b) Including the Date is an option.
+       c) Including the Location is an option.
+       d) Including italic style is an option.
+       e) Including Gravatars is an option.
+       f) User can select a customizable display.
+       g) Select one of nine fonts from a drop down list.
+       h) Select text colors using a color picker.
+       i) Select background colors using a color picker.
+       j) Visitor input form options to include a title, email note, and 
+          display the html allowed strip (new).
+       k) New: include a contact email as an option
+       l) New: Editor user level can now edit testimonials
+       m) New: Using excerpts and excerpt lengths are separately set for widgets 
+          and the main area testimonial displays
     
     10) There is a function that lets you display testimonials within 
         template code.
     
-    11) Detailed documentation now available at the plugin site.
+    11) Some html is now allowed in testimonials
     
-    12) New: Paragraphs and line breaks are now allowed in testimonials.
+    12) Detailed documentation now available at the plugin site
 
 == Installation ==
 
@@ -120,6 +134,25 @@ Then you can drag the dot around thw circle to select the base color.
 3. Testimonials Display Options
 
 == Changelog ==
+
+= 3.0.0 =
+* added multiple testimonial widget
+* added random shortcode for main area displays
+* added excerpt for widgets, main area and function testimonials displays
+* added email for contact about submitted testimonials
+* set up captcha text input to be fully selected on click
+* changed coding of the main area input form to a shortcode format to minimize 
+  potential plugin conflicts and duplicate entry issues
+* modified captcha coding letter selection, and variable names to minimize potential conflicts
+* added option to allow WordPress editor levels to edit testimonials
+* html tags allowed p,br,i,em,strong,q,h1-h6
+* html strip now displayed as an option
+* Fixed \ problem in emails
+* Corrected blogBox references in validate function
+* Table encoding issue resolved with a table set up modification for new installs 
+  and a blog post on updating existing tables.
+* When using order to display testimonials they are now displayed in ascending order.
+* incorporated new color picker with fallback to color wheel for older versions of WordPress
 
 = 2.10.6 =
 * fixed bug for uploading testimonials
