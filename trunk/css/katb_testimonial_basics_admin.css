@@ -7,17 +7,25 @@
  * @author		Kevin Archibald <www.kevinsspace.ca/contact/>
  */
 #katb_picker {
-	position: relative;
-	top: 900px;
+	position:absolute;
+	top: 1200px;
 	left: 650px;
 	width: 200px;
 }
 
-.katb_options {margin-top:-200px;}
+.farbtastic,.farbtastic .wheel {}
+
+.katb_options {margin-top: 0px;}
 
 .wrap p {font-size: 1.0em;}
 
 .wrap h3 {font-size: 1.4em;}
+
+.wrap img {
+	max-width: 100px;
+	float: left;
+	margin-right: 10px;
+}
 
 .katb_admin_form input,.katb_admin_form textarea {margin: 0 5px 0 5px;}
 
@@ -40,4 +48,32 @@
 	clear: both;
 	width: 400px;
 	margin-left: 140px;
+}
+
+.katb_admin_paginate,.katb_admin_pages {
+	background-color: #D1D1D1;
+	padding: 5px;
+	margin-bottom: 5px;
+	margin-right: 5px;
+	border-top: 3px solid #EDEDED;
+	border-left: 3px solid #EDEDED;
+	border-right: 3px solid #BABABA;
+	border-bottom: 3px solid #BABABA;
+}
+
+.katb_admin_paginate:hover {
+	border-top: 3px solid #BABABA;
+	border-left: 3px solid #BABABA;
+	border-right: 3px solid #EDEDED;
+	border-bottom: 3px solid #EDEDED;
+}
+
+.katb_admin_paginate_selected {
+	background-color: #DDE5FF;
+	padding: 5px;
+	margin-bottom: 5px;
+	border-top: 3px solid #EDEDED;
+	border-left: 3px solid #EDEDED;
+	border-right: 3px solid #BABABA;
+	border-bottom: 3px solid #BABABA;
 }

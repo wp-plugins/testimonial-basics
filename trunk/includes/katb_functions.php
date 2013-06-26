@@ -110,6 +110,15 @@ function katb_get_option_parameters() {
 			'section' => 'input',
 			'default' =>0, // 0 for off
 			'class' => 'checkbox'
+		),
+		'katb_use_color_captcha' => array(
+			'name' => 'katb_use_color_captcha',
+			'title' => __( 'Use color captcha option' , 'testimonial-basics' ),
+			'type' => 'checkbox',
+			'description' => __('Check to use the color captcha option','testimonial-basics'),
+			'section' => 'input',
+			'default' =>0, // 0 for off
+			'class' => 'checkbox'
 		),				
 		'katb_include_input_title' => array(
 			'name' => 'katb_include_input_title',
@@ -166,6 +175,28 @@ function katb_get_option_parameters() {
 			'class' => 'checkbox'
 		),		
 // Content Display
+		'katb_use_pagination' => array(
+			'name' => 'katb_use_pagination',
+			'title' => __( 'Use pagination' , 'testimonial-basics' ),
+			'type' => 'checkbox',
+			'description' => __('Check to include for ALL or ALL GROUP displays.','testimonial-basics'),
+			'section' => 'content',
+			'default' =>0, // 0 for off
+			'class' => 'checkbox'
+		),
+		'katb_paginate_number' => array(
+			'name' => 'katb_paginate_number',
+			'title' => __('Testimonials per page','testimonial-basics'),
+			'type' => 'select',
+			'valid_options' => array(
+				"5", 
+				"10"
+			),
+			'description' => __('select 5 or 10 per page','testimonial-basics'),
+			'section' => 'content',
+			'default' => '5',
+			'class' => 'select'
+		),
 		'katb_use_excerpts' => array(
 			'name' => 'katb_use_excerpts',
 			'title' => __( 'Use excerpts in testimonial display' , 'testimonial-basics' ),
@@ -539,57 +570,59 @@ function katb_get_option_parameters() {
 		$katb_html = '<div class="katb_error">'.$katb_error.'</div>';
 	} else {
 		for ( $i = 0 ; $i < $katb_tnumber; $i++ ) {
+			//if gravatars are enabled, check for valid avatar
+			if ( $use_gravatars == 1 )$has_valid_avatar = katb_validate_gravatar($katb_tdata[$i]['tb_email']);
 			//set up hidden popup if excerpt is used	
 			if ( $use_excerpts == 1 ) {
-				$katb_html .= '<div class="katb_topopup" id="katb_from_code_'.$katb_tdata[$i]['tb_id'].'">';
+				$katb_html .= '<div class="katb_topopup" id="katb_from_code_'.sanitize_text_field( $katb_tdata[$i]['tb_id'] ).'">';
 				$katb_html .= '<div class="katb_close"></div>';
-				$katb_html .= '<div class="katb_popup_text">'.stripcslashes($katb_tdata[$i]['tb_testimonial']).'</div><br/>';
-				$katb_html .= '<span class="katb_popup_meta">'.stripcslashes($katb_tdata[$i]['tb_name']);
+				if ( $use_gravatars == 1 ) {
+					If ( $has_valid_avatar == 1 ) {
+						$katb_html .= '<span class="katb_p_avatar">'.get_avatar( $katb_tdata[$i]['tb_email'], $size = '60' ).'</span>';
+					}
+				}	
+				$katb_html .= '<div class="katb_popup_text">'.wp_kses_post( stripcslashes($katb_tdata[$i]['tb_testimonial'] ) ).'</div><br/>';
+				$katb_html .= '<span class="katb_popup_meta">'.sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) );
 				if ($katb_options['katb_show_date'] == 1) {
-					$katb_date = $katb_tdata[$i]['tb_date'];
-					$year = intval(substr($katb_date,0,4));
-					$month = intval(substr($katb_date,5,2));
-					$monthname = date("M", mktime(0, 0, 0, $month, 10));
-					$day = intval(substr($katb_date,8,2));
-					$katb_html .= ', '.$monthname.' '.$day.'\''.$year;
+					$katb_date = sanitize_text_field( $katb_tdata[$i]['tb_date'] );
+					$katb_html .= ', <i>'.mysql2date(get_option('date_format'), $katb_date).'</i>';
 				}
 				if ($katb_options['katb_show_location'] == 1) {
-					if ( $katb_tdata[$i]['tb_location'] != "" ) $katb_html .= ', '.stripcslashes($katb_tdata[$i]['tb_location']);
+					if ( $katb_tdata[$i]['tb_location'] != "" ) $katb_html .= ', '.sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_location'] ) );
+				}
+				if ($katb_options['katb_show_website'] == 1) {
+					if ( $katb_tdata[$i]['tb_url'] != "" ) $katb_html .= ', <a href="'.esc_url($katb_tdata[$i]['tb_url']).'" title="Testimonial_author_site" target="_blank" >'.$katb_tdata[$i]['tb_url'].'</a>';
 				}
 				$katb_html .= '</span></div>';
 				$katb_html .= '<div class="katb_loader"></div>';
-				$katb_html .= '<div class="katb_excerpt_popup_bg" id="katb_from_code_'.$katb_tdata[$i]['tb_id'].'_bg"></div>';
+				$katb_html .= '<div class="katb_excerpt_popup_bg" id="katb_from_code_'.sanitize_text_field( $katb_tdata[$i]['tb_id'] ).'_bg"></div>';
 			}
 			if ( $use_gravatars == 1 ) {
-				$has_valid_avatar = katb_validate_gravatar($katb_tdata[$i]['tb_email']);
 				If ( $has_valid_avatar == 1 ) {
 					$katb_html .= '<span class="katb_p_avatar">'.get_avatar( $katb_tdata[$i]['tb_email'], $size = '60' ).'</span>';
 				}
 			}			
 			if ($use_excerpts == 1) {
-				$text = stripcslashes($katb_tdata[$i]['tb_testimonial']);
-				$classID = 'katb_from_code_'.$katb_tdata[$i]['tb_id'];
-				$text = katb_testimonial_excerpt_filter($excerpt_chars,$text,$classID);
+				$text = wp_kses_post( stripcslashes($katb_tdata[$i]['tb_testimonial'] ) );
+				$classID = 'katb_from_code_'.sanitize_text_field( $katb_tdata[$i]['tb_id'] );
+				$text = katb_testimonial_excerpt_filter( $excerpt_chars, $text, $classID);
 				$katb_html .= '<div class="katb_p_test" >'.$text.'</div>';
 			} else {
-					$katb_html .= '<div class="katb_p_test" >'.stripcslashes($katb_tdata[$i]['tb_testimonial']).'</div>';
+					$katb_html .= '<div class="katb_p_test" >'.wp_kses_post( stripcslashes($katb_tdata[$i]['tb_testimonial'] ) ).'</div>';
 			}
-			$katb_html .= '<div class="katb_p_authorstrip"><b>'.stripcslashes($katb_tdata[$i]['tb_name']).'</b>';
+			$katb_html .= '<div class="katb_p_authorstrip"><b>'.sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ).'</b>';
 			if ($katb_options['katb_show_date'] == 1) {
-				$katb_date = $katb_tdata[$i]['tb_date'];
-				$year = intval(substr($katb_date,0,4));
-				$month = intval(substr($katb_date,5,2));
-				$monthname = date("M", mktime(0, 0, 0, $month, 10));
-				$day = intval(substr($katb_date,8,2));
-				$katb_html .= ', '.$monthname.' '.$day.'\''.$year;
+				$katb_date = sanitize_text_field( $katb_tdata[$i]['tb_date'] );
+				$katb_html .= ', <i>'.mysql2date(get_option('date_format'), $katb_date).'</i>';
 			}
 			if ($katb_options['katb_show_location'] == 1) {
-				if ( $katb_tdata[$i]['tb_location'] != "" ) $katb_html .= ', '.stripcslashes($katb_tdata[$i]['tb_location']);
+				if ( $katb_tdata[$i]['tb_location'] != "" ) $katb_html .= ', '.sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_location'] ) );
 			}
 			if ($katb_options['katb_show_website'] == 1) {
 				if ( $katb_tdata[$i]['tb_url'] != "" ) $katb_html .= ', <a href="'.esc_url($katb_tdata[$i]['tb_url']).'" title="Testimonial_author_site" target="_blank" >'.$katb_tdata[$i]['tb_url'].'</a>';
 			}
-			$katb_html .= '</div><br/>';
+			$katb_html .= '</div>';
+			$katb_html .= '<br style="clear:both;" /><br/>';
 		}
 	}	
 	return $katb_html;
@@ -618,6 +651,12 @@ function katb_allowed_html() {
 		'em' => array(),
 		'strong' => array(),
 		'q' => array(),
+		'a' => array(
+					'href' => array(),
+					'title' => array(),
+					'target' => array()
+					),
+		//'img' => array(),
 	);
 		
     return apply_filters( 'katb_allowed_html', $allowed_html );
@@ -797,19 +836,24 @@ add_action ('parse_request', 'katb_check_for_submitted_testimonial');
 function katb_testimonial_excerpt_filter($length,$text,$classID) { 
 		
 		$text = strip_shortcodes($text);
-		$text = strip_tags($text,'<p></p><i></i><br/><br /><em></em><strong></strong><q></q><h1></h1><h2></h2><h3></h3><h4></h4><h5></h5><h6></h6>');
-		
+		$text = strip_tags($text, '<a><p><em><i><strong><img><h1><h2><h3><h4><h5><h6><q>');
+		$text_first_length = substr($text,0,$length);
+		$text_no_html = strip_tags($text_first_length);
+		$add_length = $length - strlen($text_no_html);
+		$length = $length + $add_length;
 		$output = strlen($text);
 		if($output > $length ) {
 			$break_pos = strpos($text, ' ', $length);//find next space after desired length
 			if($break_pos == '')$break_pos = $length;
-			$text = substr($text,0,$break_pos);
-			//$text = force_balance_tags($text);
-			$text = $text.' <a href="#" class="katb_excerpt_more" data-id="'.$classID.'" > ...'.__('more','testimonial-basics').'</a>';
+			//<br /> check
+			//$break_pos = $break_pos + 8;
+			if( substr( $text,$break_pos-4,4 ) == '<br ') $break_pos = $break_pos + 1;
+			$text = substr( $text, 0, $break_pos );
+			//$text = force_balance_tags( $text );
+			$text .= ' <a href="#" class="katb_excerpt_more" data-id="'.$classID.'" > ...'.__('more','testimonial-basics').'</a>';
 			$text = force_balance_tags($text);
 		}
-	
 		return $text;
 	}
-
+ 
 ?>

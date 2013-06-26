@@ -34,6 +34,10 @@ $katb_options = katb_get_options();
 			.katb_test_meta {color: <?php echo $katb_options['katb_author_location_color']; ?>;}
 			.katb_test_box a {color: <?php echo $katb_options['katb_website_link_color']; ?>!important;}
 			.katb_test_box a:hover {color: <?php echo $katb_options['katb_website_link_hover_color']; ?>!important;}
+			.katb_display_paginate,.katb_display_paginate_summary,.katb_display_paginate_selected {
+				background-color: <?php echo $katb_options['katb_testimonial_box_color']; ?>!important;
+				color: color: <?php echo $katb_options['katb_testimonial_box_font_color']; ?>!important;
+			}
 		<?php } ?>
 	</style>
 <?php } ?>
