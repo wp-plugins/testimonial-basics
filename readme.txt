@@ -3,8 +3,8 @@ Contributors: kevinhaig
 Donate link: http://www.kevinsspace.ca/testimonial-basics/
 Tags: testimonial,testimonials,praise,user comments,widgets,translation ready
 Requires at least: 3.3
-Tested up to: 3.5.1
-Stable tag: 3.0.0
+Tested up to: 3.6
+Stable tag: 3.12.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/quick-guide-gplv3.html
 
@@ -19,8 +19,10 @@ page or a widget. The plug in is very easy to use and modify:
 
     1) Testimonials are saved in a database table integrated into WordPress.
     
-    2) Users access their testimonials through and Administration Panel where 
+    2) Users access their testimonials through an Administration Panel where 
        it is very easy to add new testimonials, or modify existing ones.
+       - New : The administration panel is now paged
+       - New : Images can now be loaded through the admin panel.
        
     3) Testimonials are displayed in a pages content
 
@@ -31,18 +33,23 @@ page or a widget. The plug in is very easy to use and modify:
        d) A single selected testimonial can be displayed, or a single 
           testimonial can be randomly displayed every time the page 
           is loaded.
-       e) New: A new shortcode allows you to display multiple testimonials randomly 
-          selected from a group or from all testimonials.
-       f) New: Display excerpts of testimonials and when the user clicks a ...more link, the 
-          full testimonial is diaplayed in a pop up window.
+       e) A new shortcode allows you to display multiple testimonials 
+          randomly selected from a group or from all testimonials.
+       f) Display excerpts of testimonials and when the user clicks 
+          a ...more link, the full testimonial is diaplayed in a pop 
+          up window.
+       g) New-Testimonials can now be presented in an optional 5 or 10 
+          per page format.
 
     4) Display Widgets
     
-       a) A single selected or single random testimonial can be displayed.
-       b) New: A multiple display widget allows you to display multiple testimonials 
-          in a widget, by group, date, order or randomly.
-       c) New: Display excerpts of testimonials and when the user clicks a ...more link, the 
-          full testimonial is diaplayed in a pop up window.
+       a) A single selected or single random testimonial can be 
+          displayed.
+       b) A multiple display widget allows you to display multiple 
+          testimonials in a widget, by group, date, order or randomly.
+       c) Display excerpts of testimonials and when the user clicks 
+          a ...more link, the full testimonial is diaplayed in a 
+          pop-up window.
 
     5) A visitor input form is easily set up in the content of a page, 
        allowing visitors to submit testimonials.
@@ -50,6 +57,7 @@ page or a widget. The plug in is very easy to use and modify:
     6) A visitor input form is also available in widget form.
     
     7) The user can include a captcha on input forms to reduce spam.
+       New: A color option is now available for wider compatibility.
     
     8) The user can use a display native to the theme or select a 
        customizable display option.
@@ -57,7 +65,8 @@ page or a widget. The plug in is very easy to use and modify:
     9) There is a full set of option features
     
        a) Including the Website link is an option.
-       b) Including the Date is an option.
+       b) Including the Date is an option. New-Dates are now 
+          displayed in the default WordPress format.
        c) Including the Location is an option.
        d) Including italic style is an option.
        e) Including Gravatars is an option.
@@ -65,17 +74,17 @@ page or a widget. The plug in is very easy to use and modify:
        g) Select one of nine fonts from a drop down list.
        h) Select text colors using a color picker.
        i) Select background colors using a color picker.
-       j) Visitor input form options to include a title, email note, and 
-          display the html allowed strip (new).
-       k) New: include a contact email as an option
-       l) New: Editor user level can now edit testimonials
-       m) New: Using excerpts and excerpt lengths are separately set for widgets 
-          and the main area testimonial displays
+       j) Visitor input form options to include a title, email note, 
+          and display the html allowed strip (new).
+       k) Include a contact email as an option
+       l) Admin or Editor user level can edit testimonials
+       m) Using excerpts and excerpt lengths are separately set 
+          for widgets and the main area testimonial displays
     
     10) There is a function that lets you display testimonials within 
         template code.
     
-    11) Some html is now allowed in testimonials
+    11) HTML tags allowed : a p br i em strong q h1-h6
     
     12) Detailed documentation now available at the plugin site
 
@@ -95,15 +104,6 @@ and you are not using a cache plugin. It is recommended that you use a cache plu
 for any site, whether or not you are using Gravatars for Testimonial Basics. I use 
 WP Super Cache.
 
-= I just downloaded version 2.0.0 and I lost all my formatting =
-
-When you first update testimonial basics you will default to the unformatted 
-display option. Go to the options panel and there you will see a set of easy 
-to use options. The option "Use formatted display" is the one to check. It will 
-bring back the formatted display from the original version. Except now you can 
-easily control the colors and fonts of the display, allowing you to taylor it to 
-your theme.
-
 = My testimonial is not showing? =
 
 Ensure it is approved.
@@ -116,12 +116,7 @@ and the cached files will eventually be deleted and refreshed.
 
 = When I input a color number in the cell the color won't change? =
 
-Hit the enter key
-
-= The color wheel is not working =
-
-Some times to get the color wheel to work you need to click the center of the square box. 
-Then you can drag the dot around thw circle to select the base color.
+Hit the enter key.
 
 == Screenshots ==
 
@@ -134,6 +129,20 @@ Then you can drag the dot around thw circle to select the base color.
 3. Testimonials Display Options
 
 == Changelog ==
+= 3.12.1 =
+* added a color option for captcha
+* added link tag to allowed html for user submissions
+* updated html allowed on admin page to wp_kses_post, giving full access to post html tags
+* added strict image formatting
+* added pagination to edit testimonials admin panel
+* added pagination option for displaying all or grouped testimonials by date or order
+* changed date display format to the default selected in the Settings => General Tab
+* updated output data validation
+* Minor bug fixes and code clean-up
+* added Dutch translation
+* modified code to allow gravatars in excerpt pop-ups
+* testimonials in the admin edit panel are now displayed most recent first
+
 
 = 3.0.0 =
 * added multiple testimonial widget

@@ -3,7 +3,7 @@
 Plugin Name: Testimonial Basics
 Plugin URI: http://www.kevinsspace.ca/testimonial-basics-wordpress-plugin/
 Description: This plugin facilitates easy management of customer testimonials. The user can set up an input form in a page or in a widget, and display all or selected testimonials in a page or a widget. The plug in is very easy to use and modify.
-Version: 3.0.0
+Version: 3.12.1
 Author: Kevin Archibald
 Author URI: http://www.kevinsspace.ca
 License: GPLv3
@@ -30,7 +30,7 @@ License URI: see the license.txt file for license details.
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
+/**** This is a Beta Version *****/
 /** ----------- Session Start ----------------------------------------------
  * Start session if not already started. The session is required
  * for passing the password from katb_captcha.php to the input
@@ -215,9 +215,9 @@ add_action( 'wp_print_styles', 'katb_add_custom_styles' );
  * and the filtered string is replaced by the input form ($html_string)
  * 
  * 
- * uses katb_input_form() defined above
- * accepts string $content
- * rerurns string $content
+ * @uses katb_display_input_form() defined in katb_shortcodes.php
+ * @input string $content
+ * @return string $content
  * 
  * ------------------------------------------------------------------------------------------ */
 function katb_insert_input_form($content){

@@ -316,7 +316,7 @@
  * ==================================================================================================== */
 
 .katb_input_style {
-	margin-top:10px;
+	margin-top: 10px;
 }
 
 .katb_input_style label{
@@ -384,15 +384,28 @@
 }
 
 .katb_widget_form img {
+	display: block;
 	float: left;
-	margin: 0px!important;
+	margin: 0px 5px 5px 0px!important;
 	padding: 0px;
 	border:none!important;
 }
 
-.katb_widget_form input.katb_captcha_widget_input {width: 120px;}
+.katb_widget_form input.katb_captcha_widget_input {width: 90px;}
 
-.katb_widget_submit {clear: both;}
+.katb_widget_submit {
+	display: block;
+	clear: both;
+	float: left;
+}
+
+.katb_widget_reset {float:left;}
+
+.use_gravatar {
+	clear: both;
+	float: left;
+	margin-top: 5px;
+}
 
 /* ======================================================================================================
  *                               Error Styles 
@@ -494,4 +507,57 @@ div.katb_close {
     width: 30px;
     margin-right: 0px;
 	margin-top: 0px;
+}
+
+/* ===========================================================
+ *        Pagination Styles
+ * =========================================================== */
+.katb_display_paginate,.katb_display_paginate_summary {
+	background-color: transparent;/*#D1D1D1*/
+	border-radius: 5px;
+	padding: 5px;
+	margin-bottom: 5px;
+	margin-right: 5px;
+	border-top: 3px solid #EDEDED;
+	border-left: 3px solid #EDEDED;
+	border-right: 3px solid #BABABA;
+	border-bottom: 3px solid #BABABA;
+}
+
+.katb_display_paginate:hover {
+	border-top: 3px solid #BABABA;
+	border-left: 3px solid #BABABA;
+	border-right: 3px solid #EDEDED;
+	border-bottom: 3px solid #EDEDED;
+	opacity: 0.6;
+}
+
+.katb_display_paginate_selected {
+	background-color: white;/*#D1D1D1*/
+	opacity: 0.6;
+	padding: 5px;
+	border-radius: 5px;
+	margin-bottom: 5px;
+	margin-right: 5px;
+	border-top: 3px solid #EDEDED;
+	border-left: 3px solid #EDEDED;
+	border-right: 3px solid #BABABA;
+	border-bottom: 3px solid #BABABA;
+}
+
+/* ==========================================================
+ *          image styles
+ * ========================================================== */
+.katb_test_wrap img, .katb_test_wrap_basic img,
+.katb_widget_test_wrap_basic img,.katb_widget_test_wrap img,
+.katb_widget_multiple_box img,.katb_widget_multiple_box_basic img,
+.katb_topopup img,.katb_p_test img {
+	display: block;
+	float: left;
+	max-width: 100px!important;
+	margin: 0px 10px 0px 0px!important;
+	border-radius: 10px!important;
+	padding: 0;
+	border: none!important;
+	box-shadow: none;
 }

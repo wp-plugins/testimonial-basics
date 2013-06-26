@@ -14,7 +14,7 @@
  * file:katb_testimonial_basics_admin.css is in /css and is usde to style the admin pages
  * file:katb_testimonial_basics_doc_ready.js is located in /js and contains scripts for 
  * display in the admin pages, and to display set up the color wheel useage
- * farbtastic :  is the jquery script for the color wheel
+ * farbtastic/wp-color-picker :  are jquery scripts for selectig colors
  * --------------------------------------------------------------------------------------- */ 
 function katb_testimonial_basic_admin_style($hook) {
 	//Only enqueue if the admin page is loaded  
@@ -23,11 +23,10 @@ function katb_testimonial_basic_admin_style($hook) {
 		  && 'testimonial-basics_page_katb_testimonial_basics_admin_edit'!= $hook) return;
 	//Page is loaded so go ahead
 	global $wp_version;
-	//$wp_version = 3.5;	
+	//$wp_version = 3.4;	
 	wp_register_style( 'testimonial_basic_admin_style',plugins_url() . '/testimonial-basics/css/katb_testimonial_basics_admin.css',array(),'20120815','all' ); 
 	wp_enqueue_style( 'testimonial_basic_admin_style' );
-	//wp_enqueue_script( 'testimonial_basics_options_js', plugins_url() . '/testimonial-basics/js/katb_testimonial_basics_doc_ready.js', array('jquery'), '1', true );
-	 //If the WordPress version is greater than or equal to 3.5, then load the new WordPress color picker.
+	//If the WordPress version is greater than or equal to 3.5, then load the new WordPress color picker.
     if ( 3.5 <= $wp_version ){
         //Both the necessary css and javascript have been registered already by WordPress, so all we have to do is load them with their handle.
         wp_enqueue_style( 'wp-color-picker' );
@@ -122,7 +121,7 @@ function katb_testimonial_basics_introduction (){ ?>
 			<code>&#60;!-- katb_input_form --&#62;</code>
 			<?php echo ' '; _e('Note the space between the dash and the letters.','testimonial-basics'); echo ' ';
 			_e('It will not work without the spaces.','testimonial-basics'); echo ' ';
-			_e('IMPORTANT : Make sure you set up the page using the "HTML" editor and not the "Visual" editor.','testimonial-basics'); ?></p>
+			_e('IMPORTANT : Make sure you set up the page using the "Text" editor and not the "Visual" editor.','testimonial-basics'); ?></p>
 
 	<h3><?php _e('Visitor Input Widget','testimonial-basics'); ?></h3>
 	<p><?php _e('You can also use a widget as a user input form.','testimonial-basics'); echo ' ';
@@ -142,8 +141,9 @@ function katb_testimonial_basics_introduction (){ ?>
 			<li><?php _e('Options for','testimonial-basics');echo' "id" : "" - ';_e('leave blank for multiple testimonials','testimonial-basics');echo ', "ID" - ';_e('put in testimonial ID','testimonial-basics');echo ', "random" - ';_e('single random testimonial','testimonial-basics'); ?></li>
 		</ol>
 
-	<p><?php _e('Note that if you put id="3" for example or id="random", then the "by" and "number" attributes are ignored.','testimonial-basics');echo' ';
-			_e('The id property must be blank to display (ie id="") multiple testimonials.','testimonial-basics'); ?></p>
+	<p><?php _e('Note that if you put id="3" for example or id="random", then the "by" and "number" attributes are ignored.','testimonial-basics');echo ' ';
+			_e('The id property must be blank to display (ie id="") multiple testimonials.','testimonial-basics');echo ' <br/>';
+			_e('IMPORTANT : Make sure you set up the page using the "Text" editor and not the "Visual" editor.','testimonial-basics'); ?></p>
 			
 	<p><?php _e('To display multiple testimonials randomly :','testimonial-basics') ?></p>
 	<code>[katb_random_testimonials group="all" number="all"]</code>
@@ -335,6 +335,8 @@ function katb_testimonial_basics_edit_page(){
 	global $wpdb,$tablename;
 	$tablename = $wpdb->prefix.'testimonial_basics';
 	$katb_allowed_html = katb_allowed_html();
+	$katb_admin_span = 10;
+	//$katb_admin_span = 2;
 	//submit testimonial
 	if ( isset($_POST['submitted']) && check_admin_referer('katb_nonce_3','katb_admin_form_nonce')) {
 		//Validate Input
@@ -401,8 +403,8 @@ function katb_testimonial_basics_edit_page(){
 		$katb_date = substr($katb_datetime,0,10);
 		$katb_time = substr($katb_datetime,11,8);
 		//Sanitize testimonial - same html allowed as allowed in posts
-		$katb_testimonial = wp_kses($_POST['tb_testimonial'],$katb_allowed_html);
-		//$katb_testimonial = wp_kses_post( $_POST['tb_testimonial'] );
+		//$katb_testimonial = wp_kses($_POST['tb_testimonial'],$katb_allowed_html);
+		$katb_testimonial = wp_kses_post( $_POST['tb_testimonial'] );
 		if ($katb_testimonial == "" ) {
 			$error .= '*'.__('Testimonial is required','testimonial-basics').'*';
 		}
@@ -494,6 +496,51 @@ function katb_testimonial_basics_edit_page(){
 		$katb_date = substr($edit_data['tb_date'],0,10);
 		$katb_time = substr($edit_data['tb_date'],11,8);
 	}
+	if( isset ( $_POST['katb_admin_page'] ) ) {
+		if ( isset( $_SESSION['katb_admin_offset'] ) ) {
+			$katb_admin_offset = $_SESSION['katb_admin_offset'];
+		} else {
+			$katb_admin_offset = 0;
+		}
+		
+		$results = $wpdb->get_results( " SELECT COUNT(1) FROM `$tablename` ",ARRAY_A);
+		$katb_total_test = $results[0]['COUNT(1)'];
+		$katb_total_test = intval($katb_total_test);
+		$pages_dec = $katb_total_test/$katb_admin_span;
+		$pages = ceil( $pages_dec );
+		$page_selected = ( $katb_admin_offset/$katb_admin_span + 1 );
+		if ( $page_selected < 1 ) $page_selected = 1;
+		$max_page_buttons = 5;
+		//Figure out $page_a
+		$j = 5;
+		while( $page_selected >= $j ){ $j = $j + $max_page_buttons; }
+		$page_a = $j - $max_page_buttons + 1;
+		if ( $_POST['katb_admin_page'] == '<<' ) {
+			$_SESSION['katb_admin_offset'] = 0;
+		} elseif ( $_POST['katb_admin_page'] == '<' ) {
+			if ( $page_a - $max_page_buttons < 1 ) {
+				$_SESSION['katb_admin_offset'] = 0;
+			} else {
+				$offset = ( $page_a - $max_page_buttons - 1 ) * $katb_admin_span;
+				$_SESSION['katb_admin_offset'] = $offset;
+			}
+		} elseif ( $_POST['katb_admin_page'] == '^' ) {
+			$offset = (floor($pages/2) - 1) * $katb_admin_span;
+			$_SESSION['katb_admin_offset'] = $offset;
+		} elseif ( $_POST['katb_admin_page'] == '>' ) {
+			if ( $page_a + $max_page_buttons <= $pages ) {
+				$offset = ( $page_a + $max_page_buttons - 1 ) * $katb_admin_span;
+				$_SESSION['katb_admin_offset'] = $offset;
+			}
+		} elseif ( $_POST['katb_admin_page'] == '>>' ) {
+			$offset = ($pages - 1) * $katb_admin_span;
+			$_SESSION['katb_admin_offset'] = $offset;
+		} else {
+			$page_no = intval($_POST['katb_admin_page']);
+			$offset = ( $page_no - 1 ) * $katb_admin_span;
+			$_SESSION['katb_admin_offset'] = $offset;
+		}	
+	}
 ?>
 	<div class="wrap">
 		<?php screen_icon( 'plugins' ); ?>
@@ -529,7 +576,7 @@ function katb_testimonial_basics_edit_page(){
 			<br/><br/>
 			<label class="katb_admin_test"><?php _e('Testimonial *: ','testimonial-basics'); ?></label>
 			<textarea cols="101" rows="5" name="tb_testimonial" ><?php echo stripcslashes($katb_testimonial); ?></textarea>
-			<span class="html_allowed">HTML Allowed: <code>&#60;p&#62;&#60;/p&#62;&#60;br/&#62;</code></span>
+			<span class="html_allowed">HTML Allowed</span>
 			<br/><br/><br/>
 			<input type="submit" name="submitted" value="<?php _e('Save Testimonial','testimonial-basics') ?>" class="button-primary" />
 			<input type="submit" name="reset" value="<?php _e('Reset','testimonial-basics') ?>" class="button-secondary" />
@@ -537,8 +584,119 @@ function katb_testimonial_basics_edit_page(){
 		</form>
 		<h3>Testimonials</h3>
 		<?php
-			$katb_tdata = $wpdb->get_results( " SELECT * FROM `$tablename` WHERE `tb_id` ",ARRAY_A);
+			//Check for offset and set to 0 if not there
+			if ( isset( $_SESSION['katb_admin_offset'] ) ) {
+				$katb_admin_offset = $_SESSION['katb_admin_offset'];
+			} else {
+				$katb_admin_offset = 0;
+			}
+			//Get the total number of testimonials in the database
+			$results = $wpdb->get_results( " SELECT COUNT(1) FROM `$tablename` ",ARRAY_A);
+			$katb_total_test = $results[0]['COUNT(1)'];
+			$katb_total_test = intval($katb_total_test);
+			//Calculate display pages required given the span
+			$pages_dec = $katb_total_test/$katb_admin_span;
+			$pages = ceil( $pages_dec );
+			//calculate the page selected based on the offset
+			$page_selected = ( $katb_admin_offset/$katb_admin_span + 1 );
+			if ( $page_selected < 1 ) $page_selected = 1;
+			//Figure our the pages to list
+			$max_page_buttons = 5;
+			//Figure out $page_a
+			$j = $max_page_buttons;
+			while( $page_selected > $j ){ $j = $j + $max_page_buttons; }
+			$page_a = $j - $max_page_buttons + 1;
+			//Set up display configuration
+			//only display the first button if there are a lot of testimonials
+			if ( $pages > ( $max_page_buttons * 2 ) ) {
+				$first = 'yes';
+			} else {
+				$first = 'no';
+			}
+			//only display the previous button if more than 1 set
+			if ( $pages > $max_page_buttons ) {
+				$previous = 'yes';
+			} else {
+				$previous = 'no';
+			}
+			//set up remaining page buttons
+			if ( ($page_a + 1) < ($pages + 1) ) {
+				$page_b = $page_a + 1;
+			} else {
+				$page_b = 'no';
+			}
+			if ( ($page_a + 2) < ($pages + 1) ) {
+				$page_c = $page_a + 2;
+			} else {
+				$page_c = 'no';
+			}
+			if ( ($page_a + 3) < ($pages + 1) ) {
+				$page_d = $page_a + 3;
+			} else {
+				$page_d = 'no';
+			}
+			if ( ($page_a + 4) < ($pages + 1) ) {
+				$page_e = $page_a + 4;
+			} else {
+				$page_e = 'no';
+			}
+			//only display middle button for large number of testimonials
+			if ( $pages > ( $max_page_buttons * 3 ) ) {
+				$middle = 'yes';
+			} else {
+				$middle = 'no';
+			}
+			//only display the next button if more than 1 set
+			if ( $pages > $max_page_buttons ) {
+				$next = 'yes';
+			} else {
+				$next = 'no';
+			}
+			//only display the last button if there are a lot of testimonials
+			if ( $pages > ( $max_page_buttons * 2 ) ) {
+				$first = 'yes';
+			} else {
+				$last = 'no';
+			}
+			if ($katb_admin_offset < 0 ) $katb_admin_offset = 0;
+			$katb_tdata = $wpdb->get_results( " SELECT * FROM `$tablename` ORDER BY `tb_date` DESC LIMIT $katb_admin_span OFFSET $katb_admin_offset ",ARRAY_A);
 			$katb_tnumber = $wpdb->num_rows;
+			
+			echo '<form method="POST" action="#">';
+				if ( $pages > 1 ) {
+					echo '<span class="katb_admin_pages">Page '.$page_selected.' of '.$pages.'  </span>';
+					if ( $first != 'no' ) echo '<input type="submit" name="katb_admin_page" value="<<" title="First" class="katb_admin_paginate" />';
+					if ( $previous != 'no') echo '<input type="submit" name="katb_admin_page" value="<" title="Previous" class="katb_admin_paginate" />';
+					if ( $page_a == $page_selected ) {
+						echo '<input type="submit" name="katb_admin_page" value="'.$page_a.'" class="katb_admin_paginate_selected"  />';
+					} else {
+						echo '<input type="submit" name="katb_admin_page" value="'.$page_a.'" class="katb_admin_paginate"  />';
+					}
+					if ( $page_b == $page_selected ) {
+						if ( $page_b != "no" ) echo '<input type="submit" name="katb_admin_page" value="'.$page_b.'" class="katb_admin_paginate_selected" />';
+					} else {
+						if ( $page_b != "no" ) echo '<input type="submit" name="katb_admin_page" value="'.$page_b.'" class="katb_admin_paginate" />';
+					}
+					if ( $page_c == $page_selected ) {
+						if ( $page_c != "no" ) echo '<input type="submit" name="katb_admin_page" value="'.$page_c.'" class="katb_admin_paginate_selected" />';
+					} else {
+						if ( $page_c != "no" ) echo '<input type="submit" name="katb_admin_page" value="'.$page_c.'" class="katb_admin_paginate" />';
+					}
+					if ( $page_d == $page_selected ) {
+						if ( $page_d != "no" ) echo '<input type="submit" name="katb_admin_page" value="'.$page_d.'" class="katb_admin_paginate_selected" />';
+					} else {
+						if ( $page_d != "no" ) echo '<input type="submit" name="katb_admin_page" value="'.$page_d.'" class="katb_admin_paginate" />';
+					}
+					if ( $page_e == $page_selected ) {
+						if ( $page_e != "no" ) echo '<input type="submit" name="katb_admin_page" value="'.$page_e.'" class="katb_admin_paginate_selected" />';
+					} else {
+						if ( $page_e != "no" ) echo '<input type="submit" name="katb_admin_page" value="'.$page_e.'" class="katb_admin_paginate" />';
+					}
+					if ( $middle != "no" ) echo '<input type="submit" name="katb_admin_page" value="^" title="Middle" class="katb_admin_paginate" />';
+					if ( $next != 'no' ) echo '<input type="submit" name="katb_admin_page" value=">" title="Next" class="katb_admin_paginate" />';
+					if ( $last != 'no' ) echo '<input type="submit" name="katb_admin_page" value=">>" title="Last" class="katb_admin_paginate" />';
+				}
+			echo '</form>';
 		?>
 		<table class="widefat">
 			<thead>
@@ -588,6 +746,41 @@ function katb_testimonial_basics_edit_page(){
 				?>
 			</tbody>
 		</table>
+		<?php echo '<form method="POST" action="#">';
+				if ( $pages > 1 ) {
+					echo '<span class="katb_admin_pages">Page '.$page_selected.' of '.$pages.'  </span>';
+					if ( $first != 'no' ) echo '<input type="submit" name="katb_admin_page" value="<<" title="First" class="katb_admin_paginate" />';
+					if ( $previous != 'no') echo '<input type="submit" name="katb_admin_page" value="<" title="Previous" class="katb_admin_paginate" />';
+					if ( $page_a == $page_selected ) {
+						echo '<input type="submit" name="katb_admin_page" value="'.$page_a.'" class="katb_admin_paginate_selected"  />';
+					} else {
+						echo '<input type="submit" name="katb_admin_page" value="'.$page_a.'" class="katb_admin_paginate"  />';
+					}
+					if ( $page_b == $page_selected ) {
+						if ( $page_b != "no" ) echo '<input type="submit" name="katb_admin_page" value="'.$page_b.'" class="katb_admin_paginate_selected" />';
+					} else {
+						if ( $page_b != "no" ) echo '<input type="submit" name="katb_admin_page" value="'.$page_b.'" class="katb_admin_paginate" />';
+					}
+					if ( $page_c == $page_selected ) {
+						if ( $page_c != "no" ) echo '<input type="submit" name="katb_admin_page" value="'.$page_c.'" class="katb_admin_paginate_selected" />';
+					} else {
+						if ( $page_c != "no" ) echo '<input type="submit" name="katb_admin_page" value="'.$page_c.'" class="katb_admin_paginate" />';
+					}
+					if ( $page_d == $page_selected ) {
+						if ( $page_d != "no" ) echo '<input type="submit" name="katb_admin_page" value="'.$page_d.'" class="katb_admin_paginate_selected" />';
+					} else {
+						if ( $page_d != "no" ) echo '<input type="submit" name="katb_admin_page" value="'.$page_d.'" class="katb_admin_paginate" />';
+					}
+					if ( $page_e == $page_selected ) {
+						if ( $page_e != "no" ) echo '<input type="submit" name="katb_admin_page" value="'.$page_e.'" class="katb_admin_paginate_selected" />';
+					} else {
+						if ( $page_e != "no" ) echo '<input type="submit" name="katb_admin_page" value="'.$page_e.'" class="katb_admin_paginate" />';
+					}
+					if ( $middle != "no" ) echo '<input type="submit" name="katb_admin_page" value="^" title="Middle" class="katb_admin_paginate" />';
+					if ( $next != 'no' ) echo '<input type="submit" name="katb_admin_page" value=">" title="Next" class="katb_admin_paginate" />';
+					if ( $last != 'no' ) echo '<input type="submit" name="katb_admin_page" value=">>" title="Last" class="katb_admin_paginate" />';
+				}
+			echo '</form>'; ?>
 	</div>
 <?php } 
 
@@ -614,15 +807,19 @@ function katb_testimonial_basics_admin_page_help( $contextual_help, $screen_id, 
 		$contextual_help .= '<h2>Testimonial Basics - '.__('Options Help','testimonial-basics').'</h2>';
 		$contextual_help .= '<h4>'.__('General Setup and Input Form Options','testimonial-basics').'</h4>';
 		$contextual_help .= '<ul><li>'.__('Select the user role for permission to edit testimonials','testimonial-basics').'</li>';
-		$contextual_help .= '<ul><li>'.__('An email is sent to this address (or admin email if left blank) to notify that a testimonial has been submitted','testimonial-basics').'</li>';
+		$contextual_help .= '<li>'.__('An email is sent to this address (or admin email if left blank) to notify that a testimonial has been submitted','testimonial-basics').'</li>';
 		$contextual_help .= '<li>'.__('Include a captcha in the input by selecting the "Use captcha on input forms" checkbox. ','testimonial-basics');
 		$contextual_help .= __('If for any reason the Captcha is not working, disable it here.','testimonial-basics').'</li>';
+		$contextual_help .= '<li>'.__('Select this to use a color captcha option.','testimonial-basics').' ';
+		$contextual_help .= __('If the black and white captcha is not working, try this one.','testimonial-basics').'</li>';
 		$contextual_help .= '<li>'.__('Input Form Title: You can choose not to display one, or you can change the title.','testimonial-basics').'</li>';
 		$contextual_help .= '<li>'.__('Email note: You can choose not to display one, or you can change it to any text you want.','testimonial-basics').'</li>';
 		$contextual_help .= '<li>'.__('Keep the text you enter to a reasonable length or it may look funny.','testimonial-basics').'</li>';
 		$contextual_help .= '<li>'.__('Optionally include an html allowed strip on input forms.','testimonial-basics').'</li></ul>';
 		$contextual_help .= '<h4>'.__('Testimonial Display Options','testimonial-basics').'</h4>';
-		$contextual_help .= '<ul><li>'.__('You can use excerpts with the specified character length to display your testimonials.','testimonial-basics').'</li>';
+		$contextual_help .= '<ul><li>'.__('You can use pagination for displaying all testimonials or all testimonials in a Group.','testimonial-basics').'</li>';
+		$contextual_help .= '<li>'.__('When pagination is selected, you can display 5 or 10 per page.','testimonial-basics').'</li>';
+		$contextual_help .= '<li>'.__('You can use excerpts with the specified character length to display your testimonials.','testimonial-basics').'</li>';
 		$contextual_help .= '<li>'.__('Website, Date and Location are optional for display in the testimonial, just click them if you want to show them.','testimonial-basics').'</li>';
 		$contextual_help .= '<li>'.__('Gravatars: If selected, images associated with the author e-mail will be shown if one exists.','testimonial-basics').'</li>';
 		$contextual_help .= '<li>'.__('Italic: If selected, the content, not the author strip, will be displayed in italic style.','testimonial-basics').'</li>';
@@ -631,9 +828,10 @@ function katb_testimonial_basics_admin_page_help( $contextual_help, $screen_id, 
 		$contextual_help .= '<li>'.__('Custom Options: The custom options below the Formatted Display Box only apply if the box is checked.','testimonial-basics').'</li>';
 		$contextual_help .= '<li>'.__('Font: You can choose a font from the dropdown list.','testimonial-basics').'</li>';
 		$contextual_help .= '<li>'.__('Colors: Enter any hexdec color number preceded by a # mark or use the Color Wheel.','testimonial-basics').'</li>';
-		$contextual_help .= '<li>'.__('Color Wheel: Select the color input cell you want to change. ','testimonial-basics');
-		$contextual_help .= __('Drag the dot on the outside Color Circle to select the basic color.','testimonial-basics');
-		$contextual_help .= __('Drag the dot on the inside Color Box to select the saturation level.','testimonial-basics').'</li>';
+		$contextual_help .= '<li>'.__('Color Picker: Select the color input cell you want to change. ','testimonial-basics');
+		$contextual_help .= __('A color box appears with a saturation bar on the right.','testimonial-basics');
+		$contextual_help .= __('Drag the dot on the color box to select the color.','testimonial-basics');
+		$contextual_help .= __('Change the saturation with the sliding bar on the right.','testimonial-basics').'</li>';
 		$contextual_help .= '<li>'.__('Save Options: Make sure you save your settings before leaving the page.','testimonial-basics').'</li>';
 		$contextual_help .= '<li>'.__('Reset Options: If you click this all options are reset to defaults so be CAREFUL!','testimonial-basics').'</li></ul>';
 		$contextual_help .= '<h4>'.__('Widget Testimonial Display Options','testimonial-basics').'</h4>';
@@ -763,6 +961,7 @@ function katb_validate_options( $input ) {
 				else if ( 'html' == $optiondetails['class'] ) {
 					// Pass input data through the wp_filter_kses filter
 					$valid_input[$setting] = wp_filter_kses( $input[$setting] );
+					//$valid_input[$setting] = wp_kses_post( $input[$setting] );
 				}
 				else if ( 'url' == $optiondetails['class'] || 'img' == $optiondetails['class'] ) {
 					//eliminate invalid and dangerous characters
