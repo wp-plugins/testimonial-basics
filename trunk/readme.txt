@@ -4,7 +4,7 @@ Donate link: http://www.kevinsspace.ca/testimonial-basics/
 Tags: testimonial,testimonials,praise,user comments,widgets,translation ready
 Requires at least: 3.3
 Tested up to: 3.6
-Stable tag: 3.12.3
+Stable tag: 3.12.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/quick-guide-gplv3.html
 
@@ -129,6 +129,8 @@ Hit the enter key.
 3. Testimonials Display Options
 
 == Changelog ==
+= 3.12.4 =
+* svn take 4
 = 3.12.3 =
 * more svn problems, geese
 = 3.12.2 =
