@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Testimonial Basics
-Plugin URI: http://www.kevinsspace.ca/testimonial-basics-wordpress-plugin/
+Plugin URI: http://kevinsspace.ca/testimonial-basics-wordpress-plugin/
 Description: This plugin facilitates easy management of customer testimonials. The user can set up an input form in a page or in a widget, and display all or selected testimonials in a page or a widget. The plug in is very easy to use and modify.
-Version: 3.12.5
+Version: 3.20.6
 Author: Kevin Archibald
-Author URI: http://www.kevinsspace.ca
+Author URI: http://kevinsspace.ca
 License: GPLv3
 ===================================================================================================
                        LICENSE
@@ -30,7 +30,6 @@ License URI: see the license.txt file for license details.
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-/**** This is a Beta Version *****/
 /** ----------- Session Start ----------------------------------------------
  * Start session if not already started. The session is required
  * for passing the password from katb_captcha.php to the input
@@ -150,8 +149,7 @@ if( is_admin() ) {
 function katb_testimonial_basics_plugin_setup () {
 	require_once( dirname(__FILE__).'/includes/katb_shortcodes.php' );
 	require_once( dirname(__FILE__).'/widgets/katb_input_testimonial_widget.php' );
-	require_once( dirname(__FILE__).'/widgets/katb_testimonial_widget.php' );
-	require_once( dirname(__FILE__).'/widgets/katb_testimonial_multiple_display_widget.php' );
+	require_once( dirname(__FILE__).'/widgets/katb_display_testimonial_widget.php' );
 	require_once( dirname(__FILE__).'/includes/katb_functions.php' );
 	//enable translation
 	load_plugin_textdomain('testimonial-basics', false, 'testimonial-basics/languages');
@@ -180,14 +178,16 @@ add_action('wp_enqueue_scripts','katb_add_user_style');
  * Activates the excerpt jQuery script if needed
  * 
  * ----------------------------------------------------------------------- */
-function katb_load_excerpt_jquery () {
+function katb_load_doc_ready_script () {
 	$katb_options = katb_get_options();
 	if ( $katb_options['katb_use_widget_excerpts'] == 1 || $katb_options['katb_use_excerpts'] == 1 ) {
 		wp_enqueue_script( 'testimonial_basics_excerpt_js', plugins_url() . '/testimonial-basics/js/katb_excerpt_doc_ready.js', array('jquery'));
 	}
-	
+	if ( $katb_options['katb_enable_rotator'] != 0 ) {
+		wp_enqueue_script( 'testimonial_basics_rotator_js', plugins_url() . '/testimonial-basics/js/katb_rotator_doc_ready.js', array('jquery'));
+	}
 }
-add_action('wp_enqueue_scripts','katb_load_excerpt_jquery');
+add_action('wp_enqueue_scripts','katb_load_doc_ready_script');
 
 /** ------------- Custom Styles ---------------------------------------
  *
@@ -205,31 +205,3 @@ function katb_add_custom_styles(){
 	require_once( dirname(__FILE__).'/css/katb_widget_custom_style.php' );
  }
 add_action( 'wp_print_styles', 'katb_add_custom_styles' );
-
-
-/** ------------- Filter for Content Area Input Form ---------------------------------------
- *
- * This function is the filter used to load the testimonial form in a content area
- * The user enters <p><!-- katb_input_form --></p> or <!-- katb_input_form --> 
- * in the content area. When the filter picks this up katb_input_form is called
- * and the filtered string is replaced by the input form ($html_string)
- * 
- * 
- * @uses katb_display_input_form() defined in katb_shortcodes.php
- * @input string $content
- * @return string $content
- * 
- * ------------------------------------------------------------------------------------------ */
-function katb_insert_input_form($content){
-	if (strpos($content, "<p><!-- katb_input_form --></p>") !== false) {
-		//$content = str_replace("<p><!-- katb_input_form --></p>", katb_input_form(), $content);
-		$content = str_replace("<p><!-- katb_input_form --></p>",katb_display_input_form(), $content);
-	}elseif (strpos($content, "<!-- katb_input_form -->") !== false) {
-			//$content = str_replace("<!-- katb_input_form -->", katb_input_form(), $content);
-			$content = str_replace("<!-- katb_input_form -->",katb_display_input_form(), $content);
-	}
-	return $content;
-}
-add_filter('the_content', 'katb_insert_input_form',99);
-
-?>

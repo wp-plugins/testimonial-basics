@@ -1,10 +1,10 @@
 === Testimonial Basics ===
 Contributors: kevinhaig
-Donate link: http://www.kevinsspace.ca/testimonial-basics/
+Donate link: http://kevinsspace.ca/testimonial-basics/
 Tags: testimonial,testimonials,praise,user comments,widgets,translation ready
 Requires at least: 3.3
 Tested up to: 3.6
-Stable tag: 3.12.5
+Stable tag: 3.20.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/quick-guide-gplv3.html
 
@@ -13,56 +13,49 @@ simple to use and comes with detailed user documentation.
 
 == Description ==
 
-Testimonial Basics facilitates easy management of customer testimonials. The user can set 
-up an input form in a page or in a widget, and display all or selected testimonials in a 
-page or a widget. The plug in is very easy to use and modify:
+Testimonial Basics facilitates easy management of customer testimonials. 
+The user can set up an input form in a page or in a widget, and display 
+all or selected testimonials in a page or a widget. The plug in is very 
+easy to use and modify:
 
     1) Testimonials are saved in a database table integrated into WordPress.
     
     2) Users access their testimonials through an Administration Panel where 
        it is very easy to add new testimonials, or modify existing ones.
-       - New : The administration panel is now paged
-       - New : Images can now be loaded through the admin panel.
        
-    3) Testimonials are displayed in a pages content
+       a) The administration panel is now paged, showing 10 testimonials 
+          per page.
+       b) Images can now be loaded through the admin panel.
+       
+    3) Testimonials are displayed in a pages content using a shortcode
 
        a) The user can display all testimonials or a selected number.
-       b) The user can group testimonials for display on separate pages.
-       c) Testimonials can be displayed by most recent date, or by a 
-          user selected order.
-       d) A single selected testimonial can be displayed, or a single 
-          testimonial can be randomly displayed every time the page 
-          is loaded.
-       e) A new shortcode allows you to display multiple testimonials 
-          randomly selected from a group or from all testimonials.
-       f) Display excerpts of testimonials and when the user clicks 
+       b) Testimonials can be grouped for display
+       c) Testimonials can be displayed randomly, by most recent date, or 
+          by a user selected order.
+       d) Display excerpts of testimonials and when the user clicks 
           a ...more link, the full testimonial is diaplayed in a pop 
           up window.
-       g) New-Testimonials can now be presented in an optional 5 or 10 
+       e) Testimonials can be presented in an optional 5 or 10 
           per page format.
+       f) New - You can now rotate testimonials using a single display.
+          Selected testimonials are rotated every 7 seconds.
 
-    4) Display Widgets
-    
-       a) A single selected or single random testimonial can be 
-          displayed.
-       b) A multiple display widget allows you to display multiple 
-          testimonials in a widget, by group, date, order or randomly.
-       c) Display excerpts of testimonials and when the user clicks 
-          a ...more link, the full testimonial is diaplayed in a 
-          pop-up window.
+    4) Testimonials can be displayed using a Widget. All of the same 
+       options are available as the shortcode, except pagination.
 
-    5) A visitor input form is easily set up in the content of a page, 
-       allowing visitors to submit testimonials.
-
-    6) A visitor input form is also available in widget form.
+    5) Input Form
     
-    7) The user can include a captcha on input forms to reduce spam.
-       New: A color option is now available for wider compatibility.
+       a) A visitor input form is easily set up in the content of a 
+          page, allowing visitors to submit testimonials.
+       b) A visitor input form is also available in widget form.
+       c) The user can include a captcha on input forms to reduce spam.
+          A color option is now available for wider compatibility.
     
-    8) The user can use a display native to the theme or select a 
+    6) The user can use a display native to the theme or select a 
        customizable display option.
     
-    9) There is a full set of option features
+    7) There is a full set of option features
     
        a) Including the Website link is an option.
        b) Including the Date is an option. New-Dates are now 
@@ -80,18 +73,20 @@ page or a widget. The plug in is very easy to use and modify:
        l) Admin or Editor user level can edit testimonials
        m) Using excerpts and excerpt lengths are separately set 
           for widgets and the main area testimonial displays
+       n) New-Users can now change input form labels
+       o) New-Input Location and Website are now optional
     
-    10) There is a function that lets you display testimonials within 
+    8) There is a function that lets you display testimonials within 
         template code.
     
-    11) HTML tags allowed : a p br i em strong q h1-h6
+    9) HTML tags allowed : a p br i em strong q h1-h6
     
-    12) Detailed documentation now available at the plugin site
+    10) Detailed documentation now available at the plugin site
 
 == Installation ==
 
-1. Upload Testimonial Basics to the plugin directory (wp-content/plugins/testimonial-basics) of your 
-wordpress setup. 
+1. Upload Testimonial Basics to the plugin directory 
+   (wp-content/plugins/testimonial-basics) of your wordpress setup. 
 2. Ensure all sub directories are maintained. 
 3. Activate the theme through the Wordpress Admin panel under "Plugins".
 
@@ -99,24 +94,31 @@ wordpress setup.
 
 = Page load speeds are slow =
 
-If your page load speed is slow it will likely be because you are using Gravatars 
-and you are not using a cache plugin. It is recommended that you use a cache plugin 
-for any site, whether or not you are using Gravatars for Testimonial Basics. I use 
-WP Super Cache.
+If your page load speed is slow it will likely be because you are 
+using Gravatars and you are not using a cache plugin. It is recommended 
+that you use a cache plugin for any site, whether or not you are using 
+Gravatars for Testimonial Basics. I use WP Super Cache.
 
 = My testimonial is not showing? =
 
 Ensure it is approved.
 
-= I just approved a testimonial and it is nor showing? =
+= I just approved a testimonial and it is not showing? =
 
-If you have a cache plugin installed such as WP Super Cache, the page you use to 
-display your testimonials may be cached. Simply edit the page and update it or wait 
-and the cached files will eventually be deleted and refreshed.
+If you have a cache plugin installed such as WP Super Cache, the page 
+you use to display your testimonials may be cached. Simply edit the 
+page and update it or wait and the cached files will eventually be deleted 
+and refreshed.
 
 = When I input a color number in the cell the color won't change? =
 
 Hit the enter key.
+
+= Why can't users upload photos? =
+
+Users are not allowed to upload photos because it is a security issue. 
+Use of gravatars is highly recommended. Administrators have the ability 
+to add images in the Edit Testimonials admin panel.
 
 == Screenshots ==
 
@@ -129,47 +131,63 @@ Hit the enter key.
 3. Testimonials Display Options
 
 == Changelog ==
+
+= 3.20.6 =
+* Optimized pagination code
+* Made the website and location input optional
+* Set up form label options for both the content input form and the 
+  widget input form
+* Added testimonial rotator and reduced testimonial display shortcodes to one
+* Added testimonial rotator and reduced testimonial display widgets to one
+* Added sections to options panel
+* Removed <!-- katb_input_form --> filter.
+* General bug Fixes and code clean-up
+
 = 3.12.5 =
-* new release no code changes
-= 3.12.4 =
-* new release no code changes
-= 3.12.3 =
-* new release no code changes
-= 3.12.2 =
-* new release no code changes
+* no code changes 
+* had problems with the svn
+
 = 3.12.1 =
 * added a color option for captcha
 * added link tag to allowed html for user submissions
-* updated html allowed on admin page to wp_kses_post, giving full access to post html tags
+* updated html allowed on admin page to wp_kses_post, giving full access 
+  to post html tags
 * added strict image formatting
 * added pagination to edit testimonials admin panel
-* added pagination option for displaying all or grouped testimonials by date or order
-* changed date display format to the default selected in the Settings => General Tab
+* added pagination option for displaying all or grouped testimonials 
+  by date or order
+* changed date display format to the default selected in the 
+  Settings => General Tab
 * updated output data validation
 * Minor bug fixes and code clean-up
 * added Dutch translation
 * modified code to allow gravatars in excerpt pop-ups
-* testimonials in the admin edit panel are now displayed most recent first
-
+* testimonials in the admin edit panel are now displayed most 
+  recent first
 
 = 3.0.0 =
 * added multiple testimonial widget
 * added random shortcode for main area displays
-* added excerpt for widgets, main area and function testimonials displays
+* added excerpt for widgets, main area and function 
+  testimonials displays
 * added email for contact about submitted testimonials
 * set up captcha text input to be fully selected on click
-* changed coding of the main area input form to a shortcode format to minimize 
-  potential plugin conflicts and duplicate entry issues
-* modified captcha coding letter selection, and variable names to minimize potential conflicts
+* changed coding of the main area input form to a shortcode 
+  format to minimize potential plugin conflicts and duplicate 
+  entry issues
+* modified captcha coding letter selection, and variable names 
+  to minimize potential conflicts
 * added option to allow WordPress editor levels to edit testimonials
 * html tags allowed p,br,i,em,strong,q,h1-h6
 * html strip now displayed as an option
 * Fixed \ problem in emails
 * Corrected blogBox references in validate function
-* Table encoding issue resolved with a table set up modification for new installs 
-  and a blog post on updating existing tables.
-* When using order to display testimonials they are now displayed in ascending order.
-* incorporated new color picker with fallback to color wheel for older versions of WordPress
+* Table encoding issue resolved with a table set up modification 
+  for new installs and a blog post on updating existing tables.
+* When using order to display testimonials they are now displayed 
+  in ascending order.
+* incorporated new color picker with fallback to color wheel for older 
+  versions of WordPress
 
 = 2.10.6 =
 * fixed bug for uploading testimonials
@@ -179,7 +197,8 @@ Hit the enter key.
 * allowed paragraph and line break tags in in comments
 * added default font to custom styling
 * added option for italic style both in basic and in custom styling
-* added groups so users can group testimonials and display them in separate pages.
+* added groups so users can group testimonials and display them in 
+  separate pages.
 * added an option to use gravatars if present.
 * modified Edit Testimonials Panel to accomodate Groups and e-mail
 * removed user documentation from plugin, available at plugin site
@@ -208,22 +227,38 @@ Hit the enter key.
 
 == Upgrade Notice ==
 
+= 3.20.6 =
+
+* Testimonials are now displayed in the main content area with a 
+  single shortcode. You will likely have to make adjustments to 
+  your shortcode.
+* A single widget is now used to display testimonials in widgetized 
+  areas. You will likely have to reset your widgets.
+* the <!-- katb_input_form --> tags for the input form are no longer 
+  allowed use [katb_input_testimonials] instead
+
 = 2.10.6 =
 
 * gravatar logo was not loading properly
-* Testimonial was not updating in the database for Windows server setups
+* Testimonial was not updating in the database for Windows 
+  server setups
 * These two issues should now be fixed
 * Thanks for the feed back, it lets me fix the problems.
 
 = 2.8.4, 2.8.5 = Release
 * please ensure your database is backed up before you upgrade
-* your database will be updated adding a Group column and a E-mail column
-* there should be no problem with the database but back-up to be safe
-* advanced function in code users must adjust the parameters in the function call
-* detailed documentation must now be obtained from the plugin site
+* your database will be updated adding a Group column and a 
+  E-mail column
+* there should be no problem with the database but back-up to 
+  be safe
+* advanced function in code users must adjust the parameters 
+  in the function call
+* detailed documentation must now be obtained from the 
+  plugin site
 
 = 2.0.0 = Release
-* when you install this update you will start with the basic display format
+* when you install this update you will start with the basic 
+  display format
 * go to the new options panel to get the formatted display back
 * this is a major upgrade to the initial version
 * a number of bugs were fixed

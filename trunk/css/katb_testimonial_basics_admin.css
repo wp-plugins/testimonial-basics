@@ -27,15 +27,57 @@
 	margin-right: 10px;
 }
 
-.katb_admin_form input,.katb_admin_form textarea {margin: 0 5px 0 5px;}
+/* --------------- Input form styles -------------------- */
 
-.katb_admin_date {}
+.katb_admin_form{min-width: 800px;}
 
 .katb_admin_id,.katb_admin_date,.katb_admin_author,.katb_admin_url,.katb_admin_test {
 	float: left;
+	clear: both;
 	width: 130px;
 	text-align: right;
 }
+
+.katb_id_input,.katb_order_input,.katb_approved_input,.katb_group_input {
+	float: left;
+	margin-left: 5px!important;
+}
+
+.katb_approved_input{margin-top: 7px!important;}
+
+.katb_order_label,.katb_group_label,.katb_approved_label {
+	float: left;
+	width: 79px;
+	text-align: right;
+	margin: 5px 0px 0px 5px;
+}
+
+.katb_admin_email,.katb_admin_location {
+	float: left;
+	margin-left: 5px;
+	text-align: right;
+}
+
+.katb_admin_time{
+	float: left;
+	margin-left: 20px;
+	width: 160px;
+	text-align: right;
+}
+
+.katb_admin_email,.katb_admin_location{width:75px;}
+
+.katb_date_input,.katb_time_input,.katb_author_input,
+.katb_email_input,.katb_url_input,.katb_location_input{
+	float: left;
+	margin-left: 5px;
+}
+
+.katb_test_input{margin-left: 5px;}
+
+.button-primary {margin-left: 140px!important;}
+
+.button-highlighted{color:red;}
 
 .katb_paypal {
 	float: right;
@@ -44,13 +86,13 @@
 }
 
 .html_allowed {
-	float:left;
+	float: left;
 	clear: both;
 	width: 400px;
 	margin-left: 140px;
 }
 
-.katb_admin_paginate,.katb_admin_pages {
+.ka_paginate,.ka_pages {
 	background-color: #D1D1D1;
 	padding: 5px;
 	margin-bottom: 5px;
@@ -61,14 +103,14 @@
 	border-bottom: 3px solid #BABABA;
 }
 
-.katb_admin_paginate:hover {
+.ka_paginate:hover {
 	border-top: 3px solid #BABABA;
 	border-left: 3px solid #BABABA;
 	border-right: 3px solid #EDEDED;
 	border-bottom: 3px solid #EDEDED;
 }
 
-.katb_admin_paginate_selected {
+.ka_paginate_selected {
 	background-color: #DDE5FF;
 	padding: 5px;
 	margin-bottom: 5px;
