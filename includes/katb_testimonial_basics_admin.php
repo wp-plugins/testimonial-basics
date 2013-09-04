@@ -23,7 +23,7 @@ function katb_testimonial_basic_admin_style($hook) {
 		  && 'testimonial-basics_page_katb_testimonial_basics_admin_edit'!= $hook) return;
 	//Page is loaded so go ahead
 	global $wp_version;
-	//$wp_version = 3.4;	
+	
 	wp_register_style( 'testimonial_basic_admin_style',plugins_url() . '/testimonial-basics/css/katb_testimonial_basics_admin.css',array(),'20120815','all' ); 
 	wp_enqueue_style( 'testimonial_basic_admin_style' );
 	//If the WordPress version is greater than or equal to 3.5, then load the new WordPress color picker.
@@ -43,7 +43,7 @@ function katb_testimonial_basic_admin_style($hook) {
 }
 add_action('admin_enqueue_scripts', 'katb_testimonial_basic_admin_style');
 
-function katb_testimomial_basics_create_menu() {
+function katb_testimonial_basics_create_menu() {
 	/** global variables to be used to display context senitive help material
 	 * see: function katb_testimonial_basics_admin_page_help() below
 	 */
@@ -79,33 +79,22 @@ function katb_testimomial_basics_create_menu() {
 	$katb_testimonial_basics_admin_options_help = add_submenu_page('katb_testimonial_basics_admin','Testimonial Basics Options','Options','manage_options','katb_testimonial_basics_admin_options','katb_testimonial_basics_options_page');
 	$katb_testimonial_basics_admin_edit_help = add_submenu_page('katb_testimonial_basics_admin','Testimonial Basics Edit Testimonials','Edit Testimonials',$edit_testimonial_capability,'katb_testimonial_basics_admin_edit','katb_testimonial_basics_edit_page');
 }
-add_action( 'admin_menu', 'katb_testimomial_basics_create_menu' );
+add_action( 'admin_menu', 'katb_testimonial_basics_create_menu' );
 
 /** ----------------- katb_testimonial_basics_introduction -------------------------
- * Called by add_menu_page. Sets up the Testimonial Basics Option Page
+ * Called by add_menu_page. Sets up the Testimonial Basics Introduction Page
  * ---------------------------------------------------------------------------------- */
-function katb_testimonial_basics_introduction (){ ?>
-	<?php screen_icon( 'plugins' ); ?>
-	<h2>Testimonial Basics</h2>
-	<div class="katb_paypal"><?php _e('Show your appreciation!','testimonial-basics') ?>
-		<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-		<input type="hidden" name="cmd" value="_s-xclick">
-		<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----MIIHJwYJKoZIhvcNAQcEoIIHGDCCBxQCAQExggEwMIIBLAIBADCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwDQYJKoZIhvcNAQEBBQAEgYAWda3nDR6MPrYTNTF0myOSYBmAmhQyMnyUVOkTAjWO3eCwNGi24P18E83Sb7+G92BelPnIm6gsqC1URCPLzv0PabLm795Lm4nLRBmLjkxQSsR+5PpWudEe/trI4LhQPWJ579hdO1Beh7hAeGmIOfjY2GnOied+YbpUK/t7RsW4MDELMAkGBSsOAwIaBQAwgaQGCSqGSIb3DQEHATAUBggqhkiG9w0DBwQIpiX2fVsGTBaAgYDF1xsr6CAYlqIAwLMeG5GgRL52oCyVw2cP9CSCh3pQW5n/3WSG01MhsOa2ewGlZs6rIdYhWVQhk74TbW1UOgEFX7ROddWRPMHBk5t59oJMugA1KjqnG7XMqY2lWFCYT/yQ73QZHzkna+ZValvJnR0dtdIDBTPvEdZ1z7sQjf8T7aCCA4cwggODMIIC7KADAgECAgEAMA0GCSqGSIb3DQEBBQUAMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbTAeFw0wNDAyMTMxMDEzMTVaFw0zNTAyMTMxMDEzMTVaMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbTCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAwUdO3fxEzEtcnI7ZKZL412XvZPugoni7i7D7prCe0AtaHTc97CYgm7NsAtJyxNLixmhLV8pyIEaiHXWAh8fPKW+R017+EmXrr9EaquPmsVvTywAAE1PMNOKqo2kl4Gxiz9zZqIajOm1fZGWcGS0f5JQ2kBqNbvbg2/Za+GJ/qwUCAwEAAaOB7jCB6zAdBgNVHQ4EFgQUlp98u8ZvF71ZP1LXChvsENZklGswgbsGA1UdIwSBszCBsIAUlp98u8ZvF71ZP1LXChvsENZklGuhgZSkgZEwgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tggEAMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQEFBQADgYEAgV86VpqAWuXvX6Oro4qJ1tYVIT5DgWpE692Ag422H7yRIr/9j/iKG4Thia/Oflx4TdL+IFJBAyPK9v6zZNZtBgPBynXb048hsP16l2vi0k5Q2JKiPDsEfBhGI+HnxLXEaUWAcVfCsQFvd2A1sxRr67ip5y2wwBelUecP3AjJ+YcxggGaMIIBlgIBATCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwCQYFKw4DAhoFAKBdMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTEyMDkwNTE3MjU0OFowIwYJKoZIhvcNAQkEMRYEFOyC27zUKcgyqrKRNRLcOqZ97R6dMA0GCSqGSIb3DQEBAQUABIGAG3Nciv27vHA0sdyoIYl8h0Ghj9DBAXeF2M8ua0GdW4QYRszQr/YXjA4cS9RdqjAOgm9bRgLOFMskUrDI5iXFpybj4DYRN2RLRaPP6ZypSetKW66JpmLiUaUF1sxoq+KBhOgxH0GJw0/nLiJSVQ3002Yy1qTy3LwZtWdR0IBzjIg=-----END PKCS7-----
-		">
-		<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_paynow_SM.gif" name="submit" alt="PayPal - The safer, easier way to pay online!">
-		<img alt="" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-		</form>
-	</div>
-	<p><?php _e('Author Site : ','testimonial-basics'); ?><a href="http://www.kevinsspace.ca" target="_blank" >www.kevinsspace.ca</a>&nbsp;&nbsp;&nbsp; 
-		<?php _e('Plugin Site : ','testimonial-basics'); ?><a href="http://www.kevinsspace.ca/testimonial-basics-wordpress-plugin/" target="_blank" >www.kevinsspace.ca/testimonial-basics-wordpress-plugin/</a></p>
+function katb_testimonial_basics_introduction (){ 
 
+	echo katb_intro_html(); ?>
+	
 	<h3><?php _e('Introduction','testimonial-basics'); ?></h3>
 
-	<p><?php _e('Testimonial Basics facilitates easy management of customer testimonials.','testimonial-basics'); echo ' ';
-			_e('The user can set up an input form in a page or in a widget, and display all or selected testimonials in a page or a widget.','testimonial-basics'); ?></p>
+	<p><?php _e('Testimonial Basics facilitates easy management of customer testimonials.','testimonial-basics'); ?> <br/>
+	   <?php _e('The user can set up an input form in a page or in a widget, and display all or selected testimonials in a page or a widget.','testimonial-basics'); ?></p>
 
-	<p><?php _e('If you like the program show your appreciation, buy me a coffee, beer, or a bottle of wine (red please!).','testimonial-basics'); echo ' ';
-		_e('Or just head to the website link above and put in a testimonial, or send me an e-mail, pats on the back are pretty nice too!','testimonial-basics'); ?></p>
+	<p><?php _e('If you like the program show your appreciation, buy me a coffee, beer, or a bottle of wine (red please!).','testimonial-basics'); ?><br/>
+		<?php _e('Or just head to the website link above and put in a testimonial, or send me an e-mail, pats on the back are pretty nice too!','testimonial-basics'); ?></p>
 
 	<p><?php _e('I plan to do updates if required, so also contact me if you find any problems, or have suggestions for improvements.','testimonial-basics'); ?></p>
 
@@ -117,11 +106,7 @@ function katb_testimonial_basics_introduction (){ ?>
 	<p><?php _e('You can set up a visitor input form very easily.','testimonial-basics'); echo ' ';
 			_e('Simply include in your page content:','testimonial-basics'); echo ' '; ?>
 			<code>[katb_input_testimonials]</code><br/>
-			<?php _e('The following was used with older versions and still works with the latest version:','testimonial-basics');  echo ' '; ?>
-			<code>&#60;!-- katb_input_form --&#62;</code>
-			<?php echo ' '; _e('Note the space between the dash and the letters.','testimonial-basics'); echo ' ';
-			_e('It will not work without the spaces.','testimonial-basics'); echo ' ';
-			_e('IMPORTANT : Make sure you set up the page using the "Text" editor and not the "Visual" editor.','testimonial-basics'); ?></p>
+			<?php _e('IMPORTANT : Make sure you set up the page using the "Text" editor and not the "Visual" editor.','testimonial-basics'); ?></p>
 
 	<h3><?php _e('Visitor Input Widget','testimonial-basics'); ?></h3>
 	<p><?php _e('You can also use a widget as a user input form.','testimonial-basics'); echo ' ';
@@ -130,65 +115,58 @@ function katb_testimonial_basics_introduction (){ ?>
 	<h3><?php _e('Displaying Testimonials','testimonial-basics'); ?></h3>
 	<p><?php _e('You can display testimonials in the content of a page using shortcodes or you can use widgets to display testimonials.','testimonial-basics'); ?></p>
 			
-	<h4><?php _e('Shortcode','testimonial-basics'); ?></h4>
+	<h4><?php _e('Using a Shortcode','testimonial-basics'); ?></h4>
+	
 	<p><?php _e('To display testimonials create a new page and enter the following shortcode :','testimonial-basics'); echo ' '; ?><br/>
-	<code>[katb_testimonial group="all" by="date" number="5" id=""]</code></p>
-
-		<ol>
-			<li><?php _e('Options for','testimonial-basics'); echo ' "group" : "all" - ';_e('ignores groups','testimonial-basics');echo ',"group_name"- ';_e('display only this grouping','testimonial-basics'); ?></li>
-			<li><?php _e('Options for','testimonial-basics'); echo ' "by" : "order" - ';_e('display lowest to highest','testimonial-basics');echo ',"date"- ';_e('display most recent first','testimonial-basics'); ?></li>
-			<li><?php _e('Options for','testimonial-basics'); echo ' "number" : "all" - ';_e('displays all testimonials, or put in the number of testimonials you want to display','testimonial-basics'); ?></li>
-			<li><?php _e('Options for','testimonial-basics');echo' "id" : "" - ';_e('leave blank for multiple testimonials','testimonial-basics');echo ', "ID" - ';_e('put in testimonial ID','testimonial-basics');echo ', "random" - ';_e('single random testimonial','testimonial-basics'); ?></li>
-		</ol>
-
-	<p><?php _e('Note that if you put id="3" for example or id="random", then the "by" and "number" attributes are ignored.','testimonial-basics');echo ' ';
-			_e('The id property must be blank to display (ie id="") multiple testimonials.','testimonial-basics');echo ' <br/>';
-			_e('IMPORTANT : Make sure you set up the page using the "Text" editor and not the "Visual" editor.','testimonial-basics'); ?></p>
-			
-	<p><?php _e('To display multiple testimonials randomly :','testimonial-basics') ?></p>
-	<code>[katb_random_testimonials group="all" number="all"]</code>
-
-		<ol>
-			<li><?php _e('Options for','testimonial-basics'); echo ' "group" : "all" - ';_e('ignores groups','testimonial-basics');echo ',"group_name"- ';_e('display only this grouping','testimonial-basics'); ?></li>
-			<li><?php _e('Options for','testimonial-basics'); echo ' "number" : "all" - ';_e('displays all testimonials, or put in the number of testimonials you want to display','testimonial-basics'); ?></li>
-		</ol>
 		
-	<h4><?php _e('Single Testimonial Display Widget','testimonial-basics'); ?></h4>
-	
-	<p><?php _e('You can also use a widget to display a testimonial.','testimonial-basics');echo' ';
-			_e('The widget will display a selected testimonial or can randomly pick a testimonial to display when a page reloads.','testimonial-basics');echo' ';
-			_e('You can input a title and the ID number of the testimonial you want to display or "random" to display a random testimonial from the approved list.','testimonial-basics'); ?></p>
-	
-	<h4><?php _e('Multiple Testimonial Display Widget','testimonial-basics'); ?></h4>		
-	
-	<p><?php _e('You can also use a widget to display multiple testimonials.','testimonial-basics');echo' '; ?>
+	<code>[katb_testimonial group="all" number="all" by="random"  id="" rotate="no"]</code></p>
+
 		<ol>
-			<li><?php _e('Drag the widget to a widetized area and enter a title','testimonial-basics') ?></li>
-			<li><?php _e('Options for','testimonial-basics'); echo ' "Group" : "all" - ';_e('ignores groups','testimonial-basics');echo ',"group_name"- ';_e('display only this grouping','testimonial-basics'); ?></li>
-			<li><?php _e('Options for','testimonial-basics'); echo ' "By" : "order" - ';_e('display lowest to highest','testimonial-basics');echo ',"date"- ';_e('display most recent first','testimonial-basics');echo ',"random"- ';_e('randomly select','testimonial-basics'); ?></li>
+			<li><?php _e('Options for','testimonial-basics'); echo ' "group" : "all" - ';_e('ignores groups','testimonial-basics');echo ', "group_name"- ';_e('display only this grouping','testimonial-basics'); ?></li>
 			<li><?php _e('Options for','testimonial-basics'); echo ' "number" : "all" - ';_e('displays all testimonials, or put in the number of testimonials you want to display','testimonial-basics'); ?></li>
+			<li><?php _e('Options for','testimonial-basics'); echo ' "by" : "random" - ';_e('display randomly','testimonial-basics');echo ', "order" - ';_e('display by order number, lowest to highest','testimonial-basics');echo ', "date"- ';_e('display most recent first','testimonial-basics'); ?></li>
+			<li><?php _e('Options for','testimonial-basics');echo' "id" : "" - ';_e('leave blank for multiple testimonials','testimonial-basics');echo ', "ID" - ';_e('put in testimonial ID','testimonial-basics'); ?></li>
+			<li><?php _e('Options for','testimonial-basics');echo' "rotate" : "no" - ';_e('display all selected testimonials','testimonial-basics');echo ', "yes" - ';_e('rotate each testimonial','testimonial-basics'); ?></li>
 		</ol>
-	</p><br/>
+
+	<p><strong>Tips</strong></p>
+	
+	<ul>
+		<li><?php _e('* Note that if id is not blank ( id="" ), the "group", "by" and "number" attributes are ignored.','testimonial-basics'); ?></li>
+		<li><?php _e('* You must have more then 2 testimonials to rotate them.','testimonial-basics'); ?></li>
+		<li><?php _e('* Use pagination to display a lot of testimonials.','testimonial-basics'); ?></li>
+		<li><?php _e('* Pagination can be used to display all testimonials or all testimonials in a group.','testimonial-basics') ?></li>
+		<li><?php _e('* Do not select rotation="yes" more than once in a page content area','testimonial-basics') ?></li>
+		<li><?php _e('* IMPORTANT : Make sure you set up the page using the "Text" editor and not the "Visual" editor.','testimonial-basics'); ?></li>
+	</ul>
+	
+	<h4><?php _e('Using a Widget','testimonial-basics'); ?></h4>
+	
+	<p><?php _e('You can also use a widget to display a testimonial.','testimonial-basics'); ?>
 		
+		<ul>
+			<li><?php _e('Drag the widget to a widetized area and enter a title','testimonial-basics'); ?></li>
+			<li><?php _e('The options for display are the same as in the shortcode explained above','testimonial-basics'); ?></li>
+			<li><?php _e('Save the settings','testimonial-basics'); ?></li>			
+		</ul>	
+	<p><strong>Tips</strong></p>
+	
+	<ol>
+		<li><?php _e('* The fewer the testimonials the lower the load time','testimonial-basics'); ?></li>
+		<li><?php _e('* Rotate a maximum of 10 testimonials','testimonial-basics'); ?></li>
+		<li><?php _e('* Do not use more than one rotating widget on a page','testimonial-basics'); ?></li>
+		<li><?php _e('* If you are not rotating testimonials keep the number below 3','testimonial-basics'); ?></li>
+	</ol>
+	
 <?php }
 
 /** ----------------- katb_testimonial_basics_options_page -------------------------
  * Called by add_submenu_page. Sets up the Testimonial basics Option Page
  * ---------------------------------------------------------------------------------- */
-function katb_testimonial_basics_options_page (){ ?>
-	<?php screen_icon( 'plugins' ); ?>
-	<h2>Testimonial Basics</h2>
-	<div class="katb_paypal"><?php _e('Show your appreciation!','testimonial-basics') ?>
-		<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-		<input type="hidden" name="cmd" value="_s-xclick">
-		<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
-		">
-		<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_paynow_SM.gif" name="submit" alt="PayPal - The safer, easier way to pay online!">
-		<img alt="" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-		</form>
-	</div>
-	<p><?php _e('Author Site : ','testimonial-basics'); ?><a href="http://www.kevinsspace.ca" target="_blank" >www.kevinsspace.ca</a>&nbsp;&nbsp;&nbsp; 
-		<?php _e('Plugin Site : ','testimonial-basics'); ?><a href="http://www.kevinsspace.ca/testimonial-basics-wordpress-plugin/" target="_blank" >www.kevinsspace.ca/testimonial-basics-wordpress-plugin/</a></p>
+function katb_testimonial_basics_options_page (){
+	
+	echo katb_intro_html(); ?>
+	
 	<p><?php _e('Click the Help button for instructions or see the detailed documentation at the plugin site.','testimonial-basics'); ?></p>
 	<form class="katb_options" action="options.php" method="post">
 		<div id="katb_picker"></div>
@@ -228,7 +206,9 @@ function katb_testimonial_basics_admin_init (){//Register and define settings
 	 * @param	callback	$callback	Name of the callback function in which section text is output **not used here
 	 * @param	string		$pageid		Name of the Settings page to which to add the section; passed to do_settings_sections()
 	 */
-	add_settings_section('katb_testimonial_basics_input','General Setup and Input Form Options','katb_input_section_callback','katb_testimonial_basics_admin_options');
+	add_settings_section('katb_testimonial_basics_general','General Setup Options','katb_general_section_callback','katb_testimonial_basics_admin_options');
+	add_settings_section('katb_testimonial_basics_content_input_form','Content Input Form Options','katb_content_input_form_section_callback','katb_testimonial_basics_admin_options');
+	add_settings_section('katb_testimonial_basics_widget_input_form','Widget Input Form Options','katb_widget_input_form_section_callback','katb_testimonial_basics_admin_options');
 	add_settings_section('katb_testimonial_basics_content','Testimonial Display Options','katb_content_section_callback','katb_testimonial_basics_admin_options');
 	add_settings_section('katb_testimonial_basics_widget','Widget Testimonial Display Options','katb_widget_section_callback','katb_testimonial_basics_admin_options');
 	/**
@@ -276,7 +256,9 @@ add_action('admin_init','katb_testimonial_basics_admin_init');
  * section titles but they were generating php errors
  *  * ------------------------------------------------------------------------------- */
  
- function katb_input_section_callback () {}
+ function katb_general_section_callback () {}
+ function katb_content_input_form_section_callback () {}
+ function katb_widget_input_form_section_callback () {}
  function katb_content_section_callback () {}
  function katb_widget_section_callback () {}
 
@@ -334,9 +316,12 @@ function katb_setting_callback( $option ) { //Callback for get_settings_field()
 function katb_testimonial_basics_edit_page(){
 	global $wpdb,$tablename;
 	$tablename = $wpdb->prefix.'testimonial_basics';
+	
 	$katb_allowed_html = katb_allowed_html();
-	$katb_admin_span = 10;
-	//$katb_admin_span = 2;
+	//setup pagination
+	$katb_admin_offset_name = home_url().'katb_admin_offset';
+	$katb_items_per_page = 10;
+
 	//submit testimonial
 	if ( isset($_POST['submitted']) && check_admin_referer('katb_nonce_3','katb_admin_form_nonce')) {
 		//Validate Input
@@ -496,207 +481,70 @@ function katb_testimonial_basics_edit_page(){
 		$katb_date = substr($edit_data['tb_date'],0,10);
 		$katb_time = substr($edit_data['tb_date'],11,8);
 	}
-	if( isset ( $_POST['katb_admin_page'] ) ) {
-		if ( isset( $_SESSION['katb_admin_offset'] ) ) {
-			$katb_admin_offset = $_SESSION['katb_admin_offset'];
-		} else {
-			$katb_admin_offset = 0;
-		}
-		
+	if( isset ( $_POST['ka_paginate_post'] ) ) {
+		//Get total entries
 		$results = $wpdb->get_results( " SELECT COUNT(1) FROM `$tablename` ",ARRAY_A);
-		$katb_total_test = $results[0]['COUNT(1)'];
-		$katb_total_test = intval($katb_total_test);
-		$pages_dec = $katb_total_test/$katb_admin_span;
-		$pages = ceil( $pages_dec );
-		$page_selected = ( $katb_admin_offset/$katb_admin_span + 1 );
-		if ( $page_selected < 1 ) $page_selected = 1;
-		$max_page_buttons = 5;
-		//Figure out $page_a
-		$j = 5;
-		while( $page_selected >= $j ){ $j = $j + $max_page_buttons; }
-		$page_a = $j - $max_page_buttons + 1;
-		if ( $_POST['katb_admin_page'] == '<<' ) {
-			$_SESSION['katb_admin_offset'] = 0;
-		} elseif ( $_POST['katb_admin_page'] == '<' ) {
-			if ( $page_a - $max_page_buttons < 1 ) {
-				$_SESSION['katb_admin_offset'] = 0;
-			} else {
-				$offset = ( $page_a - $max_page_buttons - 1 ) * $katb_admin_span;
-				$_SESSION['katb_admin_offset'] = $offset;
-			}
-		} elseif ( $_POST['katb_admin_page'] == '^' ) {
-			$offset = (floor($pages/2) - 1) * $katb_admin_span;
-			$_SESSION['katb_admin_offset'] = $offset;
-		} elseif ( $_POST['katb_admin_page'] == '>' ) {
-			if ( $page_a + $max_page_buttons <= $pages ) {
-				$offset = ( $page_a + $max_page_buttons - 1 ) * $katb_admin_span;
-				$_SESSION['katb_admin_offset'] = $offset;
-			}
-		} elseif ( $_POST['katb_admin_page'] == '>>' ) {
-			$offset = ($pages - 1) * $katb_admin_span;
-			$_SESSION['katb_admin_offset'] = $offset;
-		} else {
-			$page_no = intval($_POST['katb_admin_page']);
-			$offset = ( $page_no - 1 ) * $katb_admin_span;
-			$_SESSION['katb_admin_offset'] = $offset;
-		}	
+		$total_entries = $results[0]['COUNT(1)'];
+		
+		$ka_paginate_action = $_POST['ka_paginate_post'];
+		katb_offset_setup ( $katb_admin_offset_name, $katb_items_per_page, $ka_paginate_action, $total_entries );
 	}
 ?>
 	<div class="wrap">
-		<?php screen_icon( 'plugins' ); ?>
-		<h2>Testimonial Basics</h2>
-		<div class="katb_paypal"><?php _e('Show your appreciation!','testimonial-basics') ?>
-			<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-			<input type="hidden" name="cmd" value="_s-xclick">
-			<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
-			">
-			<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_paynow_SM.gif" name="submit" alt="PayPal - The safer, easier way to pay online!">
-			<img alt="" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-			</form>
-		</div>
-		<p><?php _e('Author Site : ','testimonial-basics'); ?><a href="http://www.kevinsspace.ca" target="_blank" >www.kevinsspace.ca</a>&nbsp;&nbsp;&nbsp; 
-			<?php _e('Plugin Site : ','testimonial-basics'); ?><a href="http://www.kevinsspace.ca/testimonial-basics-wordpress-plugin/" target="_blank" >www.kevinsspace.ca/testimonial-basics-wordpress-plugin/</a></p>
+		
+		<?php echo katb_intro_html(); ?>
+		
 		<p><?php _e('Click the Help button for instructions or see the testimonial_basics_docs.html file included in the plugin docs folder.','testimonial-basics'); ?></p>
 		<h3><?php _e('Enter or update a testimonial (*Required)','testimonial-basics'); ?></h3>
 		<form class="katb_admin_form" method="POST" action="#">
 			<?php wp_nonce_field("katb_nonce_3","katb_admin_form_nonce"); ?>
-			<label class="katb_admin_id"><?php _e('ID : ','testimonial-basics'); ?></label><input size="5" maxlength="5" readonly="readonly" name="tb_id" value="<?php echo $katb_id; ?>" />
-			<label><?php _e('Order : ','testimonial-basics'); ?></label><input size="5" maxlength="5" name="tb_order" value="<?php echo $katb_order ?>" />
-			<label><?php _e('Approved : ','testimonial-basics'); ?></label><input type="checkbox" name="tb_approved" value="1"<?php if($katb_approved == 1) {echo ' checked="checked"';} ?> />
-			<label><?php _e('Group : ','testimonial-basics'); ?></label><input  maxlength="20" size="25" name="tb_group" value="<?php echo stripcslashes($katb_group); ?>" />
+			<label class="katb_admin_id"><?php _e('ID : ','testimonial-basics'); ?></label>
+			<input class="katb_id_input" size="5" maxlength="5" readonly="readonly" name="tb_id" value="<?php echo $katb_id; ?>" />
+			<label class="katb_order_label"><?php _e('Order : ','testimonial-basics'); ?></label>
+			<input class="katb_order_input" size="5" maxlength="5" name="tb_order" value="<?php echo $katb_order ?>" />
+			<label class="katb_approved_label"><?php _e('Approved : ','testimonial-basics'); ?></label>
+			<input class="katb_approved_input" type="checkbox" name="tb_approved" value="1"<?php if($katb_approved == 1) {echo ' checked="checked"';} ?> />
+			<label class="katb_group_label"><?php _e('Group : ','testimonial-basics'); ?></label>
+			<input class="katb_group_input" maxlength="20" size="24" name="tb_group" value="<?php echo stripcslashes($katb_group); ?>" />
 			<br/><br/>
-			<label class="katb_admin_date"><?php _e('Date (YYYY-MM-DD): ','testimonial-basics'); ?></label><input  maxlength="12" size="10" name="tb_date" value="<?php echo $katb_date; ?>" />
-			<label class="katb_admin_time"><?php _e('Time (HH:MM:SS): ','testimonial-basics'); ?></label><input  maxlength="10" size="10" name="tb_time" value="<?php echo $katb_time; ?>" />
+			<label class="katb_admin_date"><?php _e('Date (YYYY-MM-DD): ','testimonial-basics'); ?></label>
+			<input class="katb_date_input" maxlength="12" size="30" name="tb_date" value="<?php echo $katb_date; ?>" />
+			<label class="katb_admin_time"><?php _e('Time (HH:MM:SS): ','testimonial-basics'); ?></label>
+			<input class="katb_time_input" maxlength="10" size="30" name="tb_time" value="<?php echo $katb_time; ?>" />
 			<br/><br/>
-			<label class="katb_admin_author"><?php _e('Author *: ','testimonial-basics'); ?></label><input  maxlength="100" size="40" name="tb_author" value="<?php echo stripcslashes($katb_author); ?>" />
-			<label class="katb_admin_email"><?php _e('Email : ','testimonial-basics'); ?></label><input  maxlength="100" size="40" name="tb_email" value="<?php echo stripcslashes($katb_email); ?>" />
+			<label class="katb_admin_author"><?php _e('Author *: ','testimonial-basics'); ?></label>
+			<input class="katb_author_input" maxlength="100" size="40" name="tb_author" value="<?php echo stripcslashes($katb_author); ?>" />
+			<label class="katb_admin_email"><?php _e('Email : ','testimonial-basics'); ?></label>
+			<input class="katb_email_input" maxlength="100" size="40" name="tb_email" value="<?php echo stripcslashes($katb_email); ?>" />
 			<br/><br/>
-			<label class="katb_admin_url"><?php _e('Website : ','testimonial-basics'); ?></label><input  maxlength="100" size="40" name="tb_website" value="<?php echo $katb_website; ?>" />
-			<label class="katb_admin_location"><?php _e('Location : ','testimonial-basics'); ?></label><input  maxlength="100" size="40" name="tb_location" value="<?php echo stripcslashes($katb_location); ?>" />
+			<label class="katb_admin_url"><?php _e('Website : ','testimonial-basics'); ?></label>
+			<input class="katb_url_input" maxlength="100" size="40" name="tb_website" value="<?php echo $katb_website; ?>" />
+			<label class="katb_admin_location"><?php _e('Location : ','testimonial-basics'); ?></label>
+			<input class="katb_location_input" maxlength="100" size="40" name="tb_location" value="<?php echo stripcslashes($katb_location); ?>" />
 			<br/><br/>
 			<label class="katb_admin_test"><?php _e('Testimonial *: ','testimonial-basics'); ?></label>
-			<textarea cols="101" rows="5" name="tb_testimonial" ><?php echo stripcslashes($katb_testimonial); ?></textarea>
+			<textarea class="katb_test_input" cols="100" rows="5" name="tb_testimonial" ><?php echo stripcslashes($katb_testimonial); ?></textarea>
 			<span class="html_allowed">HTML Allowed</span>
 			<br/><br/><br/>
 			<input type="submit" name="submitted" value="<?php _e('Save Testimonial','testimonial-basics') ?>" class="button-primary" />
 			<input type="submit" name="reset" value="<?php _e('Reset','testimonial-basics') ?>" class="button-secondary" />
 			<input type="submit" name="delete" value="<?php _e('Delete','testimonial-basics') ?>" class="button-highlighted" />
 		</form>
-		<h3>Testimonials</h3>
+		<h3 class="katb_admin_title">Testimonials</h3>
 		<?php
-			//Check for offset and set to 0 if not there
-			if ( isset( $_SESSION['katb_admin_offset'] ) ) {
-				$katb_admin_offset = $_SESSION['katb_admin_offset'];
-			} else {
-				$katb_admin_offset = 0;
-			}
-			//Get the total number of testimonials in the database
+		
+			//Get total entries
 			$results = $wpdb->get_results( " SELECT COUNT(1) FROM `$tablename` ",ARRAY_A);
-			$katb_total_test = $results[0]['COUNT(1)'];
-			$katb_total_test = intval($katb_total_test);
-			//Calculate display pages required given the span
-			$pages_dec = $katb_total_test/$katb_admin_span;
-			$pages = ceil( $pages_dec );
-			//calculate the page selected based on the offset
-			$page_selected = ( $katb_admin_offset/$katb_admin_span + 1 );
-			if ( $page_selected < 1 ) $page_selected = 1;
-			//Figure our the pages to list
-			$max_page_buttons = 5;
-			//Figure out $page_a
-			$j = $max_page_buttons;
-			while( $page_selected > $j ){ $j = $j + $max_page_buttons; }
-			$page_a = $j - $max_page_buttons + 1;
-			//Set up display configuration
-			//only display the first button if there are a lot of testimonials
-			if ( $pages > ( $max_page_buttons * 2 ) ) {
-				$first = 'yes';
-			} else {
-				$first = 'no';
-			}
-			//only display the previous button if more than 1 set
-			if ( $pages > $max_page_buttons ) {
-				$previous = 'yes';
-			} else {
-				$previous = 'no';
-			}
-			//set up remaining page buttons
-			if ( ($page_a + 1) < ($pages + 1) ) {
-				$page_b = $page_a + 1;
-			} else {
-				$page_b = 'no';
-			}
-			if ( ($page_a + 2) < ($pages + 1) ) {
-				$page_c = $page_a + 2;
-			} else {
-				$page_c = 'no';
-			}
-			if ( ($page_a + 3) < ($pages + 1) ) {
-				$page_d = $page_a + 3;
-			} else {
-				$page_d = 'no';
-			}
-			if ( ($page_a + 4) < ($pages + 1) ) {
-				$page_e = $page_a + 4;
-			} else {
-				$page_e = 'no';
-			}
-			//only display middle button for large number of testimonials
-			if ( $pages > ( $max_page_buttons * 3 ) ) {
-				$middle = 'yes';
-			} else {
-				$middle = 'no';
-			}
-			//only display the next button if more than 1 set
-			if ( $pages > $max_page_buttons ) {
-				$next = 'yes';
-			} else {
-				$next = 'no';
-			}
-			//only display the last button if there are a lot of testimonials
-			if ( $pages > ( $max_page_buttons * 2 ) ) {
-				$first = 'yes';
-			} else {
-				$last = 'no';
-			}
-			if ($katb_admin_offset < 0 ) $katb_admin_offset = 0;
-			$katb_tdata = $wpdb->get_results( " SELECT * FROM `$tablename` ORDER BY `tb_date` DESC LIMIT $katb_admin_span OFFSET $katb_admin_offset ",ARRAY_A);
-			$katb_tnumber = $wpdb->num_rows;
+			$total_entries = $results[0]['COUNT(1)'];
 			
-			echo '<form method="POST" action="#">';
-				if ( $pages > 1 ) {
-					echo '<span class="katb_admin_pages">Page '.$page_selected.' of '.$pages.'  </span>';
-					if ( $first != 'no' ) echo '<input type="submit" name="katb_admin_page" value="<<" title="First" class="katb_admin_paginate" />';
-					if ( $previous != 'no') echo '<input type="submit" name="katb_admin_page" value="<" title="Previous" class="katb_admin_paginate" />';
-					if ( $page_a == $page_selected ) {
-						echo '<input type="submit" name="katb_admin_page" value="'.$page_a.'" class="katb_admin_paginate_selected"  />';
-					} else {
-						echo '<input type="submit" name="katb_admin_page" value="'.$page_a.'" class="katb_admin_paginate"  />';
-					}
-					if ( $page_b == $page_selected ) {
-						if ( $page_b != "no" ) echo '<input type="submit" name="katb_admin_page" value="'.$page_b.'" class="katb_admin_paginate_selected" />';
-					} else {
-						if ( $page_b != "no" ) echo '<input type="submit" name="katb_admin_page" value="'.$page_b.'" class="katb_admin_paginate" />';
-					}
-					if ( $page_c == $page_selected ) {
-						if ( $page_c != "no" ) echo '<input type="submit" name="katb_admin_page" value="'.$page_c.'" class="katb_admin_paginate_selected" />';
-					} else {
-						if ( $page_c != "no" ) echo '<input type="submit" name="katb_admin_page" value="'.$page_c.'" class="katb_admin_paginate" />';
-					}
-					if ( $page_d == $page_selected ) {
-						if ( $page_d != "no" ) echo '<input type="submit" name="katb_admin_page" value="'.$page_d.'" class="katb_admin_paginate_selected" />';
-					} else {
-						if ( $page_d != "no" ) echo '<input type="submit" name="katb_admin_page" value="'.$page_d.'" class="katb_admin_paginate" />';
-					}
-					if ( $page_e == $page_selected ) {
-						if ( $page_e != "no" ) echo '<input type="submit" name="katb_admin_page" value="'.$page_e.'" class="katb_admin_paginate_selected" />';
-					} else {
-						if ( $page_e != "no" ) echo '<input type="submit" name="katb_admin_page" value="'.$page_e.'" class="katb_admin_paginate" />';
-					}
-					if ( $middle != "no" ) echo '<input type="submit" name="katb_admin_page" value="^" title="Middle" class="katb_admin_paginate" />';
-					if ( $next != 'no' ) echo '<input type="submit" name="katb_admin_page" value=">" title="Next" class="katb_admin_paginate" />';
-					if ( $last != 'no' ) echo '<input type="submit" name="katb_admin_page" value=">>" title="Last" class="katb_admin_paginate" />';
-				}
-			echo '</form>';
+			//Pagination
+			$katb_paginate_setup = katb_setup_pagination( $katb_admin_offset_name, $katb_items_per_page, $total_entries );
+			$katb_admin_offset = $katb_paginate_setup['offset'];
+			katb_display_pagination( $katb_paginate_setup );
+			
+			if ($katb_admin_offset < 0 ) $katb_admin_offset = 0;
+			$katb_tdata = $wpdb->get_results( " SELECT * FROM `$tablename` ORDER BY `tb_date` DESC LIMIT $katb_items_per_page OFFSET $katb_admin_offset ",ARRAY_A);
+			$katb_tnumber = $wpdb->num_rows;
 		?>
 		<table class="widefat">
 			<thead>
@@ -746,45 +594,11 @@ function katb_testimonial_basics_edit_page(){
 				?>
 			</tbody>
 		</table>
-		<?php echo '<form method="POST" action="#">';
-				if ( $pages > 1 ) {
-					echo '<span class="katb_admin_pages">Page '.$page_selected.' of '.$pages.'  </span>';
-					if ( $first != 'no' ) echo '<input type="submit" name="katb_admin_page" value="<<" title="First" class="katb_admin_paginate" />';
-					if ( $previous != 'no') echo '<input type="submit" name="katb_admin_page" value="<" title="Previous" class="katb_admin_paginate" />';
-					if ( $page_a == $page_selected ) {
-						echo '<input type="submit" name="katb_admin_page" value="'.$page_a.'" class="katb_admin_paginate_selected"  />';
-					} else {
-						echo '<input type="submit" name="katb_admin_page" value="'.$page_a.'" class="katb_admin_paginate"  />';
-					}
-					if ( $page_b == $page_selected ) {
-						if ( $page_b != "no" ) echo '<input type="submit" name="katb_admin_page" value="'.$page_b.'" class="katb_admin_paginate_selected" />';
-					} else {
-						if ( $page_b != "no" ) echo '<input type="submit" name="katb_admin_page" value="'.$page_b.'" class="katb_admin_paginate" />';
-					}
-					if ( $page_c == $page_selected ) {
-						if ( $page_c != "no" ) echo '<input type="submit" name="katb_admin_page" value="'.$page_c.'" class="katb_admin_paginate_selected" />';
-					} else {
-						if ( $page_c != "no" ) echo '<input type="submit" name="katb_admin_page" value="'.$page_c.'" class="katb_admin_paginate" />';
-					}
-					if ( $page_d == $page_selected ) {
-						if ( $page_d != "no" ) echo '<input type="submit" name="katb_admin_page" value="'.$page_d.'" class="katb_admin_paginate_selected" />';
-					} else {
-						if ( $page_d != "no" ) echo '<input type="submit" name="katb_admin_page" value="'.$page_d.'" class="katb_admin_paginate" />';
-					}
-					if ( $page_e == $page_selected ) {
-						if ( $page_e != "no" ) echo '<input type="submit" name="katb_admin_page" value="'.$page_e.'" class="katb_admin_paginate_selected" />';
-					} else {
-						if ( $page_e != "no" ) echo '<input type="submit" name="katb_admin_page" value="'.$page_e.'" class="katb_admin_paginate" />';
-					}
-					if ( $middle != "no" ) echo '<input type="submit" name="katb_admin_page" value="^" title="Middle" class="katb_admin_paginate" />';
-					if ( $next != 'no' ) echo '<input type="submit" name="katb_admin_page" value=">" title="Next" class="katb_admin_paginate" />';
-					if ( $last != 'no' ) echo '<input type="submit" name="katb_admin_page" value=">>" title="Last" class="katb_admin_paginate" />';
-				}
-			echo '</form>'; ?>
+		<?php katb_display_pagination( $katb_paginate_setup ); ?>
 	</div>
 <?php } 
 
-/** ---------------- katb_testimonial_basics_admin_page_help callback ---------------------------------
+/** ---------------- katb_testimonial_basics_admin_page_help callback ----------------
  * This function takes the $option arra and uses it and other data to display the
  * current value of the settings field, a default is displayed if none is set in
  * the options table. The fields are displayed apropriately to the type as taken 
@@ -805,20 +619,28 @@ function katb_testimonial_basics_admin_page_help( $contextual_help, $screen_id, 
 		$contextual_help .= '<ul><li>'.__('Detailed user documentation is available at the plugin site.','testimonial-basics').'</li></ul>';
 	} elseif ( $screen_id == $katb_testimonial_basics_admin_options_help ) {
 		$contextual_help .= '<h2>Testimonial Basics - '.__('Options Help','testimonial-basics').'</h2>';
-		$contextual_help .= '<h4>'.__('General Setup and Input Form Options','testimonial-basics').'</h4>';
+		$contextual_help .= '<h4>'.__('General Setup Options','testimonial-basics').'</h4>';
 		$contextual_help .= '<ul><li>'.__('Select the user role for permission to edit testimonials','testimonial-basics').'</li>';
 		$contextual_help .= '<li>'.__('An email is sent to this address (or admin email if left blank) to notify that a testimonial has been submitted','testimonial-basics').'</li>';
 		$contextual_help .= '<li>'.__('Include a captcha in the input by selecting the "Use captcha on input forms" checkbox. ','testimonial-basics');
 		$contextual_help .= __('If for any reason the Captcha is not working, disable it here.','testimonial-basics').'</li>';
-		$contextual_help .= '<li>'.__('Select this to use a color captcha option.','testimonial-basics').' ';
+		$contextual_help .= '<li>'.__('Color Captcha - select this to use a color captcha option.','testimonial-basics').' ';
 		$contextual_help .= __('If the black and white captcha is not working, try this one.','testimonial-basics').'</li>';
-		$contextual_help .= '<li>'.__('Input Form Title: You can choose not to display one, or you can change the title.','testimonial-basics').'</li>';
-		$contextual_help .= '<li>'.__('Email note: You can choose not to display one, or you can change it to any text you want.','testimonial-basics').'</li>';
-		$contextual_help .= '<li>'.__('Keep the text you enter to a reasonable length or it may look funny.','testimonial-basics').'</li>';
-		$contextual_help .= '<li>'.__('Optionally include an html allowed strip on input forms.','testimonial-basics').'</li></ul>';
+		$contextual_help .= '<li>'.__('Testimonial Rotator Script - uncheck this box to disable the script.','testimonial-basics').' ';
+		$contextual_help .= __('This option may come in handy if you are troubleshooting jQuery problems.','testimonial-basics').'</li>';
+		$contextual_help .= '<li>'.__('Exclude Website in input form - check this box and the Website line will not be shown on input forms.','testimonial-basics').'</li>';
+		$contextual_help .= '<li>'.__('Exclude Location in input form - check this box and the Location line will not be shown on input forms.','testimonial-basics').'</li>';
+		$contextual_help .= '<li>'.__('Email note: You can choose not to display one, or you can change it to any text you want.','testimonial-basics').' ';;
+		$contextual_help .= __('Keep the text you enter to a reasonable length or it may look funny.','testimonial-basics').'</li></ul>';	
+		$contextual_help .= '<h4>'.__('Content and Widget Input Form Options','testimonial-basics').'</h4>';
+		$contextual_help .= '<ul><li>'.__('Input Form Title: You can choose not to display one, or you can change the title.','testimonial-basics').' ';
+		$contextual_help .= __('For the widget you change the title in the widget.','testimonial-basics').'</li>';
+		$contextual_help .= '<li>'.__('Optionally include an html allowed strip on input forms.','testimonial-basics').'</li>';
+		$contextual_help .= '<li>'.__('Labels - You can change labels for your input forms.','testimonial-basics').'</li>';
+		$contextual_help .= '<li>'.__('The Required Label only applies to the main content form and not the widget.','testimonial-basics').'</li></ul>';
 		$contextual_help .= '<h4>'.__('Testimonial Display Options','testimonial-basics').'</h4>';
 		$contextual_help .= '<ul><li>'.__('You can use pagination for displaying all testimonials or all testimonials in a Group.','testimonial-basics').'</li>';
-		$contextual_help .= '<li>'.__('When pagination is selected, you can display 5 or 10 per page.','testimonial-basics').'</li>';
+		$contextual_help .= '<li>'.__('When pagination is selected, you can display 3, 5 or 10 per page.','testimonial-basics').'</li>';
 		$contextual_help .= '<li>'.__('You can use excerpts with the specified character length to display your testimonials.','testimonial-basics').'</li>';
 		$contextual_help .= '<li>'.__('Website, Date and Location are optional for display in the testimonial, just click them if you want to show them.','testimonial-basics').'</li>';
 		$contextual_help .= '<li>'.__('Gravatars: If selected, images associated with the author e-mail will be shown if one exists.','testimonial-basics').'</li>';
@@ -1018,3 +840,21 @@ function katb_validate_options( $input ) {
 	}
 	return $valid_input;		
 }
+/**
+ * This function contains the html for the intro section to the admin pages
+ */
+function katb_intro_html(){
+	screen_icon( 'plugins' ); ?>
+	<h2>Testimonial Basics</h2>
+	<div class="katb_paypal"><?php _e('Show your appreciation!','testimonial-basics') ?>
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+		<input type="hidden" name="cmd" value="_s-xclick">
+		<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+		">
+		<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_paynow_SM.gif" name="submit" alt="PayPal - The safer, easier way to pay online!">
+		<img alt="" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+		</form>
+	</div>
+	<p><?php _e('Author Site : ','testimonial-basics'); ?><a href="http://www.kevinsspace.ca" target="_blank" >www.kevinsspace.ca</a>&nbsp;&nbsp;&nbsp; 
+		<?php _e('Plugin Site : ','testimonial-basics'); ?><a href="http://www.kevinsspace.ca/testimonial-basics-wordpress-plugin/" target="_blank" >www.kevinsspace.ca/testimonial-basics-wordpress-plugin/</a></p>
+<?php }
