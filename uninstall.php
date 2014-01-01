@@ -11,4 +11,3 @@
  	global $wpdb;
 	$tablename = $wpdb->prefix.'testimonial_basics';
 	$wpdb->query("DROP TABLE IF EXISTS $tablename");
-?>
