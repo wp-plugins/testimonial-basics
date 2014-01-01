@@ -2,86 +2,31 @@
 Contributors: kevinhaig
 Donate link: http://kevinsspace.ca/testimonial-basics/
 Tags: testimonial,testimonials,praise,user comments,widgets,translation ready
-Requires at least: 3.3
-Tested up to: 3.6
-Stable tag: 3.20.6
+Requires at least: 3.6
+Tested up to: 3.8
+Stable tag: 3.30.7
 License: GPLv3
 License URI: http://www.gnu.org/licenses/quick-guide-gplv3.html
 
-Testimonial Basics is a great plugin for managing testimonials for your site. It is 
-simple to use and comes with detailed user documentation.
+Manage testimonials for your WordPress site.
 
 == Description ==
 
-Testimonial Basics facilitates easy management of customer testimonials. 
-The user can set up an input form in a page or in a widget, and display 
-all or selected testimonials in a page or a widget. The plug in is very 
-easy to use and modify:
+Testimonial Basics is a full featured testimonial management plugin. 
 
-    1) Testimonials are saved in a database table integrated into WordPress.
-    
-    2) Users access their testimonials through an Administration Panel where 
-       it is very easy to add new testimonials, or modify existing ones.
-       
-       a) The administration panel is now paged, showing 10 testimonials 
-          per page.
-       b) Images can now be loaded through the admin panel.
-       
-    3) Testimonials are displayed in a pages content using a shortcode
-
-       a) The user can display all testimonials or a selected number.
-       b) Testimonials can be grouped for display
-       c) Testimonials can be displayed randomly, by most recent date, or 
-          by a user selected order.
-       d) Display excerpts of testimonials and when the user clicks 
-          a ...more link, the full testimonial is diaplayed in a pop 
-          up window.
-       e) Testimonials can be presented in an optional 5 or 10 
-          per page format.
-       f) New - You can now rotate testimonials using a single display.
-          Selected testimonials are rotated every 7 seconds.
-
-    4) Testimonials can be displayed using a Widget. All of the same 
-       options are available as the shortcode, except pagination.
-
-    5) Input Form
-    
-       a) A visitor input form is easily set up in the content of a 
-          page, allowing visitors to submit testimonials.
-       b) A visitor input form is also available in widget form.
-       c) The user can include a captcha on input forms to reduce spam.
-          A color option is now available for wider compatibility.
-    
-    6) The user can use a display native to the theme or select a 
-       customizable display option.
-    
-    7) There is a full set of option features
-    
-       a) Including the Website link is an option.
-       b) Including the Date is an option. New-Dates are now 
-          displayed in the default WordPress format.
-       c) Including the Location is an option.
-       d) Including italic style is an option.
-       e) Including Gravatars is an option.
-       f) User can select a customizable display.
-       g) Select one of nine fonts from a drop down list.
-       h) Select text colors using a color picker.
-       i) Select background colors using a color picker.
-       j) Visitor input form options to include a title, email note, 
-          and display the html allowed strip (new).
-       k) Include a contact email as an option
-       l) Admin or Editor user level can edit testimonials
-       m) Using excerpts and excerpt lengths are separately set 
-          for widgets and the main area testimonial displays
-       n) New-Users can now change input form labels
-       o) New-Input Location and Website are now optional
-    
-    8) There is a function that lets you display testimonials within 
-        template code.
-    
-    9) HTML tags allowed : a p br i em strong q h1-h6
-    
-    10) Detailed documentation now available at the plugin site
+* setup input forms in content or widget areas
+* show testimonials in content or widget areas
+* group testimonials for separate display
+* use 5 star rating system
+* use sliders and excerpts
+* optionally use schema/google snippet markup
+* black and white or color captcha built in
+* customize text color and background color
+* use one of nine web friendly fonts
+* include gravatars
+* easily edit and approve testimonials in the admin panel
+* pagination available in 3, 5, or 10 testimonials per page
+* help available in admin panels
 
 == Installation ==
 
@@ -94,10 +39,7 @@ easy to use and modify:
 
 = Page load speeds are slow =
 
-If your page load speed is slow it will likely be because you are 
-using Gravatars and you are not using a cache plugin. It is recommended 
-that you use a cache plugin for any site, whether or not you are using 
-Gravatars for Testimonial Basics. I use WP Super Cache.
+If your page load speed is slow it will likely be because you are using Gravatars and you are not using a cache plugin. It is recommended that you use a cache plugin for any site, whether or not you are using Gravatars for Testimonial Basics. I use WP Super Cache.
 
 = My testimonial is not showing? =
 
@@ -105,10 +47,7 @@ Ensure it is approved.
 
 = I just approved a testimonial and it is not showing? =
 
-If you have a cache plugin installed such as WP Super Cache, the page 
-you use to display your testimonials may be cached. Simply edit the 
-page and update it or wait and the cached files will eventually be deleted 
-and refreshed.
+If you have a cache plugin installed such as WP Super Cache, the page you use to display your testimonials may be cached. Simply edit the page and update it or wait and the cached files will eventually be deleted and refreshed.
 
 = When I input a color number in the cell the color won't change? =
 
@@ -116,21 +55,46 @@ Hit the enter key.
 
 = Why can't users upload photos? =
 
-Users are not allowed to upload photos because it is a security issue. 
-Use of gravatars is highly recommended. Administrators have the ability 
-to add images in the Edit Testimonials admin panel.
+Users are not allowed to upload photos because it is a security issue. Use of gravatars is highly recommended. Administrators have the ability to add images in the Edit Testimonials admin panel.
 
 == Screenshots ==
 
-1. Plugin Options Admin Panel
+1. Formatted Display Example
 
-2. Edit Testimonials Admin Panel
+2. Input Page Example
 
-3. Visitor Input Form Options
+3. Edit Testimonials Admin Panel
 
-3. Testimonials Display Options
+4. Options Panel
+
+5. Testimonials Example Page
 
 == Changelog ==
+
+= 3.30.7 =
+* Added optional 5 star rating system
+* Added optional schema mark up
+* Improved edit testimonials view panel
+* Changed Options panel to tabbed for better organization
+* Set up photo upload button in admin Edit Testimonials panel
+* Added minimum height option to slider
+* Added option to use gravatar substitute
+* Changed slide hover icon to a pause icon
+* Updated slider options to include fade, slide-left, and slide-right, and time
+* Added font size option for input forms and display
+* bug fix, formatting in the widget popup was not working for paragraphs.
+* bug fix, excerpt filter was not leaving &lt;br /&gt; in, and when I put it in I had to fix the open &lt;br problem
+* Fixed testimonials with no html. Line feeds were not being carried through to display. Did this by adding wpautop() to text elements.
+* Changed color captcha art
+* Added photo url and rating to database
+* Increased Group name to 100 characters
+* Added bubble count for unapproved testimonials
+* Added option to size gravatars
+* Modified slider for inside wrapper rotation
+* Added optional Title to displays
+* Added meta location option to top or bottom
+* Code optimization
+
 
 = 3.20.6 =
 * Optimized pagination code
@@ -226,6 +190,11 @@ to add images in the Edit Testimonials admin panel.
 * Initial Release
 
 == Upgrade Notice ==
+
+= 3.30.7 =
+
+* This is a major upgrade, check your site after the upgrade as you may have to reset your widgets
+
 
 = 3.20.6 =
 
