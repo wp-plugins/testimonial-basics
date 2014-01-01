@@ -5,15 +5,8 @@
  * @copyright	Copyright (c) 2012, Kevin Archibald
  * @license		http://www.gnu.org/licenses/quick-guide-gplv3.html  GNU Public License
  * @author		Kevin Archibald <www.kevinsspace.ca/contact/>
+ * 
  */
-#katb_picker {
-	position:absolute;
-	top: 1200px;
-	left: 650px;
-	width: 200px;
-}
-
-.farbtastic,.farbtastic .wheel {}
 
 .katb_options {margin-top: 0px;}
 
@@ -29,55 +22,218 @@
 
 /* --------------- Input form styles -------------------- */
 
-.katb_admin_form{min-width: 800px;}
+.katb_admin_form{
+	min-width: 1100px;
+	float: left;
+}
 
-.katb_admin_id,.katb_admin_date,.katb_admin_author,.katb_admin_url,.katb_admin_test {
+.ka_edit_column_1,.ka_edit_column_2 {
+	width: 400px;
+	float: left;
+	word-wrap: break-word;
+}
+
+.katb_edit_id_label {
 	float: left;
 	clear: both;
 	width: 130px;
-	text-align: right;
 }
 
-.katb_id_input,.katb_order_input,.katb_approved_input,.katb_group_input {
+.katb_edit_id_input {
 	float: left;
-	margin-left: 5px!important;
 }
 
-.katb_approved_input{margin-top: 7px!important;}
-
-.katb_order_label,.katb_group_label,.katb_approved_label {
+.katb_edit_approved_label {
 	float: left;
-	width: 79px;
-	text-align: right;
-	margin: 5px 0px 0px 5px;
+	margin: 0 5px 0 20px;
 }
 
-.katb_admin_email,.katb_admin_location {
+.katb_edit_approved_input {
+	float: left:
+	margin: 0 0 0 5px;
+}
+
+.katb_edit_date_label {
 	float: left;
-	margin-left: 5px;
-	text-align: right;
+	clear: both;
+	width: 130px;
+	margin: 5px 0 0 0;
 }
 
-.katb_admin_time{
+.katb_edit_date_input {
 	float: left;
-	margin-left: 20px;
-	width: 160px;
-	text-align: right;
+	width: 150px;
+	margin: 5px 0 0 0;
 }
 
-.katb_admin_email,.katb_admin_location{width:75px;}
-
-.katb_date_input,.katb_time_input,.katb_author_input,
-.katb_email_input,.katb_url_input,.katb_location_input{
+.katb_edit_time_label {
 	float: left;
-	margin-left: 5px;
+	clear: both;
+	width: 130px;
+	margin: 5px 0 0 0;
 }
 
-.katb_test_input{margin-left: 5px;}
+.katb_edit_time_input {
+	float: left;
+	width: 150px;
+	margin: 5px 0 0 0;
+}
 
-.button-primary {margin-left: 140px!important;}
+.katb_edit_group_label {
+	float: left;
+	clear: both;
+	width: 130px;
+	margin: 5px 0 0 0;
+}
 
-.button-highlighted{color:red;}
+.katb_edit_group_input {
+	float: left;
+	width: 150px;
+	margin: 5px 0 0 0;
+}
+
+.katb_edit_order_label {
+	float: left;
+	clear: both;
+	width: 130px;
+	margin: 5px 0 0 0;
+}
+
+.katb_edit_order_input {
+	float: left;
+	width: 150px;
+	margin: 5px 0 0 0;
+}
+
+.katb_edit_rating_label {
+	float: left;
+	clear: both;
+	width: 130px;
+	margin: 5px 0 0 0;
+}
+
+.katb_edit_rating_input {
+	float: left;
+	width: 150px;
+	margin: 5px 0 0 0;
+}
+
+.katb_edit_testimonial_label {
+	float: left;
+	clear: both;
+	width: 130px;
+	margin: 5px 0 0 0;
+}
+
+.katb_edit_testimonial_input {
+	float: left;
+	margin: 5px 0 0 0;
+}
+
+.katb_edit_pic_label {
+	float: left;
+}
+
+.katb_edit_avatar {
+	float: left;
+	clear: both;
+	margin: 0 0 5px 5px;
+}
+
+.katb_edit_pic img {
+	width: 60px;
+	height: 60px;
+	float: left;
+	clear: both;
+	margin: 0 20px 0 0;
+}
+
+.katb_picture_url {
+	float: left;
+	width: 200px;
+	margin: 0;
+}
+
+.katb_upload_button{
+	float: left;
+	margin: 0 0 0 5px;
+	padding: 0 5px 0 5px;
+}
+
+.katb_edit_author_label {
+	float: left;
+	clear: both;
+	width: 85px;
+	margin: 5px 0 0 0;
+}
+
+.katb_edit_author_input {
+	float: left;
+	width: 200px;
+	margin: 5px 0 0 0;
+}
+
+.katb_edit_email_label {
+	float: left;
+	clear: both;
+	width: 85px;
+	margin: 5px 0 0 0;
+}
+
+.katb_edit_email_input {
+	float: left;
+	width: 200px;
+	margin: 5px 0 0 0;
+}
+
+.katb_edit_url_label {
+	float: left;
+	clear: both;
+	width: 85px;
+	margin: 5px 0 0 0;
+}
+
+.katb_edit_url_input {
+	float: left;
+	width: 200px;
+	margin: 5px 0 0 0;
+}
+
+.katb_edit_location_label {
+	float: left;
+	clear: both;
+	width: 85px;
+	margin: 5px 0 0 0;
+}
+
+.katb_edit_location_input {
+	float: left;
+	width: 200px;
+	margin: 5px 0 0 0;
+}
+
+.katb-primary {
+	float: left;
+	clear: both;
+	margin-top: 5px!important;
+	margin-left: 140px!important;
+}
+
+.katb-secondary {
+	float: left;
+	margin: 5px 0 0 5px!important;
+}
+
+.katb-highlighted{
+	float: left!important;
+	color: red!important;
+	margin: 5px 0 0 5px!important;
+	padding: 1px!important;
+}
+
+.katb_admin_title {float: left;clear:both;}
+
+.katb-pagination {float: left;clear:both;}
 
 .katb_paypal {
 	float: right;
@@ -89,7 +245,7 @@
 	float: left;
 	clear: both;
 	width: 400px;
-	margin-left: 140px;
+	margin: 5px 0 0 140px;
 }
 
 .ka_paginate,.ka_pages {
@@ -118,4 +274,42 @@
 	border-left: 3px solid #EDEDED;
 	border-right: 3px solid #BABABA;
 	border-bottom: 3px solid #BABABA;
+}
+
+.ka_table_id {
+	width: 50px;
+}
+
+.ka_table_admin_column {
+	width: 200px;
+}
+
+.ka_table_group
+{
+	display: inline-block;
+	width: 200px;
+	word-wrap: break-word;
+}
+
+.ka_table_name,
+.ka_table_email,.ka_table_location,
+.ka_table_website
+{
+	display: inline-block;
+	width: 300px;
+	word-wrap: break-word;
+}
+
+.ka_table_pic {
+	width: 75px;
+}
+
+.ka_table_pic img {
+	width: 60px;
+	height: 60px;
+	margin: 0;
+}
+
+.ka_table_author_column {
+	width: 300px;
 }

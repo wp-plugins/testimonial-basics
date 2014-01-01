@@ -3,7 +3,7 @@
 Plugin Name: Testimonial Basics
 Plugin URI: http://kevinsspace.ca/testimonial-basics-wordpress-plugin/
 Description: This plugin facilitates easy management of customer testimonials. The user can set up an input form in a page or in a widget, and display all or selected testimonials in a page or a widget. The plug in is very easy to use and modify.
-Version: 3.20.6
+Version: 3.30.7
 Author: Kevin Archibald
 Author URI: http://kevinsspace.ca
 License: GPLv3
@@ -54,11 +54,11 @@ if ('testimonial-basics.php' == basename($_SERVER['SCRIPT_FILENAME']))
  * 
  *-------------------------------------------------------------------------- */
  global $katb_db_new_version;
- $katb_db_new_version = '1.1';
+ $katb_db_new_version = '1.2';
  
 function katb_testimomial_basics_activate() {
 	//Check version compatibilities
-    if ( version_compare( get_bloginfo( 'version' ), '3.1', '<' ) ) {
+    if ( version_compare( get_bloginfo( 'version' ), '3.6', '<' ) ) {
         deactivate_plugins( basename( __FILE__ ) ); // Deactivate our plugin
         die ('Please Upgrade your WprdPress to use this plugin.');
     }
@@ -69,6 +69,7 @@ function katb_testimomial_basics_activate() {
 	$tablename = $wpdb->prefix.'testimonial_basics';
 	$tableprefix = strtolower($wpdb->prefix);
 	if( $wpdb->get_var("SHOW TABLES LIKE '$tablename'") != $tablename && $wpdb->get_var("SHOW TABLES LIKE '$tablename'") != $tableprefix.'testimonial_basics' ) {
+		//wp_die($tablename);
 		// add charset & collate like wp core
 		$charset_collate = '';
 		if ( version_compare(mysql_get_server_info(), '4.1.0', '>=') ) {
@@ -81,13 +82,15 @@ function katb_testimomial_basics_activate() {
 		$sql = "CREATE TABLE `$tablename` (
 				`tb_id` int(4) UNSIGNED NOT NULL AUTO_INCREMENT,
   				`tb_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  				`tb_group` char(20) NOT NULL,
+  				`tb_group` char(100) NOT NULL,
   				`tb_order` int(4) UNSIGNED NOT NULL,
   				`tb_approved` int(1) UNSIGNED NOT NULL,
   				`tb_name` char(100) NOT NULL,
   				`tb_location` char(100) NOT NULL,
   				`tb_email` char(100) NOT NULL,
+  				`tb_pic_url` char(100) NOT NULL,
  				`tb_url` char(100) NOT NULL,
+ 				`tb_rating` char(5) NOT NULL,
   				`tb_testimonial` text NOT NULL,
   				PRIMARY KEY (`tb_id`)
 			)$charset_collate;";
@@ -97,8 +100,9 @@ function katb_testimomial_basics_activate() {
 	} elseif ( $katb_tb_installed_version !== $katb_db_new_version ) {
 		//table requires upgrading
 		$sql = "CREATE TABLE `$tablename` (
-				`tb_group` char(20) NOT NULL,
-  				`tb_email` char(100) NOT NULL
+				`tb_group` char(100) NOT NULL,
+				`tb_pic_url` char(100) NOT NULL,
+  				`tb_rating` char(5) NOT NULL
  			);";
 		require_once ( ABSPATH . 'wp-admin/includes/upgrade.php');
 		dbDelta($sql);
@@ -164,40 +168,43 @@ add_action( 'plugins_loaded','katb_testimonial_basics_plugin_setup');
  * Activates the translation on setup
  * 
  * ----------------------------------------------------------------------- */
-function katb_add_user_style(){
+function katb_add_styles(){
+	$katb_options = katb_get_options();
 	wp_register_style( 'katb_user_styles',plugin_dir_url(__FILE__).'css/katb_user_styles.css' );
 	wp_enqueue_style( 'katb_user_styles' );
+	if ( $katb_options['katb_use_ratings'] == 1 ) {
+		wp_register_style( 'katb_rateit_styles',plugin_dir_url(__FILE__).'js/rateit/rateit.css');
+		wp_enqueue_style( 'katb_rateit_styles' );
+	}
 }
-add_action('wp_enqueue_scripts','katb_add_user_style');
+add_action('wp_enqueue_scripts','katb_add_styles');
 
 /** ------------- Enqueue Scripts ---------------------------------------
  *
- * When the plugin is activated this function is executed
+ * Loads the excerpt, rotator, and ratings script if required
  * 
- * Loads these files on setup
- * Activates the excerpt jQuery script if needed
+ * @uses katb_get_options() from katb_functions.php
  * 
  * ----------------------------------------------------------------------- */
-function katb_load_doc_ready_script () {
+function katb_load_scripts () {
 	$katb_options = katb_get_options();
 	if ( $katb_options['katb_use_widget_excerpts'] == 1 || $katb_options['katb_use_excerpts'] == 1 ) {
 		wp_enqueue_script( 'testimonial_basics_excerpt_js', plugins_url() . '/testimonial-basics/js/katb_excerpt_doc_ready.js', array('jquery'));
 	}
 	if ( $katb_options['katb_enable_rotator'] != 0 ) {
 		wp_enqueue_script( 'testimonial_basics_rotator_js', plugins_url() . '/testimonial-basics/js/katb_rotator_doc_ready.js', array('jquery'));
+		wp_enqueue_script('jquery-effects-slide');
+	}
+	if ( $katb_options['katb_use_ratings'] == 1 ) {
+		wp_enqueue_script( 'testimonial_basics_rateit_js', plugins_url() . '/testimonial-basics/js/rateit/jquery.rateit.min.js', array('jquery'),true);
 	}
 }
-add_action('wp_enqueue_scripts','katb_load_doc_ready_script');
+add_action('wp_enqueue_scripts','katb_load_scripts');
 
 /** ------------- Custom Styles ---------------------------------------
  *
- * This function loads custom user styles if required
+ * This function loads custom user styles
  * 
- * Initially it loads the user options from the database.
- * If the user has selected custom testimonial display for the content
- * or for the widget displa it loads the respective files
- * 
- * uses katb_get_options() located in \includes\katb_functions.php
  * 
  * ---------------------------------------------------------------------- */
 function katb_add_custom_styles(){
