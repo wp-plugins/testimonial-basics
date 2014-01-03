@@ -40,7 +40,7 @@ if( $katb_options['katb_widget_use_formatted_display'] ==1 ) { ?>
 			color: <?php echo $katb_options['katb_widget_font_color']; ?>;
 		}
 		
-		.katb_widget_meta {color: <?php echo $katb_options['katb_widget_author_location_color']; ?>;}
+		.katb_widget_meta_bottom,.katb_widget_meta_top {color: <?php echo $katb_options['katb_widget_author_location_color']; ?>;}
 		.katb_widget_box a {color: <?php echo $katb_options['katb_widget_website_link_color']; ?>!important;}
 		.katb_widget_box a:hover {color: <?php echo $katb_options['katb_widget_website_link_hover_color']; ?>!important;}
 

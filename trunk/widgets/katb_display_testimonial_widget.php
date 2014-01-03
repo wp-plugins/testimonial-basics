@@ -3,7 +3,7 @@
 Plugin Name: Testimonial Basics Rotator Display Widget
 Plugin URI: http://kevinsspace.ca/testimonial-basics-wordpress-plugin/
 Description: A plugin to display testimonials in a slider
-Version: 3.0.0
+Version: 3.31.8
 Author: Kevin Archibald
 Author URI: http://kevinsspace.ca/
 License: GPLv3
@@ -294,7 +294,7 @@ function katb_widget_schema_company_aggregate ( $company_name, $company_website,
 			$sum = $sum + (float)$aggregate_data[$j]['tb_rating'] ;
 		}			
 	}
-	$total_votes = $count;
+
 	if( $count == 0 ) $count = 1;
 	$avg_rating = round( $sum / $count, 1 );			
 					
@@ -305,24 +305,28 @@ function katb_widget_schema_company_aggregate ( $company_name, $company_website,
 		<meta content="<?php echo stripcslashes( esc_attr( $company_name ) ); ?>" itemprop="name" />
 		<meta content="<?php echo esc_url( $company_website ); ?>" itemprop="url" />
 		
-		<div itemscope itemtype="http://data-vocabulary.org/Review-aggregate">
+		<?php if( $count > 1 && $avg_rating > 0 ) { ?>
 		
-			<?php if( $custom_aggregate_name != '' ) { ?>
-				<meta content="<?php echo stripcslashes( esc_attr( $custom_aggregate_name ) ); ?>" itemprop="itemreviewed" />
-			<?php } else { ?>
-				<meta content="<?php echo stripcslashes( esc_attr( $group_name ) ); ?>" itemprop="itemreviewed" />
-			<?php }	?>
+			<div itemscope itemtype="http://data-vocabulary.org/Review-aggregate">
 			
-			<div itemprop="rating" itemscope itemtype="http://data-vocabulary.org/Rating">
-				<meta content="<?php echo $avg_rating; ?>" itemprop="average"/>
-				<meta content="0" itemprop="worst" />
-				<meta content="5" itemprop="best" />
+				<?php if( $custom_aggregate_name != '' ) { ?>
+					<meta content="<?php echo stripcslashes( esc_attr( $custom_aggregate_name ) ); ?>" itemprop="itemreviewed" />
+				<?php } else { ?>
+					<meta content="<?php echo stripcslashes( esc_attr( $group_name ) ); ?>" itemprop="itemreviewed" />
+				<?php }	?>
+				
+				<div itemprop="rating" itemscope itemtype="http://data-vocabulary.org/Rating">
+					<meta content="<?php echo $avg_rating; ?>" itemprop="average"/>
+					<meta content="0" itemprop="worst" />
+					<meta content="5" itemprop="best" />
+				</div>
+				<meta content="<?php echo $count; ?>" itemprop="votes" />
+				<meta content="<?php echo $aggregate_total_approved; ?>" itemprop="count" />
+				
 			</div>
-			<meta content="<?php echo $count; ?>" itemprop="votes" />
-			<meta content="<?php echo $aggregate_total_approved; ?>" itemprop="count" />
-			
-		</div>
-<?php }
+		
+		<?php }
+}
 
 /**
  * This function displays the testimonial.

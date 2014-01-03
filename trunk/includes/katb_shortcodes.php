@@ -363,21 +363,11 @@ function katb_display_input_form($atts) {
 			}
 			
 			if( $use_ratings == 1 ) {
+				
 				$input_html .= '<label class="katb_input_label1">'.esc_attr( $rating_label ).'</label>';
-				$input_html .= '<select id="katb_rateit_input" class="katb_rating_input" name="tb_rating">';
-					$input_html .= '<option '.selected($katb_rating,'0.0',false).' value="0.0">0.0</option>';
-					$input_html .= '<option '.selected($katb_rating,'0.5',false).' value="0.5">0.5</option>';
-					$input_html .= '<option '.selected($katb_rating,'1.0',false).' value="1.0">1.0</option>';
-					$input_html .= '<option '.selected($katb_rating,'1.5',false).' value="1.5">1.5</option>';
-					$input_html .= '<option '.selected($katb_rating,'2.0',false).' value="2.0">2.0</option>';
-					$input_html .= '<option '.selected($katb_rating,'2.5',false).' value="2.5">2.5</option>';
-					$input_html .= '<option '.selected($katb_rating,'3.0',false).' value="3.0">3.0</option>';
-					$input_html .= '<option '.selected($katb_rating,'3.5',false).' value="3.5">3.5</option>';
-					$input_html .= '<option '.selected($katb_rating,'4.0',false).' value="4.0">4.0</option>';
-					$input_html .= '<option '.selected($katb_rating,'4.5',false).' value="4.5">4.5</option>';
-					$input_html .= '<option '.selected($katb_rating,'5.0',false).' value="5.0">5.0</option>';
-				$input_html .= '</select>';
-				$input_html .= '<div class="rateit katb_rating_input" data-rateit-backingfld="#katb_rateit_input"></div>';
+				$input_html .= '<input type="range" min="0" max="5" value="0.0" step="0.5" name="tb_rating"" id="katb_rateit_input" class="katb_rating_input">';
+				$input_html .= '<div class="rateit katb_input_rating" data-rateit-backingfld="#katb_rateit_input"></div>';
+				
 			}
 			
 			$input_html .= '<label class="katb_input_label2">'.esc_attr( $testimonial_label ).'</label><br/>';
@@ -959,84 +949,102 @@ function katb_schema_aggregate_markup ( $display_aggregate , $group_name, $use_g
 		}			
 	}
 	$total_votes = $count;
-	$avg_rating = round( $sum / $count, 1 );
-	//round to nearest 0.5 out of 5
-	if( $avg_rating >= ceil( $avg_rating ) - 0.25 ) {
-		$rounded_avg_rating = ceil( $avg_rating );
-	} elseif( $avg_rating >= ceil( $avg_rating ) - 0.75 ) {
-		$rounded_avg_rating = ceil( $avg_rating ) - 0.50;
+	
+	if( $count == 0 ) {
+		$avg_rating = 0;
 	} else {
-		$rounded_avg_rating = floor( $avg_rating );
+		$avg_rating = round( $sum / $count, 1 );
 	}
-
-	if( $display_aggregate != 1 ) {
+	
+	if( $avg_rating == 0 ) {
+		
+		$rounded_avg_rating = 0;
+		
+	} else {
+		
+		//round to nearest 0.5 out of 5
+		if( $avg_rating >= ceil( $avg_rating ) - 0.25 ) {
+			$rounded_avg_rating = ceil( $avg_rating );
+		} elseif( $avg_rating >= ceil( $avg_rating ) - 0.75 ) {
+			$rounded_avg_rating = ceil( $avg_rating ) - 0.50;
+		} else {
+			$rounded_avg_rating = floor( $avg_rating );
+		}
+		
+	}
+	
+	if( $count > 1 && $avg_rating > 0 && $rounded_avg_rating > 0 ) {
+		
+		if( $display_aggregate != 1 ) {
+					
+			$agg_html .= '<div class="katb_no_display" itemscope itemtype="http://data-vocabulary.org/Review-aggregate">';
 				
-		$agg_html .= '<div class="katb_no_display" itemscope itemtype="http://data-vocabulary.org/Review-aggregate">';
+				if( $use_group_name_for_aggregate == 1 && $group_name != 'all' ) {
+					$agg_html .= '<meta content="'.stripcslashes( esc_attr( $group_name ) ).'" itemprop="itemreviewed" />';
+				} else if( $use_group_name_for_aggregate != 1 && $custom_aggregate_name != '' ) {
+					$agg_html .= '<meta content="'.stripcslashes( esc_attr( $custom_aggregate_name ) ).'" itemprop="itemreviewed" />';
+				} else {
+					$agg_html .= '<meta content="'.__('All Reviews','testimonial-basics').'" itemprop="itemreviewed" />';
+				}
 			
-			if( $use_group_name_for_aggregate == 1 && $group_name != 'all' ) {
-				$agg_html .= '<meta content="'.stripcslashes( esc_attr( $group_name ) ).'" itemprop="itemreviewed" />';
-			} else if( $use_group_name_for_aggregate != 1 && $custom_aggregate_name != '' ) {
-				$agg_html .= '<meta content="'.stripcslashes( esc_attr( $custom_aggregate_name ) ).'" itemprop="itemreviewed" />';
-			} else {
-				$agg_html .= '<meta content="'.__('All Reviews','testimonial-basics').'" itemprop="itemreviewed" />';
-			}
-		
-			$agg_html .= '<span itemprop="rating" itemscope itemtype="http://data-vocabulary.org/Rating">';
-				$agg_html .= '<meta content="'.stripcslashes( esc_attr( $avg_rating ) ).'" itemprop="average" />';
-				$agg_html .= '<meta content="0" itemprop="worst" />';
-				$agg_html .= '<meta content="5" itemprop="best" />';
-			$agg_html .= '</span>';
-			$agg_html .= '<meta content="'.stripcslashes( esc_attr( $total_votes ) ).'" itemprop="votes" />';
-			$agg_html .= '<meta content="'.stripcslashes( esc_attr( $aggregate_total_approved ) ).'" itemprop="count" />';
-				  		
-		$agg_html .= '</div>';
-		
-	} else {
-		
-		$agg_html .= '<div class="katb_aggregate_wrap" itemscope itemtype="http://data-vocabulary.org/Review-aggregate">';
+				$agg_html .= '<span itemprop="rating" itemscope itemtype="http://data-vocabulary.org/Rating">';
+					$agg_html .= '<meta content="'.stripcslashes( esc_attr( $avg_rating ) ).'" itemprop="average" />';
+					$agg_html .= '<meta content="0" itemprop="worst" />';
+					$agg_html .= '<meta content="5" itemprop="best" />';
+				$agg_html .= '</span>';
+				$agg_html .= '<meta content="'.stripcslashes( esc_attr( $total_votes ) ).'" itemprop="votes" />';
+				$agg_html .= '<meta content="'.stripcslashes( esc_attr( $aggregate_total_approved ) ).'" itemprop="count" />';
+					  		
+			$agg_html .= '</div>';
 			
-			$agg_html .= __( 'Aggregate Review','testimonial-basics' ).' : ';
+		} else {
 			
-			if( $use_group_name_for_aggregate == 1 && $group_name != 'all' ) {
-				$agg_html .= '<span class="aggregate_itemreviewed" itemprop="itemreviewed">'.stripcslashes( esc_attr( $group_name ) ).'</span><br/>';
-			} else if( $use_group_name_for_aggregate != 1 && $custom_aggregate_name != '' ) {
-				$agg_html .= '<span class="aggregate_itemreviewed" itemprop="itemreviewed">'.stripcslashes( esc_attr( $custom_aggregate_name ) ).'</span><br/>';
-			} else {
-				$agg_html .= '<span class="aggregate_itemreviewed" itemprop="itemreviewed">'.__('All Reviews','testimonial-basics').'</span><br/>';	
-			}
-
-			$agg_html .= '<span class="rateit katb_display_rating" data-rateit-value="'.stripcslashes( esc_attr( $rounded_avg_rating ) ).'" data-rateit-ispreset="true" data-rateit-readonly="true"></span>';
-			$agg_html .= ' - ';
-			$agg_html .= '<span itemprop="rating" itemscope itemtype="http://data-vocabulary.org/Rating">';
-				$agg_html .= '<span class="average_number" itemprop="average">'.stripcslashes( esc_attr( $avg_rating ) ).'</span>';
-				$agg_html .= '<span class="out_of">&nbsp;'.__('out of','testimonial-basics').'&nbsp;</span>';
-				$agg_html .= '<span class="best" itemprop="best">5</span>';
-			$agg_html .= '</span>';
-			$agg_html .= ', ';
-			if( $total_votes == 1 ) {
-				$agg_html .= '<span class="total_votes" itemprop="votes">'.stripcslashes( esc_attr( $total_votes ) ).'&nbsp;</span>';
-				$agg_html .= '<span class="votes_label">'.__('vote','testimonial-basics').'</span>';
-			} else if ( $total_votes == 0 ) {
-				$agg_html .= '<span class="votes_label">'.__('not rated','testimonial-basics').'</span>';
-			} else {
-				$agg_html .= '<span class="total_votes" itemprop="votes">'.stripcslashes( esc_attr( $total_votes ) ).'&nbsp;</span>';
-				$agg_html .= '<span class="votes_label">'.__('votes','testimonial-basics').'</span>';
-			}
-			$agg_html .= ', ';
-			if( $aggregate_total_approved == 0 ) {
-				$agg_html .= '<span class="reviews_label">'.__('no reviews yet','testimonial-basics').'</span>';
-			} elseif( $aggregate_total_approved == 1 ) {
-				$agg_html .= '<span class="total_reviews">'.stripcslashes( esc_attr( $aggregate_total_approved ) ).'&nbsp;</span>';
-				$agg_html .= '<span class="reviews_label">'.__('review','testimonial-basics').'</span>';	
-			} else {
-				$agg_html .= '<span class="total_reviews">'.stripcslashes( esc_attr( $aggregate_total_approved ) ).'&nbsp;</span>';
-				$agg_html .= '<span class="reviews_label">'.__('reviews','testimonial-basics').'</span>';
-			}
+			$agg_html .= '<div class="katb_aggregate_wrap" itemscope itemtype="http://data-vocabulary.org/Review-aggregate">';
+				
+				$agg_html .= __( 'Aggregate Review','testimonial-basics' ).' : ';
+				
+				if( $use_group_name_for_aggregate == 1 && $group_name != 'all' ) {
+					$agg_html .= '<span class="aggregate_itemreviewed" itemprop="itemreviewed">'.stripcslashes( esc_attr( $group_name ) ).'</span><br/>';
+				} else if( $use_group_name_for_aggregate != 1 && $custom_aggregate_name != '' ) {
+					$agg_html .= '<span class="aggregate_itemreviewed" itemprop="itemreviewed">'.stripcslashes( esc_attr( $custom_aggregate_name ) ).'</span><br/>';
+				} else {
+					$agg_html .= '<span class="aggregate_itemreviewed" itemprop="itemreviewed">'.__('All Reviews','testimonial-basics').'</span><br/>';	
+				}
+	
+				$agg_html .= '<span class="rateit katb_display_rating" data-rateit-value="'.stripcslashes( esc_attr( $rounded_avg_rating ) ).'" data-rateit-ispreset="true" data-rateit-readonly="true"></span>';
+				$agg_html .= ' - ';
+				$agg_html .= '<span itemprop="rating" itemscope itemtype="http://data-vocabulary.org/Rating">';
+					$agg_html .= '<span class="average_number" itemprop="average">'.stripcslashes( esc_attr( $avg_rating ) ).'</span>';
+					$agg_html .= '<span class="out_of">&nbsp;'.__('out of','testimonial-basics').'&nbsp;</span>';
+					$agg_html .= '<span class="best" itemprop="best">5</span>';
+				$agg_html .= '</span>';
+				$agg_html .= ', ';
+				if( $total_votes == 1 ) {
+					$agg_html .= '<span class="total_votes" itemprop="votes">'.stripcslashes( esc_attr( $total_votes ) ).'&nbsp;</span>';
+					$agg_html .= '<span class="votes_label">'.__('vote','testimonial-basics').'</span>';
+				} else if ( $total_votes == 0 ) {
+					$agg_html .= '<span class="votes_label">'.__('not rated','testimonial-basics').'</span>';
+				} else {
+					$agg_html .= '<span class="total_votes" itemprop="votes">'.stripcslashes( esc_attr( $total_votes ) ).'&nbsp;</span>';
+					$agg_html .= '<span class="votes_label">'.__('votes','testimonial-basics').'</span>';
+				}
+				$agg_html .= ', ';
+				if( $aggregate_total_approved == 0 ) {
+					$agg_html .= '<span class="reviews_label">'.__('no reviews yet','testimonial-basics').'</span>';
+				} elseif( $aggregate_total_approved == 1 ) {
+					$agg_html .= '<span class="total_reviews">'.stripcslashes( esc_attr( $aggregate_total_approved ) ).'&nbsp;</span>';
+					$agg_html .= '<span class="reviews_label">'.__('review','testimonial-basics').'</span>';	
+				} else {
+					$agg_html .= '<span class="total_reviews">'.stripcslashes( esc_attr( $aggregate_total_approved ) ).'&nbsp;</span>';
+					$agg_html .= '<span class="reviews_label">'.__('reviews','testimonial-basics').'</span>';
+				}
+				
+		  		
+			$agg_html .= '</div>';
 			
-	  		
-		$agg_html .= '</div>';
-		
+		}
 	}
+	
 	
 	return $agg_html;
 	

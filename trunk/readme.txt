@@ -4,7 +4,7 @@ Donate link: http://kevinsspace.ca/testimonial-basics/
 Tags: testimonial,testimonials,praise,user comments,widgets,translation ready
 Requires at least: 3.6
 Tested up to: 3.8
-Stable tag: 3.30.7
+Stable tag: 3.31.8
 License: GPLv3
 License URI: http://www.gnu.org/licenses/quick-guide-gplv3.html
 
@@ -70,6 +70,14 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 5. Testimonials Example Page
 
 == Changelog ==
+
+= 3.31.8 =
+* bug fix - fixed the custom text color option on the widget display author strip
+* bug fix - fixed the divide by zero error, when schema is selected and there are no ratings
+* Testimonial aggregate display will not be shown (including meta) unless there are 2 or more ratings 
+  and the average rating is greater than 0.
+* bug fix, input forms were sometimes submitting nothing for rating
+  solved by switching from select input box to HTML5 range input
 
 = 3.30.7 =
 * Added optional 5 star rating system
@@ -191,10 +199,13 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 
 == Upgrade Notice ==
 
+= 3.31.8 =
+
+* This is an intermediate upgrade with three bug fixes and one improvement
+
 = 3.30.7 =
 
 * This is a major upgrade, check your site after the upgrade as you may have to reset your widgets
-
 
 = 3.20.6 =
 
