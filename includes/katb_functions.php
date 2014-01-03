@@ -1348,6 +1348,12 @@ function katb_check_for_submitted_testimonial() {
 		//validate rating
 		if( $use_ratings == 1 ) {
 			$katb_rating = sanitize_text_field($_POST['tb_rating']);
+			if( $katb_rating == '0') $katb_rating = '0.0';
+			if( $katb_rating == '1') $katb_rating = '1.0';
+			if( $katb_rating == '2') $katb_rating = '2.0';
+			if( $katb_rating == '3') $katb_rating = '3.0';
+			if( $katb_rating == '4') $katb_rating = '4.0';
+			if( $katb_rating == '5') $katb_rating = '5.0';
 		} else {
 			$katb_rating = '0.0';
 		}

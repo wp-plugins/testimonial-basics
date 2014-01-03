@@ -3,7 +3,7 @@
 Plugin Name: Testimonial Basics Input Widget
 Plugin URI: http://kevinsspace.ca/testimonial-basics-wordpress-plugin/
 Description: A plugin to input a testimonial
-Version: 3.0.0
+Version: 3.31.8
 Author: Kevin Archibald
 Author URI: http://kevinsspace.ca/
 License: GPLv3
@@ -177,8 +177,14 @@ class katb_input_testimonial_widget extends WP_Widget {
 			}
 			
 			//validate rating
-			if( $use_ratings == 1 ) {
-				$katb_widget_rating = sanitize_text_field($_POST['tb_rating']);
+			if( $use_ratings == 1 ) {			
+				$katb_widget_rating = sanitize_text_field($_POST['tb_rating_widget']);
+				if( $katb_widget_rating == '1') $katb_widget_rating = '1.0';
+				if( $katb_widget_rating == '2') $katb_widget_rating = '2.0';
+				if( $katb_widget_rating == '3') $katb_widget_rating = '3.0';
+				if( $katb_widget_rating == '4') $katb_widget_rating = '4.0';
+				if( $katb_widget_rating == '5') $katb_widget_rating = '5.0';
+				if( $katb_widget_rating == '0') $katb_widget_rating = '0.0';
 			} else {
 				$katb_widget_rating = '0.0';
 			}
@@ -215,6 +221,7 @@ class katb_input_testimonial_widget extends WP_Widget {
 				);
 				$formats_values = array('%s','%d','%d','%s','%s','%s','%s','%s','%s','%s');
 				$wpdb->insert($tablename,$values,$formats_values);
+
 				echo '<div class="katb_widget_sent">'.__('Submitted-Thankyou!','testimonial-basics').'</div>';
 				//send email
 				if ( $katb_options['katb_contact_email'] != '' ) {
@@ -287,21 +294,7 @@ class katb_input_testimonial_widget extends WP_Widget {
 				if( $use_ratings == 1 ) { ?>
 					
 					<label><?php echo esc_attr( $rating_label_widget ); ?></label>
-					
-					<select id="katb_widget_rateit_input" class="katb_rating_input" name="tb_rating">
-						<option <?php selected($katb_widget_rating,'0.0'); ?> value="0.0">0.0</option>
-						<option <?php selected($katb_widget_rating,'0.5'); ?> value="0.5">0.5</option>
-						<option <?php selected($katb_widget_rating,'1.0'); ?> value="1.0">1.0</option>
-						<option <?php selected($katb_widget_rating,'1.5'); ?> value="1.5">1.5</option>
-						<option <?php selected($katb_widget_rating,'2.0'); ?> value="2.0">2.0</option>
-						<option <?php selected($katb_widget_rating,'2.5'); ?> value="2.5">2.5</option>
-						<option <?php selected($katb_widget_rating,'3.0'); ?> value="3.0">3.0</option>
-						<option <?php selected($katb_widget_rating,'3.5'); ?> value="3.5">3.5</option>
-						<option <?php selected($katb_widget_rating,'4.0'); ?> value="4.0">4.0</option>
-						<option <?php selected($katb_widget_rating,'4.5'); ?> value="4.5">4.5</option>
-						<option <?php selected($katb_widget_rating,'5.0'); ?> value="5.0">5.0</option>
-					</select>
-					
+					<input type="range" min="0" max="5" value="0.0" step="0.5" name="tb_rating_widget" id="katb_widget_rateit_input" class="katb_widget_rating_input">
 					<div class="rateit katb_widget_input_rating" data-rateit-backingfld="#katb_widget_rateit_input"></div>
 					
 				<?php } ?>
