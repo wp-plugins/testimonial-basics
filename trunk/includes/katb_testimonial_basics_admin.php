@@ -1083,6 +1083,10 @@ function katb_input_tab_help() {
 	$html = '';
 	$html .= '<h2>'.__('General Input Options','testimonial-basics').'</h2>';
 	
+	$html .= '<p><strong>'.__('Auto Approve Testimonials','testimonial-basics').' - </strong>';
+	$html .= __('You can check this box to have testimonials automatically approved.','testimonial-basics');
+	$html .= ' '.__('CAUTION: Not recommended so use at your own risk.','testimonial-basics').'</p>';
+	
 	$html .= '<p><strong>'.__('Use captcha on input forms','testimonial-basics').' - </strong>';
 	$html .= __('You can include a black and white captcha on the input forms.','testimonial-basics');
 	$html .= ' '.__('If for any reason the Captcha is not working, disable it here.','testimonial-basics').'</p>';

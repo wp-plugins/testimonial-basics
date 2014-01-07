@@ -113,6 +113,7 @@ class katb_input_testimonial_widget extends WP_Widget {
 		$exclude_website = $katb_options[ 'katb_exclude_website_input' ];
 		$exclude_location = $katb_options[ 'katb_exclude_location_input' ];
 		$use_ratings = $katb_options[ 'katb_use_ratings' ];
+		$auto_approve = $katb_options[ 'katb_auto_approve' ];
 		//Get the widget title and display
     	extract ( $args);
 		echo $before_widget;
@@ -141,8 +142,13 @@ class katb_input_testimonial_widget extends WP_Widget {
 			$katb_widget_input_error = "";
 			//Set default variables
 			$katb_widget_order = "";
-			//$katb_widget_group = "All";
-			$katb_widget_approved = 0;
+			
+			if( $auto_approve == 1 ) {
+				$katb_widget_approved = 1;
+			} else {
+				$katb_widget_approved = 0;
+			}
+			
 			$katb_widget_datetime = current_time('mysql');
 			
 			//validate author
@@ -236,7 +242,7 @@ class katb_input_testimonial_widget extends WP_Widget {
 						.stripcslashes($katb_widget_email)."<br/><br/>"
 						.__('Comments: ','testimonial-basics')."<br/><br/>"
 						.stripcslashes($katb_widget_testimonial)."<br/><br/>"
-						.__('Log in to approve it:','testimonial-basics').'<a href="'.site_url("/wp-login.php").'" title="your site login">Log In</a>';
+						.__('Log in to approve or view it:','testimonial-basics').'<a href="'.site_url("/wp-login.php").'" title="your site login">Log In</a>';
 				
 				$headers = 'From: '.stripcslashes($katb_widget_author).' <'.stripcslashes($katb_widget_email).'>';
 				add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));

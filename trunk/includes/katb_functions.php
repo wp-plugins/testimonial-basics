@@ -223,6 +223,16 @@ function katb_get_option_parameters() {
 			'class' => 'nohtml'
 		),
 /* ------------------------- Input Form Options -------------------------------------- */
+		'katb_auto_approve' => array(
+			'name' => 'katb_auto_approve',
+			'title' => __( 'Auto Approve Testimonials' , 'testimonial-basics' ),
+			'type' => 'checkbox',
+			'description' => __('CAUTION: Use at your own risk.','testimonial-basics'),
+			'section' => 'general',
+			'tab' => 'input',
+			'default' =>0, // 0 for off
+			'class' => 'checkbox'
+		),
 		'katb_use_captcha' => array(
 			'name' => 'katb_use_captcha',
 			'title' => __( 'Use captcha on input forms' , 'testimonial-basics' ),
@@ -1304,6 +1314,7 @@ function katb_check_for_submitted_testimonial() {
 	$exclude_website = $katb_options[ 'katb_exclude_website_input' ];
 	$exclude_location = $katb_options[ 'katb_exclude_location_input' ];
 	$use_ratings = $katb_options[ 'katb_use_ratings' ];
+	$auto_approve = $katb_options[ 'katb_auto_approve' ];
 	$katb_allowed_html = katb_allowed_html();
 	
 	if ( isset ( $_POST['katb_submitted'] ) && wp_verify_nonce( $_POST['katb_main_form_nonce'],'katb_nonce_1' ) ) {
@@ -1315,7 +1326,13 @@ function katb_check_for_submitted_testimonial() {
 		//Validate-Sanitize Input
 		//Set Defaults
 		$katb_order = "";
-		$katb_approved = 0;
+		
+		if( $auto_approve == 1 ) {
+			$katb_approved = 1;
+		} else {
+			$katb_approved = 0;
+		}
+		
 		//$katb_group = "";
 		$katb_group = sanitize_text_field($_POST['tb_group']);
 		$katb_datetime = current_time('mysql');
@@ -1400,7 +1417,7 @@ function katb_check_for_submitted_testimonial() {
 					.stripcslashes($katb_email)."<br/><br/>"
 					.__('Comments: ','testimonial-basics')."<br/><br/>"
 					.stripcslashes($katb_testimonial)."<br/><br/>"
-					.__('Log in to approve it:','testimonial-basics').'<a href="'.site_url("/wp-login.php").'" title="your site login">Log In</a>';;
+					.__('Log in to approve or view it:','testimonial-basics').'<a href="'.site_url("/wp-login.php").'" title="your site login">Log In</a>';;
 			$headers = 'From: '.stripcslashes($katb_author).' <'.stripcslashes($katb_email).'>';
 			add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
 			wp_mail( $emailTo, $subject, $body, $headers );
@@ -1486,9 +1503,10 @@ function katb_testimonial_excerpt_filter( $length , $text , $classID ) {
 		} else {
 			$text = substr( $text , 0 , $break_pos );
 		}
-
-		$text = force_balance_tags( $text );
+		
 		$text .= '...';
+		
+		$text = force_balance_tags( $text );
 
 		$text .= '<a href="#" class="katb_excerpt_more" data-id="'.$classID.'" > ...'.__('more','testimonial-basics').'</a>';
 		

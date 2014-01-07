@@ -365,7 +365,7 @@ function katb_display_input_form($atts) {
 			if( $use_ratings == 1 ) {
 				
 				$input_html .= '<label class="katb_input_label1">'.esc_attr( $rating_label ).'</label>';
-				$input_html .= '<input type="range" min="0" max="5" value="0.0" step="0.5" name="tb_rating"" id="katb_rateit_input" class="katb_rating_input">';
+				$input_html .= '<input type="range" min="0" max="5" value="0.0" step="0.5" name="tb_rating" id="katb_rateit_input" class="katb_rating_input">';
 				$input_html .= '<div class="rateit katb_input_rating" data-rateit-backingfld="#katb_rateit_input"></div>';
 				
 			}
@@ -566,7 +566,11 @@ function katb_content_display( $use_formatted_display , $use_schema, $katb_tnumb
 					
 							$rating = $katb_tdata[$i]['tb_rating'];
 							if( $rating == '' ) { $rating = 0; }
-							$html .= '<span class="rateit katb_display_rating" data-rateit-value="'.esc_attr( $rating ).'" data-rateit-ispreset="true" data-rateit-readonly="true"></span><br/>';
+							$html .= '<span class="rateit katb_display_rating" 
+													data-rateit-value="'.esc_attr( $rating ).'" 
+													data-rateit-ispreset="true" 
+													data-rateit-readonly="true"
+													></span><br/>';
 							//schema schema schema :)
 							if( $use_schema == 1 ) {
 								$meta_top .= '<meta itemprop="worst" content="0" />';
@@ -831,7 +835,8 @@ function katb_setup_popup ( $i, $katb_tdata, $has_valid_avatar ) {
 	$custom_individual_name = $katb_options['katb_individual_custom_name'];
 	$layout = $katb_options['katb_layout_option'];
 	$group_name = $katb_tdata[$i]['tb_group'];
-	$use_schema = 0;
+	$use_schema = 0;//used to ensure no schema matkup in meta
+	$schema_on_for_title = $katb_options['katb_use_schema'];//used to decide on title display
 	
 	$popup_html = '';
 	
@@ -846,7 +851,7 @@ function katb_setup_popup ( $i, $katb_tdata, $has_valid_avatar ) {
 				$popup_html .= '<div class="katb_title_bar">';
 					
 					//title for testimonial
-					if( $use_schema == 1 || $use_title == 1 ) {
+					if( $schema_on_for_title == 1 || $use_title == 1 ) {
 							
 						//get group name for testimonial
 						$individual_group_name = $katb_tdata[$i]['tb_group'];
