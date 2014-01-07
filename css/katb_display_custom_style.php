@@ -23,21 +23,18 @@ if( $katb_options['katb_use_formatted_display'] == 1 ) { ?>
 		
 		.katb_test_box,
 		.katb_popup_wrap.katb_content,
-		.katb_schema_summary_box,
-		.katb_input_style
+		.katb_schema_summary_box
 		{font-size: <?php echo $katb_options['katb_content_font_size']; ?>!important;}
 		
 		<?php if ($katb_options['katb_content_font'] != 'default font') { ?>
-				.katb_test_wrap,.katb_test_wrap h1,.katb_test_wrap h2,.katb_test_wrap h3,.katb_test_wrap h4,.katb_test_wrap h5,.katb_test_wrap h6,
-				.katb_popup_wrap.katb_content,.katb_popup_wrap.katb_content h1,.katb_popup_wrap.katb_content h2,.katb_popup_wrap.katb_content h3,
-				.katb_popup_wrap.katb_content h4,.katb_popup_wrap.katb_content h5,.katb_popup_wrap.katb_content h6,
-				.katb_schema_summary_wrap,.katb_paginate input
+				.katb_test_wrap *,
+				.katb_popup_wrap.katb_content *,
+				.katb_schema_summary_wrap *,.katb_paginate *
 				{ font-family: <?php echo $katb_options['katb_content_font']; ?>!important; }
 		<?php } else { ?>
-			.katb_test_wrap,.katb_test_wrap h1,.katb_test_wrap h2,.katb_test_wrap h3,.katb_test_wrap h4,.katb_test_wrap h5,.katb_test_wrap h6,
-				.katb_popup_wrap.katb_content,.katb_popup_wrap.katb_content h1,.katb_popup_wrap.katb_content h2,.katb_popup_wrap.katb_content h3,
-				.katb_popup_wrap.katb_content h4,.katb_popup_wrap.katb_content h5,.katb_popup_wrap.katb_content h6,
-				.katb_schema_summary_wrap,.katb_paginate input
+				.katb_test_wrap *,
+				.katb_popup_wrap.katb_content *,
+				.katb_schema_summary_wrap *,.katb_paginate *
 				{ font-family: inherit; }
 		<?php } ?>
 		
@@ -71,12 +68,12 @@ if( $katb_options['katb_use_formatted_display'] == 1 ) { ?>
 			.katb_test_text_basic {font-style: italic;} 
 		<?php } ?>
 		
-		.katb_paginate input { font-family: inherit!important;}
+		.katb_paginate * {font-family: inherit!important;}
 		
 		.katb_test_box_basic,
 		.katb_popup_wrap.katb_content,
 		.katb_schema_summary_box_basic,
-		.katb_paginate input
+		.katb_paginate *
 		{font-size: <?php echo $katb_options['katb_content_font_size']; ?>!important;}
 		
 	</style>

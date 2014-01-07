@@ -4,7 +4,7 @@ Donate link: http://kevinsspace.ca/testimonial-basics/
 Tags: testimonial,testimonials,praise,user comments,widgets,translation ready
 Requires at least: 3.6
 Tested up to: 3.8
-Stable tag: 3.31.8
+Stable tag: 3.32.9
 License: GPLv3
 License URI: http://www.gnu.org/licenses/quick-guide-gplv3.html
 
@@ -70,6 +70,16 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 5. Testimonials Example Page
 
 == Changelog ==
+
+= 3.32.9 =
+* bug fix - fixed custom font css for the widget and widget popup display
+* improvement moved ... in excerpt to before close tags
+* improvement - set metabox styling in popup
+* bug fix - fixed popup to show title if use schema selected
+* bug fix - syntax error in rating input html content form
+* bug fix - fixed itallic setting for basic widget display
+* bug fix - fixed custom formatting to include rotator divs in widget
+* improvement - added option for auto approval
 
 = 3.31.8 =
 * bug fix - fixed the custom text color option on the widget display author strip
@@ -198,6 +208,10 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 * Initial Release
 
 == Upgrade Notice ==
+
+= 3.32.9 =
+
+* This is an intermediate upgrade, non-critical
 
 = 3.31.8 =
 

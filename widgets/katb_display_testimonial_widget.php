@@ -575,7 +575,8 @@ function katb_widget_popup( $has_valid_avatar, $katb_widget_tdata, $i ) {
 	$use_individual_group_name = $katb_options['katb_individual_group_name'];
 	$custom_individual_name = $katb_options['katb_individual_custom_name'];
 	$use_title =  $katb_options['katb_widget_show_title'];
-	$use_schema = 0;
+	$use_schema = 0;//used to ensure no schema matkup in meta
+	$schema_on_for_title = $katb_options['katb_use_schema'];//used to decide on title display
 
 	?><div class="katb_topopup" id="katb_widget_<?php echo sanitize_text_field( $katb_widget_tdata[$i]['tb_id'] ); ?>">
 		
@@ -589,7 +590,7 @@ function katb_widget_popup( $has_valid_avatar, $katb_widget_tdata, $i ) {
 					
 					<?php
 					//title for testimonial
-					if( $use_schema == 1 || $use_title == 1 ) {
+					if( $schema_on_for_title == 1 || $use_title == 1 ) {
 							
 						//get group name for testimonial
 						$individual_group_name = $katb_widget_tdata[$i]['tb_group'];

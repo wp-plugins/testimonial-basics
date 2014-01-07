@@ -22,7 +22,7 @@
 }
 
 .rateit .rateit-range * {
-    display:block;
+    display: block;
 }
 
 /* for IE 6 */
@@ -102,28 +102,28 @@
 
 span.smallstars span.rateit-range
 {
-    background: url(star-white12.png);
-    width: 12px
+    background: url(star-gold12.png);/*default:star-white12.png*/
+    width: 12px;
     height: 12px;
 }
 
 span.smallstars span.rateit-hover
 {
-    background: url(star-red12.png);
-    width: 12px
+    background: url(star-gold12.png);/*default:star-red12.png*/
+    width: 12px;
     height: 12px;
 }
 
 span.smallstars span.rateit-selected
 {
-    background: url(star-gold12.png);
-    width: 12px
+    background: url(star-gold12.png);/*default:star-gold12.png*/
+    width: 12px;
     height: 12px;
 }
 
 span.smallstars span.rateit-reset
 {
-    background: url(star-black12.png);
+	background: url(star-gold12.png); /*default:star-black12.png*/
     width: 12px;
     height: 12px;
 
