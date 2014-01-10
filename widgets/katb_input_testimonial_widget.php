@@ -281,7 +281,7 @@ class katb_input_testimonial_widget extends WP_Widget {
 				<p><?php echo stripslashes($katb_options['katb_email_note']); ?></p>
 			<?php } ?>
 			
-			<form method="POST" action="#">
+			<form method="POST">
 				
 				<?php wp_nonce_field("katb_nonce_2","katb_widget_form_nonce"); ?>
 				

@@ -342,7 +342,7 @@ function katb_display_input_form($atts) {
 	
 	$input_html .= '<div class="katb_input_style">';
 	
-		$input_html .= '<form method="POST" action="#">';
+		$input_html .= '<form method="POST">';
 			
 			$input_html .= '<input type="hidden"  name="tb_group" value="'.esc_attr( stripcslashes( $katb_group ) ).'" />';
 			
