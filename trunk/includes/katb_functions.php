@@ -1612,7 +1612,7 @@ function katb_setup_pagination( $offset_name, $span, $total_entries ){
  * 
  */
 function katb_display_pagination ( $setup ) {
-	echo '<form class="katb-pagination" method="POST" action="#">';
+	echo '<form class="katb-pagination" method="POST">';
 	if ( $setup['pages'] > 1 ) {
 		echo '<input type="button" class="ka_pages" value="Page '.$setup['page_selected'].' / '.$setup['pages'].'">';
 		if ( $setup['first'] != 'no' ) echo '<input type="submit" name="ka_paginate_post" value="<<" title="First" class="ka_paginate" />';
@@ -1661,7 +1661,7 @@ function katb_display_pagination ( $setup ) {
 function katb_get_display_pagination_string ($setup) {
 	
 	$html_return = '';
-	$html_return .= '<form method="POST" action="#" class="katb_paginate">';
+	$html_return .= '<form method="POST" class="katb_paginate">';
 	if ( $setup['pages'] > 1 ) {
 		$html_return .= '<input type="button" class="ka_display_paginate_summary" value="Page '.$setup['page_selected'].' / '.$setup['pages'].'">';
 		if ( $setup['first'] != 'no' ) $html_return .= '<input type="submit" name="ka_paginate_post" value="<<" title="First" class="ka_display_paginate" />';
@@ -1773,6 +1773,7 @@ function katb_offset_setup ( $offset_name, $span, $action, $total_entries ) {
 
 /**
  * Function to add unapproved testimonials count to admin menu
+ * Reference: http://wordpress.org/support/topic/add-bubble-for-pending-count-in-admin-dashboard?replies=1
  */
 add_action( 'admin_menu', 'katb_add_unapproved_count' );
 function katb_add_unapproved_count() {
@@ -1786,7 +1787,7 @@ function katb_add_unapproved_count() {
 	if( $total != 0 ) {
 		foreach ( $menu as $key => $value ) {
 			if ( $menu[$key][2] == 'katb_testimonial_basics_admin' ) {
-				$menu[$key][0] .= " <span class='update-plugins count-$pend_count'><span class='plugin-count'>" . $total . '</span></span>';
+				$menu[$key][0] .= " <span class='update-plugins count-$total'><span class='plugin-count'>" . $total . '</span></span>';
 				return;
 			}
 		}

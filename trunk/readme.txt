@@ -4,7 +4,7 @@ Donate link: http://kevinsspace.ca/testimonial-basics/
 Tags: testimonial,testimonials,praise,user comments,widgets,translation ready
 Requires at least: 3.6
 Tested up to: 3.8
-Stable tag: 3.32.9
+Stable tag: 4.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/quick-guide-gplv3.html
 
@@ -70,6 +70,10 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 5. Testimonials Example Page
 
 == Changelog ==
+
+= 4.0 =
+* bug fix - changed $pend-count to $total in katb_add_unapproved_count()
+* bug fix - removed action="#" from input forms and pagination form
 
 = 3.32.9 =
 * bug fix - fixed custom font css for the widget and widget popup display
@@ -209,20 +213,19 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 
 == Upgrade Notice ==
 
-= 3.32.9 =
+= 4.0 =
+* This update fixes a couple of minor bugs
 
+= 3.32.9 =
 * This is an intermediate upgrade, non-critical
 
 = 3.31.8 =
-
 * This is an intermediate upgrade with three bug fixes and one improvement
 
 = 3.30.7 =
-
 * This is a major upgrade, check your site after the upgrade as you may have to reset your widgets
 
 = 3.20.6 =
-
 * Testimonials are now displayed in the main content area with a 
   single shortcode. You will likely have to make adjustments to 
   your shortcode.
@@ -232,7 +235,6 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
   allowed use [katb_input_testimonials] instead
 
 = 2.10.6 =
-
 * gravatar logo was not loading properly
 * Testimonial was not updating in the database for Windows 
   server setups
