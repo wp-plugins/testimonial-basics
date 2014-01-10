@@ -5,24 +5,24 @@ jQuery(function(jQuery) {
 	var element = '';
 	var element2 = '';
 	jQuery("a.katb_excerpt_more").click(function() {
-			var navID = jQuery(this).data("id");
-			element = '#'+navID+'.katb_topopup';
-			element2 = '#'+navID+'_bg.katb_excerpt_popup_bg';
-			setTimeout(function(){ // then show popup, deley in .5 second
-				loadPopup(element); // function show popup
-			}, 500); // .5 second
+		var navID = jQuery(this).data("id");
+		element = '#'+navID+'.katb_topopup';
+		element2 = '#'+navID+'_bg.katb_excerpt_popup_bg';
+		setTimeout(function(){ // then show popup, deley in .5 second
+			loadPopup(element); // function show popup
+		}, 500); // .5 second
 	return false;
 	});
 
 	/* event for close the popup */
 	jQuery("div.katb_close").hover(
-					function() {
-						jQuery("span.ecs_tooltip").show();
-					},
-					function () {
-    					jQuery("span.ecs_tooltip").hide();
-  					}
-				);
+		function() {
+			jQuery("span.ecs_tooltip").show();
+		},
+		function () {
+			jQuery("span.ecs_tooltip").hide();
+		}
+	);
 
 	jQuery("div.katb_close").click(function() {
 		disablePopup();  // function close pop up
