@@ -222,10 +222,11 @@ class katb_input_testimonial_widget extends WP_Widget {
 				'tb_email' => $katb_widget_email,
 				'tb_location' => $katb_widget_location,
 				'tb_url' => $katb_widget_website,
+				'tb_pic_url' => '',
 				'tb_rating' => $katb_widget_rating,
 				'tb_testimonial' => $katb_widget_testimonial
 				);
-				$formats_values = array('%s','%d','%d','%s','%s','%s','%s','%s','%s','%s');
+				$formats_values = array('%s','%d','%d','%s','%s','%s','%s','%s','%s','%s','%s');
 				$wpdb->insert($tablename,$values,$formats_values);
 
 				echo '<div class="katb_widget_sent">'.__('Submitted-Thankyou!','testimonial-basics').'</div>';

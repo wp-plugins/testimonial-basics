@@ -8,7 +8,9 @@ Testimonial Basics Plugin - Translation Ready
 4) The French and Dutch translations were initially done by 
 
     French - Stephanie Lariviere, Quebec
-    Dutch - Hans Fontijin, Netherlands, updated by Vincent Volmer, Netherlands
-    
+   
     but there has been significant revisions which I have completed using Google Translate, not the 
     best way to do it and both translations will need to be revised.
+    
+    Dutch - Hans Fontijin, Netherlands, updated by Vincent Volmer, Netherlands
+    Spanish - Graciela Brinda

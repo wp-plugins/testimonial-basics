@@ -1399,10 +1399,11 @@ function katb_check_for_submitted_testimonial() {
 				'tb_email' => $katb_email,
 				'tb_location' => $katb_location,
 				'tb_url' => $katb_website,
+				'tb_pic_url' => '',
 				'tb_rating' => $katb_rating,
 				'tb_testimonial' => $katb_testimonial
 			);
-			$formats_values = array('%s','%d','%d','%s','%s','%s','%s','%s','%s','%s');
+			$formats_values = array('%s','%d','%d','%s','%s','%s','%s','%s','%s','%s','%s');
 			$wpdb->insert($tablename,$values,$formats_values);
 			$_SESSION['katb_submitted'] = SHA1('true');
 			//send email
