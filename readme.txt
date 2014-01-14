@@ -4,7 +4,7 @@ Donate link: http://kevinsspace.ca/testimonial-basics/
 Tags: testimonial,testimonials,praise,user comments,widgets,translation ready
 Requires at least: 3.6
 Tested up to: 3.8
-Stable tag: 4.0
+Stable tag: 4.0.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/quick-guide-gplv3.html
 
@@ -70,6 +70,10 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 5. Testimonials Example Page
 
 == Changelog ==
+= 4.0.1 =
+* bug fix - Testimonials were not being added to the database in Windows Servers
+* improvement - Spanish Translation added
+* bug fix - css in rateit.css, all widget testimonials were showing 5 stars
 
 = 4.0 =
 * bug fix - changed $pend-count to $total in katb_add_unapproved_count()
@@ -212,6 +216,9 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 * Initial Release
 
 == Upgrade Notice ==
+
+= 4.0.1 =
+* please update
 
 = 4.0 =
 * This update fixes a couple of minor bugs
