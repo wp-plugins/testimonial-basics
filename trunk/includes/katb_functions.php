@@ -736,7 +736,7 @@ function katb_get_option_parameters() {
 				'13000',
 				'14000'
 			),
-			'description' => __('default: 7000 ms','testimonial-basics'),
+			'description' => __('default: 7000 ms, IE9,IE10 uses default','testimonial-basics'),
 			'section' => 'content_rotator',
 			'tab' => 'content_display',
 			'default' => '7000',
@@ -771,7 +771,7 @@ function katb_get_option_parameters() {
 				'left to right',
 				'right to left'
 			),
-			'description' => __('default: fade','testimonial-basics'),
+			'description' => __('default: fade, IE9,IE10 uses default','testimonial-basics'),
 			'section' => 'content_rotator',
 			'tab' => 'content_display',
 			'default' => 'fade',
@@ -1027,7 +1027,7 @@ function katb_get_option_parameters() {
 				'13000',
 				'14000'
 			),
-			'description' => __('default: 7000 ms','testimonial-basics'),
+			'description' => __('default: 7000 ms, IE9,IE10 uses default','testimonial-basics'),
 			'section' => 'widget_rotator',
 			'tab' => 'widget_display',
 			'default' => '7000',
@@ -1062,7 +1062,7 @@ function katb_get_option_parameters() {
 				'left to right',
 				'right to left'
 			),
-			'description' => __('default: fade','testimonial-basics'),
+			'description' => __('default: fade, IE9,IE10 uses default','testimonial-basics'),
 			'section' => 'widget_rotator',
 			'tab' => 'widget_display',
 			'default' => 'fade',

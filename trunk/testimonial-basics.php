@@ -3,7 +3,7 @@
 Plugin Name: Testimonial Basics
 Plugin URI: http://kevinsspace.ca/testimonial-basics-wordpress-plugin/
 Description: This plugin facilitates easy management of customer testimonials. The user can set up an input form in a page or in a widget, and display all or selected testimonials in a page or a widget. The plug in is very easy to use and modify.
-Version: 4.0.1
+Version: 4.0.2
 Author: Kevin Archibald
 Author URI: http://kevinsspace.ca
 License: GPLv3
@@ -188,15 +188,15 @@ add_action('wp_enqueue_scripts','katb_add_styles');
  * ----------------------------------------------------------------------- */
 function katb_load_scripts () {
 	$katb_options = katb_get_options();
-	if ( $katb_options['katb_use_widget_excerpts'] == 1 || $katb_options['katb_use_excerpts'] == 1 ) {
-		wp_enqueue_script( 'testimonial_basics_excerpt_js', plugins_url() . '/testimonial-basics/js/katb_excerpt_doc_ready.js', array('jquery'));
+	if ( $katb_options['katb_widget_use_excerpts'] == 1 || $katb_options['katb_use_excerpts'] == 1 ) {
+		wp_enqueue_script( 'testimonial_basics_excerpt_js' , plugins_url() . '/testimonial-basics/js/katb_excerpt_doc_ready.js' , array('jquery') , '1.0.0' , true );
 	}
 	if ( $katb_options['katb_enable_rotator'] != 0 ) {
-		wp_enqueue_script( 'testimonial_basics_rotator_js', plugins_url() . '/testimonial-basics/js/katb_rotator_doc_ready.js', array('jquery'));
+		wp_enqueue_script( 'testimonial_basics_rotator_js' , plugins_url() . '/testimonial-basics/js/katb_rotator_doc_ready.js' , array('jquery') , '1.0.0' , true );
 		wp_enqueue_script('jquery-effects-slide');
 	}
 	if ( $katb_options['katb_use_ratings'] == 1 ) {
-		wp_enqueue_script( 'testimonial_basics_rateit_js', plugins_url() . '/testimonial-basics/js/rateit/jquery.rateit.min.js', array('jquery'),true);
+		wp_enqueue_script( 'testimonial_basics_rateit_js' , plugins_url() . '/testimonial-basics/js/rateit/jquery.rateit.min.js' , array('jquery') , '1.0.0' , true );
 	}
 }
 add_action('wp_enqueue_scripts','katb_load_scripts');
