@@ -33,6 +33,12 @@ function katb_list_testimonials ( $atts ) {
 	global $wpdb , $tablename;
 	$tablename = $wpdb->prefix.'testimonial_basics';
 	
+		
+	//initialize main testimonial arrays
+	$katb_tdata = array();
+	$katb_tdata = '';
+	$katb_tnumber = '';
+
 	//get user options
 	$katb_options = katb_get_options();
 	$use_formatted_display =  $katb_options['katb_use_formatted_display'];
@@ -62,7 +68,7 @@ function katb_list_testimonials ( $atts ) {
 	$by = strtolower( sanitize_text_field( $by ));
 	$id = sanitize_text_field($id);
 	$rotate = strtolower( sanitize_text_field( $rotate ));
-	
+
 	//whitelist rotate
 	if( $rotate != 'yes' ) { $rotate = 'no'; }
 	
@@ -81,11 +87,13 @@ function katb_list_testimonials ( $atts ) {
 	
 	//Validate $by
 	if ($by != 'date' && $by != 'order') { $by = 'random'; }
-	
+
 	//OK let's start by getting the testimonial data from the database
 	if( $id != '' ) {
 		$id_picks = array();
 		$id_picks_processed = array();
+		$id_picks = '';
+		$id_picks_processed ='';
 		$id_picks = explode( ',', $id );
 		
 		$counter = 0;
@@ -312,12 +320,11 @@ function katb_display_input_form($atts) {
 	$exclude_location = $katb_options[ 'katb_exclude_location_input' ];
 	$use_ratings = $katb_options[ 'katb_use_ratings' ];
 	global $katb_group,$katb_author,$katb_email,$katb_website,$katb_location,$katb_rating,$katb_testimonial,$katb_input_error,$katb_input_success;
-	
+
 	//get shortcode variables
 	extract(shortcode_atts(array(
 		'group' => 'All'
     ), $atts));
-	
 	
 	$katb_group = sanitize_text_field($group);
 	

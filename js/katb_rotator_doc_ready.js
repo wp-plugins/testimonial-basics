@@ -8,56 +8,76 @@ jQuery(document).ready(function(){
 
 	if( jQuery( '#katb_rotator_0' ).length > 0 ) {
 		var katb_rotate_options = this.getElementById('katb_rotator_0');
-		var speed = katb_rotate_options.dataset.katb_speed;
-		var katb_rotate_interval_0 = setInterval( katb_rotate_testimonials_0, speed );
+		try{
+			var speed_0 = katb_rotate_options.dataset.katb_speed;
+		}catch(e){
+			var speed_0 = 7000;
+		}
+		var katb_rotate_interval_0 = setInterval( katb_rotate_testimonials_0, speed_0 );
 		jQuery('#katb_rotator_0' ).hover(function() {
 	   		clearInterval(katb_rotate_interval_0);
 		}, function() {
-			katb_rotate_interval_0 = setInterval( katb_rotate_testimonials_0, speed );
+			katb_rotate_interval_0 = setInterval( katb_rotate_testimonials_0, speed_0 );
 		});
 	}
 	
 	if( jQuery( '#katb_rotator_1' ).length > 0 ) {
 		var katb_rotate_options = this.getElementById('katb_rotator_1');
-		var speed = katb_rotate_options.dataset.katb_speed;
-		var katb_rotate_interval_1 = setInterval( katb_rotate_testimonials_1, speed );
+		try{
+			var speed_1 = katb_rotate_options.dataset.katb_speed;
+		}catch(e){
+			var speed_1 = 7000;
+		}
+		var katb_rotate_interval_1 = setInterval( katb_rotate_testimonials_1, speed_1 );
 		jQuery('#katb_rotator_1' ).hover(function() {
 	   		clearInterval(katb_rotate_interval_1);
 		}, function() {
-			katb_rotate_interval_1 = setInterval( katb_rotate_testimonials_1, speed );
+			katb_rotate_interval_1 = setInterval( katb_rotate_testimonials_1, speed_1 );
 		});
 	}
 	
 	if( jQuery( '#katb_rotator_2' ).length > 0 ) {
 		var katb_rotate_options = this.getElementById('katb_rotator_2');
-		var speed = katb_rotate_options.dataset.katb_speed;
-		var katb_rotate_interval_2 = setInterval( katb_rotate_testimonials_2, speed );
+		try{
+			var speed_2 = katb_rotate_options.dataset.katb_speed;
+		}catch(e){
+			var speed_2 = 7000;
+		}
+		var katb_rotate_interval_2 = setInterval( katb_rotate_testimonials_2, speed_2 );
 		jQuery('#katb_rotator_2' ).hover(function() {
 	   		clearInterval(katb_rotate_interval_2);
 		}, function() {
-			katb_rotate_interval_2 = setInterval( katb_rotate_testimonials_2, speed );
+			katb_rotate_interval_2 = setInterval( katb_rotate_testimonials_2, speed_2 );
 		});
 	}
 	
 	if( jQuery( '#katb_rotator_3' ).length > 0 ) {
 		var katb_rotate_options = this.getElementById('katb_rotator_3');
-		var speed = katb_rotate_options.dataset.katb_speed;
-		var katb_rotate_interval_3 = setInterval( katb_rotate_testimonials_3, speed );
+		try{
+			var speed_3 = katb_rotate_options.dataset.katb_speed;
+		}catch(e){
+			var speed_3 = 7000;
+		}
+		var katb_rotate_interval_3 = setInterval( katb_rotate_testimonials_3, speed_3 );
 		jQuery('#katb_rotator_3' ).hover(function() {
 	   		clearInterval(katb_rotate_interval_3);
 		}, function() {
-			katb_rotate_interval_3 = setInterval( katb_rotate_testimonials_3, speed );
+			katb_rotate_interval_3 = setInterval( katb_rotate_testimonials_3, speed_3 );
 		});
 	}
 	
 	if( jQuery( '#katb_rotator_4' ).length > 0 ) {
 		var katb_rotate_options = this.getElementById('katb_rotator_4');
-		var speed = katb_rotate_options.dataset.katb_speed;
-		var katb_rotate_interval_4 = setInterval( katb_rotate_testimonials_4, speed );
+		try{
+			var speed_4 = katb_rotate_options.dataset.katb_speed;
+		}catch(e){
+			var speed_4 = 7000;
+		}
+		var katb_rotate_interval_4 = setInterval( katb_rotate_testimonials_4, speed_4 );
 		jQuery('#katb_rotator_4' ).hover(function() {
 	   		clearInterval(katb_rotate_interval_4);
 		}, function() {
-			katb_rotate_interval_4 = setInterval( katb_rotate_testimonials_4, speed );
+			katb_rotate_interval_4 = setInterval( katb_rotate_testimonials_4, speed_4 );
 		});
 	}
     
@@ -69,56 +89,76 @@ jQuery(document).ready(function(){
 	
 	if( jQuery( '#katb_widget_rotator_0').length > 0 ) {
 		var katb_widget_rotate_options = this.getElementById('katb_widget_rotator_0');
-		var speed = katb_widget_rotate_options.dataset.katb_speed;
-		var katb_widget_rotate_interval_0 = setInterval( katb_widget_rotate_testimonials_0, speed );
+		try{
+			var speed_w_0 = katb_widget_rotate_options.dataset.katb_speed;
+		}catch(e){
+			var speed_w_0 = 7000;
+		}
+		var katb_widget_rotate_interval_0 = setInterval( katb_widget_rotate_testimonials_0, speed_w_0 );
 		jQuery('#katb_widget_rotator_0' ).hover(function() {
 	   		clearInterval(katb_widget_rotate_interval_0);
 		}, function() {
-			katb_widget_rotate_interval_0 = setInterval( katb_widget_rotate_testimonials_0, speed );
+			katb_widget_rotate_interval_0 = setInterval( katb_widget_rotate_testimonials_0, speed_w_0 );
 		});
 	}
 	
 	if( jQuery( '#katb_widget_rotator_1').length > 0 ) {
 		var katb_widget_rotate_options = this.getElementById('katb_widget_rotator_1');
-		var speed = katb_widget_rotate_options.dataset.katb_speed;
-		var katb_widget_rotate_interval_1 = setInterval( katb_widget_rotate_testimonials_1, speed );
+		try{
+			var speed_w_1 = katb_widget_rotate_options.dataset.katb_speed;
+		}catch(e){
+			var speed_w_1 = 7000;
+		}
+		var katb_widget_rotate_interval_1 = setInterval( katb_widget_rotate_testimonials_1, speed_w_1 );
 		jQuery('#katb_widget_rotator_1' ).hover(function() {
 	   		clearInterval(katb_widget_rotate_interval_1);
 		}, function() {
-			katb_widget_rotate_interval_1 = setInterval( katb_widget_rotate_testimonials_1, speed );
+			katb_widget_rotate_interval_1 = setInterval( katb_widget_rotate_testimonials_1, speed_w_1 );
 		});
 	}
 	
 	if( jQuery( '#katb_widget_rotator_2').length > 0 ) {
 		var katb_widget_rotate_options = this.getElementById('katb_widget_rotator_2');
-		var speed = katb_widget_rotate_options.dataset.katb_speed;
-		var katb_widget_rotate_interval_2 = setInterval( katb_widget_rotate_testimonials_2, speed );
+		try{
+			var speed_w_2 = katb_widget_rotate_options.dataset.katb_speed;
+		}catch(e){
+			var speed_w_2 = 7000;
+		}
+		var katb_widget_rotate_interval_2 = setInterval( katb_widget_rotate_testimonials_2, speed_w_2 );
 		jQuery('#katb_widget_rotator_2' ).hover(function() {
 	   		clearInterval(katb_widget_rotate_interval_2);
 		}, function() {
-			katb_widget_rotate_interval_2 = setInterval( katb_widget_rotate_testimonials_2, speed );
+			katb_widget_rotate_interval_2 = setInterval( katb_widget_rotate_testimonials_2, speed_w_2 );
 		});
 	}
 	
 	if( jQuery( '#katb_widget_rotator_3').length > 0 ) {
 		var katb_widget_rotate_options = this.getElementById('katb_widget_rotator_3');
-		var speed = katb_widget_rotate_options.dataset.katb_speed;
-		var katb_widget_rotate_interval_3 = setInterval( katb_widget_rotate_testimonials_3, speed );
+		try{
+			var speed_w_3 = katb_widget_rotate_options.dataset.katb_speed;
+		}catch(e){
+			var speed_w_3 = 7000;
+		}
+		var katb_widget_rotate_interval_3 = setInterval( katb_widget_rotate_testimonials_3, speed_w_3 );
 		jQuery('#katb_widget_rotator_3' ).hover(function() {
 	   		clearInterval(katb_widget_rotate_interval_3);
 		}, function() {
-			katb_widget_rotate_interval_3 = setInterval( katb_widget_rotate_testimonials_3, speed );
+			katb_widget_rotate_interval_3 = setInterval( katb_widget_rotate_testimonials_3, speed_w_3 );
 		});
 	}
 	
 	if( jQuery( '#katb_widget_rotator_4').length > 0 ) {
 		var katb_widget_rotate_options = this.getElementById('katb_widget_rotator_4');
-		var speed = katb_widget_rotate_options.dataset.katb_speed;
-		var katb_widget_rotate_interval_4 = setInterval( katb_widget_rotate_testimonials_4, speed );
+		try{
+			var speed_w_4 = katb_widget_rotate_options.dataset.katb_speed;
+		}catch(e){
+			var speed_w_4 = 7000;
+		}
+		var katb_widget_rotate_interval_4 = setInterval( katb_widget_rotate_testimonials_4, speed_w_4 );
 		jQuery('#katb_widget_rotator_4' ).hover(function() {
 	   		clearInterval(katb_widget_rotate_interval_4);
 		}, function() {
-			katb_widget_rotate_interval_4 = setInterval( katb_widget_rotate_testimonials_4, speed );
+			katb_widget_rotate_interval_4 = setInterval( katb_widget_rotate_testimonials_4, speed_w_4 );
 		});
 	}
     
@@ -126,7 +166,11 @@ jQuery(document).ready(function(){
 
 function katb_rotate_testimonials_0() {
 	var katb_rotate_options = document.getElementById('katb_rotator_0');
-	var transition = katb_rotate_options.dataset.katb_transition;
+	try{
+		var transition = katb_rotate_options.dataset.katb_transition;
+	}catch(e){
+		var transition = 'fade';
+	}
 	var current = jQuery( '#katb_rotator_0 .katb_rotate_show' );
 	var next = current.nextAll( '#katb_rotator_0 .katb_rotate_noshow' ).first().length ? current.nextAll( '#katb_rotator_0 .katb_rotate_noshow' ).first() : current.parent().children( '.katb_rotate_noshow:first' );
 	
@@ -142,7 +186,11 @@ function katb_rotate_testimonials_0() {
 
 function katb_rotate_testimonials_1() {
 	var katb_rotate_options = document.getElementById('katb_rotator_1');
-	var transition = katb_rotate_options.dataset.katb_transition;
+	try{
+		var transition = katb_rotate_options.dataset.katb_transition;
+	}catch(e){
+		var transition = 'fade';
+	}
 	var current = jQuery( '#katb_rotator_1 .katb_rotate_show' );
 	var next = current.nextAll( '#katb_rotator_1 .katb_rotate_noshow' ).first().length ? current.nextAll( '#katb_rotator_1 .katb_rotate_noshow' ).first() : current.parent().children( '.katb_rotate_noshow:first' );
 	
@@ -158,7 +206,11 @@ function katb_rotate_testimonials_1() {
 
 function katb_rotate_testimonials_2() {
 	var katb_rotate_options = document.getElementById('katb_rotator_2');
-	var transition = katb_rotate_options.dataset.katb_transition;
+	try{
+		var transition = katb_rotate_options.dataset.katb_transition;
+	}catch(e){
+		var transition = 'fade';
+	}
 	var current = jQuery( '#katb_rotator_2 .katb_rotate_show' );
 	var next = current.nextAll( '#katb_rotator_2 .katb_rotate_noshow' ).first().length ? current.nextAll( '#katb_rotator_2 .katb_rotate_noshow' ).first() : current.parent().children( '.katb_rotate_noshow:first' );
 	
@@ -174,7 +226,11 @@ function katb_rotate_testimonials_2() {
 
 function katb_rotate_testimonials_3() {
 	var katb_rotate_options = document.getElementById('katb_rotator_3');
-	var transition = katb_rotate_options.dataset.katb_transition;
+	try{
+		var transition = katb_rotate_options.dataset.katb_transition;
+	}catch(e){
+		var transition = 'fade';
+	}
 	var current = jQuery( '#katb_rotator_3 .katb_rotate_show' );
 	var next = current.nextAll( '#katb_rotator_3 .katb_rotate_noshow' ).first().length ? current.nextAll( '#katb_rotator_3 .katb_rotate_noshow' ).first() : current.parent().children( '.katb_rotate_noshow:first' );
 	
@@ -190,7 +246,11 @@ function katb_rotate_testimonials_3() {
 
 function katb_rotate_testimonials_4() {
 	var katb_rotate_options = document.getElementById('katb_rotator_4');
-	var transition = katb_rotate_options.dataset.katb_transition;
+	try{
+		var transition = katb_rotate_options.dataset.katb_transition;
+	}catch(e){
+		var transition = 'fade';
+	}
 	var current = jQuery( '#katb_rotator_4 .katb_rotate_show' );
 	var next = current.nextAll( '#katb_rotator_4 .katb_rotate_noshow' ).first().length ? current.nextAll( '#katb_rotator_4 .katb_rotate_noshow' ).first() : current.parent().children( '.katb_rotate_noshow:first' );
 	
@@ -206,7 +266,11 @@ function katb_rotate_testimonials_4() {
 
 function katb_widget_rotate_testimonials_0() {
 	var katb_widget_rotate_options = document.getElementById('katb_widget_rotator_0');
-	var transition = katb_widget_rotate_options.dataset.katb_transition;
+	try{
+		var transition = katb_widget_rotate_options.dataset.katb_transition;
+	}catch(e){
+		var transition = 'fade';
+	}
 	var current = jQuery( '#katb_widget_rotator_0 .katb_widget_rotate_show' );
 	var next = current.nextAll( '#katb_widget_rotator_0 .katb_widget_rotate_noshow' ).first().length ? current.nextAll( '#katb_widget_rotator_0 .katb_widget_rotate_noshow' ).first() : current.parent().children( '.katb_widget_rotate_noshow:first' );
 	
@@ -222,7 +286,11 @@ function katb_widget_rotate_testimonials_0() {
 
 function katb_widget_rotate_testimonials_1() {
 	var katb_widget_rotate_options = document.getElementById('katb_widget_rotator_1');
-	var transition = katb_widget_rotate_options.dataset.katb_transition;
+	try{
+		var transition = katb_widget_rotate_options.dataset.katb_transition;
+	}catch(e){
+		var transition = 'fade';
+	}
 	var current = jQuery( '#katb_widget_rotator_1 .katb_widget_rotate_show' );
 	var next = current.nextAll( '#katb_widget_rotator_1 .katb_widget_rotate_noshow' ).first().length ? current.nextAll( '#katb_widget_rotator_1 .katb_widget_rotate_noshow' ).first() : current.parent().children( '.katb_widget_rotate_noshow:first' );
 	
@@ -238,7 +306,11 @@ function katb_widget_rotate_testimonials_1() {
 
 function katb_widget_rotate_testimonials_2() {
 	var katb_widget_rotate_options = document.getElementById('katb_widget_rotator_2');
-	var transition = katb_widget_rotate_options.dataset.katb_transition;
+	try{
+		var transition = katb_widget_rotate_options.dataset.katb_transition;
+	}catch(e){
+		var transition = 'fade';
+	}
 	var current = jQuery( '#katb_widget_rotator_2 .katb_widget_rotate_show' );
 	var next = current.nextAll( '#katb_widget_rotator_2 .katb_widget_rotate_noshow' ).first().length ? current.nextAll( '#katb_widget_rotator_2 .katb_widget_rotate_noshow' ).first() : current.parent().children( '.katb_widget_rotate_noshow:first' );
 	
@@ -254,7 +326,11 @@ function katb_widget_rotate_testimonials_2() {
 
 function katb_widget_rotate_testimonials_3() {
 	var katb_widget_rotate_options = document.getElementById('katb_widget_rotator_3');
-	var transition = katb_widget_rotate_options.dataset.katb_transition;
+	try{
+		var transition = katb_widget_rotate_options.dataset.katb_transition;
+	}catch(e){
+		var transition = 'fade';
+	}
 	var current = jQuery( '#katb_widget_rotator_3 .katb_widget_rotate_show' );
 	var next = current.nextAll( '#katb_widget_rotator_3 .katb_widget_rotate_noshow' ).first().length ? current.nextAll( '#katb_widget_rotator_3 .katb_widget_rotate_noshow' ).first() : current.parent().children( '.katb_widget_rotate_noshow:first' );
 	
@@ -270,7 +346,11 @@ function katb_widget_rotate_testimonials_3() {
 
 function katb_widget_rotate_testimonials_4() {
 	var katb_widget_rotate_options = document.getElementById('katb_widget_rotator_4');
-	var transition = katb_widget_rotate_options.dataset.katb_transition;
+	try{
+		var transition = katb_widget_rotate_options.dataset.katb_transition;
+	}catch(e){
+		var transition = 'fade';
+	}
 	var current = jQuery( '#katb_widget_rotator_4 .katb_widget_rotate_show' );
 	var next = current.nextAll( '#katb_widget_rotator_4 .katb_widget_rotate_noshow' ).first().length ? current.nextAll( '#katb_widget_rotator_4 .katb_widget_rotate_noshow' ).first() : current.parent().children( '.katb_widget_rotate_noshow:first' );
 	

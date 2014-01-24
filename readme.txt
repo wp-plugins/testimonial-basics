@@ -4,7 +4,7 @@ Donate link: http://kevinsspace.ca/testimonial-basics/
 Tags: testimonial,testimonials,praise,user comments,widgets,translation ready
 Requires at least: 3.6
 Tested up to: 3.8
-Stable tag: 4.0.1
+Stable tag: 4.0.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/quick-guide-gplv3.html
 
@@ -70,6 +70,14 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 5. Testimonials Example Page
 
 == Changelog ==
+= 4.0.2 =
+* fixed bug for loading excerpt script when only the widget one is checked
+* changed rotator and excerpt scripts to load in the footer
+* modified slider jquery for IE9&10 compatibility and independant speed variables
+* removed padding from katb_error
+* updated katb_list_testimonials() , initialized critical arrays for
+  repeated use
+  
 = 4.0.1 =
 * bug fix - Testimonials were not being added to the database in Windows Servers
 * improvement - Spanish Translation added
@@ -196,7 +204,6 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 * optimized css styling
 * fixed strip slashes bug in input title and e-mail note
 
-
 = 2.0.0 =
 * added user options for input forms
 * added user options for content testimonial display
@@ -216,6 +223,8 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 * Initial Release
 
 == Upgrade Notice ==
+= 4.0.2 =
+* should provide better compatibility with IE
 
 = 4.0.1 =
 * please update
