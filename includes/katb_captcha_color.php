@@ -1,6 +1,6 @@
 <?php
 /**
- * This file contains the that is called when users select to use the captcha.
+ * This file is called when users selects to use the color captcha.
  *
  *
  * @package		Testimonial Basics WordPress Plugin
@@ -44,4 +44,3 @@
 	// Clean up
 	imagedestroy($letter_img);
 	imagedestroy($katb_img);
-?>
