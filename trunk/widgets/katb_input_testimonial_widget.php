@@ -3,7 +3,7 @@
 Plugin Name: Testimonial Basics Input Widget
 Plugin URI: http://kevinsspace.ca/testimonial-basics-wordpress-plugin/
 Description: A plugin to input a testimonial
-Version: 4.0.2
+Version: 4.0.3
 Author: Kevin Archibald
 Author URI: http://kevinsspace.ca/
 License: GPLv3
@@ -114,6 +114,7 @@ class katb_input_testimonial_widget extends WP_Widget {
 		$exclude_location = $katb_options[ 'katb_exclude_location_input' ];
 		$use_ratings = $katb_options[ 'katb_use_ratings' ];
 		$auto_approve = $katb_options[ 'katb_auto_approve' ];
+		$use_widget_popup = $katb_options[ 'katb_use_popup_message' ];
 		//Get the widget title and display
     	extract ( $args);
 		echo $before_widget;
@@ -229,7 +230,11 @@ class katb_input_testimonial_widget extends WP_Widget {
 				$formats_values = array('%s','%d','%d','%s','%s','%s','%s','%s','%s','%s','%s');
 				$wpdb->insert($tablename,$values,$formats_values);
 
-				echo '<div class="katb_widget_sent">'.__('Submitted-Thankyou!','testimonial-basics').'</div>';
+				echo '<div class="katb_widget_sent">'.__('Testimonial Submitted - Thank You!','testimonial-basics').'</div>';
+				
+				//Optional supmitted popup message
+				if( $use_widget_popup == 1 ){ ?><script type="text/javascript"><?php echo 'alert("'.__("Testimonial Submitted - Thank You!","testimonial-basics").'")'; ?></script><?php }
+				
 				//send email
 				if ( $katb_options['katb_contact_email'] != '' ) {
 					$emailTo = $katb_options['katb_contact_email'];

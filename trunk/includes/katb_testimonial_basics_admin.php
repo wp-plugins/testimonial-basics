@@ -1087,6 +1087,11 @@ function katb_input_tab_help() {
 	$html .= __('You can check this box to have testimonials automatically approved.','testimonial-basics');
 	$html .= ' '.__('CAUTION: Not recommended so use at your own risk.','testimonial-basics').'</p>';
 	
+	$html .= '<p><strong>'.__('Use popup thank you','testimonial-basics').' - </strong>';
+	$html .= __('Check to have a popup javascript message displayed after the testimonial was submitted.','testimonial-basics');
+	$html .= ' '.__('In some WordPress sites the green colored thank you may not be displayed.','testimonial-basics');
+	$html .= ' '.__('This method provides an alternative.','testimonial-basics').'</p>';
+	
 	$html .= '<p><strong>'.__('Use captcha on input forms','testimonial-basics').' - </strong>';
 	$html .= __('You can include a black and white captcha on the input forms.','testimonial-basics');
 	$html .= ' '.__('If for any reason the Captcha is not working, disable it here.','testimonial-basics').'</p>';

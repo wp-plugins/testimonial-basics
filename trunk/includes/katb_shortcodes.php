@@ -319,6 +319,7 @@ function katb_display_input_form($atts) {
 	$exclude_website = $katb_options[ 'katb_exclude_website_input' ];
 	$exclude_location = $katb_options[ 'katb_exclude_location_input' ];
 	$use_ratings = $katb_options[ 'katb_use_ratings' ];
+	$use_popup = $katb_options[ 'katb_use_popup_message' ];
 	global $katb_group,$katb_author,$katb_email,$katb_website,$katb_location,$katb_rating,$katb_testimonial,$katb_input_error,$katb_input_success;
 
 	//get shortcode variables
@@ -335,8 +336,9 @@ function katb_display_input_form($atts) {
 	}
 	
 	if( isset($_SESSION['katb_submitted']) && $_SESSION['katb_submitted'] == SHA1('true')) {
-		$input_html .= '<span class="katb_test_sent">'.__('Submitted - Thankyou!','testimonial-basics').'</span>';
+		$input_html .= '<span class="katb_test_sent">'.__('Testimonial Submitted - Thank You!','testimonial-basics').'</span>';
 		$_SESSION['katb_submitted'] = SHA1('false');
+		if($use_popup == 1 ){ ?><script><?php echo 'alert("'.__("Testimonial Submitted - Thank You!","testimonial-basics").'")'; ?></script><?php }
 	}
 	
 	if ($katb_options['katb_include_input_title'] == 1) {
@@ -412,7 +414,7 @@ function katb_display_input_form($atts) {
 		
 		}
 	$input_html .= '</div>';
-	
+	//wp_die($input_html);
 	return $input_html;
 }
 add_shortcode('katb_input_testimonials', 'katb_display_input_form');

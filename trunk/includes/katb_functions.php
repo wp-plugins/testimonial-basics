@@ -233,6 +233,16 @@ function katb_get_option_parameters() {
 			'default' =>0, // 0 for off
 			'class' => 'checkbox'
 		),
+		'katb_use_popup_message' => array(
+			'name' => 'katb_use_popup_message',
+			'title' => __( 'Use popup thank you' , 'testimonial-basics' ),
+			'type' => 'checkbox',
+			'description' => __('Use popup for submit thankyou','testimonial-basics'),
+			'section' => 'general',
+			'tab' => 'input',
+			'default' =>0, // 0 for off
+			'class' => 'checkbox'
+		),
 		'katb_use_captcha' => array(
 			'name' => 'katb_use_captcha',
 			'title' => __( 'Use captcha on input forms' , 'testimonial-basics' ),
@@ -1321,6 +1331,7 @@ function katb_check_for_submitted_testimonial() {
 	
 		//Initialize error message
 		$katb_input_error = '';
+
 		//Initialize session variable used to check if testimonial was successfully submitted
 		$_SESSION['katb_submitted'] = SHA1('false');
 		//Validate-Sanitize Input

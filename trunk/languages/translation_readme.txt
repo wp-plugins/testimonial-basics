@@ -13,4 +13,7 @@ Testimonial Basics Plugin - Translation Ready
     best way to do it and both translations will need to be revised.
     
     Dutch - Hans Fontijin, Netherlands, updated by Vincent Volmer, Netherlands
+    
     Spanish - Graciela Brinda
+    
+	Germam - Frank Schofisch, Germany

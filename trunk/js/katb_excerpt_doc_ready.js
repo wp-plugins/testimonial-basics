@@ -56,5 +56,4 @@ jQuery(function(jQuery) {
 	/************** end: functions. **************/
 }); // jQuery End
 
-
 });
