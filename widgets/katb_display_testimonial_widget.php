@@ -3,7 +3,7 @@
 Plugin Name: Testimonial Basics Rotator Display Widget
 Plugin URI: http://kevinsspace.ca/testimonial-basics-wordpress-plugin/
 Description: A plugin to display testimonials in a slider
-Version: 4.0.2
+Version: 4.0.3
 Author: Kevin Archibald
 Author URI: http://kevinsspace.ca/
 License: GPLv3

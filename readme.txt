@@ -4,7 +4,7 @@ Donate link: http://kevinsspace.ca/testimonial-basics/
 Tags: testimonial,testimonials,praise,user comments,widgets,translation ready
 Requires at least: 3.6
 Tested up to: 3.8
-Stable tag: 4.0.2
+Stable tag: 4.0.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/quick-guide-gplv3.html
 
@@ -27,6 +27,7 @@ Testimonial Basics is a full featured testimonial management plugin.
 * easily edit and approve testimonials in the admin panel
 * pagination available in 3, 5, or 10 testimonials per page
 * help available in admin panels
+* translations : French, Dutch, German, Spanish
 
 == Installation ==
 
@@ -70,6 +71,10 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 5. Testimonials Example Page
 
 == Changelog ==
+- 4.0.3 =
+* added option to use javascript alert message that testimonial was submitted
+* added German translation, Thankyou Frank!
+
 = 4.0.2 =
 * fixed bug for loading excerpt script when only the widget one is checked
 * changed rotator and excerpt scripts to load in the footer
@@ -223,6 +228,9 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 * Initial Release
 
 == Upgrade Notice ==
+= 4.0.3 =
+* non critical
+
 = 4.0.2 =
 * should provide better compatibility with IE
 
