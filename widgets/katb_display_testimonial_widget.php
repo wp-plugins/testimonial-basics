@@ -467,13 +467,7 @@ function katb_widget_display_testimonial ( $katb_widget_tdata, $katb_widget_tnum
 									$rating = $katb_widget_tdata[$i]['tb_rating'];
 									if( $rating == '' ) $rating = 0; ?>
 									
-									<span class="rateit smallstars katb_widget_display_rating" 
-											data-rateit-starwidth="12" 
-											data-rateit-starheight="12" 
-											data-rateit-value="<?php echo esc_attr( $rating ); ?>" 
-											data-rateit-ispreset="true" 
-											data-rateit-readonly="true">
-									</span><br/>
+									<span class="rateit smallstars katb_widget_display_rating" data-rateit-starwidth="12" data-rateit-starheight="12" data-rateit-value="<?php echo esc_attr( $rating ); ?>" data-rateit-ispreset="true" data-rateit-readonly="true"></span><br/>
 									<?php if( $use_schema == 1 ) { ?>
 										<meta itemprop="worst" content="0" />
 										<meta itemprop="rating" content="<?php echo esc_attr( $rating ); ?>" />

@@ -575,11 +575,7 @@ function katb_content_display( $use_formatted_display , $use_schema, $katb_tnumb
 					
 							$rating = $katb_tdata[$i]['tb_rating'];
 							if( $rating == '' ) { $rating = 0; }
-							$html .= '<span class="rateit katb_display_rating" 
-													data-rateit-value="'.esc_attr( $rating ).'" 
-													data-rateit-ispreset="true" 
-													data-rateit-readonly="true"
-													></span><br/>';
+							$html .= '<span class="rateit katb_display_rating" data-rateit-value="'.esc_attr( $rating ).'" data-rateit-ispreset="true" data-rateit-readonly="true"></span><br/>';
 							//schema schema schema :)
 							if( $use_schema == 1 ) {
 								$meta_top .= '<meta itemprop="worst" content="0" />';

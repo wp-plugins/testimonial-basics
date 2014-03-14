@@ -4,7 +4,7 @@ Donate link: http://kevinsspace.ca/testimonial-basics/
 Tags: testimonial,testimonials,praise,user comments,widgets,translation ready
 Requires at least: 3.6
 Tested up to: 3.8
-Stable tag: 4.0.3
+Stable tag: 4.0.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/quick-guide-gplv3.html
 
@@ -71,7 +71,12 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 5. Testimonials Example Page
 
 == Changelog ==
-- 4.0.3 =
+
+= 4.0.4 =
+* fixed bug where wpautop was adding line breaks to rating html causing it to break
+* added function to display the input form in code
+
+= 4.0.3 =
 * added option to use javascript alert message that testimonial was submitted
 * added German translation, Thankyou Frank!
 
@@ -228,6 +233,10 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 * Initial Release
 
 == Upgrade Notice ==
+
+= 4.0.4 =
+* non critical
+
 = 4.0.3 =
 * non critical
 
