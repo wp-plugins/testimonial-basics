@@ -1219,6 +1219,32 @@ function katb_get_option_parameters() {
 
 }
 
+/** katb_testimonial_basics_input_in_code()
+ * 
+ * This function allows you to set up the input testimonials form in code
+ * 
+ * It accepts arguments just like in the shortcode and displays accordingly
+ *
+ * @param string $group group used in database
+ * 
+ * @uses katb_display_input_form( $atts ) in katb_shortcodes.php
+ * 
+ */
+ function katb_testimonial_basics_input_in_code( $group='All'){
+	
+	$group = sanitize_text_field( $group );
+
+	//white list group
+	if( $group == '' || $group == 'All' || $group == 'all' ) { $group = 'all'; }
+	
+	$atts = array(
+		'group' => $group
+	);
+	
+	echo katb_display_input_form($atts);
+
+}
+
 /**
  * Supplies array of filter parameters for wp_kses($text,$allowed_html)
  * Only this html will be allowed in testimonials submitted by visitors

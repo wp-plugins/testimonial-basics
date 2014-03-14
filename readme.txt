@@ -4,7 +4,7 @@ Donate link: http://kevinsspace.ca/testimonial-basics/
 Tags: testimonial,testimonials,praise,user comments,widgets,translation ready
 Requires at least: 3.6
 Tested up to: 3.8
-Stable tag: 4.0.4
+Stable tag: 4.0.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/quick-guide-gplv3.html
 
@@ -72,6 +72,10 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 
 == Changelog ==
 
+= 4.0.5 =
+* forgot to include function to display the input form in code, was in another 
+  working copy
+
 = 4.0.4 =
 * fixed bug where wpautop was adding line breaks to rating html causing it to break
 * added function to display the input form in code
@@ -138,7 +142,6 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 * Added optional Title to displays
 * Added meta location option to top or bottom
 * Code optimization
-
 
 = 3.20.6 =
 * Optimized pagination code
@@ -233,6 +236,9 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 * Initial Release
 
 == Upgrade Notice ==
+
+= 4.0.5 =
+* only critival to those using the input form in code function
 
 = 4.0.4 =
 * non critical
