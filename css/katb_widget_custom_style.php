@@ -64,7 +64,7 @@ if( $katb_options['katb_widget_use_formatted_display'] ==1 ) { ?>
 
 <!-- Other Custom Formats -->
 <style type="text/css" >
-	.katb_widget_form {
+	.katb_widget_form,.katb_css_rating_select_widget {
 		font-size: <?php echo $katb_options['katb_widget_input_font_size']; ?>!important;
 	}
 </style>

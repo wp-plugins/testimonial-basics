@@ -544,6 +544,12 @@
 
 /*
  * ------ Widget Input Form Styles ----------------------- */
+.katb_widget_input_label {
+	clear: both;
+	float: left;
+	margin: 5px 5px 0 0;
+}
+
 .katb_widget_form,
 .katb_widget_form form
 {
@@ -621,7 +627,8 @@
 }
 
 .katb_widget_input_rating {
-	margin: 5px 0 0 5px;
+	float: left;
+	margin: 10px 0 0 5px;
 }
 
 /* ======================================================================================================
@@ -660,7 +667,7 @@
 .katb_rotate_noshow, .katb_widget_rotate_noshow  { display: none; }
 
 .katb_rotate:hover, .katb_widget_rotate:hover { 
-	cursor: url('../includes/pause.png'),wait;
+	cursor: url(../includes/pause.png),progress;
 }
 
 /* ======================================================================================================
@@ -694,11 +701,13 @@
     z-index: 10001;
     padding: 10px;
     font-size: 1em;
+    cursor: pointer;
 }
 
 .katb_popup_wrap {
 	float: left;
 	width: 100%;
+	cursor: pointer;
 }
 
 .katb_popup_wrap .katb_test_text_basic {

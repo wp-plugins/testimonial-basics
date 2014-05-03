@@ -2,9 +2,9 @@
 Contributors: kevinhaig
 Donate link: http://kevinsspace.ca/testimonial-basics/
 Tags: testimonial,testimonials,praise,user comments,widgets,translation ready
-Requires at least: 3.6
-Tested up to: 3.8
-Stable tag: 4.0.5
+Requires at least: 3.7
+Tested up to: 3.9
+Stable tag: 4.0.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/quick-guide-gplv3.html
 
@@ -71,6 +71,30 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 5. Testimonials Example Page
 
 == Changelog ==
+
+= 4.0.6 =
+* User can now have more that one input form on a page 
+* Improved error messaging by having either popup or on page, 
+  and allowing the user to select either option for both content 
+  and input widget forms.
+* Added bulk delete to admin panel
+* Fixed rateit.js warning
+* Added optional widget input form labels above inputs
+* Modified email note to make it optional in both the content and widget input forms
+* Added widget required label
+* Changed fadeIn on rotator from 'slow' to 2000ms
+* Added option for user to select jQuery star rating system or css system
+* Added option to select star color and star shadow color
+* Removed farbtastc reference in doc ready script.
+* Bug fix aggregate ratings will not be displayed if ratings are disabled.
+* Bug fix, validation on website and location
+* Removed group label option for widget as it was not being used
+* Improved Edit Panel to prevent page reload double entry and to remove bulk deleted 
+  testimonials from the display, done without page redirect
+* Changed tb_url and tb_pic_url to 150 characters
+* Added option to change captcha label
+* Fixed cursor inside popup to be a pointer
+* Modified katb_testimonial_basics_input_in_code() to include form number.
 
 = 4.0.5 =
 * forgot to include function to display the input form in code, was in another 
@@ -236,6 +260,11 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 * Initial Release
 
 == Upgrade Notice ==
+
+= 4.0.6 =
+* this is a major update
+* all users double check your input form and display setups to 
+  make sure changes are not required 
 
 = 4.0.5 =
 * only critival to those using the input form in code function

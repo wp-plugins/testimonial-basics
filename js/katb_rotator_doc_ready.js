@@ -180,7 +180,7 @@ function katb_rotate_testimonials_0() {
 	} else if(transition == 'right to left') {
 		next.show('slide', {direction: 'right'}, 1000).removeClass( 'katb_rotate_noshow' ).addClass( 'katb_rotate_show' )
 	} else {
-		next.fadeIn('slow').removeClass( 'katb_rotate_noshow' ).addClass( 'katb_rotate_show' );
+		next.fadeIn(2000).removeClass( 'katb_rotate_noshow' ).addClass( 'katb_rotate_show' );
 	}
 };
 
@@ -200,7 +200,7 @@ function katb_rotate_testimonials_1() {
 	} else if(transition == 'right to left') {
 		next.show('slide', {direction: 'right'}, 1000).removeClass( 'katb_rotate_noshow' ).addClass( 'katb_rotate_show' )
 	} else {
-		next.fadeIn('slow').removeClass( 'katb_rotate_noshow' ).addClass( 'katb_rotate_show' );
+		next.fadeIn(2000).removeClass( 'katb_rotate_noshow' ).addClass( 'katb_rotate_show' );
 	}
 };
 
@@ -220,7 +220,7 @@ function katb_rotate_testimonials_2() {
 	} else if(transition == 'right to left') {
 		next.show('slide', {direction: 'right'}, 1000).removeClass( 'katb_rotate_noshow' ).addClass( 'katb_rotate_show' )
 	} else {
-		next.fadeIn('slow').removeClass( 'katb_rotate_noshow' ).addClass( 'katb_rotate_show' );
+		next.fadeIn(2000).removeClass( 'katb_rotate_noshow' ).addClass( 'katb_rotate_show' );
 	}
 };
 
@@ -240,7 +240,7 @@ function katb_rotate_testimonials_3() {
 	} else if(transition == 'right to left') {
 		next.show('slide', {direction: 'right'}, 1000).removeClass( 'katb_rotate_noshow' ).addClass( 'katb_rotate_show' )
 	} else {
-		next.fadeIn('slow').removeClass( 'katb_rotate_noshow' ).addClass( 'katb_rotate_show' );
+		next.fadeIn(2000).removeClass( 'katb_rotate_noshow' ).addClass( 'katb_rotate_show' );
 	}
 };
 
@@ -260,7 +260,7 @@ function katb_rotate_testimonials_4() {
 	} else if(transition == 'right to left') {
 		next.show('slide', {direction: 'right'}, 1000).removeClass( 'katb_rotate_noshow' ).addClass( 'katb_rotate_show' )
 	} else {
-		next.fadeIn('slow').removeClass( 'katb_rotate_noshow' ).addClass( 'katb_rotate_show' );
+		next.fadeIn(2000).removeClass( 'katb_rotate_noshow' ).addClass( 'katb_rotate_show' );
 	}
 };
 
@@ -280,7 +280,7 @@ function katb_widget_rotate_testimonials_0() {
 	} else if(transition == 'right to left') {
 		next.show('slide', {direction: 'right'}, 1000).removeClass( 'katb_widget_rotate_noshow' ).addClass( 'katb_widget_rotate_show' )
 	} else {
-		next.fadeIn('slow').removeClass( 'katb_widget_rotate_noshow' ).addClass( 'katb_widget_rotate_show' );
+		next.fadeIn(2000).removeClass( 'katb_widget_rotate_noshow' ).addClass( 'katb_widget_rotate_show' );
 	}
 };
 
@@ -300,7 +300,7 @@ function katb_widget_rotate_testimonials_1() {
 	} else if(transition == 'right to left') {
 		next.show('slide', {direction: 'right'}, 1000).removeClass( 'katb_widget_rotate_noshow' ).addClass( 'katb_widget_rotate_show' )
 	} else {
-		next.fadeIn('slow').removeClass( 'katb_widget_rotate_noshow' ).addClass( 'katb_widget_rotate_show' );
+		next.fadeIn(2000).removeClass( 'katb_widget_rotate_noshow' ).addClass( 'katb_widget_rotate_show' );
 	}
 };
 
@@ -320,7 +320,7 @@ function katb_widget_rotate_testimonials_2() {
 	} else if(transition == 'right to left') {
 		next.show('slide', {direction: 'right'}, 1000).removeClass( 'katb_widget_rotate_noshow' ).addClass( 'katb_widget_rotate_show' )
 	} else {
-		next.fadeIn('slow').removeClass( 'katb_widget_rotate_noshow' ).addClass( 'katb_widget_rotate_show' );
+		next.fadeIn(2000).removeClass( 'katb_widget_rotate_noshow' ).addClass( 'katb_widget_rotate_show' );
 	}
 };
 
@@ -340,7 +340,7 @@ function katb_widget_rotate_testimonials_3() {
 	} else if(transition == 'right to left') {
 		next.show('slide', {direction: 'right'}, 1000).removeClass( 'katb_widget_rotate_noshow' ).addClass( 'katb_widget_rotate_show' )
 	} else {
-		next.fadeIn('slow').removeClass( 'katb_widget_rotate_noshow' ).addClass( 'katb_widget_rotate_show' );
+		next.fadeIn(2000).removeClass( 'katb_widget_rotate_noshow' ).addClass( 'katb_widget_rotate_show' );
 	}
 };
 
@@ -360,6 +360,6 @@ function katb_widget_rotate_testimonials_4() {
 	} else if(transition == 'right to left') {
 		next.show('slide', {direction: 'right'}, 1000).removeClass( 'katb_widget_rotate_noshow' ).addClass( 'katb_widget_rotate_show' )
 	} else {
-		next.fadeIn('slow').removeClass( 'katb_widget_rotate_noshow' ).addClass( 'katb_widget_rotate_show' );
+		next.fadeIn(2000).removeClass( 'katb_widget_rotate_noshow' ).addClass( 'katb_widget_rotate_show' );
 	}
 };

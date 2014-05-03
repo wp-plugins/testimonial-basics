@@ -3,7 +3,7 @@
 Plugin Name: Testimonial Basics
 Plugin URI: http://kevinsspace.ca/testimonial-basics-wordpress-plugin/
 Description: This plugin facilitates easy management of customer testimonials. The user can set up an input form in a page or in a widget, and display all or selected testimonials in a page or a widget. The plug in is very easy to use and modify.
-Version: 4.0.5
+Version: 4.0.6
 Author: Kevin Archibald
 Author URI: http://kevinsspace.ca
 License: GPLv3
@@ -54,13 +54,13 @@ if ('testimonial-basics.php' == basename($_SERVER['SCRIPT_FILENAME']))
  * 
  *-------------------------------------------------------------------------- */
  global $katb_db_new_version;
- $katb_db_new_version = '1.2';
+ $katb_db_new_version = '1.3';
  
 function katb_testimomial_basics_activate() {
 	//Check version compatibilities
-    if ( version_compare( get_bloginfo( 'version' ), '3.6', '<' ) ) {
+    if ( version_compare( get_bloginfo( 'version' ), '3.7', '<' ) ) {
         deactivate_plugins( basename( __FILE__ ) ); // Deactivate our plugin
-        die ('Please Upgrade your WprdPress to use this plugin.');
+        die ('Please Upgrade your WordPress to use this plugin.');
     }
 	//Check for database table and create if not there
 	global $wpdb;
@@ -88,8 +88,8 @@ function katb_testimomial_basics_activate() {
   				`tb_name` char(100) NOT NULL,
   				`tb_location` char(100) NOT NULL,
   				`tb_email` char(100) NOT NULL,
-  				`tb_pic_url` char(100) NOT NULL,
- 				`tb_url` char(100) NOT NULL,
+  				`tb_pic_url` char(150) NOT NULL,
+ 				`tb_url` char(150) NOT NULL,
  				`tb_rating` char(5) NOT NULL,
   				`tb_testimonial` text NOT NULL,
   				PRIMARY KEY (`tb_id`)
@@ -100,9 +100,8 @@ function katb_testimomial_basics_activate() {
 	} elseif ( $katb_tb_installed_version !== $katb_db_new_version ) {
 		//table requires upgrading
 		$sql = "CREATE TABLE `$tablename` (
-				`tb_group` char(100) NOT NULL,
-				`tb_pic_url` char(100) NOT NULL,
-  				`tb_rating` char(5) NOT NULL
+				`tb_pic_url` char(150) NOT NULL,
+ 				`tb_url` char(150) NOT NULL
  			);";
 		require_once ( ABSPATH . 'wp-admin/includes/upgrade.php');
 		dbDelta($sql);
@@ -172,9 +171,13 @@ function katb_add_styles(){
 	$katb_options = katb_get_options();
 	wp_register_style( 'katb_user_styles',plugin_dir_url(__FILE__).'css/katb_user_styles.css' );
 	wp_enqueue_style( 'katb_user_styles' );
-	if ( $katb_options['katb_use_ratings'] == 1 ) {
+	if ( $katb_options['katb_use_ratings'] == 1 && $katb_options['katb_use_css_ratings'] != 1  ) {
 		wp_register_style( 'katb_rateit_styles',plugin_dir_url(__FILE__).'js/rateit/rateit.css');
 		wp_enqueue_style( 'katb_rateit_styles' );
+	}
+	if ( $katb_options['katb_use_ratings'] == 1 && $katb_options['katb_use_css_ratings'] == 1  ) {
+		wp_register_style( 'katb_font_icon',plugin_dir_url(__FILE__).'fontello/css/fontello.css');
+		wp_enqueue_style( 'katb_font_icon' );
 	}
 }
 add_action('wp_enqueue_scripts','katb_add_styles');
@@ -195,7 +198,7 @@ function katb_load_scripts () {
 		wp_enqueue_script( 'testimonial_basics_rotator_js' , plugins_url() . '/testimonial-basics/js/katb_rotator_doc_ready.js' , array('jquery') , '1.0.0' , true );
 		wp_enqueue_script('jquery-effects-slide');
 	}
-	if ( $katb_options['katb_use_ratings'] == 1 ) {
+	if ( $katb_options['katb_use_ratings'] == 1 && $katb_options['katb_use_css_ratings'] != 1 ) {
 		wp_enqueue_script( 'testimonial_basics_rateit_js' , plugins_url() . '/testimonial-basics/js/rateit/jquery.rateit.min.js' , array('jquery') , '1.0.0' , true );
 	}
 }

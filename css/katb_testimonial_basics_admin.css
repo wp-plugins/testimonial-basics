@@ -231,6 +231,33 @@
 	padding: 1px!important;
 }
 
+.katb-highlighted:hover {
+	cursor: pointer;
+	opacity: 0.75;
+}
+
+td.ka_table_id input.katb_bulk_delete_input {
+	margin: 10px 0 0 0;
+	padding: 0;
+	float: left;
+	clear: both;
+	vertical-align: baseline;
+}
+
+.katb.button-secondary {float: left;}
+
+.katb_bulk_delete_label {
+	float: left;
+	margin: 10px 0 0 0;
+	padding: 0;
+	line-height: 1em;
+}
+
+.katb_bulk_delete_label img {
+	margin: 0;
+	padding: 0;
+}
+
 .katb_admin_title {float: left;clear:both;}
 
 .katb-pagination {float: left;clear:both;}

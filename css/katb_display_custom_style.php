@@ -76,15 +76,27 @@ if( $katb_options['katb_use_formatted_display'] == 1 ) { ?>
 		.katb_paginate *
 		{font-size: <?php echo $katb_options['katb_content_font_size']; ?>!important;}
 		
+		
 	</style>
 	
 <?php } ?>
 
-<!-- Input Form Custom Styles -->
+<!-- Other Custom Styles -->
 <style type="text/css" >
-
-	.katb_input_style {
+	
+	.katb_input_style,.katb_css_rating_select {
 		font-size: <?php echo $katb_options['katb_content_input_font_size']; ?>!important;
 	}
+	
+	<?php if( $katb_options['katb_use_css_ratings'] == 1 ){
+			
+		$shadow_color = katb_hex_to_rgba( $katb_options[ 'katb_star_shadow_color']); ?>
+			
+		.katb_css_rating i { 
+			color: <?php echo $katb_options['katb_star_color']; ?>!important;
+			text-shadow: 2px 2px 2px rgba( <?php echo $shadow_color[0]; ?>, <?php echo $shadow_color[1]; ?>, <?php echo $shadow_color[2]; ?>, 0.5)!important;
+		}
+		
+	<?php } ?>
 
 </style>

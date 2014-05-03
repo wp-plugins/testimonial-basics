@@ -351,6 +351,7 @@ function katb_widget_display_testimonial ( $katb_widget_tdata, $katb_widget_tnum
 	//get user options
 	$katb_options = katb_get_options();
 	$use_ratings = $katb_options['katb_use_ratings'];
+	$use_css_ratings = $katb_options['katb_use_css_ratings'];
 	$use_excerpts = $katb_options['katb_widget_use_excerpts'];
 	$use_gravatars = $katb_options['katb_widget_use_gravatars'];
 	$use_gravatar_substitute = $katb_options['katb_widget_use_gravatar_substitute'];
@@ -465,10 +466,19 @@ function katb_widget_display_testimonial ( $katb_widget_tdata, $katb_widget_tnum
 								if ( $use_ratings == 1 ) { 
 							
 									$rating = $katb_widget_tdata[$i]['tb_rating'];
-									if( $rating == '' ) $rating = 0; ?>
+									if( $rating == '' ) $rating = 0;
 									
-									<span class="rateit smallstars katb_widget_display_rating" data-rateit-starwidth="12" data-rateit-starheight="12" data-rateit-value="<?php echo esc_attr( $rating ); ?>" data-rateit-ispreset="true" data-rateit-readonly="true"></span><br/>
-									<?php if( $use_schema == 1 ) { ?>
+									if( $use_css_ratings !=1 ) { ?>
+										<span class="rateit smallstars katb_widget_display_rating" data-rateit-starwidth="12" data-rateit-starheight="12" data-rateit-value="<?php echo esc_attr( $rating ); ?>" data-rateit-ispreset="true" data-rateit-readonly="true"></span><br/>
+									<?php } else {
+										$html = '';
+										$html .= '<span class="katb_css_rating katb_widget_css_star">';
+										$html .= katb_css_rating( $rating );
+										$html .= '</span>';
+										echo $html;
+									}
+									
+									if( $use_schema == 1 ) { ?>
 										<meta itemprop="worst" content="0" />
 										<meta itemprop="rating" content="<?php echo esc_attr( $rating ); ?>" />
 										<meta itemprop="best" content="5" />
@@ -562,6 +572,7 @@ function katb_widget_popup( $has_valid_avatar, $katb_widget_tdata, $i ) {
 	//get user options
 	$katb_options = katb_get_options();
 	$use_ratings = $katb_options['katb_use_ratings'];
+	$use_css_ratings = $katb_options['katb_use_css_ratings'];
 	$use_gravatars = $katb_options['katb_widget_use_gravatars'];
 	$use_gravatar_substitute = $katb_options['katb_widget_use_gravatar_substitute'];
 	$gravatar_size = $katb_options['katb_widget_gravatar_size']; //note this is size for content and not the widget
@@ -608,11 +619,22 @@ function katb_widget_popup( $has_valid_avatar, $katb_widget_tdata, $i ) {
 					} //close use title
 						
 					//Display the rating if selected
-					if ( $use_ratings == 1 ) { 
-				
+					
+
+					if ( $use_ratings == 1 ) {
+						
 						$rating = $katb_widget_tdata[$i]['tb_rating'];
-						if( $rating == '' ) { $rating = 0; }
-						echo '<span class="rateit katb_display_rating" data-rateit-value="'.esc_attr( $rating ).'" data-rateit-ispreset="true" data-rateit-readonly="true"></span><br/>';
+						if( $rating == '' ) { $rating = 0; }	
+									 
+						if( $use_css_ratings !=1 ) {
+							echo '<span class="rateit katb_display_rating" data-rateit-value="'.esc_attr( $rating ).'" data-rateit-ispreset="true" data-rateit-readonly="true"></span><br/>';
+						} else {
+							$html = '';
+							$html .= '<span class="katb_css_rating">';
+							$html .= katb_css_rating( $rating );
+							$html .= '</span>';
+							echo $html;
+						}
 						
 					} ?>
 						
