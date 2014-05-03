@@ -1,24 +1,8 @@
 jQuery(document).ready(function(){
 
-	 //This if statement checks if the color picker widget exists within jQuery UI
-    //If it does exist then we initialize the WordPress color picker on our text input field
+	//call to use colorpicker
+	jQuery( '.hexcolor' ).wpColorPicker();
 
-    if( typeof jQuery.wp === 'object' && typeof jQuery.wp.wpColorPicker === 'function' ){
-    	//alert('yep');
-        jQuery( '.hexcolor' ).wpColorPicker();
-    }
-    else {
-    	 /* We use farbtastic if the WordPress color picker widget doesn't exist
-    	 * This script adds the color wheel to allow the user to use it for
-		 * selecting colors in the background color and text color theme option tabs
-		 */
-		jQuery('.hexcolor')
-			.each(function () { jQuery.farbtastic('#katb_picker').linkTo(this); jQuery(this).css('opacity', 0.75); })
-			.focus(function() {
-				jQuery.farbtastic('#katb_picker').linkTo(this);
-				jQuery('#katb_picker').css('opacity', 0.25).css('opacity', 1);
-			});
-	}
 	/*
 	 * This script enhances the error message used in the theme options section.
 	 */

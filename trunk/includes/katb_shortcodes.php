@@ -296,7 +296,7 @@ add_shortcode('katb_testimonial', 'katb_list_testimonials');
 
 /** ------------- display testimonial input form shortcode -------------------
  * displays the testimonial input form
- * useage : [katb_input_testimonials group="All"] 
+ * useage : [katb_input_testimonials group="All" form="1"] 
  * 
  * @param array $atts array of shortcode parameters, in this case only the group
  * 
@@ -313,32 +313,57 @@ function katb_display_input_form($atts) {
 	$location_label = $katb_options[ 'katb_location_label' ];
 	$rating_label =  $katb_options[ 'katb_rating_label' ];
 	$testimonial_label = $katb_options[ 'katb_testimonial_label' ];
+	$captcha_label = $katb_options[ 'katb_captcha_label' ];
 	$submit_label = $katb_options[ 'katb_submit_label' ];
 	$reset_label = $katb_options[ 'katb_reset_label' ];
 	$required_label = $katb_options[ 'katb_required_label' ];
 	$exclude_website = $katb_options[ 'katb_exclude_website_input' ];
 	$exclude_location = $katb_options[ 'katb_exclude_location_input' ];
 	$use_ratings = $katb_options[ 'katb_use_ratings' ];
+	$use_css_ratings = $katb_options['katb_use_css_ratings'];
 	$use_popup = $katb_options[ 'katb_use_popup_message' ];
 	global $katb_group,$katb_author,$katb_email,$katb_website,$katb_location,$katb_rating,$katb_testimonial,$katb_input_error,$katb_input_success;
-
+	$correct_form = false;
+	
 	//get shortcode variables
 	extract(shortcode_atts(array(
-		'group' => 'All'
+		'group' => 'All',
+		'form' => '1'
     ), $atts));
 	
 	$katb_group = sanitize_text_field($group);
+	$katb_input_form_no = sanitize_text_field($form);
 	
-	$input_html = '';
-	
-	if( $katb_input_error != '') {
-		$input_html .= '<span class="katb_error">'.__('There were errors so the testimonial was not added: ','testimonial-basics').$katb_input_error.'</span>';
+	if( $_SESSION['katb_form_submitted'] != '' ) {
+		if( SHA1( $katb_input_form_no ) == $_SESSION['katb_form_submitted'] ) {
+			$correct_form = true;
+			$_SESSION['katb_form_submitted'] = '';
+		}
 	}
 	
-	if( isset($_SESSION['katb_submitted']) && $_SESSION['katb_submitted'] == SHA1('true')) {
-		$input_html .= '<span class="katb_test_sent">'.__('Testimonial Submitted - Thank You!','testimonial-basics').'</span>';
+	$input_html = '';
+	//wp_die(SHA1( $_SESSION['katb_form_submitted'] ));
+	if( $katb_input_error != '' && $correct_form == true ) {
+		
+		if( $use_popup == 1 ){
+			$error_message = __('There were errors so the testimonial was not added: ','testimonial-basics').$katb_input_error;
+			?> <script>alert('<?php echo $error_message; ?>')</script>
+		<?php } else {
+			$input_html .= '<span class="katb_error">'.__('There were errors so the testimonial was not added: ','testimonial-basics').$katb_input_error.'</span>';
+		}
+		
+	}
+	
+	if( isset($_SESSION['katb_submitted']) && $_SESSION['katb_submitted'] == SHA1('true') && $correct_form == true ) {
+		
+		if( $use_popup == 1 ){ ?>
+			<script><?php echo 'alert("'.__("Testimonial Submitted - Thank You!","testimonial-basics").'")'; ?></script>
+		<?php } else {
+			$input_html .= '<span class="katb_test_sent">'.__('Testimonial Submitted - Thank You!','testimonial-basics').'</span>';
+		}
+		
 		$_SESSION['katb_submitted'] = SHA1('false');
-		if($use_popup == 1 ){ ?><script><?php echo 'alert("'.__("Testimonial Submitted - Thank You!","testimonial-basics").'")'; ?></script><?php }
+		
 	}
 	
 	if ($katb_options['katb_include_input_title'] == 1) {
@@ -356,31 +381,74 @@ function katb_display_input_form($atts) {
 			$input_html .= '<input type="hidden"  name="tb_group" value="'.esc_attr( stripcslashes( $katb_group ) ).'" />';
 			
 			$input_html .= '<label class="katb_input_label1">'.esc_attr( $author_label ).'</label>';
-			$input_html .= '<input type="text"  maxlength="100" name="tb_author" value="'.esc_attr( stripcslashes( $katb_author ) ).'" /><br/>';
+			if( $correct_form == true ) {
+				$input_html .= '<input type="text"  maxlength="100" name="tb_author" value="'.esc_attr( stripcslashes( $katb_author ) ).'" /><br/>';
+			} else {
+				$input_html .= '<input type="text"  maxlength="100" name="tb_author" value="" /><br/>';
+			}
 			
 			$input_html .= '<label class="katb_input_label1">'.esc_attr( $email_label ).'</label>';
-			$input_html .= '<input type="text"  maxlength="100" name="tb_email" value="'.esc_attr( stripcslashes( $katb_email ) ).'" /><br/>';
+			if( $correct_form == true ) {
+				$input_html .= '<input type="text"  maxlength="100" name="tb_email" value="'.esc_attr( stripcslashes( $katb_email ) ).'" /><br/>';
+			} else {
+				$input_html .= '<input type="text"  maxlength="100" name="tb_email" value="" /><br/>';
+			}
 			
 			if( $exclude_website != 1 ) {
 				$input_html .= '<label class="katb_input_label1">'.esc_attr( $website_label ).'</label>';
-				$input_html .= '<input type="text"  maxlength="100" name="tb_website" value="'.esc_url( stripcslashes( $katb_website ) ).'" /><br/>';
+				if( $correct_form == true ) {
+					$input_html .= '<input type="text"  maxlength="100" name="tb_website" value="'.esc_url( stripcslashes( $katb_website ) ).'" /><br/>';
+				} else {
+					$input_html .= '<input type="text"  maxlength="100" name="tb_website" value="" /><br/>';
+				}
 			}
 			
 			if( $exclude_location != 1 ) {
 				$input_html .= '<label class="katb_input_label1">'.esc_attr( $location_label ).'</label>';
-				$input_html .= '<input type="text"  maxlength="100" name="tb_location" value="'.esc_attr( stripcslashes( $katb_location ) ).'" /><br/>';
+				if( $correct_form == true ) {
+					$input_html .= '<input type="text"  maxlength="100" name="tb_location" value="'.esc_attr( stripcslashes( $katb_location ) ).'" /><br/>';
+				} else {
+					$input_html .= '<input type="text"  maxlength="100" name="tb_location" value="" /><br/>';
+				}
 			}
 			
 			if( $use_ratings == 1 ) {
-				
-				$input_html .= '<label class="katb_input_label1">'.esc_attr( $rating_label ).'</label>';
-				$input_html .= '<input type="range" min="0" max="5" value="0.0" step="0.5" name="tb_rating" id="katb_rateit_input" class="katb_rating_input">';
-				$input_html .= '<div class="rateit katb_input_rating" data-rateit-backingfld="#katb_rateit_input"></div>';
-				
+				if( $use_css_ratings != 1 ) {
+					if( $katb_rating == '') $katb_rating = '0.0';
+					$input_html .= '<label class="katb_input_label1">'.esc_attr( $rating_label ).'</label>';
+					$input_html .= '<input type="range" min="0" max="5" value="'.$katb_rating.'" step="0.5" name="tb_rating" id="katb_rateit_input'.$katb_input_form_no.'" class="katb_rating_input">';
+					$input_html .= '<div class="rateit katb_input_rating" data-rateit-backingfld="#katb_rateit_input'.$katb_input_form_no.'"></div>';
+				} else {
+					if( $correct_form == true ) {
+						if( $katb_rating == '' ) $katb_rating = '0.0';
+					} else {
+						$katb_rating = '0.0';
+					}
+					$input_html .= '<label class="katb_input_label1">'.esc_attr( $rating_label ).'</label>';
+					$input_html .= '<select name="tb_rating" class="katb_css_rating_select">';
+					$input_html .= '<option '.selected( $katb_rating ).'value="'.$katb_rating.'">'.$katb_rating.'</option>';
+					$input_html .= '<option value="0.0">0.0</option>';
+					$input_html .= '<option value="0.5">0.5</option>';
+					$input_html .= '<option value="1.0">1.0</option>';
+					$input_html .= '<option value="1.5">1.5</option>';
+					$input_html .= '<option value="2.0">2.0</option>';
+					$input_html .= '<option value="2.5">2.5</option>';
+					$input_html .= '<option value="3.0">3.0</option>';
+					$input_html .= '<option value="3.5">3.5</option>';
+					$input_html .= '<option value="4.0">4.0</option>';
+					$input_html .= '<option value="4.5">4.5</option>';
+					$input_html .= '<option value="5.0">5.0</option>';
+					$input_html .= '</select>';
+				}
 			}
 			
 			$input_html .= '<label class="katb_input_label2">'.esc_attr( $testimonial_label ).'</label><br/>';
-			$input_html .= '<textarea rows="5" name="tb_testimonial" >'.wp_kses_post( stripcslashes( $katb_testimonial ) ).'</textarea>';
+			if( $correct_form == true ) {
+				$input_html .= '<textarea rows="5" name="tb_testimonial" >'.wp_kses_post( stripcslashes( $katb_testimonial ) ).'</textarea>';
+			} else {
+				$input_html .= '<textarea rows="5" name="tb_testimonial" ></textarea>';
+			}
+			
 			
 			if ( $katb_options['katb_show_html_content'] == TRUE || $katb_options['katb_show_html_content'] == 1 ) {
 				$input_html .= '<p>HTML '.__('Allowed','testimonial-basics').' : <code>a p br i em strong q h1-h6</code></p>';
@@ -393,18 +461,18 @@ function katb_display_input_form($atts) {
 					} else {
 						$input_html .= '<img src="'.plugin_dir_url(__FILE__).'katb_captcha_bw.php" alt="Verification Captcha" />';
 					}
-					$input_html .= '<input type="text" id="verify_main" name="verify" value="'.__('Enter Captcha','testimonial-basics').'" onclick="this.select();" />';
+					$input_html .= '<input type="text" id="verify_main" name="verify" value="'.$captcha_label.'" onclick="this.select();" />';
 				$input_html .= '</div>';
 				
 			}
-			
+			$input_html .= '<input type="hidden" name="katb_form_no" value="'.$katb_input_form_no.'">';
 			$input_html .= '<input class="katb_submit" type="submit" name="katb_submitted" value="'.esc_attr( $submit_label ).'" />';
 			$input_html .= '<input class="katb_reset" type="submit" name="katb_reset" value="'.esc_attr( $reset_label ).'" />';
 			$input_html .= wp_nonce_field('katb_nonce_1','katb_main_form_nonce',false,false);
 		
 		$input_html .= '</form>';
 		$input_html .= '<div class="katb_clear_fix"></div><p>'.esc_attr( $required_label ).'</p>';
-		if ($katb_options['katb_use_gravatars'] == 1 || $katb_options['katb_widget_use_gravatars'] == 1 ) {
+		if ( $katb_options['katb_show_gravatar_link'] == 1 ) {
 		
 			$input_html .= '<p>'.__('Add a photo? ','testimonial-basics');
 				$input_html .= '<a href="https://en.gravatar.com/" title="Gravatar Site" target="_blank" >';
@@ -414,7 +482,7 @@ function katb_display_input_form($atts) {
 		
 		}
 	$input_html .= '</div>';
-	//wp_die($input_html);
+	
 	return $input_html;
 }
 add_shortcode('katb_input_testimonials', 'katb_display_input_form');
@@ -448,6 +516,7 @@ function katb_content_display( $use_formatted_display , $use_schema, $katb_tnumb
 	//get user options
 	$katb_options = katb_get_options();
 	$use_ratings = $katb_options['katb_use_ratings'];
+	$use_css_ratings = $katb_options['katb_use_css_ratings'];
 	$use_excerpts = $katb_options['katb_use_excerpts'];
 	$use_title = $katb_options['katb_show_title'];
 	$use_gravatars = $katb_options['katb_use_gravatars'];
@@ -575,7 +644,14 @@ function katb_content_display( $use_formatted_display , $use_schema, $katb_tnumb
 					
 							$rating = $katb_tdata[$i]['tb_rating'];
 							if( $rating == '' ) { $rating = 0; }
-							$html .= '<span class="rateit katb_display_rating" data-rateit-value="'.esc_attr( $rating ).'" data-rateit-ispreset="true" data-rateit-readonly="true"></span><br/>';
+							if( $use_css_ratings == 1 ) {
+								$html .= '<span class="katb_css_rating">';
+								$html .= katb_css_rating( $rating );
+								$html .= '</span>';
+							} else {
+								$html .= '<span class="rateit katb_display_rating" data-rateit-value="'.esc_attr( $rating ).'" data-rateit-ispreset="true" data-rateit-readonly="true"></span><br/>';	
+							}
+							
 							//schema schema schema :)
 							if( $use_schema == 1 ) {
 								$meta_top .= '<meta itemprop="worst" content="0" />';
@@ -669,6 +745,7 @@ function katb_content_display( $use_formatted_display , $use_schema, $katb_tnumb
 	$display_reviews = $katb_options['katb_schema_display_reviews'];
 	$use_group_name_for_aggregate = $katb_options['katb_use_group_name_for_aggregate'];
 	$custom_aggregate_name = $katb_options['katb_custom_aggregate_review_name'];
+	$use_ratings = $katb_options['katb_use_ratings'];
 	
 	$html = '';
 	
@@ -705,9 +782,12 @@ function katb_content_display( $use_formatted_display , $use_schema, $katb_tnumb
 						}
 						
 					$html .= '</div>';	
-	
-					//Call function to display the aggregate rating
-					$html .= katb_schema_aggregate_markup( $display_aggregate , $group_name, $use_group_name_for_aggregate , $custom_aggregate_name );
+					
+					if( $use_ratings == 1 ){
+						//Call function to display the aggregate rating
+						$html .= katb_schema_aggregate_markup( $display_aggregate , $group_name, $use_group_name_for_aggregate , $custom_aggregate_name );
+					}
+					
 			
 				$html .= '</div>';
 			$html .= '</div>';
@@ -832,6 +912,7 @@ function katb_setup_popup ( $i, $katb_tdata, $has_valid_avatar ) {
 	//get user options
 	$katb_options = katb_get_options();
 	$use_ratings = $katb_options['katb_use_ratings'];
+	$use_css_ratings = $katb_options['katb_use_css_ratings'];
 	$use_gravatars = $katb_options['katb_use_gravatars'];
 	$use_gravatar_substitute = $katb_options['katb_use_gravatar_substitute'];
 	$gravatar_size = $katb_options['katb_gravatar_size'];
@@ -885,7 +966,14 @@ function katb_setup_popup ( $i, $katb_tdata, $has_valid_avatar ) {
 				
 						$rating = $katb_tdata[$i]['tb_rating'];
 						if( $rating == '' ) { $rating = 0; }
-						$popup_html .= '<span class="rateit katb_display_rating" data-rateit-value="'.esc_attr( $rating ).'" data-rateit-ispreset="true" data-rateit-readonly="true"></span><br/>';
+						
+						if( $use_css_ratings != 1 ) {
+							$popup_html .= '<span class="rateit katb_display_rating" data-rateit-value="'.esc_attr( $rating ).'" data-rateit-ispreset="true" data-rateit-readonly="true"></span><br/>';
+						} else {
+							$popup_html .= '<span class="katb_css_rating">';
+							$popup_html .= katb_css_rating( $rating );
+							$popup_html .= '</span>';
+						}		
 						
 					}
 						
@@ -932,6 +1020,9 @@ function katb_schema_aggregate_markup ( $display_aggregate , $group_name, $use_g
 	//setup database table
 	global $wpdb,$tablename;
 	$tablename = $wpdb->prefix.'testimonial_basics';
+	
+	$katb_options = katb_get_options();
+	$use_css_ratings = $katb_options['katb_use_css_ratings'];
 	
 	$agg_html = '';
 	
@@ -1020,8 +1111,15 @@ function katb_schema_aggregate_markup ( $display_aggregate , $group_name, $use_g
 				} else {
 					$agg_html .= '<span class="aggregate_itemreviewed" itemprop="itemreviewed">'.__('All Reviews','testimonial-basics').'</span><br/>';	
 				}
-	
-				$agg_html .= '<span class="rateit katb_display_rating" data-rateit-value="'.stripcslashes( esc_attr( $rounded_avg_rating ) ).'" data-rateit-ispreset="true" data-rateit-readonly="true"></span>';
+				
+				if( $use_css_ratings != 1 ) {
+					$agg_html .= '<span class="rateit katb_display_rating" data-rateit-value="'.stripcslashes( esc_attr( $rounded_avg_rating ) ).'" data-rateit-ispreset="true" data-rateit-readonly="true"></span>';
+				} else {
+					$agg_html .= '<span class="katb_css_rating katb_aggy">';
+					$agg_html .= katb_css_rating( $rounded_avg_rating );
+					$agg_html .= '</span>';
+				}
+				
 				$agg_html .= ' - ';
 				$agg_html .= '<span itemprop="rating" itemscope itemtype="http://data-vocabulary.org/Rating">';
 					$agg_html .= '<span class="average_number" itemprop="average">'.stripcslashes( esc_attr( $avg_rating ) ).'</span>';
