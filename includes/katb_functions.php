@@ -1635,7 +1635,7 @@ function katb_check_for_submitted_testimonial() {
 			$wpdb->insert($tablename,$values,$formats_values);
 			
 			//send email
-			if ( $katb_options['katb_contact_email'] != '' ) {
+			if ( isset( $katb_options['katb_contact_email'] ) && $katb_options['katb_contact_email'] != '' ) {
 				$emailTo = $katb_options['katb_contact_email'];
 			} else {
 				$emailTo = get_option('admin_email');
