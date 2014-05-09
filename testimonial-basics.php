@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Testimonial Basics
-Plugin URI: http://www.kevinsspace.ca/testimonial-basics-wordpress-plugin/
+Plugin URI: http://kevinsspace.ca/testimonial-basics-wordpress-plugin/
 Description: This plugin facilitates easy management of customer testimonials. The user can set up an input form in a page or in a widget, and display all or selected testimonials in a page or a widget. The plug in is very easy to use and modify.
-Version: 3.12.4
+Version: 4.0.7
 Author: Kevin Archibald
-Author URI: http://www.kevinsspace.ca
+Author URI: http://kevinsspace.ca
 License: GPLv3
 ===================================================================================================
                        LICENSE
@@ -30,7 +30,6 @@ License URI: see the license.txt file for license details.
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-/**** This is a Beta Version *****/
 /** ----------- Session Start ----------------------------------------------
  * Start session if not already started. The session is required
  * for passing the password from katb_captcha.php to the input
@@ -55,13 +54,13 @@ if ('testimonial-basics.php' == basename($_SERVER['SCRIPT_FILENAME']))
  * 
  *-------------------------------------------------------------------------- */
  global $katb_db_new_version;
- $katb_db_new_version = '1.1';
+ $katb_db_new_version = '1.3';
  
 function katb_testimomial_basics_activate() {
 	//Check version compatibilities
-    if ( version_compare( get_bloginfo( 'version' ), '3.1', '<' ) ) {
+    if ( version_compare( get_bloginfo( 'version' ), '3.7', '<' ) ) {
         deactivate_plugins( basename( __FILE__ ) ); // Deactivate our plugin
-        die ('Please Upgrade your WprdPress to use this plugin.');
+        die ('Please Upgrade your WordPress to use this plugin.');
     }
 	//Check for database table and create if not there
 	global $wpdb;
@@ -70,6 +69,7 @@ function katb_testimomial_basics_activate() {
 	$tablename = $wpdb->prefix.'testimonial_basics';
 	$tableprefix = strtolower($wpdb->prefix);
 	if( $wpdb->get_var("SHOW TABLES LIKE '$tablename'") != $tablename && $wpdb->get_var("SHOW TABLES LIKE '$tablename'") != $tableprefix.'testimonial_basics' ) {
+		//wp_die($tablename);
 		// add charset & collate like wp core
 		$charset_collate = '';
 		if ( version_compare(mysql_get_server_info(), '4.1.0', '>=') ) {
@@ -82,13 +82,15 @@ function katb_testimomial_basics_activate() {
 		$sql = "CREATE TABLE `$tablename` (
 				`tb_id` int(4) UNSIGNED NOT NULL AUTO_INCREMENT,
   				`tb_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  				`tb_group` char(20) NOT NULL,
+  				`tb_group` char(100) NOT NULL,
   				`tb_order` int(4) UNSIGNED NOT NULL,
   				`tb_approved` int(1) UNSIGNED NOT NULL,
   				`tb_name` char(100) NOT NULL,
   				`tb_location` char(100) NOT NULL,
   				`tb_email` char(100) NOT NULL,
- 				`tb_url` char(100) NOT NULL,
+  				`tb_pic_url` char(150) NOT NULL,
+ 				`tb_url` char(150) NOT NULL,
+ 				`tb_rating` char(5) NOT NULL,
   				`tb_testimonial` text NOT NULL,
   				PRIMARY KEY (`tb_id`)
 			)$charset_collate;";
@@ -98,8 +100,8 @@ function katb_testimomial_basics_activate() {
 	} elseif ( $katb_tb_installed_version !== $katb_db_new_version ) {
 		//table requires upgrading
 		$sql = "CREATE TABLE `$tablename` (
-				`tb_group` char(20) NOT NULL,
-  				`tb_email` char(100) NOT NULL
+				`tb_pic_url` char(150) NOT NULL,
+ 				`tb_url` char(150) NOT NULL
  			);";
 		require_once ( ABSPATH . 'wp-admin/includes/upgrade.php');
 		dbDelta($sql);
@@ -150,8 +152,7 @@ if( is_admin() ) {
 function katb_testimonial_basics_plugin_setup () {
 	require_once( dirname(__FILE__).'/includes/katb_shortcodes.php' );
 	require_once( dirname(__FILE__).'/widgets/katb_input_testimonial_widget.php' );
-	require_once( dirname(__FILE__).'/widgets/katb_testimonial_widget.php' );
-	require_once( dirname(__FILE__).'/widgets/katb_testimonial_multiple_display_widget.php' );
+	require_once( dirname(__FILE__).'/widgets/katb_display_testimonial_widget.php' );
 	require_once( dirname(__FILE__).'/includes/katb_functions.php' );
 	//enable translation
 	load_plugin_textdomain('testimonial-basics', false, 'testimonial-basics/languages');
@@ -166,38 +167,47 @@ add_action( 'plugins_loaded','katb_testimonial_basics_plugin_setup');
  * Activates the translation on setup
  * 
  * ----------------------------------------------------------------------- */
-function katb_add_user_style(){
+function katb_add_styles(){
+	$katb_options = katb_get_options();
 	wp_register_style( 'katb_user_styles',plugin_dir_url(__FILE__).'css/katb_user_styles.css' );
 	wp_enqueue_style( 'katb_user_styles' );
+	if ( $katb_options['katb_use_ratings'] == 1 && $katb_options['katb_use_css_ratings'] != 1  ) {
+		wp_register_style( 'katb_rateit_styles',plugin_dir_url(__FILE__).'js/rateit/rateit.css');
+		wp_enqueue_style( 'katb_rateit_styles' );
+	}
+	if ( $katb_options['katb_use_ratings'] == 1 && $katb_options['katb_use_css_ratings'] == 1  ) {
+		wp_register_style( 'katb_font_icon',plugin_dir_url(__FILE__).'fontello/css/fontello.css');
+		wp_enqueue_style( 'katb_font_icon' );
+	}
 }
-add_action('wp_enqueue_scripts','katb_add_user_style');
+add_action('wp_enqueue_scripts','katb_add_styles');
 
 /** ------------- Enqueue Scripts ---------------------------------------
  *
- * When the plugin is activated this function is executed
+ * Loads the excerpt, rotator, and ratings script if required
  * 
- * Loads these files on setup
- * Activates the excerpt jQuery script if needed
+ * @uses katb_get_options() from katb_functions.php
  * 
  * ----------------------------------------------------------------------- */
-function katb_load_excerpt_jquery () {
+function katb_load_scripts () {
 	$katb_options = katb_get_options();
-	if ( $katb_options['katb_use_widget_excerpts'] == 1 || $katb_options['katb_use_excerpts'] == 1 ) {
-		wp_enqueue_script( 'testimonial_basics_excerpt_js', plugins_url() . '/testimonial-basics/js/katb_excerpt_doc_ready.js', array('jquery'));
+	if ( $katb_options['katb_widget_use_excerpts'] == 1 || $katb_options['katb_use_excerpts'] == 1 ) {
+		wp_enqueue_script( 'testimonial_basics_excerpt_js' , plugins_url() . '/testimonial-basics/js/katb_excerpt_doc_ready.js' , array('jquery') , '1.0.0' , true );
 	}
-	
+	if ( $katb_options['katb_enable_rotator'] != 0 ) {
+		wp_enqueue_script( 'testimonial_basics_rotator_js' , plugins_url() . '/testimonial-basics/js/katb_rotator_doc_ready.js' , array('jquery') , '1.0.0' , true );
+		wp_enqueue_script('jquery-effects-slide');
+	}
+	if ( $katb_options['katb_use_ratings'] == 1 && $katb_options['katb_use_css_ratings'] != 1 ) {
+		wp_enqueue_script( 'testimonial_basics_rateit_js' , plugins_url() . '/testimonial-basics/js/rateit/jquery.rateit.min.js' , array('jquery') , '1.0.0' , true );
+	}
 }
-add_action('wp_enqueue_scripts','katb_load_excerpt_jquery');
+add_action('wp_enqueue_scripts','katb_load_scripts');
 
 /** ------------- Custom Styles ---------------------------------------
  *
- * This function loads custom user styles if required
+ * This function loads custom user styles
  * 
- * Initially it loads the user options from the database.
- * If the user has selected custom testimonial display for the content
- * or for the widget displa it loads the respective files
- * 
- * uses katb_get_options() located in \includes\katb_functions.php
  * 
  * ---------------------------------------------------------------------- */
 function katb_add_custom_styles(){
@@ -205,31 +215,3 @@ function katb_add_custom_styles(){
 	require_once( dirname(__FILE__).'/css/katb_widget_custom_style.php' );
  }
 add_action( 'wp_print_styles', 'katb_add_custom_styles' );
-
-
-/** ------------- Filter for Content Area Input Form ---------------------------------------
- *
- * This function is the filter used to load the testimonial form in a content area
- * The user enters <p><!-- katb_input_form --></p> or <!-- katb_input_form --> 
- * in the content area. When the filter picks this up katb_input_form is called
- * and the filtered string is replaced by the input form ($html_string)
- * 
- * 
- * @uses katb_display_input_form() defined in katb_shortcodes.php
- * @input string $content
- * @return string $content
- * 
- * ------------------------------------------------------------------------------------------ */
-function katb_insert_input_form($content){
-	if (strpos($content, "<p><!-- katb_input_form --></p>") !== false) {
-		//$content = str_replace("<p><!-- katb_input_form --></p>", katb_input_form(), $content);
-		$content = str_replace("<p><!-- katb_input_form --></p>",katb_display_input_form(), $content);
-	}elseif (strpos($content, "<!-- katb_input_form -->") !== false) {
-			//$content = str_replace("<!-- katb_input_form -->", katb_input_form(), $content);
-			$content = str_replace("<!-- katb_input_form -->",katb_display_input_form(), $content);
-	}
-	return $content;
-}
-add_filter('the_content', 'katb_insert_input_form',99);
-
-?>

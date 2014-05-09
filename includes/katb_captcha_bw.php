@@ -1,6 +1,6 @@
 <?php
 /**
- * This file contains the that is called when users select to use the captcha.
+ * This file is called when users select to use the black and white captcha.
  *
  *
  * @package		Testimonial Basics WordPress Plugin
@@ -60,4 +60,3 @@ if(!isset($_SESSION)) session_start();
 
   // Clean up
   imagedestroy($katb_img);
-?>
