@@ -3,7 +3,7 @@
 Plugin Name: Testimonial Basics Input Widget
 Plugin URI: http://kevinsspace.ca/testimonial-basics-wordpress-plugin/
 Description: A plugin to input a testimonial
-Version: 4.0.3
+Version: 4.0.7
 Author: Kevin Archibald
 Author URI: http://kevinsspace.ca/
 License: GPLv3
@@ -306,7 +306,7 @@ class katb_input_testimonial_widget extends WP_Widget {
 				$wpdb->insert($tablename,$values,$formats_values);
 				
 				//send email
-				if ( $katb_options['katb_contact_email'] != '' ) {
+				if ( isset( $katb_options['katb_contact_email'] ) && $katb_options['katb_contact_email'] != '' ) {
 					$emailTo = $katb_options['katb_contact_email'];
 				} else {
 					$emailTo = get_option('admin_email');
@@ -325,10 +325,30 @@ class katb_input_testimonial_widget extends WP_Widget {
 				wp_mail($emailTo, $subject, $body, $headers);
 				
 				$_SESSION['katb_widget_submitted'] = SHA1('true');
-				$redirect = katb_current_page_url();
-				wp_redirect( $redirect );
-				exit;
+				
+				//Initialize Variables
+				if( $labels_above != 1 ) {
+					
+					$katb_widget_author = $author_label_widget;
+					$katb_widget_email = $email_label_widget;
+					$katb_widget_website = $website_label_widget;
+					$katb_widget_location = $location_label_widget;
+					$katb_widget_testimonial = $testimonial_label_widget;
+					
+				} else {
+		
+					$katb_widget_author = '';
+					$katb_widget_email = '';
+					$katb_widget_website = '';
+					$katb_widget_location = '';
+					$katb_widget_testimonial = '';
+					
+				}
+				
+				$katb_widget_rating = '0.0';
+				
 			} else {
+				
 				if( $use_widget_popup == 1 ){
 					$widget_error_message = __('There were errors so the testimonial was not added: ','testimonial-basics').'\n'.$katb_widget_popup_error;
 					?><script>alert('<?php echo $widget_error_message; ?>')</script>
@@ -338,6 +358,7 @@ class katb_input_testimonial_widget extends WP_Widget {
 				
 				if ( $katb_widget_website == '' ) $katb_widget_website = $website_label_widget;
 				if ( $katb_widget_location == '' ) $katb_widget_location = $location_label_widget;
+				
 			}
 		}
 	/* ---------- Reset button is clicked ---------------- */
@@ -402,7 +423,7 @@ class katb_input_testimonial_widget extends WP_Widget {
 							<option value="4.5">4.5</option>
 							<option value="5.0">5.0</option>
 						</select>
-						
+					
 					<?php }
 					
 				} ?>

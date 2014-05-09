@@ -4,7 +4,7 @@ Donate link: http://kevinsspace.ca/testimonial-basics/
 Tags: testimonial,testimonials,praise,user comments,widgets,translation ready
 Requires at least: 3.7
 Tested up to: 3.9
-Stable tag: 4.0.6
+Stable tag: 4.0.7
 License: GPLv3
 License URI: http://www.gnu.org/licenses/quick-guide-gplv3.html
 
@@ -71,6 +71,10 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 5. Testimonials Example Page
 
 == Changelog ==
+
+= 4.0.7 =
+* Bug fix, removed redirect from input widget
+* Added isset conditional for custom email address
 
 = 4.0.6 =
 * User can now have more that one input form on a page 
