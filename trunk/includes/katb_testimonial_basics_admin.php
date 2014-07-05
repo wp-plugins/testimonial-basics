@@ -1556,8 +1556,8 @@ function katb_intro_html(){ ?>
 		<img alt="" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
 		</form>
 	</div>
-	<p><?php _e('Author Site : ','testimonial-basics'); ?><a href="http://www.kevinsspace.ca" target="_blank" >www.kevinsspace.ca</a>&nbsp;&nbsp;&nbsp; 
-		<?php _e('Plugin Site : ','testimonial-basics'); ?><a href="http://www.kevinsspace.ca/testimonial-basics-wordpress-plugin/" target="_blank" >www.kevinsspace.ca/testimonial-basics-wordpress-plugin/</a></p>
+	<p><?php _e('Author Site : ','testimonial-basics'); ?><a href="//www.kevinsspace.ca" target="_blank" >www.kevinsspace.ca</a>&nbsp;&nbsp;&nbsp; 
+		<?php _e('Plugin Site : ','testimonial-basics'); ?><a href="//www.kevinsspace.ca/testimonial-basics-wordpress-plugin/" target="_blank" >www.kevinsspace.ca/testimonial-basics-wordpress-plugin/</a></p>
 <?php }
 
 /**

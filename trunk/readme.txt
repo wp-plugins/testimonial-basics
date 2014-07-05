@@ -4,7 +4,7 @@ Donate link: http://kevinsspace.ca/testimonial-basics/
 Tags: testimonial,testimonials,praise,user comments,widgets,translation ready
 Requires at least: 3.7
 Tested up to: 3.9
-Stable tag: 4.0.7
+Stable tag: 4.0.8
 License: GPLv3
 License URI: http://www.gnu.org/licenses/quick-guide-gplv3.html
 
@@ -71,6 +71,11 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 5. Testimonials Example Page
 
 == Changelog ==
+
+= 4.0.8 =
+* Bug fix, modified height settings for slider in the content display 
+  and in the widget display to prevent jerking of the display window.
+* Added position: inherit; to Gravatar styles
 
 = 4.0.7 =
 * Bug fix, removed redirect from input widget
@@ -264,6 +269,12 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 * Initial Release
 
 == Upgrade Notice ==
+
+= 4.0.8 =
+* minor bug fixes
+
+= 4.0.7 =
+* minor bug fixes
 
 = 4.0.6 =
 * this is a major update

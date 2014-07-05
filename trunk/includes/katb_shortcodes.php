@@ -531,6 +531,19 @@ function katb_content_display( $use_formatted_display , $use_schema, $katb_tnumb
 	$custom_aggregate_name = $katb_options['katb_custom_aggregate_review_name'];
 	$use_individual_group_name = $katb_options['katb_individual_group_name'];
 	$custom_individual_name = $katb_options['katb_individual_custom_name'];
+	$katb_height = $katb_options['katb_rotator_height'];
+	$katb_speed = $katb_options['katb_rotator_speed'];
+	$katb_transition = $katb_options['katb_rotator_transition'];
+	
+	//set up constant height option for rotated testimonials
+	if( $katb_rotate == 1 && $katb_height != 'variable') {
+		$katb_height_option = 'style="min-height:'.esc_attr( $katb_height ).'px;overflow:hidden;"';
+		$katb_height_outside = $katb_height + 20;
+		$katb_height_option_outside = 'style="min-height:'.esc_attr( $katb_height_outside ).'px;overflow:hidden;"';
+	} else {
+		$katb_height_option = '';
+		$katb_height_option_outside = '';
+	}
 	
 	$html = '';
 	
@@ -549,14 +562,11 @@ function katb_content_display( $use_formatted_display , $use_schema, $katb_tnumb
 	} else {
 		//display individual reviews
 		if( $katb_rotate == 1 ) {
-			
-			$katb_speed = $katb_options['katb_rotator_speed'];
-			$katb_height = $katb_options['katb_rotator_height'];
-			$katb_transition = $katb_options['katb_rotator_transition'];
+
 			if( $use_formatted_display == 1 ) {
-				$html .= '<div class="katb_test_wrap katb_rotate" data-katb_speed="'.esc_attr( $katb_speed ).'" data-katb_transition="'.esc_attr( $katb_transition ).'">';
+				$html .= '<div '.$katb_height_option_outside.' class="katb_test_wrap katb_rotate" data-katb_speed="'.esc_attr( $katb_speed ).'" data-katb_transition="'.esc_attr( $katb_transition ).'">';
 			} else {
-				$html .= '<div class="katb_test_wrap_basic katb_rotate" data-katb_speed="'.esc_attr( $katb_speed ).'" data-katb_transition="'.esc_attr( $katb_transition ).'">';
+				$html .= '<div '.$katb_height_option_outside.' class="katb_test_wrap_basic katb_rotate" data-katb_speed="'.esc_attr( $katb_speed ).'" data-katb_transition="'.esc_attr( $katb_transition ).'">';
 			}
 			
 		} else {
@@ -581,13 +591,6 @@ function katb_content_display( $use_formatted_display , $use_schema, $katb_tnumb
 				
 			//set up hidden popup if excerpt is used	
 			if ( $use_excerpts == 1 ) { $html .= katb_setup_popup( $i, $katb_tdata, $has_valid_avatar  ); }
-			
-			//set up constant height option for rotated testimonials
-			if( $katb_rotate == 1 && $katb_height != 'variable') {
-				$katb_height_option = 'style="min-height:'.esc_attr( $katb_height ).'px;overflow:hidden;"';
-			} else {
-				$katb_height_option = '';
-			}
 			
 			//Set up the testimonial wrap div
 			$html .= katb_testimonial_wrap_div( $use_formatted_display , $use_schema, $katb_rotate, $katb_height_option, $i );
