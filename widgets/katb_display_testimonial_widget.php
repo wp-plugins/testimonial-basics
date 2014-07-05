@@ -364,16 +364,26 @@ function katb_widget_display_testimonial ( $katb_widget_tdata, $katb_widget_tnum
 	$use_formatted_display = $katb_options['katb_widget_use_formatted_display'];
 	$katb_widget_height = $katb_options['katb_widget_rotator_height'];
 
+	//set up widget height restriction if any
+	if( $katb_widget_height != 'variable') {
+		$katb_widget_height_option = 'style="min-height:'.$katb_widget_height.'px;overflow:hidden;"';
+		$katb_widget_height_outside = $katb_widget_height + 20;
+		$katb_widget_height_option_outside = 'style="min-height:'.$katb_widget_height_outside.'px;overflow:hidden;"';
+	} else {
+		$katb_widget_height_option = '';
+		$katb_widget_height_option_outside = '';
+	}
+
 	if( $rotate == 1 ) {
 				
 		$katb_widget_speed = $katb_options['katb_widget_rotator_speed'];
 		$katb_widget_transition = $katb_options['katb_widget_rotator_transition'];
 		if( $use_formatted_display == 1 ) { ?>
-			<div class="katb_widget_rotate katb_widget_rotator_wrap"
+			<div class="katb_widget_rotate katb_widget_rotator_wrap" <?php echo $katb_widget_height_option_outside; ?> 
 				data-katb_speed="<?php echo esc_attr( $katb_widget_speed ); ?>" 
 				data-katb_transition="<?php echo esc_attr( $katb_widget_transition ); ?>">
 		<?php } else { ?>
-			<div class="katb_widget_rotate katb_widget_rotator_wrap_basic"
+			<div class="katb_widget_rotate katb_widget_rotator_wrap_basic" <?php echo $katb_widget_height_option_outside; ?> 
 				data-katb_speed="<?php echo esc_attr( $katb_widget_speed ); ?>" 
 				data-katb_transition="<?php echo esc_attr( $katb_widget_transition ); ?>">
 		<?php }
@@ -398,12 +408,7 @@ function katb_widget_display_testimonial ( $katb_widget_tdata, $katb_widget_tnum
 				//set up hidden popup if excerpt is used
 				if ( $use_excerpts == 1 ) katb_widget_popup( $has_valid_avatar, $katb_widget_tdata, $i );
 				
-				//set up widget height restriction if any
-				if( $katb_widget_height != 'variable') {
-					$katb_widget_height_option = 'style="min-height:'.$katb_widget_height.'px;overflow:hidden;"';
-				} else {
-					$katb_widget_height_option = '';
-				}
+				
 				
 				$individual_group_name = $katb_widget_tdata[$i]['tb_group'];
 					
