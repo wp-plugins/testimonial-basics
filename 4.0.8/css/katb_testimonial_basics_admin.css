@@ -1,0 +1,342 @@
+/**
+ * Admin Testimonial Bascis Plugin styles
+ *
+ * @package		Testimonial Basics Plugin
+ * @copyright	Copyright (c) 2012, Kevin Archibald
+ * @license		http://www.gnu.org/licenses/quick-guide-gplv3.html  GNU Public License
+ * @author		Kevin Archibald <www.kevinsspace.ca/contact/>
+ * 
+ */
+
+.katb_options {margin-top: 0px;}
+
+.wrap p {font-size: 1.0em;}
+
+.wrap h3 {font-size: 1.4em;}
+
+.wrap img {
+	max-width: 100px;
+	float: left;
+	margin-right: 10px;
+}
+
+/* --------------- Input form styles -------------------- */
+
+.katb_admin_form{
+	min-width: 1100px;
+	float: left;
+}
+
+.ka_edit_column_1,.ka_edit_column_2 {
+	width: 400px;
+	float: left;
+	word-wrap: break-word;
+}
+
+.katb_edit_id_label {
+	float: left;
+	clear: both;
+	width: 130px;
+}
+
+.katb_edit_id_input {
+	float: left;
+}
+
+.katb_edit_approved_label {
+	float: left;
+	margin: 0 5px 0 20px;
+}
+
+.katb_edit_approved_input {
+	float: left:
+	margin: 0 0 0 5px;
+}
+
+.katb_edit_date_label {
+	float: left;
+	clear: both;
+	width: 130px;
+	margin: 5px 0 0 0;
+}
+
+.katb_edit_date_input {
+	float: left;
+	width: 150px;
+	margin: 5px 0 0 0;
+}
+
+.katb_edit_time_label {
+	float: left;
+	clear: both;
+	width: 130px;
+	margin: 5px 0 0 0;
+}
+
+.katb_edit_time_input {
+	float: left;
+	width: 150px;
+	margin: 5px 0 0 0;
+}
+
+.katb_edit_group_label {
+	float: left;
+	clear: both;
+	width: 130px;
+	margin: 5px 0 0 0;
+}
+
+.katb_edit_group_input {
+	float: left;
+	width: 150px;
+	margin: 5px 0 0 0;
+}
+
+.katb_edit_order_label {
+	float: left;
+	clear: both;
+	width: 130px;
+	margin: 5px 0 0 0;
+}
+
+.katb_edit_order_input {
+	float: left;
+	width: 150px;
+	margin: 5px 0 0 0;
+}
+
+.katb_edit_rating_label {
+	float: left;
+	clear: both;
+	width: 130px;
+	margin: 5px 0 0 0;
+}
+
+.katb_edit_rating_input {
+	float: left;
+	width: 150px;
+	margin: 5px 0 0 0;
+}
+
+.katb_edit_testimonial_label {
+	float: left;
+	clear: both;
+	width: 130px;
+	margin: 5px 0 0 0;
+}
+
+.katb_edit_testimonial_input {
+	float: left;
+	margin: 5px 0 0 0;
+}
+
+.katb_edit_pic_label {
+	float: left;
+}
+
+.katb_edit_avatar {
+	float: left;
+	clear: both;
+	margin: 0 0 5px 5px;
+}
+
+.katb_edit_pic img {
+	width: 60px;
+	height: 60px;
+	float: left;
+	clear: both;
+	margin: 0 20px 0 0;
+}
+
+.katb_picture_url {
+	float: left;
+	width: 200px;
+	margin: 0;
+}
+
+.katb_upload_button{
+	float: left;
+	margin: 0 0 0 5px;
+	padding: 0 5px 0 5px;
+}
+
+.katb_edit_author_label {
+	float: left;
+	clear: both;
+	width: 85px;
+	margin: 5px 0 0 0;
+}
+
+.katb_edit_author_input {
+	float: left;
+	width: 200px;
+	margin: 5px 0 0 0;
+}
+
+.katb_edit_email_label {
+	float: left;
+	clear: both;
+	width: 85px;
+	margin: 5px 0 0 0;
+}
+
+.katb_edit_email_input {
+	float: left;
+	width: 200px;
+	margin: 5px 0 0 0;
+}
+
+.katb_edit_url_label {
+	float: left;
+	clear: both;
+	width: 85px;
+	margin: 5px 0 0 0;
+}
+
+.katb_edit_url_input {
+	float: left;
+	width: 200px;
+	margin: 5px 0 0 0;
+}
+
+.katb_edit_location_label {
+	float: left;
+	clear: both;
+	width: 85px;
+	margin: 5px 0 0 0;
+}
+
+.katb_edit_location_input {
+	float: left;
+	width: 200px;
+	margin: 5px 0 0 0;
+}
+
+.katb-primary {
+	float: left;
+	clear: both;
+	margin-top: 5px!important;
+	margin-left: 140px!important;
+}
+
+.katb-secondary {
+	float: left;
+	margin: 5px 0 0 5px!important;
+}
+
+.katb-highlighted{
+	float: left!important;
+	color: red!important;
+	margin: 5px 0 0 5px!important;
+	padding: 1px!important;
+}
+
+.katb-highlighted:hover {
+	cursor: pointer;
+	opacity: 0.75;
+}
+
+td.ka_table_id input.katb_bulk_delete_input {
+	margin: 10px 0 0 0;
+	padding: 0;
+	float: left;
+	clear: both;
+	vertical-align: baseline;
+}
+
+.katb.button-secondary {float: left;}
+
+.katb_bulk_delete_label {
+	float: left;
+	margin: 10px 0 0 0;
+	padding: 0;
+	line-height: 1em;
+}
+
+.katb_bulk_delete_label img {
+	margin: 0;
+	padding: 0;
+}
+
+.katb_admin_title {float: left;clear:both;}
+
+.katb-pagination {float: left;clear:both;}
+
+.katb_paypal {
+	float: right;
+	font-style: italic;
+	font-weight : bold;
+}
+
+.html_allowed {
+	float: left;
+	clear: both;
+	width: 400px;
+	margin: 5px 0 0 140px;
+}
+
+.ka_paginate,.ka_pages {
+	background-color: #D1D1D1;
+	padding: 5px;
+	margin-bottom: 5px;
+	margin-right: 5px;
+	border-top: 3px solid #EDEDED;
+	border-left: 3px solid #EDEDED;
+	border-right: 3px solid #BABABA;
+	border-bottom: 3px solid #BABABA;
+}
+
+.ka_paginate:hover {
+	border-top: 3px solid #BABABA;
+	border-left: 3px solid #BABABA;
+	border-right: 3px solid #EDEDED;
+	border-bottom: 3px solid #EDEDED;
+}
+
+.ka_paginate_selected {
+	background-color: #DDE5FF;
+	padding: 5px;
+	margin-bottom: 5px;
+	border-top: 3px solid #EDEDED;
+	border-left: 3px solid #EDEDED;
+	border-right: 3px solid #BABABA;
+	border-bottom: 3px solid #BABABA;
+}
+
+.ka_table_id {
+	width: 50px;
+}
+
+.ka_table_admin_column {
+	width: 200px;
+}
+
+.ka_table_group
+{
+	display: inline-block;
+	width: 200px;
+	word-wrap: break-word;
+}
+
+.ka_table_name,
+.ka_table_email,.ka_table_location,
+.ka_table_website
+{
+	display: inline-block;
+	width: 300px;
+	word-wrap: break-word;
+}
+
+.ka_table_pic {
+	width: 75px;
+}
+
+.ka_table_pic img {
+	width: 60px;
+	height: 60px;
+	margin: 0;
+}
+
+.ka_table_author_column {
+	width: 300px;
+}
