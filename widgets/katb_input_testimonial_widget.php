@@ -436,13 +436,17 @@ class katb_input_testimonial_widget extends WP_Widget {
 					echo '<p>HTML: <code>a p br i em strong q h1-h6</code></p>';
 				}
 					
-				if ( $katb_options['katb_use_captcha'] == TRUE || $katb_options['katb_use_captcha'] == 1 ) {
-					if ( $katb_options['katb_use_color_captcha'] == TRUE || $katb_options['katb_use_color_captcha'] == 1 ) { ?>
-						<img src="<?php echo site_url() ?>/wp-content/plugins/testimonial-basics/includes/katb_captcha_color.php" alt="Verification Captcha" />
-					<?php } else { ?>
-						<img src="<?php echo site_url() ?>/wp-content/plugins/testimonial-basics/includes/katb_captcha_bw.php" alt="Verification Captcha" />
-					<?php } ?>
-					<input class="katb_captcha_widget_input" type="text" id="verify" name="verify" value="<?php echo $widget_captcha_label; ?>" onclick="this.select();" /><br/>
+				if ( $katb_options['katb_use_captcha'] == TRUE || $katb_options['katb_use_captcha'] == 1 ) { ?>
+					
+					<div class="katb_widget_captcha">
+						<?php if ( $katb_options['katb_use_color_captcha'] == TRUE || $katb_options['katb_use_color_captcha'] == 1 ) { ?>
+							<img src="<?php echo site_url() ?>/wp-content/plugins/testimonial-basics/includes/katb_captcha_color.php" alt="Verification Captcha" />
+						<?php } else { ?>
+							<img src="<?php echo site_url() ?>/wp-content/plugins/testimonial-basics/includes/katb_captcha_bw.php" alt="Verification Captcha" />
+						<?php } ?>
+						<input class="katb_captcha_widget_input" type="text" id="verify" name="verify" value="<?php echo $widget_captcha_label; ?>" onclick="this.select();" /><br/>
+					</div>
+					
 				<?php } ?>
 				
 				<input class="katb_widget_submit" type="submit" name="<?php echo $post_name; ?>" value="<?php echo esc_attr( $submit_label_widget ); ?>" />

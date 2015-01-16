@@ -1,9 +1,9 @@
 <?php
 /*
-Plugin Name: Testimonial Basics Rotator Display Widget
+Plugin Name: Testimonial Basics Display Widget
 Plugin URI: http://kevinsspace.ca/testimonial-basics-wordpress-plugin/
 Description: A plugin to display testimonials in a slider
-Version: 4.0.3
+Version: 4.1.0
 Author: Kevin Archibald
 Author URI: http://kevinsspace.ca/
 License: GPLv3
@@ -37,7 +37,9 @@ class katb_display_testimonial_widget extends WP_Widget {
 			'katb_display_widget_number' => 'all',
 			'katb_display_widget_by' => 'date',
 			'katb_display_widget_ids' => '',
-			'katb_display_widget_rotate' => 'no'
+			'katb_display_widget_rotate' => 'no',
+			'katb_display_widget_layout_override' => '',
+			'katb_display_widget_schema_override' => 'default'
 		);
 		$instance = wp_parse_args( (array) $instance, $katb_display_defaults );
 		$title = $instance['katb_display_widget_title'];
@@ -46,13 +48,51 @@ class katb_display_testimonial_widget extends WP_Widget {
 		$by = $instance['katb_display_widget_by'];
 		$ids = $instance['katb_display_widget_ids'];
 		$rotate = $instance['katb_display_widget_rotate'];
+		$layout_override = $instance['katb_display_widget_layout_override'];
+		$use_schema_override = $instance['katb_display_widget_schema_override'];
 		?>
-		<p>Title : <input class="widefat" id="<?php echo $this->get_field_id('katb_display_widget_title'); ?>" name="<?php echo $this->get_field_name('katb_display_widget_title'); ?>" type="text" value="<?php echo $title; ?>" /></p>
-		<p>Group : <input class="widefat" id="<?php echo $this->get_field_id('katb_display_widget_group'); ?>" name="<?php echo $this->get_field_name('katb_display_widget_group'); ?>" type="text" value="<?php echo $group; ?>" /></p>
-		<p>Number : <input class="widefat" id="<?php echo $this->get_field_id('katb_display_widget_number'); ?>" name="<?php echo $this->get_field_name('katb_display_widget_number'); ?>" type="text" value="<?php echo $number; ?>" /></p>
-		<p>By : <input class="widefat" id="<?php echo $this->get_field_id('katb_display_widget_by'); ?>" name="<?php echo $this->get_field_name('katb_display_widget_by'); ?>" type="text" value="<?php echo $by; ?>" /></p>
-		<p>IDs : <input class="widefat" id="<?php echo $this->get_field_id('katb_display_widget_ids'); ?>" name="<?php echo $this->get_field_name('katb_display_widget_ids'); ?>" type="text" value="<?php echo $ids; ?>" /></p>
-		<p>Rotate : <input class="widefat" id="<?php echo $this->get_field_id('katb_display_widget_rotate'); ?>" name="<?php echo $this->get_field_name('katb_display_widget_rotate'); ?>" type="text" value="<?php echo $rotate; ?>" /></p>
+		
+		<p><?php _e('Title : ','testimonial-basics'); ?><input class="widefat" id="<?php echo $this->get_field_id('katb_display_widget_title'); ?>" name="<?php echo $this->get_field_name('katb_display_widget_title'); ?>" type="text" value="<?php echo $title; ?>" /></p>
+		<p><?php _e('Group : ','testimonial-basics'); ?><input class="widefat" id="<?php echo $this->get_field_id('katb_display_widget_group'); ?>" name="<?php echo $this->get_field_name('katb_display_widget_group'); ?>" type="text" value="<?php echo $group; ?>" /></p>
+		<p><?php _e('Number : ','testimonial-basics'); ?><input class="widefat" id="<?php echo $this->get_field_id('katb_display_widget_number'); ?>" name="<?php echo $this->get_field_name('katb_display_widget_number'); ?>" type="text" value="<?php echo $number; ?>" /></p>
+		<p><?php _e('By : ','testimonial-basics'); ?>
+			<select name="<?php echo $this->get_field_name('katb_display_widget_by'); ?>">
+				<option value="date" <?php selected( $by, "date" ); ?>>date</option>
+				<option value="order" <?php selected( $by, "order" ); ?>>order</option>
+				<option value="random" <?php selected( $by, "random" ); ?>>random</option>
+			</select> 
+		</p>
+		<p><?php _e('IDs : ','testimonial-basics'); ?><input class="widefat" id="<?php echo $this->get_field_id('katb_display_widget_ids'); ?>" name="<?php echo $this->get_field_name('katb_display_widget_ids'); ?>" type="text" value="<?php echo $ids; ?>" /></p>
+		<p><?php _e('Rotate : ','testimonial-basics'); ?>
+			<select name="<?php echo $this->get_field_name('katb_display_widget_rotate'); ?>">
+				<option value="no" <?php selected( $rotate, "no" ); ?>>no</option>
+				<option value="yes" <?php selected( $rotate, "yes" ); ?>>yes</option>
+			</select> 
+		</p>
+		<p><?php _e('Layout : ','testimonial-basics'); ?><br/>
+			<select style="font-size:12px;" name="<?php echo $this->get_field_name('katb_display_widget_layout_override'); ?>">
+				<option value="0" <?php selected( $layout_override, "0" ); ?>>default</option>
+				<option value="1" <?php selected( $layout_override, "1" ); ?>>no format-meta top</option>
+				<option value="2" <?php selected( $layout_override, "2" ); ?>>no format-meta bottom</option>
+				<option value="3" <?php selected( $layout_override, "3" ); ?>>no format-image meta top</option>
+				<option value="4" <?php selected( $layout_override, "4" ); ?>>no format-image meta bottom</option>
+				<option value="5" <?php selected( $layout_override, "5" ); ?>>no format-centered image meta top</option>
+				<option value="6" <?php selected( $layout_override, "6" ); ?>>no format-centered image meta bottom</option>
+				<option value="7" <?php selected( $layout_override, "7" ); ?>>format-meta top</option>
+				<option value="8" <?php selected( $layout_override, "8" ); ?>>format-meta bottom</option>
+				<option value="9" <?php selected( $layout_override, "9" ); ?>>format-image meta top</option>
+				<option value="10" <?php selected( $layout_override, "10" ); ?>>format-image meta bottom</option>
+				<option value="11" <?php selected( $layout_override, "11" ); ?>>format-centered image meta top</option>
+				<option value="12" <?php selected( $layout_override, "12" ); ?>>format-centered image meta bottom</option>
+			</select> 
+		</p>
+		<p><?php _e('Use Schema : ','testimonial-basics'); ?>
+			<select name="<?php echo $this->get_field_name('katb_display_widget_schema_override'); ?>">
+				<option value="default" <?php selected( $use_schema_override, "yes" ); ?>>use default</option>
+				<option value="no" <?php selected( $use_schema_override, "no" ); ?>>no</option>
+				<option value="yes" <?php selected( $use_schema_override, "yes" ); ?>>yes</option>
+			</select> 
+		</p>
 		<?php	
 	}
 	
@@ -65,6 +105,8 @@ class katb_display_testimonial_widget extends WP_Widget {
 		$instance['katb_display_widget_by'] = strtolower(sanitize_text_field( $new_instance['katb_display_widget_by'] ));
 		$instance['katb_display_widget_ids'] = sanitize_text_field( $new_instance['katb_display_widget_ids'] );
 		$instance['katb_display_widget_rotate'] = strtolower(sanitize_text_field( $new_instance['katb_display_widget_rotate'] ));
+		$instance['katb_display_widget_layout_override'] = sanitize_text_field( $new_instance['katb_display_widget_layout_override'] );
+		$instance['katb_display_widget_schema_override'] = sanitize_text_field( $new_instance['katb_display_widget_schema_override'] );
 		
 		//rotate flag whitelist
 		if( $instance['katb_display_widget_rotate'] != 'yes' ) $instance['katb_display_widget_rotate'] = 'no';
@@ -84,6 +126,26 @@ class katb_display_testimonial_widget extends WP_Widget {
 		
 		//by whitelist
 		if( $instance['katb_display_widget_by'] != 'date' && $instance['katb_display_widget_by'] != 'order') $instance['katb_display_widget_by'] = 'random';
+		
+		//layout option 1-12
+		if( $instance['katb_display_widget_layout_override'] == '0' ) {
+			//do nothing
+		} elseif( intval($instance['katb_display_widget_layout_override'] ) < 1 ) {
+			$instance['katb_display_widget_layout_override'] = '0';
+		} elseif( intval($instance['katb_display_widget_layout_override'] ) > 12 ) {
+			$instance['katb_display_widget_layout_override'] = '0';
+		} else {
+			$instance['katb_display_widget_layout_override'] = sanitize_text_field($instance['katb_display_widget_layout_override']);
+		}
+		
+		//schema override
+		if( $instance['katb_display_widget_schema_override'] == 'yes' ) {
+			//do nothing
+		} elseif( $instance['katb_display_widget_schema_override'] == 'no' ) {
+			//do nothing
+		} else {
+			$instance['katb_display_widget_schema_override'] = 'default';
+		}
 		
 		return $instance;
 	}
@@ -116,13 +178,22 @@ class katb_display_testimonial_widget extends WP_Widget {
 		echo $before_widget;
 		
 		$title = apply_filters( 'widget_title', $instance['katb_display_widget_title'] );
-		$group = esc_attr($instance['katb_display_widget_group']);
-		$number = esc_attr($instance['katb_display_widget_number']);
-		$by = esc_attr($instance['katb_display_widget_by']);
-		$rotate = esc_attr($instance['katb_display_widget_rotate']);
-		$ids = esc_attr($instance['katb_display_widget_ids']);
+		$group = sanitize_text_field($instance['katb_display_widget_group']);
+		$number = sanitize_text_field($instance['katb_display_widget_number']);
+		$by = sanitize_text_field($instance['katb_display_widget_by']);
+		$rotate = sanitize_text_field($instance['katb_display_widget_rotate']);
+		$ids = sanitize_text_field($instance['katb_display_widget_ids']);
+		$layout_override = sanitize_text_field( $instance['katb_display_widget_layout_override'] );
+		$schema_override = sanitize_text_field( $instance['katb_display_widget_schema_override'] );
 		
 		if( $rotate == 'yes' ) { $rotate = 1; }
+		
+		//schema override - change if yes or no do nothing if default
+		if( $schema_override == 'yes' ){
+			$use_schema = 1;
+		}elseif ( $schema_override == 'no' ) {
+			$use_schema = 0;
+		}
 		
 		//display the title
 		if ( !empty( $title ) ) { echo $before_title.$title.$after_title; }
@@ -155,7 +226,7 @@ class katb_display_testimonial_widget extends WP_Widget {
 				katb_widget_schema_company_aggregate( $company_name, $company_website, $group, $use_aggregate_group_name, $custom_aggregate_name  ); 
 			}
 			
-			katb_widget_display_testimonial ( $katb_widget_tdata, $katb_widget_tnumber, $rotate, $group );
+			katb_widget_display_testimonial ( $katb_widget_tdata, $katb_widget_tnumber, $rotate, $group, $layout_override );
 			
 			if( $use_schema == 1 ) { ?>
 				</div>
@@ -346,7 +417,7 @@ function katb_widget_schema_company_aggregate ( $company_name, $company_website,
  * @uses katb_meta_widget_bottom() html for bottom meta from this file
  */
  
-function katb_widget_display_testimonial ( $katb_widget_tdata, $katb_widget_tnumber, $rotate, $group_name ) {
+function katb_widget_display_testimonial ( $katb_widget_tdata, $katb_widget_tnumber, $rotate, $group_name , $layout_override ) {
 	
 	//get user options
 	$katb_options = katb_get_options();
@@ -354,6 +425,7 @@ function katb_widget_display_testimonial ( $katb_widget_tdata, $katb_widget_tnum
 	$use_css_ratings = $katb_options['katb_use_css_ratings'];
 	$use_excerpts = $katb_options['katb_widget_use_excerpts'];
 	$use_gravatars = $katb_options['katb_widget_use_gravatars'];
+	$use_round_images = $katb_options['katb_widget_use_round_images'];
 	$use_gravatar_substitute = $katb_options['katb_widget_use_gravatar_substitute'];
 	$gravatar_size = $katb_options['katb_widget_gravatar_size'];
 	$layout = $katb_options['katb_widget_layout_option'];
@@ -374,26 +446,81 @@ function katb_widget_display_testimonial ( $katb_widget_tdata, $katb_widget_tnum
 		$katb_widget_height_option_outside = '';
 	}
 
+	/* since 4.1.0 added layout override */
+	if( $layout_override != '0' ) {
+		if( $layout_override == '1' ){
+			$layout = 'Top Meta';
+			$use_formatted_display = '0';
+		} elseif ( $layout_override == '2' ){
+			$layout = 'Bottom Meta';
+			$use_formatted_display = '0';
+		} elseif ( $layout_override == '3' ){
+			$layout = 'Image & Meta Top';
+			$use_formatted_display = '0';
+		} elseif ( $layout_override == '4' ){
+			$layout = 'Image & Meta Bottom';
+			$use_formatted_display = '0';
+		} elseif ( $layout_override == '5' ){
+			$layout = 'Centered Image & Meta Top';
+			$use_formatted_display = '0';
+		} elseif ( $layout_override == '6' ){
+			$layout = 'Centered Image & Meta Bottom';
+			$use_formatted_display = '0';
+		} elseif ( $layout_override == '7' ){
+			$layout = 'Top Meta';
+			$use_formatted_display = '1';
+		} elseif ( $layout_override == '8' ){
+			$layout = 'Bottom Meta';
+			$use_formatted_display = '1';
+		} elseif ( $layout_override == '9' ){
+			$layout = 'Image & Meta Top';
+			$use_formatted_display = '1';
+		} elseif ( $layout_override == '10' ){
+			$layout = 'Image & Meta Bottom';
+			$use_formatted_display = '1';
+		} elseif ( $layout_override == '11' ){
+			$layout = 'Centered Image & Meta Top';
+			$use_formatted_display = '1';
+		} elseif ( $layout_override == '12' ){
+			$layout = 'Centered Image & Meta Bottom';
+			$use_formatted_display = '1';
+		}
+	}
+	
+	/* since ver 4.1.0 added Image & Meta Top and Image & Meta Bottom layouts
+	   to allow independent styling will add the following classes when needed
+	   note this is different from the content mods as an extra class was added 
+	   rather then appending classes */
+	if( $layout == 'Image & Meta Top' ) {
+		$new_layout_class = ' img_meta_top';
+	} elseif ( $layout == 'Image & Meta Bottom' ) {
+		$new_layout_class = ' img_meta_bot';
+	} else {
+		$new_layout_class = '';
+	}
+
 	if( $rotate == 1 ) {
 				
 		$katb_widget_speed = $katb_options['katb_widget_rotator_speed'];
 		$katb_widget_transition = $katb_options['katb_widget_rotator_transition'];
 		if( $use_formatted_display == 1 ) { ?>
-			<div class="katb_widget_rotate katb_widget_rotator_wrap" <?php echo $katb_widget_height_option_outside; ?> 
+			<div class="katb_widget_rotate katb_widget_rotator_wrap<?php echo ' '.$new_layout_class; ?>" <?php echo $katb_widget_height_option_outside; ?> 
 				data-katb_speed="<?php echo esc_attr( $katb_widget_speed ); ?>" 
 				data-katb_transition="<?php echo esc_attr( $katb_widget_transition ); ?>">
 		<?php } else { ?>
-			<div class="katb_widget_rotate katb_widget_rotator_wrap_basic" <?php echo $katb_widget_height_option_outside; ?> 
+			<div class="katb_widget_rotate katb_widget_rotator_wrap_basic<?php echo ' '.$new_layout_class; ?>" <?php echo $katb_widget_height_option_outside; ?> 
 				data-katb_speed="<?php echo esc_attr( $katb_widget_speed ); ?>" 
 				data-katb_transition="<?php echo esc_attr( $katb_widget_transition ); ?>">
 		<?php }
 			
 	} else {
+		
 		if( $use_formatted_display == 1 ) { ?>
-			<div class="katb_widget_wrap">
+			<div class="katb_widget_wrap<?php echo $new_layout_class; ?>">
 		<?php } else { ?>
-			<div class="katb_widget_wrap_basic">
+			<div class="katb_widget_wrap_basic<?php echo $new_layout_class; ?>">
 		<?php }
+		
 	}
 			
 			for ( $i = 0 ; $i < $katb_widget_tnumber; $i++ ) {
@@ -406,156 +533,97 @@ function katb_widget_display_testimonial ( $katb_widget_tdata, $katb_widget_tnum
 				}
 					
 				//set up hidden popup if excerpt is used
-				if ( $use_excerpts == 1 ) katb_widget_popup( $has_valid_avatar, $katb_widget_tdata, $i );
+				if ( $use_excerpts == 1 ) katb_widget_popup( $has_valid_avatar , $katb_widget_tdata , $i , $layout );
+					
+				//<div class=.... > wrap
+				$div_prop = katb_widget_testimonial_wrap_div( $use_formatted_display , $use_schema , $rotate, $katb_widget_height_option, $i );
+				//title html
+				$title = katb_widget_insert_title( $use_schema , $use_title_non_schema , $katb_widget_tdata, $i, $use_individual_group_name, $custom_individual_name );
+				//rating html 
+				$rating = katb_widget_insert_rating( $use_schema , $use_ratings , $use_css_ratings , $katb_widget_tdata, $i );
+				//get gravatar html
+				$photo_or_gravatar = katb_widget_insert_gravatar( $katb_widget_tdata[$i]['tb_pic_url'] , $gravatar_size , $use_gravatars , $use_round_images , $use_gravatar_substitute , $has_valid_avatar , $katb_widget_tdata[$i]['tb_email'] );
+				//get widget testimonial content
+				$widget_content = katb_widget_content( $use_excerpts , $katb_widget_tdata , $i , $use_schema , $photo_or_gravatar , $use_formatted_display , $layout );
+				?>
 				
-				
-				
-				$individual_group_name = $katb_widget_tdata[$i]['tb_group'];
+				<div <?php echo $div_prop; ?> >
 					
-					//<div class=.... > wrap
-					$div_prop = katb_widget_testimonial_wrap_div( $use_formatted_display , $use_schema , $rotate, $katb_widget_height_option, $i );
+					<?php
 					
-					?><div <?php echo $div_prop; ?> ><?php
-					
-						if( $use_schema == 1 || $use_title_non_schema == 1 || $use_ratings == 1 ) { ?>
-					
-							<div class="katb_widget_title_bar">
+					if( $layout == "Top Meta" ) {
 						
-								<?php // use a testimonial title
-								if( $use_schema != 1 ) {
-									
-									if( $use_title_non_schema == 1 ) {
-										//non schema name of review item
-										if( $use_individual_group_name == 1 && $individual_group_name != '' ) { ?>
-											
-											<span class="individual_itemreviewed"><?php echo stripcslashes( esc_attr( $individual_group_name ) ); ?></span>
-											<?php if( $use_ratings != 1 ) { ?>
-												<br/>
-											<?php } else { ?>
-												<span class="comma_sep">&nbsp;-&nbsp;</span>
-											<?php }
-											
-										} elseif( $custom_individual_name != '' ) { ?>
-											<span class="individual_itemreviewed"><?php echo stripcslashes( esc_attr( $custom_individual_name ) ); ?></span>
-											<?php if( $use_ratings != 1 ) { ?>
-												<br/>
-											<?php } else { ?>
-												<span class="comma_sep">&nbsp;-&nbsp;</span>
-											<?php }
-											
-										}
-									}
-									
-								} else {
-									
-									//schema name of review item
-									if( $use_individual_group_name == 1 && $individual_group_name != '' ) { ?>
-										<span class="individual_itemreviewed" itemprop="itemreviewed"><?php echo stripcslashes( esc_attr( $individual_group_name ) ); ?></span>
-										<?php if( $use_ratings != 1 ) { ?>
-											<br/>
-										<?php } else { ?>
-											<span class="comma_sep">&nbsp;-&nbsp;</span>
-										<?php }
-									} elseif( $custom_individual_name != '' ) { ?>
-										<span class="individual_itemreviewed" itemprop="itemreviewed"><?php echo stripcslashes( esc_attr( $custom_individual_name ) ); ?></span>
-										<?php if( $use_ratings != 1 ) { ?>
-											<br/>
-										<?php } else { ?>
-											<span class="comma_sep">&nbsp;-&nbsp;</span>
-										<?php }
-									 }
-								
-								}
-								
-								//Display the rating if selected
-								if ( $use_ratings == 1 ) { 
-							
-									$rating = $katb_widget_tdata[$i]['tb_rating'];
-									if( $rating == '' ) $rating = 0;
-									
-									if( $use_css_ratings !=1 ) { ?>
-										<span class="rateit smallstars katb_widget_display_rating" data-rateit-starwidth="12" data-rateit-starheight="12" data-rateit-value="<?php echo esc_attr( $rating ); ?>" data-rateit-ispreset="true" data-rateit-readonly="true"></span><br/>
-									<?php } else {
-										$html = '';
-										$html .= '<span class="katb_css_rating katb_widget_css_star">';
-										$html .= katb_css_rating( $rating );
-										$html .= '</span>';
-										echo $html;
-									}
-									
-									if( $use_schema == 1 ) { ?>
-										<meta itemprop="worst" content="0" />
-										<meta itemprop="rating" content="<?php echo esc_attr( $rating ); ?>" />
-										<meta itemprop="best" content="5" />
-									<?php }
-									
-								} ?>
-								
-							</div><!-- close katb_widget_title_bar -->
-							
-						<?php }
-							
-						if( $layout == 'Top Meta' ) { katb_meta_widget_top( $i , $katb_widget_tdata, $use_schema ); }
+						echo $title;
+						echo $rating;
+						katb_meta_widget_top( $i , $katb_widget_tdata, $use_schema );
+						echo $widget_content;
 						
-						//get gravatar info
-						$photo_or_gravatar = katb_widget_insert_gravatar( $katb_widget_tdata[$i]['tb_pic_url'] , $gravatar_size , $use_gravatars , $use_gravatar_substitute , $has_valid_avatar , $katb_widget_tdata[$i]['tb_email'] );
+					} elseif( $layout == "Bottom Meta" ) {	
 						
-						//display the content
-						if ( $use_excerpts == 1 ) {
-							
-							$text = wpautop( wp_kses_post( stripcslashes($katb_widget_tdata[$i]['tb_testimonial'] ) ) );
-							$length = intval( $katb_options['katb_widget_excerpt_length'] );
-							$classID = 'katb_widget_'.sanitize_text_field( $katb_widget_tdata[$i]['tb_id'] );
-							$text2 = katb_testimonial_excerpt_filter( $length, $text, $classID );
-							
-							
-							if( $use_schema != 1 ) {
-								
-								if( $use_formatted_display == 1 ) {
-									echo '<div class="katb_widget_text">'.$photo_or_gravatar.$text2.'</div>';
-								} else {
-									echo '<div class="katb_widget_text_basic">'.$photo_or_gravatar.$text2.'</div>';
-								}
-								
-							} else {
-								
-								if( $use_formatted_display == 1 ) {
-									echo '<div class="katb_widget_text" itemprop="reviewBody">'.$photo_or_gravatar.$text2.'</div>';
-								} else {
-									echo '<div class="katb_widget_text_basic" itemprop="reviewBody">'.$photo_or_gravatar.$text2.'</div>';
-								}
-								
-							}
-							
-						} else {
-							
-							if( $use_schema != 1 ) {
-								
-								if( $use_formatted_display == 1 ) {
-									echo '<div class="katb_widget_text" >'.$photo_or_gravatar.wp_kses_post( wpautop( stripcslashes( $katb_widget_tdata[$i]['tb_testimonial'] ) ) ).'</div>';
-								} else {
-									echo '<div class="katb_widget_text_basic" >'.$photo_or_gravatar.wp_kses_post( wpautop( stripcslashes( $katb_widget_tdata[$i]['tb_testimonial'] ) ) ).'</div>';
-								}
-								
-							} else {
-								
-								if( $use_formatted_display == 1 ) {
-									echo '<div class="katb_widget_text" itemprop="reviewBody">'.$photo_or_gravatar.wp_kses_post( wpautop( stripcslashes( $katb_widget_tdata[$i]['tb_testimonial'] ) ) ).'</div>';
-								} else {
-									echo '<div class="katb_widget_text_basic" itemprop="reviewBody">'.$photo_or_gravatar.wp_kses_post( wpautop( stripcslashes( $katb_widget_tdata[$i]['tb_testimonial'] ) ) ).'</div>';
-								}
-								
-							}
-							
-						}
+						echo $title;
+						echo $rating;
+						echo $widget_content;
+						katb_meta_widget_bottom( $i , $katb_widget_tdata, $use_schema );
+
+					} elseif( $layout == "Image & Meta Top" ) {
 						
-						if( $layout == 'Bottom Meta' ) katb_meta_widget_bottom( $i , $katb_widget_tdata, $use_schema ); ?>
+						$width_adj = $gravatar_size + 10;
+						echo '<div class="katb_image_meta_top">';
+							echo '<div class="katb_gravatar_top">'.$photo_or_gravatar.'</div>';
+							echo '<div class="katb_meta_rating_top_wrap" style="width:calc(100% - '.$width_adj.'px);">';
+								katb_meta_widget_with_image( $i, $katb_widget_tdata, $use_schema );
+								echo $rating;
+							echo '</div>';
+						echo '</div>';
+						echo $title;
+						echo $widget_content;
 						
+					} elseif( $layout == "Image & Meta Bottom" ) {
+						
+						$width_adj = $gravatar_size + 10;
+						echo $title;
+						echo $widget_content;
+						echo '<div class="katb_image_meta_bottom">';
+							echo '<div class="katb_gravatar_bottom">'.$photo_or_gravatar.'</div>';
+							echo '<div class="katb_meta_rating_bottom_wrap" style="width:calc(100% - '.$width_adj.'px);">';
+								katb_meta_widget_with_image( $i, $katb_widget_tdata, $use_schema );
+								echo $rating;
+							echo '</div>';
+						echo '</div>';
+							
+					} elseif( $layout == "Centered Image & Meta Top" ) {
+						
+						echo '<div class="katb_centered_image_meta_top">';
+							echo '<div class="katb_centered_gravatar_top">'.$photo_or_gravatar.'</div>';
+							echo '<div class="katb_centered_meta_rating_top_wrap">';
+								katb_meta_widget_with_image( $i, $katb_widget_tdata, $use_schema );
+								echo $rating;
+							echo '</div>';
+						echo '</div>';
+						echo $title;
+						echo $widget_content;
+						
+					} elseif( $layout == "Centered Image & Meta Bottom" ) {
+						
+						$width_adj = $gravatar_size + 10;
+						echo $title;
+						echo $widget_content;
+						echo '<div class="katb_centered_image_meta_bottom">';
+							echo '<div class="katb_centered_gravatar_bottom">'.$photo_or_gravatar.'</div>';
+							echo '<div class="katb_centered_meta_rating_bottom_wrap" >';
+								katb_meta_widget_with_image( $i, $katb_widget_tdata, $use_schema );
+								echo $rating;
+							echo '</div>';
+						echo '</div>';
+						
+					}
+					?>
+
 				</div> <!-- close katb_widget_box/katb_widget_box_basic -->
 			
-		<?php } ?>
+			<?php } ?>
 				
-			</div>
+		</div>
 			
 <?php }
 
@@ -572,89 +640,89 @@ function katb_widget_display_testimonial ( $katb_widget_tdata, $katb_widget_tnum
  * @uses katb_meta_bottom() from this file
  * 
  */
-function katb_widget_popup( $has_valid_avatar, $katb_widget_tdata, $i ) {
+function katb_widget_popup( $has_valid_avatar , $katb_widget_tdata , $i , $layout ) {
 	
 	//get user options
 	$katb_options = katb_get_options();
 	$use_ratings = $katb_options['katb_use_ratings'];
 	$use_css_ratings = $katb_options['katb_use_css_ratings'];
 	$use_gravatars = $katb_options['katb_widget_use_gravatars'];
+	$use_round_images = $katb_options['katb_widget_use_round_images'];
 	$use_gravatar_substitute = $katb_options['katb_widget_use_gravatar_substitute'];
 	$gravatar_size = $katb_options['katb_widget_gravatar_size']; //note this is size for content and not the widget
-	$layout = $katb_options['katb_widget_layout_option'];
+	//$layout = $katb_options['katb_widget_layout_option'];
 	$use_individual_group_name = $katb_options['katb_individual_group_name'];
 	$custom_individual_name = $katb_options['katb_individual_custom_name'];
 	$use_title =  $katb_options['katb_widget_show_title'];
-	$use_schema = 0;//used to ensure no schema matkup in meta
+	$use_schema = 0;//used to ensure no schema markup in meta
 	$schema_on_for_title = $katb_options['katb_use_schema'];//used to decide on title display
 
 	?><div class="katb_topopup" id="katb_widget_<?php echo sanitize_text_field( $katb_widget_tdata[$i]['tb_id'] ); ?>">
 		
 		<div class="katb_close"></div>
 		
-		<div class="katb_popup_wrap katb_widget"><?php
-					
-			if( $use_title == 1 || $use_ratings == 1 ) { ?>
-				
-				<div class="katb_title_bar">
-					
-					<?php
-					//title for testimonial
-					if( $schema_on_for_title == 1 || $use_title == 1 ) {
-							
-						//get group name for testimonial
-						$individual_group_name = $katb_widget_tdata[$i]['tb_group'];
-							
-						if( $use_individual_group_name == 1 && $individual_group_name != '' ) {
-							echo '<span class="individual_itemreviewed" >'.stripcslashes( esc_attr( $individual_group_name ) ).'</span>';
-							if( $use_ratings == 1 ) { 
-								echo '&nbsp;-&nbsp;'; 
-							} else {
-								echo '<br/>';
-							}
-						} elseif( $custom_individual_name != '' ) {
-							echo '<span class="individual_itemreviewed" >'.stripcslashes( esc_attr( $custom_individual_name ) ).'</span>';
-							if( $use_ratings == 1 ) { 
-								echo '&nbsp;-&nbsp;'; 
-							} else {
-								echo '<br/>';
-							}
-						}
-							
-					} //close use title
-						
-					//Display the rating if selected
-					
+		<div class="katb_popup_wrap katb_widget">
 
-					if ( $use_ratings == 1 ) {
-						
-						$rating = $katb_widget_tdata[$i]['tb_rating'];
-						if( $rating == '' ) { $rating = 0; }	
-									 
-						if( $use_css_ratings !=1 ) {
-							echo '<span class="rateit katb_display_rating" data-rateit-value="'.esc_attr( $rating ).'" data-rateit-ispreset="true" data-rateit-readonly="true"></span><br/>';
-						} else {
-							$html = '';
-							$html .= '<span class="katb_css_rating">';
-							$html .= katb_css_rating( $rating );
-							$html .= '</span>';
-							echo $html;
-						}
-						
-					} ?>
-						
-				</div>
-						
-			<?php }
+			<?php
 					
-			if( $layout == 'Top Meta' ) { echo katb_meta_top( $i, $katb_widget_tdata, $use_schema ); }
-			
-			$gravatar_or_photo = katb_widget_insert_gravatar( $katb_widget_tdata[$i]['tb_pic_url'] , $gravatar_size , $use_gravatars , $use_gravatar_substitute, $has_valid_avatar , $katb_widget_tdata[$i]['tb_email'] );
-			
-			echo '<div class="katb_test_text_basic" >'.$gravatar_or_photo.wp_kses_post( wpautop( stripcslashes( $katb_widget_tdata[$i]['tb_testimonial'] ) ) ).'</div>';
-			
-			if( $layout == 'Bottom Meta' )  { echo  katb_meta_bottom( $i, $katb_widget_tdata, $use_schema ); } ?>
+				if( $use_title == 1 || $use_ratings == 1 ) { ?>
+					
+					<div class="katb_title_bar">
+						
+						<?php
+						//title for testimonial
+						if( $schema_on_for_title == 1 || $use_title == 1 ) {
+								
+							//get group name for testimonial
+							$individual_group_name = $katb_widget_tdata[$i]['tb_group'];
+								
+							if( $use_individual_group_name == 1 && $individual_group_name != '' ) {
+								echo '<span class="individual_itemreviewed" >'.stripcslashes( esc_attr( $individual_group_name ) ).'</span>&nbsp;';
+							} elseif( $custom_individual_name != '' ) {
+								echo '<span class="individual_itemreviewed" >'.stripcslashes( esc_attr( $custom_individual_name ) ).'</span>&nbsp;';
+							}
+								
+						} //close use title
+							
+						//Display the rating if selected
+						
 	
+						if ( $use_ratings == 1 ) {
+							
+							$rating = $katb_widget_tdata[$i]['tb_rating'];
+							if( $rating == '' ) { $rating = 0; }	
+							
+							if($rating > 0 ) {
+								 
+								if( $use_css_ratings !=1 ) {
+									echo '<span class="rateit katb_display_rating" data-rateit-value="'.esc_attr( $rating ).'" data-rateit-ispreset="true" data-rateit-readonly="true"></span><br/>';
+								} else {
+									$html = '';
+									$html .= '<span class="katb_css_rating">';
+									$html .= katb_css_rating( $rating );
+									$html .= '</span>';
+									echo $html;
+								}
+							
+							}
+							
+						} ?>
+							
+					</div>
+							
+				<?php }
+						
+				if( $layout == 'Top Meta' || $layout == 'Image & Meta Top' ) { echo katb_meta_widget_top( $i, $katb_widget_tdata, $use_schema ); }
+				
+				$gravatar_or_photo = katb_widget_insert_gravatar( $katb_widget_tdata[$i]['tb_pic_url'] , $gravatar_size , $use_gravatars , $use_round_images , $use_gravatar_substitute, $has_valid_avatar , $katb_widget_tdata[$i]['tb_email'] );
+				
+				echo '<div class="katb_test_text_basic" >'.$gravatar_or_photo.wp_kses_post( wpautop( stripcslashes( $katb_widget_tdata[$i]['tb_testimonial'] ) ) ).'</div>';
+				
+				if( $layout == 'Bottom Meta' || $layout == 'Image & Meta Bottom' )  { echo  katb_meta_widget_bottom( $i, $katb_widget_tdata, $use_schema ); } 
+
+			?>
+				
+			
 		</div>
 		
 	</div>	
@@ -685,55 +753,170 @@ function katb_widget_testimonial_wrap_div( $use_formatted_display , $use_schema 
 	if( $katb_rotate == 1 && $use_formatted_display == 1 && $use_schema == 1 ) {
 		
 		if( $i == 0 ) {
-			$div_prop .= 'class="katb_widget_rotator_box katb_widget_rotate_show" itemscope itemtype="http://data-vocabulary.org/Review" '.$katb_widget_height_option;
+			$div_prop .= 'class="katb_widget_rotator_box katb_widget_rotate_show hentry" itemscope itemtype="http://data-vocabulary.org/Review" '.$katb_widget_height_option;
 		} else {
-			$div_prop .= 'class="katb_widget_rotator_box katb_widget_rotate_noshow" itemscope itemtype="http://data-vocabulary.org/Review" '.$katb_widget_height_option;
+			$div_prop .= 'class="katb_widget_rotator_box katb_widget_rotate_noshow hentry" itemscope itemtype="http://data-vocabulary.org/Review" '.$katb_widget_height_option;
 		}
 		
 	} elseif( $katb_rotate == 1 && $use_formatted_display != 1 && $use_schema == 1 ) {
 		
 		if( $i == 0 ) {
-			$div_prop .= 'class="katb_widget_rotator_box_basic katb_widget_rotate_show" itemscope itemtype="http://data-vocabulary.org/Review" '.$katb_widget_height_option;
+			$div_prop .= 'class="katb_widget_rotator_box_basic katb_widget_rotate_show hentry" itemscope itemtype="http://data-vocabulary.org/Review" '.$katb_widget_height_option;
 		} else {
-			$div_prop .= 'class="katb_widget_rotator_box_basic katb_widget_rotate_noshow" itemscope itemtype="http://data-vocabulary.org/Review" '.$katb_widget_height_option;
+			$div_prop .= 'class="katb_widget_rotator_box_basic katb_widget_rotate_noshow hentry" itemscope itemtype="http://data-vocabulary.org/Review" '.$katb_widget_height_option;
 		}
 		
 	} elseif( $katb_rotate == 1 && $use_formatted_display != 1 && $use_schema != 1 ) {
 		
 		if( $i == 0 ) {
-			$div_prop .= 'class="katb_widget_rotator_box_basic katb_widget_rotate_show" '.$katb_widget_height_option;
+			$div_prop .= 'class="katb_widget_rotator_box_basic katb_widget_rotate_show hentry" '.$katb_widget_height_option;
 		} else {
-			$div_prop .= 'class="katb_widget_rotator_box_basic katb_widget_rotate_noshow" '.$katb_widget_height_option;
+			$div_prop .= 'class="katb_widget_rotator_box_basic katb_widget_rotate_noshow hentry" '.$katb_widget_height_option;
 		}
 	
 	} elseif( $katb_rotate == 1 && $use_formatted_display == 1 && $use_schema != 1 ) {
 		
 		if( $i == 0 ) {
-			$div_prop .= 'class="katb_widget_rotator_box katb_widget_rotate_show" '.$katb_widget_height_option;
+			$div_prop .= 'class="katb_widget_rotator_box katb_widget_rotate_show hentry" '.$katb_widget_height_option;
 		} else {
-			$div_prop .= 'class="katb_widget_rotator_box katb_widget_rotate_noshow" '.$katb_widget_height_option;
+			$div_prop .= 'class="katb_widget_rotator_box katb_widget_rotate_noshow hentry" '.$katb_widget_height_option;
 		}
 			
 	} elseif( $katb_rotate != 1 && $use_formatted_display == 1 && $use_schema == 1 ) {
 		
-		$div_prop .= 'class="katb_widget_box" itemscope itemtype="http://data-vocabulary.org/Review"';
+		$div_prop .= 'class="katb_widget_box hentry" itemscope itemtype="http://data-vocabulary.org/Review"';
 		
 	} elseif( $katb_rotate != 1 && $use_formatted_display != 1 && $use_schema == 1 ) {
 		
-		$div_prop .= 'class="katb_widget_box_basic" itemscope itemtype="http://data-vocabulary.org/Review"';
+		$div_prop .= 'class="katb_widget_box_basic hentry" itemscope itemtype="http://data-vocabulary.org/Review"';
 		
 	} elseif( $katb_rotate != 1 && $use_formatted_display != 1 && $use_schema != 1 ) {
 		
-		$div_prop .= 'class="katb_widget_box_basic"';
+		$div_prop .= 'class="katb_widget_box_basic hentry"';
 		
 	} elseif( $katb_rotate != 1 && $use_formatted_display == 1 && $use_schema != 1 ) {
 		
-		$div_prop .= 'class="katb_widget_box"';
+		$div_prop .= 'class="katb_widget_box hentry"';
 			
 	}
 	
 	return $div_prop;
 	
+}
+
+/**                 TITLE HELPER
+ * This function is a helper function to set up the title bar html
+ * 
+ * @param boolean $use_schema user option
+ * @param boolean $use_title_non_schema user option 
+ * @param array $katb_widget_tdata testimonial data
+ * @param integer $i where we are in the $katb_widget_tdata loop
+ * @param boolean $use_individual_group_name user option
+ * @param string $custom_individual_name user option
+ * 
+ * @return $html which is the html for the for title bar
+ */
+function katb_widget_insert_title( $use_schema , $use_title_non_schema , $katb_widget_tdata, $i, $use_individual_group_name, $custom_individual_name ){
+	
+	$html = '';	$html2=''; $html3 = '';
+	
+	if( $use_schema == 1 || $use_title_non_schema == 1 || $use_ratings == 1 ) {
+					
+		$html2 .= '<div class="katb_widget_title_bar">';
+
+			//title for testimonial
+			if( $use_schema == 1 || $use_title_non_schema == 1 ) {
+				
+				//get group name for testimonial
+				$individual_group_name = $katb_widget_tdata[$i]['tb_group'];
+				
+				if( $use_schema !=1 ) {
+					if( $use_individual_group_name == 1 && $individual_group_name != '' ) {
+						$html .= '<span class="individual_itemreviewed entry-title" >'.stripcslashes( esc_attr( $individual_group_name ) ).'</span>';
+					} elseif( $custom_individual_name != '' ) {
+						$html .= '<span class="individual_itemreviewed entry-title" >'.stripcslashes( esc_attr( $custom_individual_name ) ).'</span>';
+					}
+						
+				} else {
+					if( $use_individual_group_name == 1 && $individual_group_name != '' ) {
+						$html .= '<span class="individual_itemreviewed entry-title" itemprop="itemreviewed">'.stripcslashes( esc_attr( $individual_group_name ) ).'</span>';
+					} elseif( $custom_individual_name != '' ) {
+						$html .= '<span class="individual_itemreviewed entry-title" itemprop="itemreviewed">'.stripcslashes( esc_attr( $custom_individual_name ) ).'</span>';
+					}
+				}
+				
+			} //close use title
+			
+		$html3 .= '</div>';
+			
+	}
+	$html_return = '';
+	if( $html != '' ){
+		$html_return .= $html2.$html.$html3;
+	}
+	
+	return $html_return;
+}
+
+/**          RATING HTML HELPER
+ * This function is a helper function to set up the rating html
+ * 
+ * @param boolean $use_schema user option
+ * @param boolean $use_ratings user option
+ * @param boolean $use_css_ratings user option
+ * @param array $katb_widget_tdata testimonial data
+ * @param integer $i where we are in the $katb_widget_tdata loop
+ * 
+ * @return $html which is the html for the for title bar
+ */
+ function katb_widget_insert_rating( $use_schema , $use_ratings , $use_css_ratings , $katb_widget_tdata, $i ){
+	
+	$html = '';	$html2=''; $html3 = ''; $html_meta = '';
+	
+	if( $use_ratings == 1 ) {
+					
+		$html2 .= '<div class="katb_widget_rating">';
+
+			//Display the rating if selected
+			if ( $use_ratings == 1 ) { 
+
+				$rating = $katb_widget_tdata[$i]['tb_rating'];
+				if( $rating == '' ) { $rating = 0; }
+				
+				if( $rating > 0 ) {
+					
+					if( $use_css_ratings == 1 ) {
+						$html .= '<span class="katb_css_rating">';
+						$html .= katb_css_rating( $rating );
+						$html .= '</span>';
+					} else {
+						$html .= '<span class="rateit smallstars katb_widget_display_rating" data-rateit-starwidth="12" data-rateit-starheight="12" data-rateit-value="'.esc_attr( $rating ).'" data-rateit-ispreset="true" data-rateit-readonly="true"></span>';	
+					}
+					
+					//schema schema schema :)
+					if( $use_schema == 1 ) {
+						$html_meta .= '<meta itemprop="worst" content="0" />';
+						$html_meta .= '<meta itemprop="rating" content="'.esc_attr( $rating ).'" />';
+						$html_meta .= '<meta itemprop="best" content="5" />';
+					}
+				
+				}
+				
+			}
+			
+		$html3 .= '</div>';
+			
+	}
+	$html_return = '';
+	if( $html == '' ){
+		if( $html_meta != ''){
+			$html_return .= $html_meta;
+		}
+	} else {
+		$html_return .= $html2.$html.$html_meta.$html3;
+	}
+	
+	return $html_return;
 }
 
 /**
@@ -748,17 +931,93 @@ function katb_widget_testimonial_wrap_div( $use_formatted_display , $use_schema 
  * 
  */
  
-function katb_widget_insert_gravatar( $image_url , $gravatar_size , $use_gravatars , $use_gravatar_substitute , $has_valid_avatar , $email ){
+function katb_widget_insert_gravatar( $image_url , $gravatar_size , $use_gravatars , $use_round_images , $use_gravatar_substitute , $has_valid_avatar , $email ){
 	
+	if( $use_round_images == 1 ){ $round_image_class = '_round_image'; } else { $round_image_class = ''; }
 	//If uploaded photo use that, else use gravatar if selected and available
 	$html = '';
 	if ( $image_url != '' )  {
-		$html = '<span class="katb_widget_avatar"><img class="avatar" src="'.esc_url( $image_url ).
-				'" alt="Author Picture" style="width:'.esc_attr( $gravatar_size ).'px; height:auto;" /></span>';
+		//$html = '<span class="katb_widget_avatar'.$round_image_class.'"><img class="avatar" src="'.esc_url( $image_url ).
+		//			'" alt="Author Picture" style="width:'.esc_attr( $gravatar_size ).'px; height:auto;" /></span>';
+		$html = '<span class="katb_widget_avatar'.$round_image_class.'" style="width:'.esc_attr( $gravatar_size ).'px; height:auto;" >
+					<img class="avatar" src="'.esc_url( $image_url ).'" alt="Author Picture" /></span>';
 	} elseif ( $use_gravatars == 1 && $has_valid_avatar == 1 ) {
-		$html = '<span class="katb_widget_avatar" >'.get_avatar( $email , $size = $gravatar_size ).'</span>';
+		//$html = '<span class="katb_widget_avatar'.$round_image_class.'" >'.get_avatar( $email , $size = $gravatar_size ).'</span>';
+		$html = '<span class="katb_widget_avatar'.$round_image_class.'"  style="width:'.esc_attr( $gravatar_size ).'px; height:auto;" >'.get_avatar( $email , $size = $gravatar_size ).'</span>';
 	} elseif ( $use_gravatars == 1 && $use_gravatar_substitute == 1 ) {
-		$html = '<span class="katb_widget_avatar" >'.get_avatar( $email , $size = $gravatar_size ).'</span>';
+		//$html = '<span class="katb_widget_avatar'.$round_image_class.'" >'.get_avatar( $email , $size = $gravatar_size ).'</span>';
+		$html = '<span class="katb_widget_avatar'.$round_image_class.'"  style="width:'.esc_attr( $gravatar_size ).'px; height:auto;" >'.get_avatar( $email , $size = $gravatar_size ).'</span>';
+	}
+	
+	return $html;
+	
+}
+
+/** WIDGET CONTENT HTML
+ * This function is a helper to insert a gravatar or image
+ * 
+ * @param string $image_url if uploaded image, this is the url
+ * @param string $gravatar_size user option
+ * @param boolean $use_gravatars user option 
+ * @param boolean $use_gravatar_substitute user option
+ * @param boolean $has_valid_avatar result of avatar check 
+ * @param string $email address of author
+ * 
+ */
+ 
+function katb_widget_content( $use_excerpts , $katb_widget_tdata, $i, $use_schema, $photo_or_gravatar, $use_formatted_display, $layout ){
+	
+	$katb_options = katb_get_options();
+	if( $layout == "Image & Meta Top" || $layout == "Image & Meta Bottom" || $layout == "Centered Image & Meta Top" || $layout == "Centered Image & Meta Bottom" ) 
+	{ $photo_or_gravatar = ''; }
+	
+	$html = '';
+	
+	//display the content
+	if ( $use_excerpts == 1 ) {
+		
+		$text = wpautop( wp_kses_post( stripcslashes($katb_widget_tdata[$i]['tb_testimonial'] ) ) );
+		$length = intval( $katb_options['katb_widget_excerpt_length'] );
+		$classID = 'katb_widget_'.sanitize_text_field( $katb_widget_tdata[$i]['tb_id'] );
+		$text2 = katb_testimonial_excerpt_filter( $length, $text, $classID );
+		
+		if( $use_schema != 1 ) {
+			
+			if( $use_formatted_display == 1 ) {
+				$html .= '<div class="katb_widget_text entry-content">'.$photo_or_gravatar.$text2.'</div>';
+			} else {
+				$html .= '<div class="katb_widget_text_basic entry-content">'.$photo_or_gravatar.$text2.'</div>';
+			}
+			
+		} else {
+			
+			if( $use_formatted_display == 1 ) {
+				$html .= '<div class="katb_widget_text entry-content" itemprop="reviewBody">'.$photo_or_gravatar.$text2.'</div>';
+			} else {
+				$html .= '<div class="katb_widget_text_basic entry-content" itemprop="reviewBody">'.$photo_or_gravatar.$text2.'</div>';
+			}
+			
+		}
+		
+	} else {
+		
+		if( $use_schema != 1 ) {
+			
+			if( $use_formatted_display == 1 ) {
+				$html .= '<div class="katb_widget_text entry-content" >'.$photo_or_gravatar.wp_kses_post( wpautop( stripcslashes( $katb_widget_tdata[$i]['tb_testimonial'] ) ) ).'</div>';
+			} else {
+				$html .= '<div class="katb_widget_text_basic" >'.$photo_or_gravatar.wp_kses_post( wpautop( stripcslashes( $katb_widget_tdata[$i]['tb_testimonial'] ) ) ).'</div>';
+			}
+			
+		} else {
+			
+			if( $use_formatted_display == 1 ) {
+				$html .= '<div class="katb_widget_text entry-content" itemprop="reviewBody">'.$photo_or_gravatar.wp_kses_post( wpautop( stripcslashes( $katb_widget_tdata[$i]['tb_testimonial'] ) ) ).'</div>';
+			} else {
+				$html .= '<div class="katb_widget_text_basic entry-content" itemprop="reviewBody">'.$photo_or_gravatar.wp_kses_post( wpautop( stripcslashes( $katb_widget_tdata[$i]['tb_testimonial'] ) ) ).'</div>';
+			}
+			
+		}
 	}
 	
 	return $html;
@@ -788,9 +1047,9 @@ function katb_meta_widget_bottom( $i, $katb_tdata, $use_schema ){
 				
 		//author		
 		if( $use_schema != 1 ) { ?>
-			<span class="katb_widget_author"><?php echo sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ); ?></span>
+			<span class="vcard author post-author"><span class="katb_widget_author fn"><?php echo sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ); ?></span></span>
 		<?php } else { ?>
-			<span class="katb_widget_author" itemprop="reviewer"><?php echo sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ); ?></span>
+			<span class="vcard author post-author"><span class="katb_widget_author fn" itemprop="reviewer"><?php echo sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ); ?></span></span>
 		<?php }
 		
 		//date
@@ -798,9 +1057,9 @@ function katb_meta_widget_bottom( $i, $katb_tdata, $use_schema ){
 			
 			$katb_date = sanitize_text_field( $katb_tdata[$i]['tb_date'] );
 			if( $use_schema != 1 ) { ?>
-				<span class="katb_widget_date">,&nbsp;<?php echo mysql2date(get_option( 'date_format' ), $katb_date ); ?></span>
+				<span class="katb_widget_date post-date updated">&nbsp;&nbsp;<?php echo mysql2date(get_option( 'date_format' ), $katb_date ); ?></span>
 			<?php } else { ?>
-				<span class="katb_widget_date" itemprop="dtreviewed">,&nbsp;<?php echo mysql2date(get_option( 'date_format' ), $katb_date ); ?></span>
+				<span class="katb_widget_date post-date updated" itemprop="dtreviewed">&nbsp;&nbsp;<?php echo mysql2date('Y-m-d', $katb_date ); ?></span>
 			<?php }
 			
 		}
@@ -808,14 +1067,14 @@ function katb_meta_widget_bottom( $i, $katb_tdata, $use_schema ){
 		//location
 		if ( $show_location == 1 && $katb_tdata[$i]['tb_location'] != '') { ?>
 			
-			<span class="katb_widget_location">,&nbsp;<?php echo sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_location'] ) ); ?></span>
+			<span class="katb_widget_location">&nbsp;&nbsp;<?php echo sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_location'] ) ); ?></span>
 		
 		<?php }
 		
 		//website		
 		if ( $show_website == 1 && $katb_tdata[$i]['tb_url'] != '' ) { ?>
 			
-			<span class="katb_widget_website">,&nbsp;<a href="<?php echo esc_url( $katb_tdata[$i]['tb_url'] ); ?>" title="<?php echo esc_url( $katb_tdata[$i]['tb_url'] ); ?>" target="_blank" >Website</a></span>
+			<span class="katb_widget_website">&nbsp;&nbsp;<a href="<?php echo esc_url( $katb_tdata[$i]['tb_url'] ); ?>" title="<?php echo esc_url( $katb_tdata[$i]['tb_url'] ); ?>" target="_blank" >Website</a></span>
 			
 		<?php } ?>
 	
@@ -846,9 +1105,9 @@ function katb_meta_widget_top( $i, $katb_tdata, $use_schema ){
 		
 		//author		
 		if( $use_schema != 1 ) { ?>
-			<span class="katb_widget_author"><?php echo sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ); ?></span>
+			<span class="vcard author post-author"><span class="katb_widget_author fn"><?php echo sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ); ?></span></span>
 		<?php } else { ?>
-			<span class="katb_widget_author" itemprop="reviewer"><?php echo sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ); ?></span>
+			<span class="vcard author post-author"><span class="katb_widget_author fn" itemprop="reviewer"><?php echo sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ); ?></span></span>
 		<?php }
 		
 		//date
@@ -856,9 +1115,9 @@ function katb_meta_widget_top( $i, $katb_tdata, $use_schema ){
 			
 			$katb_date = sanitize_text_field( $katb_tdata[$i]['tb_date'] );
 			if( $use_schema != 1 ) { ?>
-				<span class="katb_widget_date">,&nbsp;<?php echo mysql2date(get_option( 'date_format' ), $katb_date ); ?></span>
+				<span class="katb_widget_date post-date updated">&nbsp;&nbsp;<?php echo mysql2date(get_option( 'date_format' ), $katb_date ); ?></span>
 			<?php } else { ?> 
-				<span class="katb_widget_date" itemprop="dtreviewed">,&nbsp;<?php echo mysql2date(get_option( 'date_format' ), $katb_date ); ?></span>
+				<span class="katb_widget_date post-date updated" itemprop="dtreviewed">&nbsp;&nbsp;<?php echo mysql2date('Y-m-d', $katb_date ); ?></span>
 		<?php }
 			
 		}
@@ -866,16 +1125,75 @@ function katb_meta_widget_top( $i, $katb_tdata, $use_schema ){
 		//location
 		if ( $show_location == 1 && $katb_tdata[$i]['tb_location'] != '') { ?>
 			
-			<span class="katb_widget_location">,&nbsp;<?php echo sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_location'] ) ); ?></span>
+			<span class="katb_widget_location">&nbsp;&nbsp;<?php echo sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_location'] ) ); ?></span>
 		
 		<?php }
 		
 		//website		
 		if ( $show_website == 1 && $katb_tdata[$i]['tb_url'] != '' ) { ?>
 			
-			<span class="katb_widget_website">,&nbsp;<a href="<?php echo esc_url( $katb_tdata[$i]['tb_url'] ); ?>" title="<?php echo esc_url( $katb_tdata[$i]['tb_url'] ); ?>" target="_blank" >Website</a></span>
+			<span class="katb_widget_website">&nbsp;&nbsp;<a href="<?php echo esc_url( $katb_tdata[$i]['tb_url'] ); ?>" title="<?php echo esc_url( $katb_tdata[$i]['tb_url'] ); ?>" target="_blank" >Website</a></span>
 		
 		<?php } ?>
+
+	</div>
+	
+	<?php return;
+}
+
+/**
+ * This function provides the meta html for the case 
+ * where the meta is displayed with an image above or below the content
+ * 
+ * @param string $i is the testimonial count in the loop
+ * @param array $katb_tdata is the testimonial data
+ * @param boolean $use_schema
+ * 
+ * @uses katb_get_options() user options from katb_functions.php
+ * 
+ */
+function katb_meta_widget_with_image( $i, $katb_widget_tdata, $use_schema ){
+	
+	//get user options
+	$katb_options = katb_get_options();
+	$show_date = $katb_options['katb_widget_show_date'];
+	$show_location = $katb_options['katb_widget_show_location'];
+	$show_website = $katb_options['katb_widget_show_website'];
+	
+	?><div class="katb_widget_meta_above_or_below"><?php
+		
+		//author		
+		if( $use_schema != 1 ) { ?>
+			<span class="vcard author post-author"><span class="katb_widget_author fn"><?php echo sanitize_text_field( stripcslashes($katb_widget_tdata[$i]['tb_name'] ) ); ?></span></span>
+		<?php } else { ?>
+			<span class="vcard author post-author"><span class="katb_widget_author fn" itemprop="reviewer"><?php echo sanitize_text_field( stripcslashes($katb_widget_tdata[$i]['tb_name'] ) ); ?></span></span>
+		<?php }
+		
+		//location
+		if ( $show_location == 1 && $katb_widget_tdata[$i]['tb_location'] != '') { ?>
+			
+			<br/><span class="katb_widget_location"><?php echo sanitize_text_field( stripcslashes($katb_widget_tdata[$i]['tb_location'] ) ); ?></span>
+		
+		<?php }
+		
+		//website		
+		if ( $show_website == 1 && $katb_widget_tdata[$i]['tb_url'] != '' ) { ?>
+			
+			<br/><span class="katb_widget_website"><a href="<?php echo esc_url( $katb_widget_tdata[$i]['tb_url'] ); ?>" title="<?php echo esc_url( $katb_widget_tdata[$i]['tb_url'] ); ?>" target="_blank" >Website</a></span>
+		
+		<?php } 
+		
+		//date
+		if ( $show_date == 1 ) {
+			
+			$katb_date = sanitize_text_field( $katb_widget_tdata[$i]['tb_date'] );
+			if( $use_schema != 1 ) { ?>
+				<br/><span class="katb_widget_date post-date updated"><?php echo mysql2date(get_option( 'date_format' ), $katb_date ); ?></span>
+			<?php } else { ?> 
+				<br/><span class="katb_widget_date post-date updated" itemprop="dtreviewed"><?php echo mysql2date('Y-m-d', $katb_date ); ?></span>
+			<?php }
+			
+		} ?>
 
 	</div>
 	
