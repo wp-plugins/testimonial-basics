@@ -3,7 +3,7 @@
 Plugin Name: Testimonial Basics
 Plugin URI: http://kevinsspace.ca/testimonial-basics-wordpress-plugin/
 Description: This plugin facilitates easy management of customer testimonials. The user can set up an input form in a page or in a widget, and display all or selected testimonials in a page or a widget. The plug in is very easy to use and modify.
-Version: 4.0.8
+Version: 4.1.0
 Author: Kevin Archibald
 Author URI: http://kevinsspace.ca
 License: GPLv3
@@ -54,11 +54,11 @@ if ('testimonial-basics.php' == basename($_SERVER['SCRIPT_FILENAME']))
  * 
  *-------------------------------------------------------------------------- */
  global $katb_db_new_version;
- $katb_db_new_version = '1.3';
+ $katb_db_new_version = '1.4';
  
 function katb_testimomial_basics_activate() {
 	//Check version compatibilities
-    if ( version_compare( get_bloginfo( 'version' ), '3.7', '<' ) ) {
+    if ( version_compare( get_bloginfo( 'version' ), '3.9', '<' ) ) {
         deactivate_plugins( basename( __FILE__ ) ); // Deactivate our plugin
         die ('Please Upgrade your WordPress to use this plugin.');
     }
@@ -98,11 +98,22 @@ function katb_testimomial_basics_activate() {
 		dbDelta($sql);
 		update_option('katb_database_version',$katb_db_new_version);
 	} elseif ( $katb_tb_installed_version !== $katb_db_new_version ) {
-		//table requires upgrading
+		//ensure all tables are upgraded to 1.4
 		$sql = "CREATE TABLE `$tablename` (
-				`tb_pic_url` char(150) NOT NULL,
- 				`tb_url` char(150) NOT NULL
- 			);";
+				`tb_id` int(4) UNSIGNED NOT NULL AUTO_INCREMENT,
+  				`tb_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  				`tb_group` char(100) NOT NULL,
+  				`tb_order` int(4) UNSIGNED NOT NULL,
+  				`tb_approved` int(1) UNSIGNED NOT NULL,
+  				`tb_name` char(100) NOT NULL,
+  				`tb_location` char(100) NOT NULL,
+  				`tb_email` char(100) NOT NULL,
+  				`tb_pic_url` char(150) NOT NULL,
+ 				`tb_url` char(150) NOT NULL,
+ 				`tb_rating` char(5) NOT NULL,
+  				`tb_testimonial` text NOT NULL,
+  				PRIMARY KEY (`tb_id`)
+			);";
 		require_once ( ABSPATH . 'wp-admin/includes/upgrade.php');
 		dbDelta($sql);
 		update_option('katb_database_version',$katb_db_new_version);
@@ -211,7 +222,6 @@ add_action('wp_enqueue_scripts','katb_load_scripts');
  * 
  * ---------------------------------------------------------------------- */
 function katb_add_custom_styles(){
-	require_once( dirname(__FILE__).'/css/katb_display_custom_style.php' );
-	require_once( dirname(__FILE__).'/css/katb_widget_custom_style.php' );
+	require_once( dirname(__FILE__).'/css/katb_custom_style.php' );
  }
 add_action( 'wp_print_styles', 'katb_add_custom_styles' );

@@ -2,9 +2,9 @@
 Contributors: kevinhaig
 Donate link: http://kevinsspace.ca/testimonial-basics/
 Tags: testimonial,testimonials,praise,user comments,widgets,translation ready
-Requires at least: 3.7
-Tested up to: 3.9
-Stable tag: 4.0.8
+Requires at least: 3.9
+Tested up to: 4.1.0
+Stable tag: 4.1.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/quick-guide-gplv3.html
 
@@ -14,6 +14,7 @@ Manage testimonials for your WordPress site.
 
 Testimonial Basics is a full featured testimonial management plugin. 
 
+* backup and restore testimonials
 * setup input forms in content or widget areas
 * show testimonials in content or widget areas
 * group testimonials for separate display
@@ -22,6 +23,7 @@ Testimonial Basics is a full featured testimonial management plugin.
 * optionally use schema/google snippet markup
 * black and white or color captcha built in
 * customize text color and background color
+* 3 layouts for content display, 6 for widget
 * use one of nine web friendly fonts
 * include gravatars
 * easily edit and approve testimonials in the admin panel
@@ -71,6 +73,25 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 5. Testimonials Example Page
 
 == Changelog ==
+= 4.1.0 =
+* Fixed database issues by upgrading everyone to database 1.4
+* Added backup/restore panel. Users can now backup their testimonials to an xml file and restore them later
+* Added Side Meta layout option in content display
+* Modified css for Top Meta and Bottom Meta layouts
+* Fixed company div wrap to be inside conditional
+* Modified ratings to show nothing if rating is 0
+* Combined all custom styles to one file and load all styles regardless
+* Added layout and schema overrides to shortcode and widgets
+* Forced YYYY-MM-DD date format when using schema
+* Moved katb_input_style div to wrap title and email note
+* Modified css in edit panel so displayed testimonials reflect a better visual presentation
+* Added 4 more layout options to widgets, image and meta top or bottom, and centered image and meta top or bottom
+* Added round images
+* Changed excerpt filtering to a word count based system
+* Made many code and css improvements.
+* Changed layout on the displayed testimonials in Edit Panel
+* Changed Paypal button to donate
+
 
 = 4.0.8 =
 * Bug fix, modified height settings for slider in the content display 
@@ -270,6 +291,13 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 
 == Upgrade Notice ==
 
+= 4.1.0 =
+* this is a major update
+* all users double check your input form and display setups to 
+  make sure changes are not required
+* the excerpt filter has been improved, but was switched to a 
+  word count system....check your excerpt settings
+  
 = 4.0.8 =
 * minor bug fixes
 

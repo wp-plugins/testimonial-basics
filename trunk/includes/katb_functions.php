@@ -699,13 +699,36 @@ function katb_get_option_parameters() {
 			'title' => __('Layout Option','testimonial-basics'),
 			'type' => 'select',
 			'valid_options' => array(
+				"Top Meta",
 				"Bottom Meta",
-				"Top Meta" 
+				"Side Meta" 
 			),
 			'description' => __('Try them to see what you prefer','testimonial-basics'),
 			'section' => 'content_general',
 			'tab' => 'content_display',
 			'default' => 'Bottom Meta',
+			'class' => 'select'
+		),
+		'katb_content_font' => array(
+			'name' => 'katb_content_font',
+			'title' => __('Font for Content Display','testimonial-basics'),
+			'type' => 'select',
+			'valid_options' => array(
+				"default font", 
+				"Georgia, serif",
+				"Verdana, Geneva, sans-serif", 
+				"Arial, Helvetica, sans-serif",
+				"'Book Antiqua', 'Palatino Linotype', Palatino, serif",
+				"Cambria, Georgia, serif",
+				"'Comic Sans MS', sans-serif",
+				"Tahoma, Geneva, sans-serif",
+				"'Times New Roman', Times, serif",
+				"'Trebuchet MS', Helvetica, sans-serif"									
+			),
+			'description' => __('default is theme font','testimonial-basics'),
+			'section' => 'content_general',
+			'tab' => 'content_display',
+			'default' => 'default font',
 			'class' => 'select'
 		),
 		'katb_content_font_size' => array(
@@ -764,12 +787,12 @@ function katb_get_option_parameters() {
 		),
 		'katb_excerpt_length' => array(
 			'name' => 'katb_excerpt_length',
-			'title' => __('Excerpt length in characters','testimonial-basics'),
+			'title' => __('Excerpt length in words','testimonial-basics'),
 			'type' => 'text',
-			'description' => __('default: 400','testimonial-basics'),
+			'description' => __('default: 80','testimonial-basics'),
 			'section' => 'content_general',
 			'tab' => 'content_display',
-			'default' => '400',
+			'default' => '80',
 			'class' => 'nohtml'
 		),
 		'katb_show_title' => array(
@@ -822,6 +845,16 @@ function katb_get_option_parameters() {
 			'default' =>0, // 0 for off
 			'class' => 'checkbox'
 		),
+		'katb_use_round_images' => array(
+			'name' => 'katb_use_round_images',
+			'title' => __( 'Use round gravatars/images' , 'testimonial-basics' ),
+			'type' => 'checkbox',
+			'description' => __('All images will be round','testimonial-basics'),
+			'section' => 'content_general',
+			'tab' => 'content_display',
+			'default' =>0, // 0 for off
+			'class' => 'checkbox'
+		),
 		'katb_use_gravatar_substitute' => array(
 			'name' => 'katb_use_gravatar_substitute',
 			'title' => __( 'Use gravatar substitute' , 'testimonial-basics' ),
@@ -837,11 +870,13 @@ function katb_get_option_parameters() {
 			'title' => __('Gravatar size','testimonial-basics'),
 			'type' => 'select',
 			'valid_options' => array(
-				"60",
-				"70", 
-				"80",
-				"90",
-				"100"
+				'40',
+				'50',
+				'60',
+				'70', 
+				'80',
+				'90',
+				'100'
 			),
 			'description' => __('Select a size for the gravatar','testimonial-basics'),
 			'section' => 'content_general',
@@ -890,11 +925,17 @@ function katb_get_option_parameters() {
 			'valid_options' => array(
 				'variable',
 				'50',
+				'75',
 				'100',
+				'125',
 				'150',
+				'175',
 				'200',
+				'225',
 				'250',
+				'275',
 				'300',
+				'325',
 				'350'
 			),
 			'description' => __('default: variable','testimonial-basics'),
@@ -917,7 +958,8 @@ function katb_get_option_parameters() {
 			'tab' => 'content_display',
 			'default' => 'fade',
 			'class' => 'select'
-		),	
+		),
+//Custom Display Options	
 		'katb_use_formatted_display' => array(
 			'name' => 'katb_use_formatted_display',
 			'title' => __( 'Use formatted display' , 'testimonial-basics' ),
@@ -928,33 +970,11 @@ function katb_get_option_parameters() {
 			'default' =>0, // 0 for off
 			'class' => 'checkbox'
 		),		
-		'katb_content_font' => array(
-			'name' => 'katb_content_font',
-			'title' => __('Font for Content Display','testimonial-basics'),
-			'type' => 'select',
-			'valid_options' => array(
-				"default font", 
-				"Georgia, serif",
-				"Verdana, Geneva, sans-serif", 
-				"Arial, Helvetica, sans-serif",
-				"'Book Antiqua', 'Palatino Linotype', Palatino, serif",
-				"Cambria, Georgia, serif",
-				"'Comic Sans MS', sans-serif",
-				"Tahoma, Geneva, sans-serif",
-				"'Times New Roman', Times, serif",
-				"'Trebuchet MS', Helvetica, sans-serif"									
-			),
-			'description' => __('default: Verdana','testimonial-basics'),
-			'section' => 'content_custom_formats',
-			'tab' => 'content_display',
-			'default' => 'default font',
-			'class' => 'select'
-		), 			
 		'katb_background_wrap_color' => array(
 			'name' => 'katb_background_wrap_color',
-			'title' => __('Background Wrap Color','testimonial-basics'),
+			'title' => __('Color Option 1','testimonial-basics'),
 			'type' => 'text',
-			'description' => __('default: #EDEDED','testimonial-basics'),
+			'description' => __('wrap color: Top Meta,Bottom Meta, Meta box color: Side Meta','testimonial-basics'),
 			'section' => 'content_custom_formats',
 			'tab' => 'content_display',
 			'default' => '#EDEDED',
@@ -962,9 +982,9 @@ function katb_get_option_parameters() {
 		),
 		'katb_testimonial_box_color' => array(
 			'name' => 'katb_testimonial_box_color',
-			'title' => __('Testimonial Box Color','testimonial-basics'),
+			'title' => __('Color Option 2','testimonial-basics'),
 			'type' => 'text',
-			'description' => __('default: #DBDBDB','testimonial-basics'),
+			'description' => __('Content Box Color','testimonial-basics'),
 			'section' => 'content_custom_formats',
 			'tab' => 'content_display',
 			'default' => '#DBDBDB',
@@ -1016,13 +1036,39 @@ function katb_get_option_parameters() {
 			'title' => __('Widget Layout Option','testimonial-basics'),
 			'type' => 'select',
 			'valid_options' => array(
+				"Top Meta",
 				"Bottom Meta",
-				"Top Meta" 
+				"Image & Meta Top",
+				"Image & Meta Bottom",
+				"Centered Image & Meta Top",
+				"Centered Image & Meta Bottom"
 			),
 			'description' => __('Try them to see what you prefer','testimonial-basics'),
 			'section' => 'widget_general',
 			'tab' => 'widget_display',
 			'default' => 'Bottom Meta',
+			'class' => 'select'
+		),
+		'katb_widget_font' => array(
+			'name' => 'katb_widget_font',
+			'title' => __('Font for Widget Display','testimonial-basics'),
+			'type' => 'select',
+			'valid_options' => array(
+				"default font", 
+				"Georgia, serif",				
+				"Verdana, Geneva, sans-serif", 
+				"Arial, Helvetica, sans-serif",
+				"'Book Antiqua', 'Palatino Linotype', Palatino, serif",
+				"Cambria, Georgia, serif",
+				"'Comic Sans MS', sans-serif",
+				"Tahoma, Geneva, sans-serif",
+				"'Times New Roman', Times, serif",
+				"'Trebuchet MS', Helvetica, sans-serif"									
+			),
+			'description' => __('default is theme font','testimonial-basics'),
+			'section' => 'widget_general',
+			'tab' => 'widget_display',
+			'default' => 'default font',
 			'class' => 'select'
 		),
 		'katb_widget_font_size' => array(
@@ -1058,10 +1104,10 @@ function katb_get_option_parameters() {
 			'name' => 'katb_widget_excerpt_length',
 			'title' => __('Widget excerpt length in characters','testimonial-basics'),
 			'type' => 'text',
-			'description' => __('default: 250','testimonial-basics'),
+			'description' => __('default: 25','testimonial-basics'),
 			'section' => 'widget_general',
 			'tab' => 'widget_display',
-			'default' => '250',
+			'default' => '25',
 			'class' => 'nohtml'
 		),
 		'katb_widget_show_title' => array(
@@ -1114,6 +1160,16 @@ function katb_get_option_parameters() {
 			'default' =>0, // 0 for off
 			'class' => 'checkbox'
 		),
+		'katb_widget_use_round_images' => array(
+			'name' => 'katb_widget_use_round_images',
+			'title' => __( 'Use round gravatars/images' , 'testimonial-basics' ),
+			'type' => 'checkbox',
+			'description' => __('All images will be round','testimonial-basics'),
+			'section' => 'widget_general',
+			'tab' => 'widget_display',
+			'default' =>0, // 0 for off
+			'class' => 'checkbox'
+		),
 		'katb_widget_use_gravatar_substitute' => array(
 			'name' => 'katb_widget_use_gravatar_substitute',
 			'title' => __( 'Use gravatar substitute' , 'testimonial-basics' ),
@@ -1129,11 +1185,13 @@ function katb_get_option_parameters() {
 			'title' => __('Gravatar size','testimonial-basics'),
 			'type' => 'select',
 			'valid_options' => array(
-				"60",
-				"70", 
-				"80",
-				"90",
-				"100"
+				'40',
+				'50',
+				'60',
+				'70', 
+				'80',
+				'90',
+				'100'
 			),
 			'description' => __('Select a size for the gravatar','testimonial-basics'),
 			'section' => 'widget_general',
@@ -1181,11 +1239,17 @@ function katb_get_option_parameters() {
 			'valid_options' => array(
 				'variable',
 				'50',
+				'75',
 				'100',
+				'125',
 				'150',
+				'175',
 				'200',
+				'225',
 				'250',
+				'275',
 				'300',
+				'325',
 				'350'
 			),
 			'description' => __('default: variable','testimonial-basics'),
@@ -1219,28 +1283,6 @@ function katb_get_option_parameters() {
 			'default' =>0, // 0 for off
 			'class' => 'checkbox'
 		),		
-		'katb_widget_font' => array(
-			'name' => 'katb_widget_font',
-			'title' => __('Font for Widget Display','testimonial-basics'),
-			'type' => 'select',
-			'valid_options' => array(
-				"default font", 
-				"Georgia, serif",				
-				"Verdana, Geneva, sans-serif", 
-				"Arial, Helvetica, sans-serif",
-				"'Book Antiqua', 'Palatino Linotype', Palatino, serif",
-				"Cambria, Georgia, serif",
-				"'Comic Sans MS', sans-serif",
-				"Tahoma, Geneva, sans-serif",
-				"'Times New Roman', Times, serif",
-				"'Trebuchet MS', Helvetica, sans-serif"									
-			),
-			'description' => __('default: Verdana','testimonial-basics'),
-			'section' => 'widget_custom_formats',
-			'tab' => 'widget_display',
-			'default' => 'default font',
-			'class' => 'select'
-		),
 		'katb_widget_background_color' => array(
 			'name' => 'katb_widget_background_color',
 			'title' => __('Background Color','testimonial-basics'),
@@ -1249,6 +1291,16 @@ function katb_get_option_parameters() {
 			'section' => 'widget_custom_formats',
 			'tab' => 'widget_display',
 			'default' => '#EDEDED',
+			'class' => 'hexcolor'
+		),
+		'katb_widget_divider_color' => array(
+			'name' => 'katb_widget_divider_color',
+			'title' => __('Divider Color','testimonial-basics'),
+			'type' => 'text',
+			'description' => __('default: #CECECE','testimonial-basics'),
+			'section' => 'widget_custom_formats',
+			'tab' => 'widget_display',
+			'default' => '#CECECE',
 			'class' => 'hexcolor'
 		),
 		'katb_widget_font_color' => array(
@@ -1311,13 +1363,15 @@ function katb_get_option_parameters() {
  * @uses katb_list_testimonials ( $atts ) in katb_shortcodes.php
  * 
  */
- function katb_testimonial_basics_display_in_code( $group='all', $number='all', $by='random', $id='', $rotate='no' ){
+ function katb_testimonial_basics_display_in_code( $group='all', $number='all', $by='random', $id='', $rotate='no', $layout="0", $schema="default" ){
 	
 	$group = sanitize_text_field( $group );
 	$number = strtolower( sanitize_text_field( $number ));
 	$by = strtolower( sanitize_text_field( $by ));
 	$id = sanitize_text_field($id);
 	$rotate = strtolower( sanitize_text_field( $rotate ));
+	$layout = sanitize_text_field($layout);
+	$schema = sanitize_text_field($schema);
 	
 	//whitelist rotate
 	if( $rotate != 'yes' ) { $rotate = 'no'; }
@@ -1337,13 +1391,22 @@ function katb_get_option_parameters() {
 	
 	//Validate $by
 	if ( $by != 'date' && $by != 'order') { $by = 'random'; }
+	
+	//white list layout
+	if( $layout == '0' || $layout == '1' || $layout == '2' || $layout == '3' || $layout == '4' || $layout == '5' || $layout == '6' ) {/*do nothing*/}else{ $layout = '0'; }
+	
+	//white list schema
+	if( $schema == 'yes' || $schema == 'no' ){/*do nothing*/}else{$schema = 'default';}
+	
 
 	$atts = array(
 		'group' => $group,
 		'number' => $number,
 		'by' => $by,
 		'id' => $id,
-		'rotate' => $rotate
+		'rotate' => $rotate,
+		'layout' => $layout,
+		'schema' => $schema
 	);
 	
 	echo katb_list_testimonials ( $atts );
@@ -1694,56 +1757,85 @@ function katb_check_for_submitted_testimonial() {
 }
 add_action ('parse_request', 'katb_check_for_submitted_testimonial');
 
-/**
- * Dynamic Excerpt Function
- * 
- * modified from @link http://wordpress.org/support/topic/dynamic-the_excerpt?replies=22 
- * This function filters the content to the passed character length from where it was called.
- * It then returns the string with a post link so the user can click the link to go to the post
- * 
- * @param int $length length to filter to in characters, passed from function call
- * @param string $text - the unfiltered testimonial content
- * @param string $classID - the link data element picked up by the popup jQuery script
- * WordPress Functions - see Codex
- * @uses get_the_content() @uses apply_filters() @uses strip_shortcodes()
- * @uses get_permalink()
- * 
- * @return string $text filtered with the more link required to trigger the correct popup window.
- * 
+/** EXCERPT FILTER
+ * @Author: Boutros AbiChedid
+ * @Date:   June 20, 2011
+ * @Websites: http://bacsoftwareconsulting.com/ ; http://blueoliveonline.com/
+ * @Description: Preserves HTML formating to the automatically generated Excerpt.
+ * Also Code modifies the default excerpt_length and excerpt_more filters.
+ * @Tested: Up to WordPress version 3.1.3
+ * http://bacsoftwareconsulting.com/blog/index.php/wordpress-cat/how-to-preserve-html-tags-in-wordpress-excerpt-without-a-plugin/
+ * Modified by 
+ * @Author: Kevin Archibald
  */
 function katb_testimonial_excerpt_filter( $length , $text , $classID ) {
+	
+	//initiate some variables
+	$more_requested = false;
+	$number_of_words = 0;
 
-	$text = strip_shortcodes( $text );
-	$text = strip_tags( $text, '<a><p><em><i><strong><blockquote><img><br><ul><li><ol><h1><h2><h3><h4><h5><h6><q>');
-	$text_first_length = substr( $text , 0 , $length );
-	$text_no_html = strip_tags( $text_first_length );
-	$add_length = $length - strlen( $text_no_html );
-	$length = $length + $add_length;
-	$output = strlen( $text );
 
-	if( $output > $length ) {
 		
-		$break_pos = strpos( $text , ' ' , $length );//find next space after desired length
+		//$kap_excerpt = get_the_content('');
+		// detect if a more link was in the post so the Read More button can be displayed
+		//if( strpos($post->post_content, '<!--more-->') !== false ){ $more_requested = true; }
+		//if( '' != $post->post_excerpt ){ $more_requested = true; }
+		//print_r( 'yes' );
+		
+		$katb_excerpt = strip_shortcodes( $text );
+		//$kap_excerpt = strip_shortcodes( $kap_excerpt );
+		//$kap_excerpt = do_shortcode( $kap_excerpt);
+		//$kap_excerpt = apply_filters('the_content', $kap_excerpt);
+		//$kap_excerpt = str_replace(']]>', ']]&gt;', $kap_excerpt);
+		//$kap_excerpt = strip_tags($kap_excerpt, ka_panache_allowed_excerpt_tags()); /*IF you need to allow just certain tags. Delete if all tags are allowed */
 
-		if( $break_pos == '' ) { $break_pos = $length; }
+		//Set the excerpt word count and only break after sentence is complete.
+		$excerpt_word_count = $length;
+		$excerpt_length = apply_filters('excerpt_length', $excerpt_word_count); 
+		$tokens = array();
+		$excerptOutput = '';
+		$count = 0;
 
-		//<br /> check
-		if( substr( $text,$break_pos - 4, 4 ) == '<br ' ) {
-			$text = substr( $text , 0 , $break_pos ).'/>';
-		} elseif ( substr( $text , $break_pos - 3 , 3 ) == '<br' ){
-			$text = substr( $text , 0 , $break_pos ).'/>';
-		} else {
-			$text = substr( $text , 0 , $break_pos );
+		// Divide the string into tokens; HTML tags, or words, followed by any whitespace
+		preg_match_all('/(<[^>]+>|[^<>\s]+)\s*/u', $katb_excerpt, $tokens);
+
+		foreach ($tokens[0] as $token) { 
+
+			if ($count >= $excerpt_word_count && preg_match('/[\,\;\?\.\!]\s*$/uS', $token) && $token != '' ) { 
+				// Limit reached, continue until , ; ? . or !occur at the end
+				$excerptOutput .= trim($token);
+				$number_of_words = $count;
+				break;
+			}
+
+			// Add words to complete sentence
+			$count++;
+
+			// Append what's left of the token
+			$excerptOutput .= $token;
+			
 		}
-		
-		$text .= '...';
-		
-		$text = force_balance_tags( $text );
 
-		$text .= '<a href="#" class="katb_excerpt_more" data-id="'.$classID.'" > ...'.__('more','testimonial-basics').'</a>';
+        $katb_excerpt = trim(force_balance_tags($excerptOutput));
 		
-	}
-	return $text;
+		$excerpt_end = '<a href="#" class="katb_excerpt_more" data-id="'.$classID.'" > ...'.__('more','testimonial-basics').'</a>';
+		//$excerpt_end = '<a class="ka-read-more" href="'. get_permalink( get_the_ID() ) . '">' . '<span class="read-more-button">' . __('Read More' , 'ka_panache') . '<i class="fa fa-long-arrow-right"></i></span></a>';
+		//$excerpt_end = ' <a href="'. esc_url( get_permalink() ) . '">' . '&nbsp;&raquo;&nbsp;' . sprintf(__( 'Read more about: %s &nbsp;&raquo;', 'wpse' ), get_the_title()) . '</a>'; 
+		//$excerpt_more = apply_filters('excerpt_more', ' ' . $excerpt_end); 
+		
+		//$pos = strrpos($kap_excerpt, '</');
+		if( $number_of_words >= $excerpt_word_count || $more_requested == true ){
+			 //if ($pos !== false) {
+				// Inside last HTML tag
+				//$kap_excerpt = substr_replace($kap_excerpt, $excerpt_end, $pos, 0); /* Add read more next to last word */
+			//} else {
+				// After the content
+				$katb_excerpt .= $excerpt_end; /*Add read more in new paragraph */
+			//}
+		}
+		//$kap_excerpt = apply_filters('the_content', $kap_excerpt);
+		return $katb_excerpt;   
+
 }
  
 /*=====================================================================================================
@@ -2047,7 +2139,7 @@ function katb_css_rating( $rating ){
 			break;
 			
 		case 0.5:
-			$css_rating .= '<i class="icon-katb-star-half"></i>';
+			$css_rating .= '<i class="icon-katb-star-half-alt"></i>';
 			$css_rating .= '<i class="icon-katb-star-empty"></i>';
 			$css_rating .= '<i class="icon-katb-star-empty"></i>';
 			$css_rating .= '<i class="icon-katb-star-empty"></i>';
@@ -2064,7 +2156,7 @@ function katb_css_rating( $rating ){
 			
 		case 1.5:
 			$css_rating .= '<i class="icon-katb-star"></i>';
-			$css_rating .= '<i class="icon-katb-star-half"></i>';
+			$css_rating .= '<i class="icon-katb-star-half-alt"></i>';
 			$css_rating .= '<i class="icon-katb-star-empty"></i>';
 			$css_rating .= '<i class="icon-katb-star-empty"></i>';
 			$css_rating .= '<i class="icon-katb-star-empty"></i>';
@@ -2081,7 +2173,7 @@ function katb_css_rating( $rating ){
 		case 2.5:
 			$css_rating .= '<i class="icon-katb-star"></i>';
 			$css_rating .= '<i class="icon-katb-star"></i>';
-			$css_rating .= '<i class="icon-katb-star-half"></i>';
+			$css_rating .= '<i class="icon-katb-star-half-alt"></i>';
 			$css_rating .= '<i class="icon-katb-star-empty"></i>';
 			$css_rating .= '<i class="icon-katb-star-empty"></i>';
 			break;
@@ -2098,7 +2190,7 @@ function katb_css_rating( $rating ){
 			$css_rating .= '<i class="icon-katb-star"></i>';
 			$css_rating .= '<i class="icon-katb-star"></i>';
 			$css_rating .= '<i class="icon-katb-star"></i>';
-			$css_rating .= '<i class="icon-katb-star-half"></i>';
+			$css_rating .= '<i class="icon-katb-star-half-alt"></i>';
 			$css_rating .= '<i class="icon-katb-star-empty"></i>';
 			break;
 			
@@ -2115,7 +2207,7 @@ function katb_css_rating( $rating ){
 			$css_rating .= '<i class="icon-katb-star"></i>';
 			$css_rating .= '<i class="icon-katb-star"></i>';
 			$css_rating .= '<i class="icon-katb-star"></i>';
-			$css_rating .= '<i class="icon-katb-star-half"></i>';
+			$css_rating .= '<i class="icon-katb-star-half-alt"></i>';
 			break;
 			
 		case 5.0:

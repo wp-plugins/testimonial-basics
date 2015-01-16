@@ -21,9 +21,9 @@ function katb_testimonial_basic_admin_style($hook) {
 	//Only enqueue if the admin page is loaded  
 	if( 'testimonials_page_katb-settings' != $hook  
 		&& 'toplevel_page_katb_testimonial_basics_admin' != $hook 
-		&& 'testimonials_page_katb_testimonial_basics_admin_edit'!= $hook) return;
+		&& 'testimonials_page_katb_testimonial_basics_admin_edit' != $hook
+		&& 'testimonials_page_katb-backup' != $hook ) return;
 	//Page is loaded so go ahead
-	global $wp_version;
 
 	wp_register_style( 'testimonial_basic_admin_style',plugins_url() . '/testimonial-basics/css/katb_testimonial_basics_admin.css',array(),'20120815','all' ); 
 	wp_enqueue_style( 'testimonial_basic_admin_style' );
@@ -65,8 +65,22 @@ function katb_testimonial_basics_create_menu() {
 		$edit_testimonial_capability = 'manage_options';
 	}
 	
-	global $katb_edit_testimonials_page, $katb_plugin_options_page;
-	
+	global $katb_edit_testimonials_page, $katb_plugin_options_page, $katb_backrest_page;
+
+	$katb_plugin_options_page = add_submenu_page(								// add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function );
+										'katb_testimonial_basics_admin',		// $parent_slug - (string) (required) The slug name for the parent menu (or the file name of a 
+																				// standard WordPress admin page).
+										'Testimonial Basics Backup or Restore',	// $page_title - (string) (required) The text to be displayed in the title tags of the page when 
+																				// the menu is selected 
+										'Backup or Restore',					// $menu_title - (string) (required) The text to be used for the menu 
+										'manage_options',						// $capability - (string) (required) The capability required for this menu to be displayed to the user.
+										'katb-backup',							// $menu_slug - (string) (required) The slug name to refer to this menu by (should be unique for 
+																				// this menu). If you want to NOT duplicate the parent menu item, you need to set the name of the 
+																				// $menu_slug exactly the same as the parent slug.
+										'katb_backup_restore_page'				// $function - (string / array) (optional) The function to be called to output the content for this page.
+										);
+	add_action( 'load-' . $katb_backrest_page , 'katb_plugin_options_contextual_help' );
+		
 	$katb_plugin_options_page = add_submenu_page(								// add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function );
 										'katb_testimonial_basics_admin',		// $parent_slug - (string) (required) The slug name for the parent menu (or the file name of a 
 																				// standard WordPress admin page).
@@ -103,10 +117,10 @@ add_action( 'admin_menu', 'katb_testimonial_basics_create_menu' );
  * @uses katb_intro_html()
  * 
  * ---------------------------------------------------------------------------------- */
-function katb_testimonial_basics_introduction (){ 
-	screen_icon( 'plugins' ); 
-	?><h1>Testimonial Basics Basic Instructions</h1><?php
-	echo katb_intro_html(); ?>
+function katb_testimonial_basics_introduction (){ ?>
+	<h1><?php _e('Testimonial Basics - Instructions','testimonial-basics'); ?></h1>
+	
+	<?php echo katb_intro_html(); ?>
 	
 	<h3><?php _e('Introduction','testimonial-basics'); ?></h3>
 
@@ -121,7 +135,7 @@ function katb_testimonial_basics_introduction (){
 	<p><?php _e('I briefly discuss the use of the plugin below. For detailed documentation, visit the plugin site.','testimonial-basics'); ?></p>
 
 	<p><?php _e('I hope you enjoy Testimonial Basics!','testimonial-basics'); ?></p>
-
+	
 	<h3><?php _e("Visitor Input Form",'testimonial-basics'); ?></h3>
 	<p><?php _e('You can set up a visitor input form very easily.','testimonial-basics'); echo ' ';
 			_e('Simply include in your page content:','testimonial-basics'); echo ' '; ?>
@@ -146,14 +160,23 @@ function katb_testimonial_basics_introduction (){
 	
 	<p><?php _e('To display testimonials create a new page and enter the following shortcode :','testimonial-basics'); echo ' '; ?><br/>
 		
-	<code>[katb_testimonial group="all" number="all" by="random"  id="" rotate="no"]</code></p>
+	<code>[katb_testimonial group="all" number="all" by="random"  id="" rotate="no" layout="0" schema="default"]</code></p>
 
 		<ol>
 			<li><?php _e('Options for','testimonial-basics'); echo ' "group" : "all" - ';_e('ignores groups','testimonial-basics');echo ', "group_name"- ';_e('display only this grouping','testimonial-basics'); ?></li>
 			<li><?php _e('Options for','testimonial-basics'); echo ' "number" : "all" - ';_e('displays all testimonials, or put in the number of testimonials you want to display','testimonial-basics'); ?></li>
 			<li><?php _e('Options for','testimonial-basics'); echo ' "by" : "random" - ';_e('display randomly','testimonial-basics');echo ', "order" - ';_e('display by order number, lowest to highest','testimonial-basics');echo ', "date"- ';_e('display most recent first','testimonial-basics'); ?></li>
-			<li><?php _e('Options for','testimonial-basics'); echo' "id" : "" - ';_e('leave blank for multiple testimonials','testimonial-basics');echo ', "ID" - ';_e('put in testimonial ID','testimonial-basics'); ?></li>
-			<li><?php _e('Options for','testimonial-basics'); echo' "rotate" : "no" - ';_e('display all selected testimonials','testimonial-basics');echo ', "yes" - ';_e('rotate each testimonial','testimonial-basics'); ?></li>
+			<li><?php _e('Options for','testimonial-basics'); echo ' "id" : "" - ';_e('leave blank for multiple testimonials','testimonial-basics');echo ', "ID" - ';_e('put in testimonial ID','testimonial-basics'); ?></li>
+			<li><?php _e('Options for','testimonial-basics'); echo ' "rotate" : "no" - ';_e('display all selected testimonials','testimonial-basics');echo ', "yes" - ';_e('rotate each testimonial','testimonial-basics'); ?></li>
+		 	<li><?php _e('Options for','testimonial-basics'); echo ' "layout" : 0 - ';_e('default to whatever is set up in the General Options Panel','testimonial-basics');
+		 			echo ', 1 - ';_e('no format top meta','testimonial-basics');
+		 			echo ', 2 - ';_e('no format bottom meta','testimonial-basics');
+		 			echo ', 3 - ';_e('no format side meta','testimonial-basics');
+		 			echo ', 4 - ';_e('format top meta','testimonial-basics');
+		 			echo ', 5 - ';_e('format bottom meta','testimonial-basics');
+		 			echo ', 6 - ';_e('format side meta','testimonial-basics'); ?></li>
+ 			<li><?php _e('Options for','testimonial-basics'); echo ' "schema" : "default" - ';_e('whatever is set up in the General Options Panel','testimonial-basics');
+ 					echo ', "yes" - ';_e('override to yes','testimonial-basics');echo ', "no" - ';_e('override to no','testimonial-basics'); ?></li>
 		</ol>
 
 	<p><strong>Tips</strong></p>
@@ -165,6 +188,8 @@ function katb_testimonial_basics_introduction (){
 		<li><?php _e('* Pagination can be used to display all testimonials or all testimonials in a group.','testimonial-basics') ?></li>
 		<li><?php _e('* Do not select rotate="yes" more than 5 times in a page content area','testimonial-basics') ?></li>
 		<li><?php _e('* IMPORTANT : Make sure you set up the page using the "Text" editor and not the "Visual" editor.','testimonial-basics'); ?></li>
+		<li><?php _e('* Layout options allow you to override the default layouts and have multiple layouts on your site.','testimonial-basics'); ?></li>
+		<li><?php _e('* Schema should only be used once on a page, this option allows you to control that.','testimonial-basics'); ?></li>
 	</ul>
 	
 	<h4><?php _e('Using a Widget','testimonial-basics'); ?></h4>
@@ -501,7 +526,6 @@ function katb_setting_callback( $option ) { //Callback for get_settings_field()
  * @uses katb_offset_setup found in /includes/katb_functions.php
  * @uses katb_setup_pagination() found in /includes/katb_functions.php
  * @uses katb_display_pagination() found in /includes/katb_functions.php
- * @uses 
  * 
  * 
  */
@@ -604,7 +628,8 @@ function katb_testimonial_basics_edit_page(){
 		if ( $katb_picture_url == 'http://' ) $katb_picture_url = '';
 		
 		//Sanitize testimonial - same html allowed as allowed in posts
-		$katb_testimonial = wp_kses_post( $_POST['tb_testimonial'] );
+		//$katb_testimonial = wp_kses_post(stripslashes($_POST['tb_testimonial']));
+		$katb_testimonial = wp_kses_post(stripslashes($_POST['tb_testimonial']));
 		if ($katb_testimonial == "" ) {
 			$error .= '*'.__('Testimonial is required','testimonial-basics').'*';
 		}
@@ -734,13 +759,10 @@ function katb_testimonial_basics_edit_page(){
 	}
 	
 ?>
-	<div class="wrap">
+	<div class="wrap katb_admin_edit_wrap">
 		
-		<?php 
-			screen_icon( 'plugins' ); 
-			?><h2>Testimonial Basics Edit and Approve Testimonials</h2><?php
-			katb_intro_html(); 
-		?>
+		<h2>Testimonial Basics Edit and Approve Testimonials</h2>
+		<?php katb_intro_html(); ?>
 		
 		<p><?php _e('Click the Help button for instructions or see the testimonial_basics_docs.html file included in the plugin docs folder.','testimonial-basics'); ?></p>
 		<h3><?php _e('Enter or update a testimonial (*Required)','testimonial-basics'); ?></h3>
@@ -751,22 +773,22 @@ function katb_testimonial_basics_edit_page(){
 			<span class="ka_edit_column_1">
 				
 				<label class="katb_edit_id_label"><?php _e('ID : ','testimonial-basics'); ?></label>
-				<input class="katb_edit_id_input" size="5" maxlength="5" readonly="readonly" name="tb_id" value="<?php echo $katb_id; ?>" />
+				<input class="katb_edit_id_input" type="text" size="5" maxlength="5" readonly="readonly" name="tb_id" value="<?php echo $katb_id; ?>" />
 				
 				<label class="katb_edit_approved_label"><?php _e('Approved : ','testimonial-basics'); ?></label>
 				<input class="katb_edit_approved_input" type="checkbox" name="tb_approved" value="1"<?php if($katb_approved == 1) {echo ' checked="checked"';} ?> />
 				
 				<label class="katb_edit_date_label"><?php _e('Date (YYYY-MM-DD): ','testimonial-basics'); ?></label>
-				<input class="katb_edit_date_input" maxlength="12" size="30" name="tb_date" value="<?php echo $katb_date; ?>" />
+				<input class="katb_edit_date_input" type="text" maxlength="12" size="30" name="tb_date" value="<?php echo $katb_date; ?>" />
 				
 				<label class="katb_edit_time_label"><?php _e('Time (HH:MM:SS): ','testimonial-basics'); ?></label>
-				<input class="katb_edit_time_input" maxlength="10" size="30" name="tb_time" value="<?php echo $katb_time; ?>" />
+				<input class="katb_edit_time_input" type="text" maxlength="10" size="30" name="tb_time" value="<?php echo $katb_time; ?>" />
 				
 				<label class="katb_edit_group_label"><?php _e('Group : ','testimonial-basics'); ?></label>
-				<input class="katb_edit_group_input" maxlength="100" size="24" name="tb_group" value="<?php echo stripcslashes($katb_group); ?>" />
+				<input class="katb_edit_group_input" type="text" maxlength="100" size="24" name="tb_group" value="<?php echo stripcslashes($katb_group); ?>" />
 	
 				<label class="katb_edit_order_label"><?php _e('Order : ','testimonial-basics'); ?></label>
-				<input class="katb_edit_order_input" size="5" maxlength="5" name="tb_order" value="<?php echo $katb_order ?>" />
+				<input class="katb_edit_order_input" type="text" size="5" maxlength="5" name="tb_order" value="<?php echo $katb_order ?>" />
 				
 				<label class="katb_edit_rating_label"><?php _e('Review Rating : ','testimonial-basics'); ?></label>
 				<select class="katb_edit_rating_input" name="tb_rating">
@@ -815,96 +837,83 @@ function katb_testimonial_basics_edit_page(){
 			</span>
 			
 			<label class="katb_edit_testimonial_label"><?php _e('Testimonial *: ','testimonial-basics'); ?></label>
-			<textarea class="katb_edit_testimonial_input" cols="102" rows="5" name="tb_testimonial" ><?php echo stripcslashes($katb_testimonial); ?></textarea>
-			<span class="html_allowed">HTML Allowed</span>
-			<br/><br/><br/>
+			
+			<textarea class="katb_edit_testimonial_input"  name="tb_testimonial" ><?php echo htmlspecialchars(stripslashes($katb_testimonial)); ?></textarea>
+						
 			<input type="submit" name="submitted" value="<?php _e('Save Testimonial','testimonial-basics') ?>" class="katb-primary button-primary" />
 			<input type="submit" name="reset" value="<?php _e('Reset','testimonial-basics') ?>" class="katb-secondary button-secondary" />
 			<input type="submit" name="delete" value="<?php _e('Delete','testimonial-basics') ?>" class="katb-highlighted button-highlighted" />
 		</form>
-		<h3 class="katb_admin_title">Testimonials</h3>
-		<?php
 		
-			//Get total entries
-			$results = $wpdb->get_results( " SELECT COUNT(1) FROM `$tablename` ",ARRAY_A);
-			$total_entries = $results[0]['COUNT(1)'];
+		<div class="katb_admin_display_testimonials">
 			
-			//Pagination
-			$katb_paginate_setup = katb_setup_pagination( $katb_admin_offset_name, $katb_items_per_page, $total_entries );
-			$katb_admin_offset = $katb_paginate_setup['offset'];
+			<h3 class="katb_admin_title">Testimonials</h3>
+			<div style="clear:both;"></div>
+			<?php
 			
-			if ($katb_admin_offset < 0 ) $katb_admin_offset = 0;
-			$katb_tdata = $wpdb->get_results( " SELECT * FROM `$tablename` ORDER BY `tb_date` DESC LIMIT $katb_items_per_page OFFSET $katb_admin_offset ",ARRAY_A);
-			$katb_tnumber = $wpdb->num_rows;
-			
-			// --------- Bulk Delete ----------
-			if( isset ( $_POST['bulk_delete'] ) && check_admin_referer('katb_nonce_4','katb_admin_form_nonce_2' ) ){
-				
-				for ( $i = 0 ; $i < $katb_tnumber; $i++ ) {
-					if( isset( $_POST[ 'bulk_delete-'.$katb_tdata[$i]['tb_id'] ]) && $_POST[ 'bulk_delete-'.$katb_tdata[$i]['tb_id'] ] == 1 ){
-						if( $katb_tdata[$i]['tb_id'] == "" ){
-							echo '<div id="message" class="updated">'.__('Error, no ID','testimonial-basics').'</div>';
-						} else {
-							$delete_id = $katb_tdata[$i]['tb_id'];
-							$wpdb->query(" DELETE FROM `$tablename` WHERE `tb_id`=$delete_id " );
-						}
-						
-					}
-				}
-				
-				//reset the testimonials for display
 				//Get total entries
 				$results = $wpdb->get_results( " SELECT COUNT(1) FROM `$tablename` ",ARRAY_A);
 				$total_entries = $results[0]['COUNT(1)'];
-			
+				
 				//Pagination
 				$katb_paginate_setup = katb_setup_pagination( $katb_admin_offset_name, $katb_items_per_page, $total_entries );
 				$katb_admin_offset = $katb_paginate_setup['offset'];
-			
+				
 				if ($katb_admin_offset < 0 ) $katb_admin_offset = 0;
 				$katb_tdata = $wpdb->get_results( " SELECT * FROM `$tablename` ORDER BY `tb_date` DESC LIMIT $katb_items_per_page OFFSET $katb_admin_offset ",ARRAY_A);
 				$katb_tnumber = $wpdb->num_rows;
-			}
+				
+				// --------- Bulk Delete ----------
+				if( isset ( $_POST['bulk_delete'] ) && check_admin_referer('katb_nonce_4','katb_admin_form_nonce_2' ) ){
+					
+					for ( $i = 0 ; $i < $katb_tnumber; $i++ ) {
+						if( isset( $_POST[ 'bulk_delete-'.$katb_tdata[$i]['tb_id'] ]) && $_POST[ 'bulk_delete-'.$katb_tdata[$i]['tb_id'] ] == 1 ){
+							if( $katb_tdata[$i]['tb_id'] == "" ){
+								echo '<div id="message" class="updated">'.__('Error, no ID','testimonial-basics').'</div>';
+							} else {
+								$delete_id = $katb_tdata[$i]['tb_id'];
+								$wpdb->query(" DELETE FROM `$tablename` WHERE `tb_id`=$delete_id " );
+							}
+							
+						}
+					}
+					
+					//reset the testimonials for display
+					//Get total entries
+					$results = $wpdb->get_results( " SELECT COUNT(1) FROM `$tablename` ",ARRAY_A);
+					$total_entries = $results[0]['COUNT(1)'];
+				
+					//Pagination
+					$katb_paginate_setup = katb_setup_pagination( $katb_admin_offset_name, $katb_items_per_page, $total_entries );
+					$katb_admin_offset = $katb_paginate_setup['offset'];
+				
+					if ($katb_admin_offset < 0 ) $katb_admin_offset = 0;
+					$katb_tdata = $wpdb->get_results( " SELECT * FROM `$tablename` ORDER BY `tb_date` DESC LIMIT $katb_items_per_page OFFSET $katb_admin_offset ",ARRAY_A);
+					$katb_tnumber = $wpdb->num_rows;
+				}
+				
+				katb_display_pagination( $katb_paginate_setup );
 			
-			katb_display_pagination( $katb_paginate_setup );
-		
-		?>
-		<form method="POST" action="#">
-			
-			<?php wp_nonce_field("katb_nonce_4","katb_admin_form_nonce_2"); ?>
-			
-			<input type="submit" name="bulk_delete" value="Bulk Delete" class="katb-highlighted button-highlighted" title="<?php _e('WARNING - NO SECOND CHANCE - checked items will be deleted','testimonial-basics'); ?>"/>
-			<table class="widefat">
-				<thead>
-					<tr>
-						<th><?php _e('ID','testimonial-basics'); ?></th>
-						<th><?php _e('General','testimonial-basics'); ?></th>
-						<th><?php _e('Photo','testimonial-basics'); ?></th>
-						<th><?php _e('Author Information','testimonial-basics'); ?></th>
-						<th><?php _e('Testimonial','testimonial-basics'); ?></th>
-					</tr>
-				</thead>
-				<tfoot>
-					<tr>
-						<th><?php _e('ID','testimonial-basics'); ?></th>
-						<th><?php _e('General','testimonial-basics'); ?></th>
-						<th><?php _e('Photo','testimonial-basics'); ?></th>
-						<th><?php _e('Author Information','testimonial-basics'); ?></th>
-						<th><?php _e('Testimonial','testimonial-basics'); ?></th>
-					</tr>
-				</tfoot>
-				<tbody>
-					<?php
-						for ( $i = 0 ; $i < $katb_tnumber; $i++ ) { ?>
-							<tr>
+			?>
+			<form class="katb_admin_display_form" method="POST" action="#">
+				
+				<?php wp_nonce_field("katb_nonce_4","katb_admin_form_nonce_2"); ?>
+				
+				<input type="submit" name="bulk_delete" value="Bulk Delete" class="katb-highlighted button-highlighted" title="<?php _e('WARNING - NO SECOND CHANCE - checked items will be deleted','testimonial-basics'); ?>"/>
+				<div class="katb_admin_display">
+
+					<?php for ( $i = 0 ; $i < $katb_tnumber; $i++ ) { ?>
+						<div class="katb_admin_display_element_row">
+							
+							<div class="katb_admin_row_top">
 								
-								<td class="ka_table_id">
+								<div class="ka_table_id">
 									<input type="submit" name="edit" value="<?php echo $katb_tdata[$i]['tb_id']; ?>" class="katb button-secondary" />
 									<input class="katb_bulk_delete_input" type="checkbox" name="bulk_delete-<?php echo $katb_tdata[$i]['tb_id']; ?>" value="1" />
 									<span class="katb_bulk_delete_label"><img src="../wp-content/plugins/testimonial-basics/includes/delete.png" title="Bulk Delete" alt="del" /></span>
-								</td>
+								</div>
 								
-								<td class="ka_table_admin_column">
+								<div class="ka_table_admin_column">
 									<span class="ka_table_date"><strong><?php _e('Date: ','testimonial-basics'); ?></strong><?php echo substr( $katb_tdata[$i]['tb_date'] , 0 , 10 ); ?></span><br/>
 									<span class="ka_table_time"><strong><?php _e('Time: ','testimonial-basics'); ?></strong><?php echo substr( $katb_tdata[$i]['tb_date'] , 11 , 8 ); ?></span><br/>
 									<span class="ka_table_approved">
@@ -917,30 +926,33 @@ function katb_testimonial_basics_edit_page(){
 									</strong></span><br/>
 									<span class="ka_table_group"><strong><?php _e('Group: ','testimonial-basics'); ?></strong><?php echo stripcslashes($katb_tdata[$i]['tb_group']); ?></span><br/>
 									<span class="ka_table_order"><strong><?php _e('Order: ','testimonial-basics'); ?></strong><?php if( $katb_tdata[$i]['tb_order'] == 0 ){ echo ""; }else{ echo $katb_tdata[$i]['tb_order']; }; ?></span><br/>
-									<span class=="ka_table_rating"><strong><?php _e('Rating: ','testimonial-basics'); ?></strong><?php echo stripcslashes($katb_tdata[$i]['tb_rating']); ?></span>
-								</td>
-							
-								<?php if( $katb_tdata[$i]['tb_pic_url'] == '' ) {
-									?><td class="ka_table_pic"><?php echo get_avatar( $katb_tdata[$i]['tb_email'], $size = '60' ) ?></td><?php
-								} else {
-									?><td class="ka_table_pic"><img src="<?php echo $katb_tdata[$i]['tb_pic_url'] ?>" title="Uploaded_Author_Image" alt="Uploaded_Author_Image" /></td><?php
-								} ?>
-							
-								<td class="ka_table_author_column">
+									<span class="ka_table_rating"><strong><?php _e('Rating: ','testimonial-basics'); ?></strong><?php echo stripcslashes($katb_tdata[$i]['tb_rating']); ?></span>
+								</div>
+
+								<div class="ka_table_author_column">
 									<span class="ka_table_name"><strong><?php _e('Name: ','testimonial-basics'); ?></strong><?php echo stripcslashes($katb_tdata[$i]['tb_name']); ?></span><br/>
 									<span class="ka_table_email"><strong><?php _e('E-mail: ','testimonial-basics'); ?></strong><?php echo $katb_tdata[$i]['tb_email']; ?></span><br/>
 									<span class="ka_table_location"><strong><?php _e('Location: ','testimonial-basics'); ?></strong><?php echo stripcslashes($katb_tdata[$i]['tb_location']); ?></span><br/>
 									<span class="ka_table_website"><strong><?php _e('Website: ','testimonial-basics'); ?></strong><?php echo $katb_tdata[$i]['tb_url']; ?></span><br/>	
-								</td>
+									<?php if( $katb_tdata[$i]['tb_pic_url'] == '' ) {
+										?><span class="ka_table_pic"><?php echo get_avatar( $katb_tdata[$i]['tb_email'], $size = '60' ) ?></span><?php
+									} else {
+										?><span class="ka_table_pic"><img src="<?php echo $katb_tdata[$i]['tb_pic_url'] ?>" title="Uploaded_Author_Image" alt="Uploaded_Author_Image" /></span><?php
+									} ?>
+								</div>
 								
-								<td class="ka_table_testimonial"><?php echo wpautop(stripcslashes($katb_tdata[$i]['tb_testimonial'])); ?></td>
-								
-							</tr>
-						<?php }	?>
-				</tbody>
-			</table>
-		</form>
-		<?php katb_display_pagination( $katb_paginate_setup ); ?>
+							</div>
+							
+							<div class="ka_table_testimonial"><?php echo wpautop(stripcslashes($katb_tdata[$i]['tb_testimonial'])); ?></div>
+							
+						</div>
+					<?php }	?>
+
+				</div>
+			</form>
+			<?php katb_display_pagination( $katb_paginate_setup ); ?>
+		</div>
+		
 	</div>
 <?php } 
 
@@ -1154,11 +1166,6 @@ function katb_input_tab_help() {
 	$html .= __('You can check this box to have testimonials automatically approved.','testimonial-basics');
 	$html .= ' '.__('CAUTION: Not recommended so use at your own risk.','testimonial-basics').'</p>';
 	
-	$html .= '<p><strong>'.__('Use popup thank you','testimonial-basics').' - </strong>';
-	$html .= __('Check to have a popup javascript message displayed after the testimonial was submitted.','testimonial-basics');
-	$html .= ' '.__('In some WordPress sites the green colored thank you may not be displayed.','testimonial-basics');
-	$html .= ' '.__('This method provides an alternative.','testimonial-basics').'</p>';
-	
 	$html .= '<p><strong>'.__('Use captcha on input forms','testimonial-basics').' - </strong>';
 	$html .= __('You can include a black and white captcha on the input forms.','testimonial-basics');
 	$html .= ' '.__('If for any reason the Captcha is not working, disable it here.','testimonial-basics').'</p>';
@@ -1170,8 +1177,16 @@ function katb_input_tab_help() {
 	$html .= '<p><strong>'.__('Exclude Website in input form','testimonial-basics').' - </strong>';
 	$html .= __('Select and the website input will not be used.','testimonial-basics').'</p>';
 	
+	$html .= '<p><strong>'.__('Require Website in input form','testimonial-basics').' - </strong>';
+	$html .= __('If Website is included and this checkbox is selected, the Website input box must be completed.','testimonial-basics').'</p>';
+	
 	$html .= '<p><strong>'.__('Exclude Location in input form','testimonial-basics').' - </strong>';
 	$html .= __('Select and the location input will not be used.','testimonial-basics').'</p>';
+	
+	$html .= '<p><strong>'.__('Require Location in input form','testimonial-basics').' - </strong>';
+	$html .= __('If Location is included and this checkbox is selected, the Location input box must be completed.','testimonial-basics').'</p>';
+
+	$html .= '<h2>'.__('Content and Widget Form Input Options','testimonial-basics').'</h2>';
 	
 	$html .= '<p><strong>'.__('Include email note','testimonial-basics').' - </strong>';
 	$html .= __('Check this if you want to add a note.','testimonial-basics').'</p>';
@@ -1179,8 +1194,11 @@ function katb_input_tab_help() {
 	$html .= '<p><strong>'.__('Email note','testimonial-basics').' - </strong>';
 	$html .= __('Add the note here if you do not want to use the default.','testimonial-basics');
 	$html .= ' '. __('Keep the text you enter to a reasonable length or it may look funny.','testimonial-basics').'</p>';
-
-	$html .= '<h2>'.__('Content and Widget Form Input Options','testimonial-basics').'</h2>';
+	
+	$html .= '<p><strong>'.__('Use popup messages','testimonial-basics').' - </strong>';
+	$html .= __('Check to have a popup javascript messages for errors or thank you, to be displayed after the testimonial was submitted.','testimonial-basics');
+	$html .= ' '.__('In some WordPress sites the green colored thank you may not be displayed.','testimonial-basics');
+	$html .= ' '.__('This method provides an alternative.','testimonial-basics').'</p>';
 	
 	$html .= '<p><strong>'.__('Base Font Size','testimonial-basics').' - </strong>';
 	$html .= __('This option allows you to change the font size.','testimonial-basics').' ';
@@ -1197,6 +1215,9 @@ function katb_input_tab_help() {
 	$html .= '<p><strong>'.__('Show html allowed strip in input form','testimonial-basics').' - </strong>';
 	$html .= __('Optionally include an html allowed strip on input forms.','testimonial-basics');
 	$html .= ' '. __('This strip shows the user what html tags will be allowed in the testimonial.','testimonial-basics').'</p>';
+	
+	$html .= '<p><strong>'.__('Show gravatar link','testimonial-basics').' - </strong>';
+	$html .= __('Visitors can use this link to set up a gravatar that will be included in the testimonial.','testimonial-basics').'</p>';;
 	
 	$html .= '<p><strong>'.__('Labels','testimonial-basics').' - </strong>';
 	$html .= __('You can change any of the labels in the input forms.','testimonial-basics');
@@ -1219,7 +1240,10 @@ function katb_content_tab_help() {
 	
 	$html .= '<p><strong>'.__('Layout Option','testimonial-basics').' - </strong>';
 	$html .= __('The Meta referred to is the rating, author, date, location, and website.','testimonial-basics');
-	$html .= ' '.__('You can place it at the top or bottom.','testimonial-basics').'</p>';
+	$html .= ' '.__('You can place it at the top or bottom or on the side.','testimonial-basics').'</p>';
+	
+	$html .= '<p><strong>'.__('Font for Content Display','testimonial-basics').' - </strong>';
+	$html .= __('You can choose a font from the dropdown list.','testimonial-basics').'</p>';
 	
 	$html .= '<p><strong>'.__('Base Font Size','testimonial-basics').' - </strong>';
 	$html .= __('This option allows you to change the font size.','testimonial-basics').' ';
@@ -1232,9 +1256,9 @@ function katb_content_tab_help() {
 	$html .= ' '.__('You can choose to display 3, 5 or 10 per page.','testimonial-basics').'</p>';
 	
 	$html .= '<p><strong>'.__('Excerpts','testimonial-basics').' - </strong>';
-	$html .= __('You can use excerpts with the specified character length to display your testimonials.','testimonial-basics');
-	$html .= ' '.__('When excerpts are selected, the testimonial is limited to the characters input.','testimonial-basics');
-	$html .= ' '.__('A user can then click a ...more link to display a pop-up of the entire testimonial.','testimonial-basics').'</p>';
+	$html .= __('You can use excerpts with the specified number of words to display your testimonials.','testimonial-basics');
+	$html .= ' '.__('When excerpts are selected, the testimonial is limited to the number of words, extended to end of sentence or break in sentence.','testimonial-basics');
+	$html .= ' '.__('A visitor can then click a ...more link to display a pop-up of the entire testimonial.','testimonial-basics').'</p>';
 	
 	$html .= '<p><strong>'.__('Show title in testimonial','testimonial-basics').' - </strong>';
 	$html .= __('If you wish to show the Group name or a Custom name for your testimonial, select this option.','testimonial-basics');
@@ -1248,7 +1272,8 @@ function katb_content_tab_help() {
 	$html .= __('Select this to display Gravatars.','testimonial-basics');
 	$html .= ' '. __('Uploaded photos are displayed first.','testimonial-basics');
 	$html .= ' '. __('If an uploaded photo does not exist, the plugin will display a gravatar, if one exists.','testimonial-basics');
-	$html .= ' '. __('If gravatar does not exist, you can optionally display a substitute character.','testimonial-basics').'</p>';
+	$html .= ' '. __('If gravatar does not exist, you can optionally display a substitute character.','testimonial-basics');
+	$html .= ' '. __('You can also select the gravatar size and if the gravatars should be round.','testimonial-basics').'</p>';
 	
 	$html .= '<p><strong>'.__('Use italic font style','testimonial-basics').' - </strong>';
 	$html .= __('Click this and italics will be used for the testimonial.','testimonial-basics').'</p>';
@@ -1271,9 +1296,6 @@ function katb_content_tab_help() {
 	$html .= '<p><strong>'.__('Use formatted display','testimonial-basics').' - </strong>';
 	$html .= __('To use formatted display select this box.','testimonial-basics');
 	$html .= ' '. __('If the Formatted Display box is checked a 3D style is applied to the testimonials, which can be customized.','testimonial-basics').'</p>';
-	
-	$html .= '<p><strong>'.__('Font for Content Display','testimonial-basics').' - </strong>';
-	$html .= __('You can choose a font from the dropdown list.','testimonial-basics').'</p>';
 	
 	$html .= '<p><strong>'.__('Colors','testimonial-basics').' - </strong>';
 	$html .= __('Enter any hexdec color number preceded by a # mark or use the color picker','testimonial-basics');
@@ -1298,10 +1320,71 @@ function katb_widget_tab_help() {
 	
 	$html = '';
 	$html .= '<h2>'.__('Widget Display Options','testimonial-basics').'</h2>';
+
+	$html .= '<p><strong>'.__('Layout Option','testimonial-basics').' - </strong>';
+	$html .= __('There are six layout options for the widget allowing flexibility for different themes. ','testimonial-basics');
+	$html .= ' '.__('Try different ones, and ensure they work on all devices.','testimonial-basics').'</p>';
 	
-	$html .= '<p>'.__('There are very few differences between the Content Display Options and the Widget Display Options.','testimonial-basics');
-	$html .= ' '.__('Pagination does not apply for widgets, and there is no testimonial wrap for formatting.','testimonial-basics');
-	$html .= ' '.__('The user is referred to the Content Display section for help.','testimonial-basics').'</p>';
+	$html .= '<p><strong>'.__('Font for Widget Display','testimonial-basics').' - </strong>';
+	$html .= __('You can choose a font from the dropdown list.','testimonial-basics').'</p>';
+	
+	$html .= '<p><strong>'.__('Base Font Size','testimonial-basics').' - </strong>';
+	$html .= __('This option allows you to change the font size.','testimonial-basics').' ';
+	$html .= __('It should work for most themes but CSS Specifity can cause problems.','testimonial-basics').' ';
+	$html .= __('Do not worry about what an em is just try one and see what happens.','testimonial-basics');'</p>';
+	
+	$html .= '<p><strong>'.__('Excerpts','testimonial-basics').' - </strong>';
+	$html .= __('You can use excerpts with the specified number of words to display your testimonials.','testimonial-basics');
+	$html .= ' '.__('When excerpts are selected, the testimonial is limited to the number of words, extended to end of sentence or break in sentence.','testimonial-basics');
+	$html .= ' '.__('A visitor can then click a ...more link to display a pop-up of the entire testimonial.','testimonial-basics').'</p>';
+	
+	$html .= '<p><strong>'.__('Show title in testimonial','testimonial-basics').' - </strong>';
+	$html .= __('If you wish to show the Group name or a Custom name for your testimonial, select this option.','testimonial-basics');
+	$html .= ' '.__('Then make sure the Custom Individual Review Name is filled out or Group Individual Review Name is selected - in the General Tab.','testimonial-basics').'</p>';
+	
+	$html .= '<p><strong>'.__('Meta Display Options','testimonial-basics').' - </strong>';
+	$html .= __('The author is displayed as a minimum.','testimonial-basics');
+	$html .= ' '.__('You can then optionally display website, location, and date.','testimonial-basics').'</p>';
+	
+	$html .= '<p><strong>'.__('Gravatars','testimonial-basics').' - </strong>';
+	$html .= __('Select this to display Gravatars.','testimonial-basics');
+	$html .= ' '. __('Uploaded photos are displayed first.','testimonial-basics');
+	$html .= ' '. __('If an uploaded photo does not exist, the plugin will display a gravatar, if one exists.','testimonial-basics');
+	$html .= ' '. __('If gravatar does not exist, you can optionally display a substitute character.','testimonial-basics');
+	$html .= ' '. __('You can also select the gravatar size and if the gravatars should be round.','testimonial-basics').'</p>';
+	
+	$html .= '<p><strong>'.__('Use italic font style','testimonial-basics').' - </strong>';
+	$html .= __('Click this and italics will be used for the testimonial.','testimonial-basics').'</p>';
+	
+	$html .= '<h2>'.__('Widget Display Rotator Options','testimonial-basics').'</h2>';
+	
+	$html .= '<p><strong>'.__('Time between slides','testimonial-basics').' - </strong>';
+	$html .= __('Select the time in mili-seconds 1000 ms = 1 sec.','testimonial-basics').'</p>';
+	
+	$html .= '<p><strong>'.__('Rotator height in pixels','testimonial-basics').' - </strong>';
+	$html .= __('Selects a minimum height for all testimonials.','testimonial-basics');
+	$html .= ' '. __('Use this option to prevent the screen from growing or shrinking to accomodate each testimonials.','testimonial-basics');
+	$html .= ' '. __('Tip: use excerpts and make sure the length keeps testimonials within the minimum height prescribed.','testimonial-basics').'</p>';
+	
+	$html .= '<p><strong>'.__('Rotator transition effect','testimonial-basics').' - </strong>';
+	$html .= __('Select the transition effect for the slider.','testimonial-basics').'</p>';
+	
+	$html .= '<h2>'.__('Widget Display Custom Options','testimonial-basics').'</h2>';
+	
+	$html .= '<p><strong>'.__('Use formatted display','testimonial-basics').' - </strong>';
+	$html .= __('To use formatted display select this box.','testimonial-basics');
+	$html .= ' '. __('If the Formatted Display box is checked a 3D style is applied to the testimonials, which can be customized.','testimonial-basics').'</p>';
+	
+	$html .= '<p><strong>'.__('Colors','testimonial-basics').' - </strong>';
+	$html .= __('Enter any hexdec color number preceded by a # mark or use the color picker','testimonial-basics');
+	$html .= ' '. __('Select the color input cell you want to change.','testimonial-basics');
+	$html .= ' '. __('A color box appears with a saturation bar on the right.','testimonial-basics');
+	$html .= ' '. __('Drag the dot on the color box to select the color.','testimonial-basics');
+	$html .= ' '. __('Change the saturation with the sliding bar on the right.','testimonial-basics');
+	$html .= ' '. __('Click the Current Color Button when you are done.','testimonial-basics').'</p>';
+
+	return $html;
+	
 	
 	return $html;
 }
@@ -1329,14 +1412,10 @@ function katb_faq_tab_help() {
 	$html .= ' '.__('The Gravatar system is very simple to register and the safe way to get user photos in their testimonials.','testimonial-basics');
 	$html .= ' '.__('The Admin or Editor can log in and upload photos from the Edit Testimonials Panel.','testimonial-basics').'</p>';
 	
-	$html .= '<p><strong>'.__('Why are testimonials not automatically approved?','testimonial-basics').' - </strong>';
-	$html .= ' '.__('If you want testimonials on your site then you are concerned about what clients think of your business.','testimonial-basics');
-	$html .= ' '.__('So it is probably a good idea to check the testimonial first and then approve it.','testimonial-basics').'</p>';
-	
 	$html .= '<p><strong>'.__('My testimonial is not displaying.','testimonial-basics').' - </strong>';
 	$html .= ' '.__('Go in to the edit testimonials panel and make sure it is approved.','testimonial-basics').'</p>';
 	
-	$html .= '<p><strong>'.__('The widget labels do not disappear when selected.','testimonial-basics').' - </strong>';
+	$html .= '<p><strong>'.__('The widget labels in the input boxes do not disappear when selected.','testimonial-basics').' - </strong>';
 	$html .= ' '.__('They must be deleted.','testimonial-basics');
 	$html .= ' '.__('It is set up this way to keep the entry for editing in the event of a submission error.','testimonial-basics').'</p>';
 	
@@ -1493,7 +1572,6 @@ function katb_validate_options( $input ) {
 	return $valid_input;		
 }
 
-
 /**
  * Helper function for creating admin messages
  * src: http://www.wprecipes.com/how-to-show-an-urgent-message-in-the-wordpress-admin-area
@@ -1541,20 +1619,20 @@ function katb_admin_msgs() {
 }
 add_action('admin_notices', 'katb_admin_msgs');
 
-
 /**
  * This function contains the html for the intro section to the admin pages
  */
 function katb_intro_html(){ ?>
 
 	<div class="katb_paypal"><?php _e('Show your appreciation!','testimonial-basics') ?>
-		<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-		<input type="hidden" name="cmd" value="_s-xclick">
-		<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
-		">
-		<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_paynow_SM.gif" name="submit" alt="PayPal - The safer, easier way to pay online!">
-		<img alt="" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+		
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+			<input type="hidden" name="cmd" value="_s-xclick">
+			<input type="hidden" name="hosted_button_id" value="PP4GPMXBUVPY4">
+			<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+			<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
 		</form>
+
 	</div>
 	<p><?php _e('Author Site : ','testimonial-basics'); ?><a href="//www.kevinsspace.ca" target="_blank" >www.kevinsspace.ca</a>&nbsp;&nbsp;&nbsp; 
 		<?php _e('Plugin Site : ','testimonial-basics'); ?><a href="//www.kevinsspace.ca/testimonial-basics-wordpress-plugin/" target="_blank" >www.kevinsspace.ca/testimonial-basics-wordpress-plugin/</a></p>
@@ -1721,3 +1799,361 @@ function katb_get_current_tab() {
     }
 	return $current;
 }
+
+/* =========================================================================================
+ *               Testimonial Basics Backup/Restore
+ * ========================================================================================= */
+/**
+ * 
+ * modified from 
+ * @link http://code.tutsplus.com/tutorials/custom-database-tables-exporting-data--wp-28796
+ * @link http://code.tutsplus.com/tutorials/custom-database-tables-importing-data--wp-28869
+ *
+ * Sets up the page
+ */
+function katb_backup_restore_page () { ?>
+
+	<div class="wrap">
+		
+		<h1><?php _e('Testimonial Basics - Backup or Restore Your Testimonials','testimonial-basics'); ?></h1>
+		<?php echo katb_intro_html(); ?>
+			
+		<!-- Backup Testimonials -->
+		<h3><?php  _e( 'Backup Testimonials', 'testimonial-basics' ) ?></h3>
+	 	<p><?php _e('You can back up all your testimonials to an xml file, and it will be downloaded to your computer.','testimonial-basics'); ?></p>
+		<form id="katb-backup-form" method="post" action="">
+			<p>
+				<label><?php _e( 'Click to backup testimonials','testimonial-basics' ); ?></label>
+				<input type="hidden" name="action" value="katb-backup-action" />
+			</p>
+			<?php wp_nonce_field('katb-export-testimonials','katb_backup_nonce'); ?>
+			<?php submit_button( __('Backup Testimonials','testimonial-basics'), 'button' ); ?>
+		</form>
+		<!-- Restore Testimonials -->
+		<h3><?php  _e( 'Restore Testimonials', 'testimonial-basics' ) ?></h3>
+		<p><?php _e('You can restore your testimonials from a backup xml file.','testimonial-basics'); ?>
+			<?php _e('Maximum file size is 2MB.','testimonial-basics'); ?>
+			<?php _e('If your backup file is too large it will have to be broken up into parts.','testimonial-basics'); ?>
+			<?php _e('For example to break up your file into 2 files, use a text editor such as Notepad or Notepad++.','testimonial-basics'); ?>
+			<?php _e('Make two copies of the full backup file and append _part1 and _part2 to the file names.','testimonial-basics'); ?>
+			<?php _e('Remove the bottom half of the testimonials from the first file.','testimonial-basics'); ?>
+			<?php _e('Remove the top half of the testimonials from the second file.','testimonial-basics'); ?>
+			<?php _e('Note that all testimonials are wrapped in &lt;testimonials&gt;&lt;/testimonials&gt; tags. Do not delete these tags.','testimonial-basics'); ?>
+			<?php _e('Each testimonial is wrapped in &lt;testimonial&gt;&lt;/testimonial&gt; tags.','testimonial-basics'); ?>
+			<?php _e('To remove a testimonial delete everything between the &lt;testimonial&gt;&lt;/testimonial&gt; tags, including the tags.','testimonial-basics'); ?>
+		</p>
+		<form method="post" action="" enctype="multipart/form-data">
+	        <p>
+	            <label for="katb_import_testimonials"><?php _e( 'Select an xml file', 'testimonial-basics' ); ?></label>
+	            <input type="file" id="katb_import_testimonials" name="katb_import_file" />
+	        </p>
+	        <input type="hidden" name="action" value="katb-import-action" />
+	        <?php wp_nonce_field( 'katb-import-testimonials', 'katb_import_nonce' ); ?>
+	        <?php submit_button( __( 'Restore Testimonials', 'testimonial-basics' ), 'secondary' ); ?>
+	    </form>
+	    <br/>
+	    <h3>Other Notes/Tips</h3>
+	    <ol>
+	    	<li>If the URL changed, uploaded photos will have to be re-uploaded.</li>
+	    	<li>Testimonials with the same ID will not be restored.</li>
+	    	
+	    </ol>
+	</div>
+ 
+	<?php
+}
+
+/**
+ * Listens for buttom press then executes downloaad
+ */
+function katb_maybe_download(){
+	/* Listen for download form submission */
+	if( empty($_POST['action']) || 'katb-backup-action' !== $_POST['action'] ){
+		return;
+	}
+ 
+	/* Check permissions and nonces */
+	if( !current_user_can('manage_options') ){
+		wp_die('');
+	}
+ 
+	check_admin_referer( 'katb-export-testimonials','katb_backup_nonce');
+ 	
+	/* Trigger download */
+	katb_do_backup();
+}
+add_action('admin_init', 'katb_maybe_download');
+
+function katb_maybe_upload() {
+    /* Listen for upload form submission */
+    if ( empty( $_POST['action'] ) || 'katb-import-action' !== $_POST['action'] ) {
+        return;
+	}
+	
+    /* Check permissions and nonces */
+    if ( ! current_user_can( 'manage_options' ) ) {
+        wp_die('You are not authorized to restore testimonials');
+    }
+
+    check_admin_referer( 'katb-import-testimonials', 'katb_import_nonce' );
+
+    /* Perform checks on file: */
+ 
+    // Sanity check
+    if ( empty( $_FILES['katb_import_file'] ) ) {
+        wp_die( 'No file found' );
+	}
+
+    $file = $_FILES['katb_import_file'];
+ 	
+    // Is it of the expected type?
+    if ( $file["type"] != "text/xml" )
+        wp_die( sprintf( __( "There was an error importing the logs. File type detected: '%s'. 'text/xml' expected", 'testimonial-basics' ), $file['type'] ) );
+ 
+    // Impose a limit on the size of the uploaded file. Max 2097152 bytes = 2MB
+    if ( $file["size"] > 2097152 ) {
+        $size = size_format( $file['size'], 2 );
+        wp_die( sprintf( __( 'File size too large (%s). Maximum 2MB', 'testimonial-basics' ), $size ) );
+    }
+ 
+    if( $file["error"] > 0 )
+        wp_die( sprintf( __( "Error encountered: %d", 'testimonial-basics' ), $file["error"] ) );
+
+    /* If we've made it this far then we can import the data */
+    $imported = katb_import( $file['tmp_name'] );
+
+    /* Everything is complete, now redirect back to the page */
+	wp_redirect( add_query_arg( 'imported', $imported ) );
+	exit();
+}
+add_action( 'admin_init', 'katb_maybe_upload' );
+
+/**
+ * creates the backup and downloads it
+ */
+function katb_do_backup( $args = array() ) {
+
+	/* Create a file name */
+	$filename = 'testimonial_basics_' . date( 'Y-m-d' ) . '.xml';
+
+	/* Print the logs */
+	global $wpdb;
+	$table = $wpdb->prefix.'testimonial_basics';
+	$katb_tdata = $wpdb->get_results( " SELECT * FROM `$table` ORDER BY `tb_date` DESC ",ARRAY_A);
+	$katb_tnumber = $wpdb->num_rows;
+	if( $katb_tnumber == 0 ) return false;
+	
+	/* Print header */
+    header( 'Content-Description: File Transfer' );
+    header( 'Content-Disposition: attachment; filename=' . $filename );
+    header( 'Content-Type: text/xml; charset=' . get_option( 'blog_charset' ), true );
+	
+	/* Print comments */
+	?>
+	<!-- This is a export of the testimonial-basics table -->
+	<!--  Import using the Import Button in the Testimonial Basics admin page -->
+
+	<testimonials>
+		<?php for ( $i = 0 ; $i < $katb_tnumber; $i++ ) { ?>
+			<testimonial>
+				<id><?php echo sanitize_text_field($katb_tdata[$i]['tb_id']); ?></id>
+				<date><?php echo sanitize_text_field($katb_tdata[$i]['tb_date']); ?></date>
+				<group><?php echo sanitize_text_field($katb_tdata[$i]['tb_group']); ?></group>
+				<order><?php echo sanitize_text_field($katb_tdata[$i]['tb_order']); ?></order>
+				<approved><?php echo sanitize_text_field($katb_tdata[$i]['tb_approved']); ?></approved>
+				<name><?php echo sanitize_text_field($katb_tdata[$i]['tb_name']); ?></name>
+				<location><?php echo sanitize_text_field($katb_tdata[$i]['tb_location']); ?></location>
+				<email><?php echo sanitize_text_field($katb_tdata[$i]['tb_email']); ?></email>
+				<pic_url><?php echo esc_url($katb_tdata[$i]['tb_pic_url']); ?></pic_url>
+				<web_url><?php echo esc_url($katb_tdata[$i]['tb_url']); ?></web_url>
+				<rating><?php echo sanitize_text_field($katb_tdata[$i]['tb_rating']); ?></rating>
+				<content><?php echo katb_wrap_cdata( wp_kses_post( $katb_tdata[$i]['tb_testimonial'] ) ); ?></content>
+			</testimonial>
+		<?php } ?>
+	</testimonials>
+	<?php exit();
+}
+
+/**
+ * Wraps the passed string in a XML CDATA tag.
+ *
+ * @param string $string String to wrap in a XML CDATA tag.
+ * @return string
+ */
+function katb_wrap_cdata( $string ) {
+    if ( seems_utf8( $string ) == false )
+        $string = utf8_encode( $string );
+ 
+    return '<![CDATA[' . str_replace( ']]>', ']]]]><![CDATA[>', $string ) . ']]>';
+}
+
+function katb_import( $file ) {
+
+	// Parse file
+	$testimonials = katb_parse( $file );
+	
+	// No logs found ? - then aborted.
+	if( ! $testimonials ) return false;
+
+	//get the testimonials from the existing database
+	global $wpdb;
+	$table = $wpdb->prefix.'testimonial_basics';
+	$katb_tdata = $wpdb->get_results( " SELECT `tb_id` FROM `$table` ",ARRAY_A);
+	$katb_tnumber = $wpdb->num_rows;
+	
+	// Initialises a variable storing the number of testimonials successfully imported.
+	$imported = 0;
+	// Go through each testimonial to restore
+	foreach ( $testimonials as $testimonial ) {
+		//Check if the testimonial id already exists, don't restore if it does
+		$exists = false;
+		if( $katb_tnumber > 0 ){
+			for( $i = 0 ; $i < $katb_tnumber; $i++ ) {
+				if( $katb_tdata[$i]['tb_id'] == $testimonial['id'] ) $exists = true;
+			}
+		}
+ 
+        // If it exists, don't import it
+        if ( $exists ) {
+        	$count++;
+			continue;
+        }
+		
+		//Proceed with restore
+		//Start by validating Input
+		
+		//testimonial unique id
+		$restore_id = intval( $testimonial['id'] );
+
+		//Date Validation
+		$restore_datetime = sanitize_text_field( $testimonial['date'] );
+
+		//group validation
+		$restore_group = sanitize_text_field( $testimonial['group'] );
+				
+		// Order must be an integer
+		$restore_order = $testimonial['order'];
+		if ( $restore_order != "") {
+			if( is_numeric( $restore_order ) == FALSE ) {
+				$restore_order = "";
+			}
+		}
+		
+		//Approved is either checked (1) or not checked (0)
+		$restore_approved = $testimonial['approved'];
+		if ( $restore_approved != 1 ){
+			$restore_approved = 0;
+		} 
+
+		//author validation
+		$restore_author = sanitize_text_field( $testimonial['name'] );
+
+		//location validation
+		$restore_location = sanitize_text_field( $testimonial['location'] );
+
+		//email validation
+		$restore_email = sanitize_email( $testimonial['email'] );
+		
+		//photo validation
+		$restore_picture_url = $testimonial['pic_url'];
+		if ( $restore_picture_url != '' ) $restore_picture_url = esc_url( $restore_picture_url );
+		if ( $restore_picture_url == 'http://' ) $restore_picture_url = '';
+			
+		//website validation
+		$restore_website = $testimonial['web_url'];
+		if ( $restore_website != '' ) $restore_website = esc_url( $restore_website );
+		if ( $restore_website == 'http://' ) $restore_website = '';
+		
+		//Rating Validation
+		$restore_rating = sanitize_text_field( $testimonial['rating'] );
+
+		//Sanitize testimonial - same html allowed as allowed in posts
+		$restore_testimonial = wp_kses_post( $testimonial['content'] );
+		
+		//Validation complete
+			
+		$values = array(
+			'tb_id' => $restore_id,
+			'tb_date' => $restore_datetime,
+			'tb_order' => $restore_order,
+			'tb_approved' => $restore_approved,
+			'tb_group' => $restore_group,
+			'tb_name' => $restore_author,
+			'tb_email' => $restore_email,
+			'tb_location' => $restore_location,
+			'tb_url' => $restore_website,
+			'tb_pic_url' => $restore_picture_url,
+			'tb_rating' => $restore_rating,
+			'tb_testimonial' => $restore_testimonial
+		);
+		
+		$formats_values = array('%d','%s','%d','%d','%s','%s','%s','%s','%s','%s','%s','%s');
+			
+		//$where = array('tb_id' => $restore_id);
+		//$wpdb->update($table,$values,$where,$formats_values);
+		$wpdb->insert($table,$values,$formats_values);
+ 
+        $imported++;
+		
+    }
+ 
+    return $imported;
+} 
+
+function katb_parse( $file ) {
+	// Load the xml file
+
+	$xml = simplexml_load_file( $file , null , LIBXML_NOCDATA );
+	
+	// halt if loading produces an error
+	if ( ! $xml ) {
+		return false;
+	}
+
+	$testimonial_counter = 0;
+	// Initial logs array
+	$testimonials = array();
+	foreach ( $xml->xpath( '/testimonials/testimonial' ) as $testimonial_obj ) {
+
+		$testimonial = $testimonial_obj->children( );
+	
+		$testimonials[$testimonial_counter] = array(
+			'id' 		=> (int) $testimonial->id,
+			'date' 		=> (string) $testimonial->date,
+			'group' 	=> (string) $testimonial->group,
+			'order' 	=> (int) $testimonial->order,
+			'approved' 	=> (int) $testimonial->approved,
+			'name' 		=> (string)  $testimonial->name,
+			'location' 	=> (string)  $testimonial->location,
+			'email' 	=> (string) $testimonial -> email,
+			'pic_url' 	=> (string)  $testimonial->pic_url,
+			'web_url' 	=> (string)  $testimonial->web_url,
+			'rating' 	=> (string)  $testimonial->rating,
+			'content' 	=> (string)  $testimonial->content,
+		);
+		$testimonial_counter ++;
+	}
+
+	return $testimonials;
+}
+
+function katb_admin_notices() {
+ 
+    // Was an import attempted and are we on the correct admin page?
+    if ( ! isset( $_GET['imported'] ) || 'testimonials_page_katb-backup' !== get_current_screen()->id )
+        return;
+ 
+    $imported = intval( $_GET['imported'] );
+ 
+    if ( 1 == $imported ) {
+        printf( '<div class="updated"><p>%s</p></div>', __( '1 testimonial successfully imported', 'testimonial-basics' ) );
+ 
+    }
+    elseif ( intval( $_GET['imported'] ) ) {
+        printf( '<div class="updated"><p>%s</p></div>', sprintf( __( '%d testimonials successfully imported', 'testimonial-basics' ), $imported ) );
+    }
+    else {
+        printf( '<div class="error"><p>%s</p></div>', __( ' No testimonials were imported - must be a problem somewhere :(', 'testimonial-basics' ) );
+    }
+}
+add_action( 'admin_notices','katb_admin_notices' ) ;
