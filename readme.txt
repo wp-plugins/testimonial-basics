@@ -3,8 +3,8 @@ Contributors: kevinhaig
 Donate link: http://kevinsspace.ca/testimonial-basics/
 Tags: testimonial,testimonials,praise,user comments,widgets,translation ready
 Requires at least: 3.9
-Tested up to: 4.1.0
-Stable tag: 4.1.0
+Tested up to: 4.1.1
+Stable tag: 4.1.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/quick-guide-gplv3.html
 
@@ -73,6 +73,10 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 5. Testimonials Example Page
 
 == Changelog ==
+
+= 4.1.1 =
+* minor update to re-upload and deete unedded css files
+
 = 4.1.0 =
 * Fixed database issues by upgrading everyone to database 1.4
 * Added backup/restore panel. Users can now backup their testimonials to an xml file and restore them later
@@ -91,7 +95,6 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 * Made many code and css improvements.
 * Changed layout on the displayed testimonials in Edit Panel
 * Changed Paypal button to donate
-
 
 = 4.0.8 =
 * Bug fix, modified height settings for slider in the content display 
@@ -291,7 +294,7 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 
 == Upgrade Notice ==
 
-= 4.1.0 =
+= 4.1.0 & 4.1.1 =
 * this is a major update
 * all users double check your input form and display setups to 
   make sure changes are not required
