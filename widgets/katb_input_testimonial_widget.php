@@ -258,8 +258,6 @@ class katb_input_testimonial_widget extends WP_Widget {
 				if( $katb_widget_rating == '4') $katb_widget_rating = '4.0';
 				if( $katb_widget_rating == '5') $katb_widget_rating = '5.0';
 				if( $katb_widget_rating == '0') $katb_widget_rating = '0.0';
-			} else {
-				$katb_widget_rating = '0.0';
 			}
 			
 			//validate testimonial
@@ -411,17 +409,17 @@ class katb_input_testimonial_widget extends WP_Widget {
 						
 						<select name="tb_rating_widget" class="katb_css_rating_select_widget">
 							<option <?php selected( $katb_widget_rating ); ?> value="<?php echo $katb_widget_rating; ?>"><?php echo $katb_widget_rating; ?></option>
-							<option value="0.0">0.0</option>
-							<option value="0.5">0.5</option>
-							<option value="1.0">1.0</option>
-							<option value="1.5">1.5</option>
-							<option value="2.0">2.0</option>
-							<option value="2.5">2.5</option>
-							<option value="3.0">3.0</option>
-							<option value="3.5">3.5</option>
-							<option value="4.0">4.0</option>
-							<option value="4.5">4.5</option>
-							<option value="5.0">5.0</option>
+							<option value="0.0" <?php selected( esc_attr( $katb_widget_rating ) , "0.0" ); ?>>0.0</option>
+							<option value="0.5" <?php selected( esc_attr( $katb_widget_rating ) , "0.5" ); ?>>0.5</option>
+							<option value="1.0" <?php selected( esc_attr( $katb_widget_rating ) , "1.0" ); ?>>1.0</option>
+							<option value="1.5" <?php selected( esc_attr( $katb_widget_rating ) , "1.5" ); ?>>1.5</option>
+							<option value="2.0" <?php selected( esc_attr( $katb_widget_rating ) , "2.0" ); ?>>2.0</option>
+							<option value="2.5" <?php selected( esc_attr( $katb_widget_rating ) , "2.5" ); ?>>2.5</option>
+							<option value="3.0" <?php selected( esc_attr( $katb_widget_rating ) , "3.0" ); ?>>3.0</option>
+							<option value="3.5" <?php selected( esc_attr( $katb_widget_rating ) , "3.5" ); ?>>3.5</option>
+							<option value="4.0" <?php selected( esc_attr( $katb_widget_rating ) , "4.0" ); ?>>4.0</option>
+							<option value="4.5" <?php selected( esc_attr( $katb_widget_rating ) , "4.5" ); ?>>4.5</option>
+							<option value="5.0" <?php selected( esc_attr( $katb_widget_rating ) , "5.0" ); ?>>5.0</option>
 						</select>
 					
 					<?php }
