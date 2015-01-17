@@ -1047,9 +1047,9 @@ function katb_meta_widget_bottom( $i, $katb_tdata, $use_schema ){
 				
 		//author		
 		if( $use_schema != 1 ) { ?>
-			<span class="vcard author post-author"><span class="katb_widget_author fn"><?php echo sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ); ?></span></span>
+			<span class="katb vcard author post-author"><span class="katb_widget_author fn"><?php echo sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ); ?></span></span>
 		<?php } else { ?>
-			<span class="vcard author post-author"><span class="katb_widget_author fn" itemprop="reviewer"><?php echo sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ); ?></span></span>
+			<span class="katb vcard author post-author"><span class="katb_widget_author fn" itemprop="reviewer"><?php echo sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ); ?></span></span>
 		<?php }
 		
 		//date
@@ -1105,9 +1105,9 @@ function katb_meta_widget_top( $i, $katb_tdata, $use_schema ){
 		
 		//author		
 		if( $use_schema != 1 ) { ?>
-			<span class="vcard author post-author"><span class="katb_widget_author fn"><?php echo sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ); ?></span></span>
+			<span class="katb vcard author post-author"><span class="katb_widget_author fn"><?php echo sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ); ?></span></span>
 		<?php } else { ?>
-			<span class="vcard author post-author"><span class="katb_widget_author fn" itemprop="reviewer"><?php echo sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ); ?></span></span>
+			<span class="katb vcard author post-author"><span class="katb_widget_author fn" itemprop="reviewer"><?php echo sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ); ?></span></span>
 		<?php }
 		
 		//date
@@ -1164,9 +1164,9 @@ function katb_meta_widget_with_image( $i, $katb_widget_tdata, $use_schema ){
 		
 		//author		
 		if( $use_schema != 1 ) { ?>
-			<span class="vcard author post-author"><span class="katb_widget_author fn"><?php echo sanitize_text_field( stripcslashes($katb_widget_tdata[$i]['tb_name'] ) ); ?></span></span>
+			<span class="katb vcard author post-author"><span class="katb_widget_author fn"><?php echo sanitize_text_field( stripcslashes($katb_widget_tdata[$i]['tb_name'] ) ); ?></span></span>
 		<?php } else { ?>
-			<span class="vcard author post-author"><span class="katb_widget_author fn" itemprop="reviewer"><?php echo sanitize_text_field( stripcslashes($katb_widget_tdata[$i]['tb_name'] ) ); ?></span></span>
+			<span class="katb vcard author post-author"><span class="katb_widget_author fn" itemprop="reviewer"><?php echo sanitize_text_field( stripcslashes($katb_widget_tdata[$i]['tb_name'] ) ); ?></span></span>
 		<?php }
 		
 		//location

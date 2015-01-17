@@ -3,8 +3,8 @@ Contributors: kevinhaig
 Donate link: http://kevinsspace.ca/testimonial-basics/
 Tags: testimonial,testimonials,praise,user comments,widgets,translation ready
 Requires at least: 3.9
-Tested up to: 4.1.1
-Stable tag: 4.1.1
+Tested up to: 4.1.2
+Stable tag: 4.1.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/quick-guide-gplv3.html
 
@@ -73,6 +73,11 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 5. Testimonials Example Page
 
 == Changelog ==
+
+= 4.1.2 =
+* fixed drop down rating for input forms
+* changed one of the screenshots
+* Fixed theme specific formats for .post author class by adding .katb class and style
 
 = 4.1.1 =
 * minor update to re-upload and deete unedded css files
@@ -293,6 +298,9 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 * Initial Release
 
 == Upgrade Notice ==
+
+= 4.1.2 =
+* minor update
 
 = 4.1.0 & 4.1.1 =
 * this is a major update

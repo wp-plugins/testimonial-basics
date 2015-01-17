@@ -1648,9 +1648,8 @@ function katb_check_for_submitted_testimonial() {
 			if( $katb_rating == '3') $katb_rating = '3.0';
 			if( $katb_rating == '4') $katb_rating = '4.0';
 			if( $katb_rating == '5') $katb_rating = '5.0';
-		} else {
-			$katb_rating = '0.0';
 		}
+		
 			
 		//Validate-Sanitize Testimonial
 		$katb_testimonial = wp_kses($_POST['tb_testimonial'],$katb_allowed_html);

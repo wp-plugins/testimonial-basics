@@ -432,6 +432,7 @@ function katb_display_input_form($atts) {
 			}
 			
 			if( $use_ratings == 1 ) {
+				//wp_die($katb_rating);
 				if( $use_css_ratings != 1 ) {
 					if( $katb_rating == '') $katb_rating = '0.0';
 					$input_html .= '<label class="katb_input_label1">'.esc_attr( $rating_label ).'</label>';
@@ -443,20 +444,20 @@ function katb_display_input_form($atts) {
 					} else {
 						$katb_rating = '0.0';
 					}
+					//wp_die($katb_rating);
 					$input_html .= '<label class="katb_input_label1">'.esc_attr( $rating_label ).'</label>';
 					$input_html .= '<select name="tb_rating" class="katb_css_rating_select">';
-					$input_html .= '<option '.selected( $katb_rating ).'value="'.$katb_rating.'">'.$katb_rating.'</option>';
-					$input_html .= '<option value="0.0">0.0</option>';
-					$input_html .= '<option value="0.5">0.5</option>';
-					$input_html .= '<option value="1.0">1.0</option>';
-					$input_html .= '<option value="1.5">1.5</option>';
-					$input_html .= '<option value="2.0">2.0</option>';
-					$input_html .= '<option value="2.5">2.5</option>';
-					$input_html .= '<option value="3.0">3.0</option>';
-					$input_html .= '<option value="3.5">3.5</option>';
-					$input_html .= '<option value="4.0">4.0</option>';
-					$input_html .= '<option value="4.5">4.5</option>';
-					$input_html .= '<option value="5.0">5.0</option>';
+					$input_html .= '<option value="0.0" '.selected( esc_attr( $katb_rating ),"0.0",false ).'>0.0</option>';
+					$input_html .= '<option value="0.5" '.selected( esc_attr( $katb_rating ),"0.5",false ).'>0.5</option>';
+					$input_html .= '<option value="1.0" '.selected( esc_attr( $katb_rating ),"1.0",false ).'>1.0</option>';
+					$input_html .= '<option value="1.5" '.selected( esc_attr( $katb_rating ),"1.5",false ).'>1.5</option>';
+					$input_html .= '<option value="2.0" '.selected( esc_attr( $katb_rating ),"2.0",false ).'>2.0</option>';
+					$input_html .= '<option value="2.5" '.selected( esc_attr( $katb_rating ),"2.5",false ).'>2.5</option>';
+					$input_html .= '<option value="3.0" '.selected( esc_attr( $katb_rating ),"3.0",false ).'>3.0</option>';
+					$input_html .= '<option value="3.5" '.selected( esc_attr( $katb_rating ),"3.5",false ).'>3.5</option>';
+					$input_html .= '<option value="4.0" '.selected( esc_attr( $katb_rating ),"4.0",false ).'>4.0</option>';
+					$input_html .= '<option value="4.5" '.selected( esc_attr( $katb_rating ),"4.5",false ).'>4.5</option>';
+					$input_html .= '<option value="5.0" '.selected( esc_attr( $katb_rating ),"5.0",false ).'>5.0</option>';
 					$input_html .= '</select>';
 				}
 			}
@@ -1345,9 +1346,9 @@ function katb_meta_bottom( $i , $katb_tdata , $use_schema ){
 		
 		//author		
 		if( $use_schema != 1 ) {
-			$meta_btm .= '<span class="vcard author post-author"><span class="katb_author fn">'.sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ).'</span></span>';
+			$meta_btm .= '<span class="katb vcard author post-author"><span class="katb_author fn">'.sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ).'</span></span>';
 		} else {
-			$meta_btm .= '<span class="vcard author post-author"><span class="katb_author fn" itemprop="reviewer">'.sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ).'</span></span>';
+			$meta_btm .= '<span class="katb vcard author post-author"><span class="katb_author fn" itemprop="reviewer">'.sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ).'</span></span>';
 		}
 			
 		//date
@@ -1403,9 +1404,9 @@ function katb_meta_top( $i, $katb_tdata, $use_schema ){
 		
 		//author		
 		if( $use_schema != 1 ) {
-			$meta_top .= '<span class="vcard author post-author"><span class="katb_author fn">'.sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ).'</span></span>';
+			$meta_top .= '<span class="katb vcard author post-author"><span class="katb_author fn">'.sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ).'</span></span>';
 		} else {
-			$meta_top .= '<span class="vcard author post-author"><span class="katb_author fn" itemprop="reviewer">'.sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ).'</span></span>';
+			$meta_top .= '<span class="katb vcard author post-author"><span class="katb_author fn" itemprop="reviewer">'.sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ).'</span></span>';
 		}
 		
 		//date
@@ -1462,9 +1463,9 @@ function katb_meta_side( $i, $katb_tdata, $use_schema ){
 		
 		//author		
 		if( $use_schema != 1 ) {
-			$meta_side .= '<span class="vcard author post-author"><span class="katb_author fn">'.sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ).'</span></span>';
+			$meta_side .= '<span class="katb vcard author post-author"><span class="katb_author fn">'.sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ).'</span></span>';
 		} else {
-			$meta_side .= '<span class="vcard author post-author"><span class="katb_author fn" itemprop="reviewer">'.sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ).'</span></span>';
+			$meta_side .= '<span class="katb vcard author post-author"><span class="katb_author fn" itemprop="reviewer">'.sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ).'</span></span>';
 		}
 		
 		//location

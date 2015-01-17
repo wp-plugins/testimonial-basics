@@ -394,6 +394,17 @@
 	font-size: 1.1em;
 }
 
+/* ---------------------------------------------------------------- Other theme conflicts ---*/
+
+/* fix for theme specific .post-author formats */
+.katb.vcard.author.post-author
+{
+    background-color: transparent;
+    border: medium none;
+    margin: 0;
+    padding: 0;
+}
+
 /* Widget Styles
  * ===================================================================== */
 /***** HEADERS ******/

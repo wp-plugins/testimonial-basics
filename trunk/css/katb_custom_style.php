@@ -72,7 +72,7 @@ $katb_options = katb_get_options(); ?>
 	.katb_test_wrap .katb_author,.katb_test_wrap_side_meta .katb_author,
 	.katb_test_wrap .katb_date,.katb_test_wrap_side_meta .katb_date,
 	.katb_test_wrap .katb_location,.katb_test_wrap_side_meta .katb_location
-	{color: <?php echo $katb_options['katb_author_location_color']; ?>;}
+	{color: <?php echo $katb_options['katb_author_location_color']; ?>!important;}
 	
 	.katb_test_box a,.katb_schema_summary_box a,.katb_test_box_side_meta a,
 	.katb_schema_summary_box_side_meta a
