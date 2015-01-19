@@ -3,8 +3,8 @@ Contributors: kevinhaig
 Donate link: http://kevinsspace.ca/testimonial-basics/
 Tags: testimonial,testimonials,praise,user comments,widgets,translation ready
 Requires at least: 3.9
-Tested up to: 4.1.2
-Stable tag: 4.1.2
+Tested up to: 4.1.3
+Stable tag: 4.1.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/quick-guide-gplv3.html
 
@@ -74,13 +74,21 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 
 == Changelog ==
 
+= 4.1.3 =
+* Fixed katb_insert_content, did not pass $use_schema variable
+* Added isset conditional to $_SESSION['katb_form_submitted']
+* Removed hatom because it was causing problems with theme specific css
+* Modified css for meta in widgets and content
+* Fixed css styling for popup
+* simplified header styling for content area
+
 = 4.1.2 =
 * fixed drop down rating for input forms
 * changed one of the screenshots
 * Fixed theme specific formats for .post author class by adding .katb class and style
 
 = 4.1.1 =
-* minor update to re-upload and deete unedded css files
+* minor update to re-upload and delete old css files
 
 = 4.1.0 =
 * Fixed database issues by upgrading everyone to database 1.4
@@ -298,6 +306,10 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 * Initial Release
 
 == Upgrade Notice ==
+
+= 4.1.3 =
+* medium critical update
+* should fix broken css on certain installations
 
 = 4.1.2 =
 * minor update

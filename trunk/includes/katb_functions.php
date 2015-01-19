@@ -1564,7 +1564,7 @@ function katb_check_for_submitted_testimonial() {
 		//Initialize session variable used to check if testimonial was successfully submitted
 		$_SESSION['katb_submitted'] = SHA1('false');
 		
-		//Set up Form Sumnitted session variable for multi input forms
+		//Set up Form Submnitted session variable for multi input forms
 		$katb_form_submitted = sanitize_text_field($_POST['katb_form_no']);
 		$_SESSION['katb_form_submitted'] = SHA1($katb_form_submitted);
 		//Validate-Sanitize Input

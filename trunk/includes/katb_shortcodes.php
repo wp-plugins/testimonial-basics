@@ -353,13 +353,13 @@ function katb_display_input_form($atts) {
 	$katb_group = sanitize_text_field($group);
 	$katb_input_form_no = sanitize_text_field($form);
 	
-	if( $_SESSION['katb_form_submitted'] != '' ) {
+	if( isset( $_SESSION['katb_form_submitted'] ) && $_SESSION['katb_form_submitted'] != '' ) {
 		if( SHA1( $katb_input_form_no ) == $_SESSION['katb_form_submitted'] ) {
 			$correct_form = true;
 			$_SESSION['katb_form_submitted'] = '';
 		}
 	}
-	
+
 	$input_html = '';
 	
 	$input_html .= '<div class="katb_input_style">';
@@ -678,7 +678,7 @@ function katb_content_display( $use_formatted_display , $use_schema, $katb_tnumb
 						$html .= katb_insert_title( $use_schema , $use_title , $use_ratings , $use_css_ratings , $katb_tdata , $i , $use_individual_group_name , $custom_individual_name );
 
 						//display the testimonial, note $gravatar_or_photo passed variable set to ''
-						$html .= katb_insert_content( $use_excerpts , $use_formatted_display, $layout , intval( $katb_options['katb_excerpt_length'] ), '' , $i , $katb_tdata );
+						$html .= katb_insert_content( $use_excerpts , $use_schema , $use_formatted_display, $layout , intval( $katb_options['katb_excerpt_length'] ), '' , $i , $katb_tdata );
 
 					$html .= '</div>';
 					
@@ -691,7 +691,7 @@ function katb_content_display( $use_formatted_display , $use_schema, $katb_tnumb
 					if( $layout == 'Top Meta' ) { $html .= katb_meta_top( $i, $katb_tdata, $use_schema ); }
 					
 					//display the testimonial
-					$html .= katb_insert_content( $use_excerpts , $use_formatted_display, $layout , intval( $katb_options['katb_excerpt_length'] ),  $gravatar_or_photo , $i , $katb_tdata );
+					$html .= katb_insert_content( $use_excerpts , $use_schema , $use_formatted_display, $layout , intval( $katb_options['katb_excerpt_length'] ),  $gravatar_or_photo , $i , $katb_tdata );
 				
 					//display bottom meta
 					if( $layout == 'Bottom Meta' )  { $html .=  katb_meta_bottom( $i, $katb_tdata, $use_schema ); }
@@ -814,16 +814,16 @@ function katb_testimonial_wrap_div( $use_formatted_display , $use_schema , $katb
 		if( $i == 0 ) {
 			if( $layout == "Side Meta" ) {
 				$html .= '<div class="katb_side_meta_block katb_rotate_show">';
-				$html .= '<div '.$katb_height_option.' class="katb_test_box_side_meta hentry" itemscope itemtype="http://data-vocabulary.org/Review">';
+				$html .= '<div '.$katb_height_option.' class="katb_test_box_side_meta" itemscope itemtype="http://data-vocabulary.org/Review">';
 			} else {
-				$html .= '<div '.$katb_height_option.' class="katb_test_box katb_rotate_show hentry" itemscope itemtype="http://data-vocabulary.org/Review">';
+				$html .= '<div '.$katb_height_option.' class="katb_test_box katb_rotate_show" itemscope itemtype="http://data-vocabulary.org/Review">';
 			}		
 		} else {
 			if( $layout == "Side Meta" ) {
 				$html .= '<div class="katb_side_meta_block katb_rotate_noshow">';
-				$html .= '<div '.$katb_height_option.' class="katb_test_box_side_meta hentry" itemscope itemtype="http://data-vocabulary.org/Review">';
+				$html .= '<div '.$katb_height_option.' class="katb_test_box_side_meta" itemscope itemtype="http://data-vocabulary.org/Review">';
 			} else {
-				$html .= '<div '.$katb_height_option.' class="katb_test_box katb_rotate_noshow hentry" itemscope itemtype="http://data-vocabulary.org/Review">';
+				$html .= '<div '.$katb_height_option.' class="katb_test_box katb_rotate_noshow" itemscope itemtype="http://data-vocabulary.org/Review">';
 			}
 		}
 		
@@ -832,16 +832,16 @@ function katb_testimonial_wrap_div( $use_formatted_display , $use_schema , $katb
 		if( $i == 0 ) {
 			if( $layout == "Side Meta" ) {
 				$html .= '<div class="katb_side_meta_block katb_rotate_show">';
-				$html .= '<div '.$katb_height_option.' class="katb_test_box_basic_side_meta hentry" itemscope itemtype="http://data-vocabulary.org/Review">';
+				$html .= '<div '.$katb_height_option.' class="katb_test_box_basic_side_meta" itemscope itemtype="http://data-vocabulary.org/Review">';
 			} else {
-				$html .= '<div '.$katb_height_option.' class="katb_test_box_basic katb_rotate_show hentry" itemscope itemtype="http://data-vocabulary.org/Review">';
+				$html .= '<div '.$katb_height_option.' class="katb_test_box_basic katb_rotate_show" itemscope itemtype="http://data-vocabulary.org/Review">';
 			}
 		} else {
 			if( $layout == "Side Meta" ) {
 				$html .= '<div class="katb_side_meta_block katb_rotate_noshow">';
-				$html .= '<div '.$katb_height_option.' class="katb_test_box_basic_side_meta hentry" itemscope itemtype="http://data-vocabulary.org/Review">';
+				$html .= '<div '.$katb_height_option.' class="katb_test_box_basic_side_meta" itemscope itemtype="http://data-vocabulary.org/Review">';
 			} else {
-				$html .= '<div '.$katb_height_option.' class="katb_test_box_basic katb_rotate_noshow hentry" itemscope itemtype="http://data-vocabulary.org/Review">';
+				$html .= '<div '.$katb_height_option.' class="katb_test_box_basic katb_rotate_noshow" itemscope itemtype="http://data-vocabulary.org/Review">';
 			} 
 		}
 		
@@ -850,16 +850,16 @@ function katb_testimonial_wrap_div( $use_formatted_display , $use_schema , $katb
 		if( $i == 0 ) {
 			if( $layout == "Side Meta" ) {
 				$html .= '<div class="katb_side_meta_block katb_rotate_show">';
-				$html .= '<div '.$katb_height_option.' class="katb_test_box_basic_side_meta hentry">';
+				$html .= '<div '.$katb_height_option.' class="katb_test_box_basic_side_meta">';
 			} else {
-				$html .= '<div '.$katb_height_option.' class="katb_test_box_basic katb_rotate_show hentry">';
+				$html .= '<div '.$katb_height_option.' class="katb_test_box_basic katb_rotate_show">';
 			}
 		} else {
 			if( $layout == "Side Meta" ) {
 				$html .= '<div class="katb_side_meta_block katb_rotate_noshow">';
-				$html .= '<div '.$katb_height_option.' class="katb_test_box_basic_side_meta hentry">';
+				$html .= '<div '.$katb_height_option.' class="katb_test_box_basic_side_meta">';
 				} else {
-					$html .= '<div '.$katb_height_option.' class="katb_test_box_basic katb_rotate_noshow hentry">';
+					$html .= '<div '.$katb_height_option.' class="katb_test_box_basic katb_rotate_noshow">';
 				} 
 		}
 	
@@ -868,34 +868,34 @@ function katb_testimonial_wrap_div( $use_formatted_display , $use_schema , $katb
 		if( $i == 0 ) {
 			if( $layout == "Side Meta" ) {
 				$html .= '<div class="katb_side_meta_block katb_rotate_show">';
-				$html .= '<div '.$katb_height_option.' class="katb_test_box_side_meta hentry">';
+				$html .= '<div '.$katb_height_option.' class="katb_test_box_side_meta">';
 			} else {
-				$html .= '<div '.$katb_height_option.' class="katb_test_box katb_rotate_show hentry">';
+				$html .= '<div '.$katb_height_option.' class="katb_test_box katb_rotate_show">';
 			}	 
 		} else {
 			if( $layout == "Side Meta" ) {
 				$html .= '<div class="katb_side_meta_block katb_rotate_noshow">';
-				$html .= '<div '.$katb_height_option.' class="katb_test_box_side_meta hentry">';
+				$html .= '<div '.$katb_height_option.' class="katb_test_box_side_meta">';
 			} else {
-				$html .= '<div '.$katb_height_option.' class="katb_test_box katb_rotate_noshow hentry">';
+				$html .= '<div '.$katb_height_option.' class="katb_test_box katb_rotate_noshow">';
 			}
 		}
 			
 	} elseif( $katb_rotate != 1 && $use_formatted_display == 1 && $use_schema == 1 ) {
 		
-		$html .= '<div class="katb_test_box'.$layout_class.' hentry" itemscope itemtype="http://data-vocabulary.org/Review">';
+		$html .= '<div class="katb_test_box'.$layout_class.'" itemscope itemtype="http://data-vocabulary.org/Review">';
 		
 	} elseif( $katb_rotate != 1 && $use_formatted_display != 1 && $use_schema == 1 ) {
 		
-		$html .= '<div class="katb_test_box_basic'.$layout_class.' hentry" itemscope itemtype="http://data-vocabulary.org/Review">';
+		$html .= '<div class="katb_test_box_basic'.$layout_class.'" itemscope itemtype="http://data-vocabulary.org/Review">';
 		
 	} elseif( $katb_rotate != 1 && $use_formatted_display != 1 && $use_schema != 1 ) {
 		
-		$html .= '<div class="katb_test_box_basic hentry'.$layout_class.' ">';
+		$html .= '<div class="katb_test_box_basic'.$layout_class.' ">';
 		
 	} elseif( $katb_rotate != 1 && $use_formatted_display == 1 && $use_schema != 1 ) {
 		
-		$html .= '<div class="katb_test_box hentry'.$layout_class.' ">';
+		$html .= '<div class="katb_test_box'.$layout_class.' ">';
 	}
 	
 	return $html;
@@ -958,16 +958,16 @@ function katb_testimonial_wrap_div( $use_formatted_display , $use_schema , $katb
 				
 				if( $use_schema !=1 ) {
 					if( $use_individual_group_name == 1 && $individual_group_name != '' ) {
-						$html .= '<span class="individual_itemreviewed entry-title" >'.stripcslashes( esc_attr( $individual_group_name ) ).'</span>&nbsp;';
+						$html .= '<span class="individual_itemreviewed" >'.stripcslashes( esc_attr( $individual_group_name ) ).'</span>&nbsp;';
 					} elseif( $custom_individual_name != '' ) {
-						$html .= '<span class="individual_itemreviewed entry-title" >'.stripcslashes( esc_attr( $custom_individual_name ) ).'</span>&nbsp;';
+						$html .= '<span class="individual_itemreviewed" >'.stripcslashes( esc_attr( $custom_individual_name ) ).'</span>&nbsp;';
 					}
 						
 				} else {
 					if( $use_individual_group_name == 1 && $individual_group_name != '' ) {
-						$html .= '<span class="individual_itemreviewed entry-title" itemprop="itemreviewed">'.stripcslashes( esc_attr( $individual_group_name ) ).'</span>&nbsp;';
+						$html .= '<span class="individual_itemreviewed" itemprop="itemreviewed">'.stripcslashes( esc_attr( $individual_group_name ) ).'</span>&nbsp;';
 					} elseif( $custom_individual_name != '' ) {
-						$html .= '<span class="individual_itemreviewed entry-title" itemprop="itemreviewed">'.stripcslashes( esc_attr( $custom_individual_name ) ).'</span>&nbsp;';
+						$html .= '<span class="individual_itemreviewed" itemprop="itemreviewed">'.stripcslashes( esc_attr( $custom_individual_name ) ).'</span>&nbsp;';
 					}
 				}
 				
@@ -1024,7 +1024,7 @@ function katb_testimonial_wrap_div( $use_formatted_display , $use_schema , $katb
  * @param integer $i where we are in the testimonial loop
  * @return $html which is the html for the for title bar
  */
-function katb_insert_content( $use_excerpts , $use_formatted_display, $layout , $length,  $gravatar_or_photo , $i , $katb_tdata ){
+function katb_insert_content( $use_excerpts , $use_schema , $use_formatted_display, $layout , $length,  $gravatar_or_photo , $i , $katb_tdata ){
 	
 	$html = '';
 	
@@ -1036,25 +1036,25 @@ function katb_insert_content( $use_excerpts , $use_formatted_display, $layout , 
 		$text = katb_testimonial_excerpt_filter( $length , $text , $classID );
 		
 		if( $use_formatted_display == 1 && $use_schema == 1 ) {
-			$html .= '<div class="katb_test_text entry-content" itemprop="reviewBody" >'.$gravatar_or_photo.$text.'</div>';
+			$html .= '<div class="katb_test_text" itemprop="reviewBody" >'.$gravatar_or_photo.$text.'</div>';
 		} elseif( $use_formatted_display == 1 && $use_schema != 1 ) {
-			$html .= '<div class="katb_test_text entry-content" >'.$gravatar_or_photo.$text.'</div>'; 
+			$html .= '<div class="katb_test_text" >'.$gravatar_or_photo.$text.'</div>'; 
 		} elseif( $use_formatted_display != 1 && $use_schema == 1 ) {
-			$html .= '<div class="katb_test_text_basic entry-content" itemprop="reviewBody">'.$gravatar_or_photo.$text.'</div>'; 
+			$html .= '<div class="katb_test_text_basic" itemprop="reviewBody">'.$gravatar_or_photo.$text.'</div>'; 
 		} elseif( $use_formatted_display != 1 && $use_schema != 1 ) {
-			$html .= '<div class="katb_test_text_basic entry-content" >'.$gravatar_or_photo.$text.'</div>'; 
+			$html .= '<div class="katb_test_text_basic" >'.$gravatar_or_photo.$text.'</div>'; 
 		}
 			
 	} else {
 		
 		if( $use_formatted_display == 1 && $use_schema == 1 ) {
-			$html .= '<div class="katb_test_text entry-content" itemprop="reviewBody" >'.$gravatar_or_photo.wp_kses_post( wpautop( stripcslashes($katb_tdata[$i]['tb_testimonial'] ) ) ).'</div>';
+			$html .= '<div class="katb_test_text" itemprop="reviewBody" >'.$gravatar_or_photo.wp_kses_post( wpautop( stripcslashes($katb_tdata[$i]['tb_testimonial'] ) ) ).'</div>';
 		} elseif( $use_formatted_display == 1 && $use_schema != 1 ) {
-			 $html .= '<div class="katb_test_text entry-content" >'.$gravatar_or_photo.wp_kses_post( wpautop( stripcslashes($katb_tdata[$i]['tb_testimonial'] ) ) ).'</div>';
+			 $html .= '<div class="katb_test_text" >'.$gravatar_or_photo.wp_kses_post( wpautop( stripcslashes($katb_tdata[$i]['tb_testimonial'] ) ) ).'</div>';
 		} elseif( $use_formatted_display != 1 && $use_schema == 1 ) {
-			$html .= '<div class="katb_test_text_basic entry-content" itemprop="reviewBody">'.$gravatar_or_photo.wp_kses_post( wpautop( stripcslashes( $katb_tdata[$i]['tb_testimonial'] ) ) ).'</div>'; 
+			$html .= '<div class="katb_test_text_basic" itemprop="reviewBody">'.$gravatar_or_photo.wp_kses_post( wpautop( stripcslashes( $katb_tdata[$i]['tb_testimonial'] ) ) ).'</div>'; 
 		} elseif( $use_formatted_display != 1 && $use_schema != 1 ) {
-			$html .= '<div class="katb_test_text_basic entry-content" >'.$gravatar_or_photo.wp_kses_post( wpautop( stripcslashes( $katb_tdata[$i]['tb_testimonial'] ) ) ).'</div>';
+			$html .= '<div class="katb_test_text_basic" >'.$gravatar_or_photo.wp_kses_post( wpautop( stripcslashes( $katb_tdata[$i]['tb_testimonial'] ) ) ).'</div>';
 		}	
 				
 	}
@@ -1108,11 +1108,10 @@ function katb_setup_popup ( $i, $katb_tdata, $has_valid_avatar ) {
 				$popup_html .= '<div class="katb_title_bar">';
 					
 					//title for testimonial
-					if( $schema_on_for_title == 1 || $use_title == 1 ) {
+					if( $use_title == 1 ) {
 							
 						//get group name for testimonial
 						$individual_group_name = $katb_tdata[$i]['tb_group'];
-							
 
 						if( $use_individual_group_name == 1 && $individual_group_name != '' ) {
 							$popup_html .= '<span class="individual_itemreviewed" >'.stripcslashes( esc_attr( $individual_group_name ) ).'</span>&nbsp;';
@@ -1346,9 +1345,9 @@ function katb_meta_bottom( $i , $katb_tdata , $use_schema ){
 		
 		//author		
 		if( $use_schema != 1 ) {
-			$meta_btm .= '<span class="katb vcard author post-author"><span class="katb_author fn">'.sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ).'</span></span>';
+			$meta_btm .= '<span class="katb_author">'.sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ).'</span>';
 		} else {
-			$meta_btm .= '<span class="katb vcard author post-author"><span class="katb_author fn" itemprop="reviewer">'.sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ).'</span></span>';
+			$meta_btm .= '<span class="katb_author" itemprop="reviewer">'.sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ).'</span>';
 		}
 			
 		//date
@@ -1356,9 +1355,9 @@ function katb_meta_bottom( $i , $katb_tdata , $use_schema ){
 			
 			$katb_date = sanitize_text_field( $katb_tdata[$i]['tb_date'] );
 			if( $use_schema != 1 ) {
-				$meta_btm .= '<span class="katb_date post-date updated">&nbsp;&nbsp;'.mysql2date(get_option( 'date_format' ), $katb_date ).'</span>';
+				$meta_btm .= '<span class="katb_date">&nbsp;&nbsp;'.mysql2date(get_option( 'date_format' ), $katb_date ).'</span>';
 			} else { 
-				$meta_btm .= '<span class="katb_date post-date updated" itemprop="dtreviewed">&nbsp;&nbsp;'.mysql2date( 'Y-m-d' , $katb_date ).'</span>';
+				$meta_btm .= '<span class="katb_date" itemprop="dtreviewed">&nbsp;&nbsp;'.mysql2date( 'Y-m-d' , $katb_date ).'</span>';
 			}
 			
 		}
@@ -1404,9 +1403,9 @@ function katb_meta_top( $i, $katb_tdata, $use_schema ){
 		
 		//author		
 		if( $use_schema != 1 ) {
-			$meta_top .= '<span class="katb vcard author post-author"><span class="katb_author fn">'.sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ).'</span></span>';
+			$meta_top .= '<span class="katb_author">'.sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ).'</span>';
 		} else {
-			$meta_top .= '<span class="katb vcard author post-author"><span class="katb_author fn" itemprop="reviewer">'.sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ).'</span></span>';
+			$meta_top .= '<span class="katb_author" itemprop="reviewer">'.sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ).'</span>';
 		}
 		
 		//date
@@ -1414,9 +1413,9 @@ function katb_meta_top( $i, $katb_tdata, $use_schema ){
 			
 			$katb_date = sanitize_text_field( $katb_tdata[$i]['tb_date'] );
 			if( $use_schema != 1 ) {
-				$meta_top .= '<span class="katb_date post-date updated">&nbsp;&nbsp;'.mysql2date(get_option( 'date_format' ), $katb_date ).'</span>';
+				$meta_top .= '<span class="katb_date">&nbsp;&nbsp;'.mysql2date(get_option( 'date_format' ), $katb_date ).'</span>';
 			} else { 
-				$meta_top .= '<span class="katb_date post-date updated" itemprop="dtreviewed">&nbsp;&nbsp;'.mysql2date( 'Y-m-d' , $katb_date ).'</span>';
+				$meta_top .= '<span class="katb_date" itemprop="dtreviewed">&nbsp;&nbsp;'.mysql2date( 'Y-m-d' , $katb_date ).'</span>';
 			}
 			
 		}
@@ -1463,9 +1462,9 @@ function katb_meta_side( $i, $katb_tdata, $use_schema ){
 		
 		//author		
 		if( $use_schema != 1 ) {
-			$meta_side .= '<span class="katb vcard author post-author"><span class="katb_author fn">'.sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ).'</span></span>';
+			$meta_side .= '<span class="katb_author">'.sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ).'</span>';
 		} else {
-			$meta_side .= '<span class="katb vcard author post-author"><span class="katb_author fn" itemprop="reviewer">'.sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ).'</span></span>';
+			$meta_side .= '<span class="katb_author" itemprop="reviewer">'.sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ).'</span>';
 		}
 		
 		//location
@@ -1487,9 +1486,9 @@ function katb_meta_side( $i, $katb_tdata, $use_schema ){
 			
 			$katb_date = sanitize_text_field( $katb_tdata[$i]['tb_date'] );
 			if( $use_schema != 1 ) {
-				$meta_side .= '<br/><span class="katb_date post-date updated">'.mysql2date(get_option( 'date_format' ), $katb_date ).'</span>';
+				$meta_side .= '<br/><span class="katb_date">'.mysql2date(get_option( 'date_format' ), $katb_date ).'</span>';
 			} else { 
-				$meta_side .= '<br/><span class="katb_date post-date updated" itemprop="dtreviewed">'.mysql2date( 'Y-m-d' , $katb_date ).'</span>';
+				$meta_side .= '<br/><span class="katb_date" itemprop="dtreviewed">'.mysql2date( 'Y-m-d' , $katb_date ).'</span>';
 			}
 			
 		}
