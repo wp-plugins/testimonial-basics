@@ -712,13 +712,13 @@ function katb_widget_popup( $has_valid_avatar , $katb_widget_tdata , $i , $layou
 							
 				<?php }
 						
-				if( $layout == 'Top Meta' || $layout == 'Image & Meta Top' ) { echo katb_meta_widget_top( $i, $katb_widget_tdata, $use_schema ); }
+				if( $layout == 'Top Meta' || $layout == 'Image & Meta Top' || $layout == 'Centered Image & Meta Top' ) { echo katb_meta_widget_top( $i, $katb_widget_tdata, $use_schema ); }
 				
 				$gravatar_or_photo = katb_widget_insert_gravatar( $katb_widget_tdata[$i]['tb_pic_url'] , $gravatar_size , $use_gravatars , $use_round_images , $use_gravatar_substitute, $has_valid_avatar , $katb_widget_tdata[$i]['tb_email'] );
 				
 				echo '<div class="katb_test_text_basic" >'.$gravatar_or_photo.wp_kses_post( wpautop( stripcslashes( $katb_widget_tdata[$i]['tb_testimonial'] ) ) ).'</div>';
 				
-				if( $layout == 'Bottom Meta' || $layout == 'Image & Meta Bottom' )  { echo  katb_meta_widget_bottom( $i, $katb_widget_tdata, $use_schema ); } 
+				if( $layout == 'Bottom Meta' || $layout == 'Image & Meta Bottom' || $layout == 'Centered Image & Meta Bottom' )  { echo  katb_meta_widget_bottom( $i, $katb_widget_tdata, $use_schema ); } 
 
 			?>
 				
@@ -753,50 +753,50 @@ function katb_widget_testimonial_wrap_div( $use_formatted_display , $use_schema 
 	if( $katb_rotate == 1 && $use_formatted_display == 1 && $use_schema == 1 ) {
 		
 		if( $i == 0 ) {
-			$div_prop .= 'class="katb_widget_rotator_box katb_widget_rotate_show hentry" itemscope itemtype="http://data-vocabulary.org/Review" '.$katb_widget_height_option;
+			$div_prop .= 'class="katb_widget_rotator_box katb_widget_rotate_show" itemscope itemtype="http://data-vocabulary.org/Review" '.$katb_widget_height_option;
 		} else {
-			$div_prop .= 'class="katb_widget_rotator_box katb_widget_rotate_noshow hentry" itemscope itemtype="http://data-vocabulary.org/Review" '.$katb_widget_height_option;
+			$div_prop .= 'class="katb_widget_rotator_box katb_widget_rotate_noshow" itemscope itemtype="http://data-vocabulary.org/Review" '.$katb_widget_height_option;
 		}
 		
 	} elseif( $katb_rotate == 1 && $use_formatted_display != 1 && $use_schema == 1 ) {
 		
 		if( $i == 0 ) {
-			$div_prop .= 'class="katb_widget_rotator_box_basic katb_widget_rotate_show hentry" itemscope itemtype="http://data-vocabulary.org/Review" '.$katb_widget_height_option;
+			$div_prop .= 'class="katb_widget_rotator_box_basic katb_widget_rotate_show" itemscope itemtype="http://data-vocabulary.org/Review" '.$katb_widget_height_option;
 		} else {
-			$div_prop .= 'class="katb_widget_rotator_box_basic katb_widget_rotate_noshow hentry" itemscope itemtype="http://data-vocabulary.org/Review" '.$katb_widget_height_option;
+			$div_prop .= 'class="katb_widget_rotator_box_basic katb_widget_rotate_noshow" itemscope itemtype="http://data-vocabulary.org/Review" '.$katb_widget_height_option;
 		}
 		
 	} elseif( $katb_rotate == 1 && $use_formatted_display != 1 && $use_schema != 1 ) {
 		
 		if( $i == 0 ) {
-			$div_prop .= 'class="katb_widget_rotator_box_basic katb_widget_rotate_show hentry" '.$katb_widget_height_option;
+			$div_prop .= 'class="katb_widget_rotator_box_basic katb_widget_rotate_show" '.$katb_widget_height_option;
 		} else {
-			$div_prop .= 'class="katb_widget_rotator_box_basic katb_widget_rotate_noshow hentry" '.$katb_widget_height_option;
+			$div_prop .= 'class="katb_widget_rotator_box_basic katb_widget_rotate_noshow" '.$katb_widget_height_option;
 		}
 	
 	} elseif( $katb_rotate == 1 && $use_formatted_display == 1 && $use_schema != 1 ) {
 		
 		if( $i == 0 ) {
-			$div_prop .= 'class="katb_widget_rotator_box katb_widget_rotate_show hentry" '.$katb_widget_height_option;
+			$div_prop .= 'class="katb_widget_rotator_box katb_widget_rotate_show" '.$katb_widget_height_option;
 		} else {
-			$div_prop .= 'class="katb_widget_rotator_box katb_widget_rotate_noshow hentry" '.$katb_widget_height_option;
+			$div_prop .= 'class="katb_widget_rotator_box katb_widget_rotate_noshow" '.$katb_widget_height_option;
 		}
 			
 	} elseif( $katb_rotate != 1 && $use_formatted_display == 1 && $use_schema == 1 ) {
 		
-		$div_prop .= 'class="katb_widget_box hentry" itemscope itemtype="http://data-vocabulary.org/Review"';
+		$div_prop .= 'class="katb_widget_box" itemscope itemtype="http://data-vocabulary.org/Review"';
 		
 	} elseif( $katb_rotate != 1 && $use_formatted_display != 1 && $use_schema == 1 ) {
 		
-		$div_prop .= 'class="katb_widget_box_basic hentry" itemscope itemtype="http://data-vocabulary.org/Review"';
+		$div_prop .= 'class="katb_widget_box_basic" itemscope itemtype="http://data-vocabulary.org/Review"';
 		
 	} elseif( $katb_rotate != 1 && $use_formatted_display != 1 && $use_schema != 1 ) {
 		
-		$div_prop .= 'class="katb_widget_box_basic hentry"';
+		$div_prop .= 'class="katb_widget_box_basic"';
 		
 	} elseif( $katb_rotate != 1 && $use_formatted_display == 1 && $use_schema != 1 ) {
 		
-		$div_prop .= 'class="katb_widget_box hentry"';
+		$div_prop .= 'class="katb_widget_box"';
 			
 	}
 	
@@ -832,16 +832,16 @@ function katb_widget_insert_title( $use_schema , $use_title_non_schema , $katb_w
 				
 				if( $use_schema !=1 ) {
 					if( $use_individual_group_name == 1 && $individual_group_name != '' ) {
-						$html .= '<span class="individual_itemreviewed entry-title" >'.stripcslashes( esc_attr( $individual_group_name ) ).'</span>';
+						$html .= '<span class="individual_itemreviewed" >'.stripcslashes( esc_attr( $individual_group_name ) ).'</span>';
 					} elseif( $custom_individual_name != '' ) {
-						$html .= '<span class="individual_itemreviewed entry-title" >'.stripcslashes( esc_attr( $custom_individual_name ) ).'</span>';
+						$html .= '<span class="individual_itemreviewed" >'.stripcslashes( esc_attr( $custom_individual_name ) ).'</span>';
 					}
 						
 				} else {
 					if( $use_individual_group_name == 1 && $individual_group_name != '' ) {
-						$html .= '<span class="individual_itemreviewed entry-title" itemprop="itemreviewed">'.stripcslashes( esc_attr( $individual_group_name ) ).'</span>';
+						$html .= '<span class="individual_itemreviewed" itemprop="itemreviewed">'.stripcslashes( esc_attr( $individual_group_name ) ).'</span>';
 					} elseif( $custom_individual_name != '' ) {
-						$html .= '<span class="individual_itemreviewed entry-title" itemprop="itemreviewed">'.stripcslashes( esc_attr( $custom_individual_name ) ).'</span>';
+						$html .= '<span class="individual_itemreviewed" itemprop="itemreviewed">'.stripcslashes( esc_attr( $custom_individual_name ) ).'</span>';
 					}
 				}
 				
@@ -984,17 +984,17 @@ function katb_widget_content( $use_excerpts , $katb_widget_tdata, $i, $use_schem
 		if( $use_schema != 1 ) {
 			
 			if( $use_formatted_display == 1 ) {
-				$html .= '<div class="katb_widget_text entry-content">'.$photo_or_gravatar.$text2.'</div>';
+				$html .= '<div class="katb_widget_text">'.$photo_or_gravatar.$text2.'</div>';
 			} else {
-				$html .= '<div class="katb_widget_text_basic entry-content">'.$photo_or_gravatar.$text2.'</div>';
+				$html .= '<div class="katb_widget_text_basic">'.$photo_or_gravatar.$text2.'</div>';
 			}
 			
 		} else {
 			
 			if( $use_formatted_display == 1 ) {
-				$html .= '<div class="katb_widget_text entry-content" itemprop="reviewBody">'.$photo_or_gravatar.$text2.'</div>';
+				$html .= '<div class="katb_widget_text" itemprop="reviewBody">'.$photo_or_gravatar.$text2.'</div>';
 			} else {
-				$html .= '<div class="katb_widget_text_basic entry-content" itemprop="reviewBody">'.$photo_or_gravatar.$text2.'</div>';
+				$html .= '<div class="katb_widget_text_basic" itemprop="reviewBody">'.$photo_or_gravatar.$text2.'</div>';
 			}
 			
 		}
@@ -1004,7 +1004,7 @@ function katb_widget_content( $use_excerpts , $katb_widget_tdata, $i, $use_schem
 		if( $use_schema != 1 ) {
 			
 			if( $use_formatted_display == 1 ) {
-				$html .= '<div class="katb_widget_text entry-content" >'.$photo_or_gravatar.wp_kses_post( wpautop( stripcslashes( $katb_widget_tdata[$i]['tb_testimonial'] ) ) ).'</div>';
+				$html .= '<div class="katb_widget_text" >'.$photo_or_gravatar.wp_kses_post( wpautop( stripcslashes( $katb_widget_tdata[$i]['tb_testimonial'] ) ) ).'</div>';
 			} else {
 				$html .= '<div class="katb_widget_text_basic" >'.$photo_or_gravatar.wp_kses_post( wpautop( stripcslashes( $katb_widget_tdata[$i]['tb_testimonial'] ) ) ).'</div>';
 			}
@@ -1012,9 +1012,9 @@ function katb_widget_content( $use_excerpts , $katb_widget_tdata, $i, $use_schem
 		} else {
 			
 			if( $use_formatted_display == 1 ) {
-				$html .= '<div class="katb_widget_text entry-content" itemprop="reviewBody">'.$photo_or_gravatar.wp_kses_post( wpautop( stripcslashes( $katb_widget_tdata[$i]['tb_testimonial'] ) ) ).'</div>';
+				$html .= '<div class="katb_widget_text" itemprop="reviewBody">'.$photo_or_gravatar.wp_kses_post( wpautop( stripcslashes( $katb_widget_tdata[$i]['tb_testimonial'] ) ) ).'</div>';
 			} else {
-				$html .= '<div class="katb_widget_text_basic entry-content" itemprop="reviewBody">'.$photo_or_gravatar.wp_kses_post( wpautop( stripcslashes( $katb_widget_tdata[$i]['tb_testimonial'] ) ) ).'</div>';
+				$html .= '<div class="katb_widget_text_basic" itemprop="reviewBody">'.$photo_or_gravatar.wp_kses_post( wpautop( stripcslashes( $katb_widget_tdata[$i]['tb_testimonial'] ) ) ).'</div>';
 			}
 			
 		}
@@ -1047,9 +1047,9 @@ function katb_meta_widget_bottom( $i, $katb_tdata, $use_schema ){
 				
 		//author		
 		if( $use_schema != 1 ) { ?>
-			<span class="katb vcard author post-author"><span class="katb_widget_author fn"><?php echo sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ); ?></span></span>
+			<span class="katb_widget_author"><?php echo sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ); ?></span>
 		<?php } else { ?>
-			<span class="katb vcard author post-author"><span class="katb_widget_author fn" itemprop="reviewer"><?php echo sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ); ?></span></span>
+			<span class="katb_widget_author" itemprop="reviewer"><?php echo sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ); ?></span>
 		<?php }
 		
 		//date
@@ -1057,9 +1057,9 @@ function katb_meta_widget_bottom( $i, $katb_tdata, $use_schema ){
 			
 			$katb_date = sanitize_text_field( $katb_tdata[$i]['tb_date'] );
 			if( $use_schema != 1 ) { ?>
-				<span class="katb_widget_date post-date updated">&nbsp;&nbsp;<?php echo mysql2date(get_option( 'date_format' ), $katb_date ); ?></span>
+				<span class="katb_widget_date">&nbsp;&nbsp;<?php echo mysql2date(get_option( 'date_format' ), $katb_date ); ?></span>
 			<?php } else { ?>
-				<span class="katb_widget_date post-date updated" itemprop="dtreviewed">&nbsp;&nbsp;<?php echo mysql2date('Y-m-d', $katb_date ); ?></span>
+				<span class="katb_widget_date" itemprop="dtreviewed">&nbsp;&nbsp;<?php echo mysql2date('Y-m-d', $katb_date ); ?></span>
 			<?php }
 			
 		}
@@ -1105,9 +1105,9 @@ function katb_meta_widget_top( $i, $katb_tdata, $use_schema ){
 		
 		//author		
 		if( $use_schema != 1 ) { ?>
-			<span class="katb vcard author post-author"><span class="katb_widget_author fn"><?php echo sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ); ?></span></span>
+			<span class="katb_widget_author"><?php echo sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ); ?></span>
 		<?php } else { ?>
-			<span class="katb vcard author post-author"><span class="katb_widget_author fn" itemprop="reviewer"><?php echo sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ); ?></span></span>
+			<span class="katb_widget_author" itemprop="reviewer"><?php echo sanitize_text_field( stripcslashes($katb_tdata[$i]['tb_name'] ) ); ?></span>
 		<?php }
 		
 		//date
@@ -1115,9 +1115,9 @@ function katb_meta_widget_top( $i, $katb_tdata, $use_schema ){
 			
 			$katb_date = sanitize_text_field( $katb_tdata[$i]['tb_date'] );
 			if( $use_schema != 1 ) { ?>
-				<span class="katb_widget_date post-date updated">&nbsp;&nbsp;<?php echo mysql2date(get_option( 'date_format' ), $katb_date ); ?></span>
+				<span class="katb_widget_date">&nbsp;&nbsp;<?php echo mysql2date(get_option( 'date_format' ), $katb_date ); ?></span>
 			<?php } else { ?> 
-				<span class="katb_widget_date post-date updated" itemprop="dtreviewed">&nbsp;&nbsp;<?php echo mysql2date('Y-m-d', $katb_date ); ?></span>
+				<span class="katb_widget_date" itemprop="dtreviewed">&nbsp;&nbsp;<?php echo mysql2date('Y-m-d', $katb_date ); ?></span>
 		<?php }
 			
 		}
@@ -1164,22 +1164,22 @@ function katb_meta_widget_with_image( $i, $katb_widget_tdata, $use_schema ){
 		
 		//author		
 		if( $use_schema != 1 ) { ?>
-			<span class="katb vcard author post-author"><span class="katb_widget_author fn"><?php echo sanitize_text_field( stripcslashes($katb_widget_tdata[$i]['tb_name'] ) ); ?></span></span>
+			<span class="katb_widget_author"><?php echo sanitize_text_field( stripcslashes($katb_widget_tdata[$i]['tb_name'] ) ); ?></span>
 		<?php } else { ?>
-			<span class="katb vcard author post-author"><span class="katb_widget_author fn" itemprop="reviewer"><?php echo sanitize_text_field( stripcslashes($katb_widget_tdata[$i]['tb_name'] ) ); ?></span></span>
+			<span class="katb_widget_author" itemprop="reviewer"><?php echo sanitize_text_field( stripcslashes($katb_widget_tdata[$i]['tb_name'] ) ); ?></span>
 		<?php }
 		
 		//location
 		if ( $show_location == 1 && $katb_widget_tdata[$i]['tb_location'] != '') { ?>
 			
-			<br/><span class="katb_widget_location"><?php echo sanitize_text_field( stripcslashes($katb_widget_tdata[$i]['tb_location'] ) ); ?></span>
+			<span class="katb_widget_location"><?php echo sanitize_text_field( stripcslashes($katb_widget_tdata[$i]['tb_location'] ) ); ?></span>
 		
 		<?php }
 		
 		//website		
 		if ( $show_website == 1 && $katb_widget_tdata[$i]['tb_url'] != '' ) { ?>
 			
-			<br/><span class="katb_widget_website"><a href="<?php echo esc_url( $katb_widget_tdata[$i]['tb_url'] ); ?>" title="<?php echo esc_url( $katb_widget_tdata[$i]['tb_url'] ); ?>" target="_blank" >Website</a></span>
+			<span class="katb_widget_website"><a href="<?php echo esc_url( $katb_widget_tdata[$i]['tb_url'] ); ?>" title="<?php echo esc_url( $katb_widget_tdata[$i]['tb_url'] ); ?>" target="_blank" >Website</a></span>
 		
 		<?php } 
 		
@@ -1188,9 +1188,9 @@ function katb_meta_widget_with_image( $i, $katb_widget_tdata, $use_schema ){
 			
 			$katb_date = sanitize_text_field( $katb_widget_tdata[$i]['tb_date'] );
 			if( $use_schema != 1 ) { ?>
-				<br/><span class="katb_widget_date post-date updated"><?php echo mysql2date(get_option( 'date_format' ), $katb_date ); ?></span>
+				<span class="katb_widget_date"><?php echo mysql2date(get_option( 'date_format' ), $katb_date ); ?></span>
 			<?php } else { ?> 
-				<br/><span class="katb_widget_date post-date updated" itemprop="dtreviewed"><?php echo mysql2date('Y-m-d', $katb_date ); ?></span>
+				<span class="katb_widget_date" itemprop="dtreviewed"><?php echo mysql2date('Y-m-d', $katb_date ); ?></span>
 			<?php }
 			
 		} ?>

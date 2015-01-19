@@ -69,9 +69,9 @@ $katb_options = katb_get_options(); ?>
 	}
 	
 	/*author,location, and date custom colors */
-	.katb_test_wrap .katb_author,.katb_test_wrap_side_meta .katb_author,
-	.katb_test_wrap .katb_date,.katb_test_wrap_side_meta .katb_date,
-	.katb_test_wrap .katb_location,.katb_test_wrap_side_meta .katb_location
+	.katb_test_box .katb_author,.katb_test_box_side_meta .katb_author,
+	.katb_test_box .katb_date,.katb_test_box_side_meta .katb_date,
+	.katb_test_box .katb_location,.katb_test_box_side_meta .katb_location
 	{color: <?php echo $katb_options['katb_author_location_color']; ?>!important;}
 	
 	.katb_test_box a,.katb_schema_summary_box a,.katb_test_box_side_meta a,
