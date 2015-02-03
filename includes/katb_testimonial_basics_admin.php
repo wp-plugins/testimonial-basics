@@ -14,7 +14,7 @@
  * file:katb_testimonial_basics_admin.css is in /css and is usde to style the admin pages
  * file:katb_testimonial_basics_doc_ready.js is located in /js and contains scripts for 
  * display in the admin pages, and to display set up the color wheel useage
- * farbtastic/wp-color-picker :  are jquery scripts for selectig colors
+ * wp-color-picker :  are jquery scripts for selectig colors
  * --------------------------------------------------------------------------------------- */ 
 function katb_testimonial_basic_admin_style($hook) {
 	//wp_die($hook);
@@ -221,9 +221,7 @@ function katb_testimonial_basics_introduction (){ ?>
  * 
  * ---------------------------------------------------------------------------------- */
 function katb_testimonial_basics_options_page (){
-	
-	//echo katb_intro_html();
-	
+
 	// Determine the current page tab
 	$currenttab = katb_get_current_tab();
 	// Define the page section accordingly
@@ -1219,6 +1217,9 @@ function katb_input_tab_help() {
 	$html .= '<p><strong>'.__('Show gravatar link','testimonial-basics').' - </strong>';
 	$html .= __('Visitors can use this link to set up a gravatar that will be included in the testimonial.','testimonial-basics').'</p>';;
 	
+	$html .= '<p><strong>'.__('Show input labels above input box','testimonial-basics').' - </strong>';
+	$html .= __('only for the input widget, labels can be displayed inside or above the input boxes','testimonial-basics').'</p>';;
+	
 	$html .= '<p><strong>'.__('Labels','testimonial-basics').' - </strong>';
 	$html .= __('You can change any of the labels in the input forms.','testimonial-basics');
 	$html .= ' '. __('This feature will come in handy for users that want to use a different language.','testimonial-basics').'</p>';
@@ -1295,7 +1296,7 @@ function katb_content_tab_help() {
 	
 	$html .= '<p><strong>'.__('Use formatted display','testimonial-basics').' - </strong>';
 	$html .= __('To use formatted display select this box.','testimonial-basics');
-	$html .= ' '. __('If the Formatted Display box is checked a 3D style is applied to the testimonials, which can be customized.','testimonial-basics').'</p>';
+	$html .= ' '. __('If the Formatted Display box is checked a color style is applied to the testimonials, which can be customized.','testimonial-basics').'</p>';
 	
 	$html .= '<p><strong>'.__('Colors','testimonial-basics').' - </strong>';
 	$html .= __('Enter any hexdec color number preceded by a # mark or use the color picker','testimonial-basics');
@@ -1373,7 +1374,7 @@ function katb_widget_tab_help() {
 	
 	$html .= '<p><strong>'.__('Use formatted display','testimonial-basics').' - </strong>';
 	$html .= __('To use formatted display select this box.','testimonial-basics');
-	$html .= ' '. __('If the Formatted Display box is checked a 3D style is applied to the testimonials, which can be customized.','testimonial-basics').'</p>';
+	$html .= ' '. __('If the Formatted Display box is checked a color style is applied to the testimonials, which can be customized.','testimonial-basics').'</p>';
 	
 	$html .= '<p><strong>'.__('Colors','testimonial-basics').' - </strong>';
 	$html .= __('Enter any hexdec color number preceded by a # mark or use the color picker','testimonial-basics');

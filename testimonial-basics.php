@@ -3,7 +3,7 @@
 Plugin Name: Testimonial Basics
 Plugin URI: http://kevinsspace.ca/testimonial-basics-wordpress-plugin/
 Description: This plugin facilitates easy management of customer testimonials. The user can set up an input form in a page or in a widget, and display all or selected testimonials in a page or a widget. The plug in is very easy to use and modify.
-Version: 4.1.3
+Version: 4.1.4
 Author: Kevin Archibald
 Author URI: http://kevinsspace.ca
 License: GPLv3
@@ -53,8 +53,14 @@ if ('testimonial-basics.php' == basename($_SERVER['SCRIPT_FILENAME']))
  * table name : database prefix + testimonial_basics
  * 
  *-------------------------------------------------------------------------- */
- global $katb_db_new_version;
- $katb_db_new_version = '1.4';
+global $katb_db_new_version;
+$katb_db_new_version = '1.4';
+//Check for database table and create if not there
+if( "null" !== get_option( 'katb_database_version' ) ) {
+	$katb_tb_installed_version = get_option( 'katb_database_version' );
+} else {
+	$katb_tb_installed_version = 0;
+}
  
 function katb_testimomial_basics_activate() {
 	//Check version compatibilities
@@ -62,37 +68,32 @@ function katb_testimomial_basics_activate() {
         deactivate_plugins( basename( __FILE__ ) ); // Deactivate our plugin
         die ('Please Upgrade your WordPress to use this plugin.');
     }
-	//Check for database table and create if not there
-	global $wpdb;
-	global $katb_db_new_version;
+
+	global $wpdb,$katb_db_new_version,$katb_tb_installed_version;
+	
 	$katb_tb_installed_version = get_option( 'katb_database_version' );
 	$tablename = $wpdb->prefix.'testimonial_basics';
 	$tableprefix = strtolower($wpdb->prefix);
 	if( $wpdb->get_var("SHOW TABLES LIKE '$tablename'") != $tablename && $wpdb->get_var("SHOW TABLES LIKE '$tablename'") != $tableprefix.'testimonial_basics' ) {
-		//wp_die($tablename);
+
 		// add charset & collate like wp core
-		$charset_collate = '';
-		if ( version_compare(mysql_get_server_info(), '4.1.0', '>=') ) {
-			if ( ! empty($wpdb->charset) )
-				$charset_collate = "DEFAULT CHARACTER SET $wpdb->charset";
-			if ( ! empty($wpdb->collate) )
-				$charset_collate .= " COLLATE $wpdb->collate";
-		}
+		$charset_collate = $wpdb->get_charset_collate();
+
 		//create new table
 		$sql = "CREATE TABLE `$tablename` (
 				`tb_id` int(4) UNSIGNED NOT NULL AUTO_INCREMENT,
-  				`tb_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  				`tb_group` char(100) NOT NULL,
-  				`tb_order` int(4) UNSIGNED NOT NULL,
-  				`tb_approved` int(1) UNSIGNED NOT NULL,
-  				`tb_name` char(100) NOT NULL,
-  				`tb_location` char(100) NOT NULL,
-  				`tb_email` char(100) NOT NULL,
-  				`tb_pic_url` char(150) NOT NULL,
- 				`tb_url` char(150) NOT NULL,
- 				`tb_rating` char(5) NOT NULL,
-  				`tb_testimonial` text NOT NULL,
-  				PRIMARY KEY (`tb_id`)
+				`tb_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+				`tb_group` char(100) NOT NULL,
+				`tb_order` int(4) UNSIGNED NOT NULL,
+				`tb_approved` int(1) UNSIGNED NOT NULL,
+				`tb_name` char(100) NOT NULL,
+				`tb_location` char(100) NOT NULL,
+				`tb_email` char(100) NOT NULL,
+				`tb_pic_url` char(150) NOT NULL,
+				`tb_url` char(150) NOT NULL,
+				`tb_rating` char(5) NOT NULL,
+				`tb_testimonial` text NOT NULL,
+				PRIMARY KEY (`tb_id`)
 			)$charset_collate;";
 		require_once ( ABSPATH . 'wp-admin/includes/upgrade.php');
 		dbDelta($sql);
@@ -101,18 +102,17 @@ function katb_testimomial_basics_activate() {
 		//ensure all tables are upgraded to 1.4
 		$sql = "CREATE TABLE `$tablename` (
 				`tb_id` int(4) UNSIGNED NOT NULL AUTO_INCREMENT,
-  				`tb_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  				`tb_group` char(100) NOT NULL,
-  				`tb_order` int(4) UNSIGNED NOT NULL,
-  				`tb_approved` int(1) UNSIGNED NOT NULL,
-  				`tb_name` char(100) NOT NULL,
-  				`tb_location` char(100) NOT NULL,
-  				`tb_email` char(100) NOT NULL,
-  				`tb_pic_url` char(150) NOT NULL,
- 				`tb_url` char(150) NOT NULL,
- 				`tb_rating` char(5) NOT NULL,
-  				`tb_testimonial` text NOT NULL,
-  				PRIMARY KEY (`tb_id`)
+				`tb_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+				`tb_group` char(100) NOT NULL,
+				`tb_order` int(4) UNSIGNED NOT NULL,
+				`tb_approved` int(1) UNSIGNED NOT NULL,
+				`tb_name` char(100) NOT NULL,
+				`tb_location` char(100) NOT NULL,
+				`tb_email` char(100) NOT NULL,
+				`tb_pic_url` char(150) NOT NULL,
+				`tb_url` char(150) NOT NULL,
+				`tb_rating` char(5) NOT NULL,
+				`tb_testimonial` text NOT NULL
 			);";
 		require_once ( ABSPATH . 'wp-admin/includes/upgrade.php');
 		dbDelta($sql);
@@ -122,8 +122,8 @@ function katb_testimomial_basics_activate() {
 register_activation_hook( __FILE__, 'katb_testimomial_basics_activate' );
 
 function katb_update_db_check() {
-    global $katb_db_new_version;
-    if (get_option('katb_database_version') != $katb_db_new_version) {
+    global $katb_db_new_version,$katb_tb_installed_version;
+    if ( $katb_tb_installed_version != $katb_db_new_version) {
         katb_testimomial_basics_activate();
     }
 }
