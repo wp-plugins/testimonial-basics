@@ -3,7 +3,7 @@
 Plugin Name: Testimonial Basics Display Widget
 Plugin URI: http://kevinsspace.ca/testimonial-basics-wordpress-plugin/
 Description: A plugin to display testimonials in a slider
-Version: 4.1.0
+Version: 4.1.4
 Author: Kevin Archibald
 Author URI: http://kevinsspace.ca/
 License: GPLv3
@@ -538,7 +538,7 @@ function katb_widget_display_testimonial ( $katb_widget_tdata, $katb_widget_tnum
 				//<div class=.... > wrap
 				$div_prop = katb_widget_testimonial_wrap_div( $use_formatted_display , $use_schema , $rotate, $katb_widget_height_option, $i );
 				//title html
-				$title = katb_widget_insert_title( $use_schema , $use_title_non_schema , $katb_widget_tdata, $i, $use_individual_group_name, $custom_individual_name );
+				$title = katb_widget_insert_title( $use_schema , $use_ratings , $use_title_non_schema , $katb_widget_tdata, $i, $use_individual_group_name, $custom_individual_name );
 				//rating html 
 				$rating = katb_widget_insert_rating( $use_schema , $use_ratings , $use_css_ratings , $katb_widget_tdata, $i );
 				//get gravatar html
@@ -816,7 +816,7 @@ function katb_widget_testimonial_wrap_div( $use_formatted_display , $use_schema 
  * 
  * @return $html which is the html for the for title bar
  */
-function katb_widget_insert_title( $use_schema , $use_title_non_schema , $katb_widget_tdata, $i, $use_individual_group_name, $custom_individual_name ){
+function katb_widget_insert_title( $use_schema , $use_ratings , $use_title_non_schema , $katb_widget_tdata, $i, $use_individual_group_name, $custom_individual_name ){
 	
 	$html = '';	$html2=''; $html3 = '';
 	

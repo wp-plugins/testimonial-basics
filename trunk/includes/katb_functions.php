@@ -1359,6 +1359,8 @@ function katb_get_option_parameters() {
  * @param string $by: order or date or random
  * @param string $id: blank or id's of the testimonial separated by a comma
  * @param string $rotate: 'yes' or 'no' used to rotate testimonials
+ * @param string $layout: '0','1','2','3','4','5', or '6'
+ * @param string $schema: 'default','yes', or 'no'
  * 
  * @uses katb_list_testimonials ( $atts ) in katb_shortcodes.php
  * 

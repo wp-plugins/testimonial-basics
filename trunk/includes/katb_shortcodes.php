@@ -222,7 +222,6 @@ function katb_list_testimonials ( $atts ) {
 				//Pagination
 				$katb_paginate_setup = katb_setup_pagination( $katb_offset_name, $katb_items_per_page, $total_entries );
 				$katb_offset = $katb_paginate_setup['offset'];
-				//katb_display_pagination( $katb_paginate_setup );
 				if ($katb_offset < 0 ) { $katb_offset = 0; }
 				//get results
 				$katb_tdata = $wpdb->get_results( " SELECT * FROM `$tablename` WHERE `tb_approved` = '1' AND `tb_group` = '$group' ORDER BY `tb_date` DESC LIMIT $katb_items_per_page OFFSET $katb_offset ",ARRAY_A);
@@ -303,7 +302,7 @@ function katb_list_testimonials ( $atts ) {
 		//don't display pagination
 	} else {
 		
-		if ( isset($katb_options['katb_use_pagination']) && $katb_options['katb_use_pagination'] == 1 ) {
+		if ( isset($katb_options['katb_use_pagination']) && $katb_options['katb_use_pagination'] == 1 && isset($katb_paginate_setup)) {
 			$katb_html .= katb_get_display_pagination_string( $katb_paginate_setup );
 		}
 		

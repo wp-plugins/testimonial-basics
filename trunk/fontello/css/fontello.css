@@ -67,6 +67,6 @@ select.katb_css_rating_select_widget {
 	padding: 0!important;
 }
  
-.icon-katb-star:before { content: '\e800a'; } /* '\e800a' */
-.icon-katb-star-empty:before { content: '\e801b'; } /* '\e801b' */
-.icon-katb-star-half-alt:before { content: '\e802c'; } /* '\e802c' */
+.icon-katb-star:before { font-family: "fontello-katb"!important; content: '\e800a'; }
+.icon-katb-star-empty:before { font-family: "fontello-katb"!important; content: '\e801b'; }
+.icon-katb-star-half-alt:before { font-family: "fontello-katb"!important; content: '\e802c'; }

@@ -3,8 +3,8 @@ Contributors: kevinhaig
 Donate link: http://kevinsspace.ca/testimonial-basics/
 Tags: testimonial,testimonials,praise,user comments,widgets,translation ready
 Requires at least: 3.9
-Tested up to: 4.1.3
-Stable tag: 4.1.3
+Tested up to: 4.1.4
+Stable tag: 4.1.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/quick-guide-gplv3.html
 
@@ -73,6 +73,15 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 5. Testimonials Example Page
 
 == Changelog ==
+
+= 4.1.4 =
+* fixed css bug carrying formatted title color to unformatted display in the widget rotator display
+* Added help comment about widget labels inside or above widget input boxes
+* Added font-family:"fontello-katb"!important; to .icon-katb-star:before, .icon-katb-star-empty:before, and .icon-katb-star-half-alt:before to improve compatibility
+* Added && isset($katb_paginate_setup) to line 305  katb_shortcodes.php , had Notice error for undefined variable
+* Passed $use_ratings variable called in line 541 katb_widget_display_testimonial() to katb_widget_insert_title(), because there was a Notice: katb_display_testimonial_widget.php:823 - Undefined variable: use_ratings
+* Improved database update code to remove plugin activation errors
+* In katb_custom_style.php wrapped in conditional if ( function_exists ('katb_get_options')){} because it was causing a php fatal error on reactivation of plugin
 
 = 4.1.3 =
 * Fixed katb_insert_content, did not pass $use_schema variable
@@ -306,6 +315,10 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 * Initial Release
 
 == Upgrade Notice ==
+
+= 4.1.4 =
+* medium critical update, but there should not be any adjustments 
+  necessary after install
 
 = 4.1.3 =
 * medium critical update
