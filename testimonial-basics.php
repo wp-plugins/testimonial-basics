@@ -3,7 +3,7 @@
 Plugin Name: Testimonial Basics
 Plugin URI: http://kevinsspace.ca/testimonial-basics-wordpress-plugin/
 Description: This plugin facilitates easy management of customer testimonials. The user can set up an input form in a page or in a widget, and display all or selected testimonials in a page or a widget. The plug in is very easy to use and modify.
-Version: 4.1.4
+Version: 4.1.5
 Author: Kevin Archibald
 Author URI: http://kevinsspace.ca
 License: GPLv3
@@ -12,10 +12,10 @@ License: GPLv3
 ===================================================================================================
 
 License: GNU General Public License V3
-License URI: see the license.txt file for license details.
+License URI: http://www.gnu.org/copyleft/gpl.html
 
 	testimonial-basics is a plugin for WordPress
-    Copyright (C) 2012 Kevin Archibald
+    Copyright (C) 2015 Kevin Archibald
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

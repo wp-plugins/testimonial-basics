@@ -4,9 +4,10 @@
  * Note that custom styles are in katb_custom_style.php
  *
  * @package		Testimonial Basics WordPress Plugin
- * @copyright	Copyright (c) 2012, Kevin Archibald
+ * @copyright	Copyright (c) 2015, Kevin Archibald
  * @license		http://www.gnu.org/licenses/quick-guide-gplv3.html  GNU Public License
  * @author		Kevin Archibald <www.kevinsspace.ca/contact/>
+ * Testimonial Basics is distributed under the terms of the GNU GPL
  */
 /* ========================================================
  * General Styles
@@ -275,7 +276,7 @@
 /* ----- Title Bar styles ----- */
 .katb_title_bar { 
 	float: left;
-	width: 100%;
+	/*width: 100%;*/
 }
 
 .katb_title_bar .individual_itemreviewed {
@@ -283,6 +284,11 @@
 }
 
 .katb_title_bar .katb_display_rating{ line-height: 1.25em;}
+
+/* ------ Rating Styles -------- */
+.katb_rating {
+	display: inline-block;
+}
 
 /* Schema markup styles 
  * ============================================================ */
@@ -1138,6 +1144,7 @@ input.ka_display_paginate_selected,input[type="submit"].ka_display_paginate_sele
 	box-shadow: none;
 	position: inherit;
 	width: 100%;
+	height: auto;
 }
 
 .katb_avatar_round_image img.avatar,
@@ -1150,6 +1157,7 @@ input.ka_display_paginate_selected,input[type="submit"].ka_display_paginate_sele
 	box-shadow: none;
 	position: inherit;
 	width: 100%;
+	height: auto;
 }
 
 /* ==========================================================
