@@ -1,11 +1,11 @@
 <?php
 /**
  * This file holds many of the functions used in Testimonial Basics
- *
  * @package		Testimonial Basics WordPress Plugin
- * @copyright	Copyright (c) 2012, Kevin Archibald
+ * @copyright	Copyright (c) 2015, Kevin Archibald
  * @license		http://www.gnu.org/licenses/quick-guide-gplv3.html  GNU Public License
  * @author		Kevin Archibald <www.kevinsspace.ca/contact/>
+ * Testimonial Basics is distributed under the terms of the GNU GPL
  */
 /**
  * Get Testimonial Basics Plugin Options
@@ -30,6 +30,8 @@ function katb_get_options() {
 	// Parse the stored options with the defaults
 	$katb_options = wp_parse_args( get_option( 'katb_testimonial_basics_options', array() ), $katb_option_defaults );
 	// Return the parsed array
+	//var_dump($katb_options);
+	//wp_die();
 	return $katb_options;
 }
 
@@ -1729,9 +1731,9 @@ function katb_check_for_submitted_testimonial() {
 			//set testimonial submitted flag
 			$_SESSION['katb_submitted'] = SHA1('true');
 			//Redirect and load to reset post variables
-			$redirect = katb_current_page_url();
-			wp_redirect( $redirect );
-			exit;
+			//$redirect = katb_current_page_url();
+			//wp_redirect( $redirect );
+			//exit;
 		}
 	} else {
 		$katb_id = "";
@@ -1764,7 +1766,6 @@ add_action ('parse_request', 'katb_check_for_submitted_testimonial');
  * @Websites: http://bacsoftwareconsulting.com/ ; http://blueoliveonline.com/
  * @Description: Preserves HTML formating to the automatically generated Excerpt.
  * Also Code modifies the default excerpt_length and excerpt_more filters.
- * @Tested: Up to WordPress version 3.1.3
  * http://bacsoftwareconsulting.com/blog/index.php/wordpress-cat/how-to-preserve-html-tags-in-wordpress-excerpt-without-a-plugin/
  * Modified by 
  * @Author: Kevin Archibald
@@ -1775,67 +1776,45 @@ function katb_testimonial_excerpt_filter( $length , $text , $classID ) {
 	$more_requested = false;
 	$number_of_words = 0;
 
+	$katb_excerpt = strip_shortcodes( $text );
 
-		
-		//$kap_excerpt = get_the_content('');
-		// detect if a more link was in the post so the Read More button can be displayed
-		//if( strpos($post->post_content, '<!--more-->') !== false ){ $more_requested = true; }
-		//if( '' != $post->post_excerpt ){ $more_requested = true; }
-		//print_r( 'yes' );
-		
-		$katb_excerpt = strip_shortcodes( $text );
-		//$kap_excerpt = strip_shortcodes( $kap_excerpt );
-		//$kap_excerpt = do_shortcode( $kap_excerpt);
-		//$kap_excerpt = apply_filters('the_content', $kap_excerpt);
-		//$kap_excerpt = str_replace(']]>', ']]&gt;', $kap_excerpt);
-		//$kap_excerpt = strip_tags($kap_excerpt, ka_panache_allowed_excerpt_tags()); /*IF you need to allow just certain tags. Delete if all tags are allowed */
+	//Set the excerpt word count and only break after sentence is complete.
+	$excerpt_word_count = $length;
+	$excerpt_length = apply_filters('excerpt_length', $excerpt_word_count); 
+	$tokens = array();
+	$excerptOutput = '';
+	$count = 0;
 
-		//Set the excerpt word count and only break after sentence is complete.
-		$excerpt_word_count = $length;
-		$excerpt_length = apply_filters('excerpt_length', $excerpt_word_count); 
-		$tokens = array();
-		$excerptOutput = '';
-		$count = 0;
+	// Divide the string into tokens; HTML tags, or words, followed by any whitespace
+	preg_match_all('/(<[^>]+>|[^<>\s]+)\s*/u', $katb_excerpt, $tokens);
 
-		// Divide the string into tokens; HTML tags, or words, followed by any whitespace
-		preg_match_all('/(<[^>]+>|[^<>\s]+)\s*/u', $katb_excerpt, $tokens);
+	foreach ($tokens[0] as $token) { 
 
-		foreach ($tokens[0] as $token) { 
-
-			if ($count >= $excerpt_word_count && preg_match('/[\,\;\?\.\!]\s*$/uS', $token) && $token != '' ) { 
-				// Limit reached, continue until , ; ? . or !occur at the end
-				$excerptOutput .= trim($token);
-				$number_of_words = $count;
-				break;
-			}
-
-			// Add words to complete sentence
-			$count++;
-
-			// Append what's left of the token
-			$excerptOutput .= $token;
-			
+		if ($count >= $excerpt_word_count && preg_match('/[\,\;\?\.\!]\s*$/uS', $token) && $token != '' ) { 
+			// Limit reached, continue until , ; ? . or !occur at the end
+			$excerptOutput .= trim($token);
+			$number_of_words = $count;
+			break;
 		}
 
-        $katb_excerpt = trim(force_balance_tags($excerptOutput));
+		// Add words to complete sentence
+		$count++;
+
+		// Append what's left of the token
+		$excerptOutput .= $token;
 		
-		$excerpt_end = '<a href="#" class="katb_excerpt_more" data-id="'.$classID.'" > ...'.__('more','testimonial-basics').'</a>';
-		//$excerpt_end = '<a class="ka-read-more" href="'. get_permalink( get_the_ID() ) . '">' . '<span class="read-more-button">' . __('Read More' , 'ka_panache') . '<i class="fa fa-long-arrow-right"></i></span></a>';
-		//$excerpt_end = ' <a href="'. esc_url( get_permalink() ) . '">' . '&nbsp;&raquo;&nbsp;' . sprintf(__( 'Read more about: %s &nbsp;&raquo;', 'wpse' ), get_the_title()) . '</a>'; 
-		//$excerpt_more = apply_filters('excerpt_more', ' ' . $excerpt_end); 
-		
-		//$pos = strrpos($kap_excerpt, '</');
-		if( $number_of_words >= $excerpt_word_count || $more_requested == true ){
-			 //if ($pos !== false) {
-				// Inside last HTML tag
-				//$kap_excerpt = substr_replace($kap_excerpt, $excerpt_end, $pos, 0); /* Add read more next to last word */
-			//} else {
-				// After the content
-				$katb_excerpt .= $excerpt_end; /*Add read more in new paragraph */
-			//}
-		}
-		//$kap_excerpt = apply_filters('the_content', $kap_excerpt);
-		return $katb_excerpt;   
+	}
+
+    $katb_excerpt = trim(force_balance_tags($excerptOutput));
+	
+	$excerpt_end = '<a href="#" class="katb_excerpt_more" data-id="'.$classID.'" > ...'.__('more','testimonial-basics').'</a>';
+
+	if( $number_of_words >= $excerpt_word_count || $more_requested == true ){
+		// After the content
+		$katb_excerpt .= $excerpt_end; /*Add read more in new paragraph */
+	}
+
+	return $katb_excerpt;   
 
 }
  

@@ -1,3 +1,10 @@
+/*
+ * @package		Testimonial Basics WordPress Plugin
+ * @copyright	Copyright (c) 2015, Kevin Archibald
+ * @license		http://www.gnu.org/licenses/quick-guide-gplv3.html  GNU Public License
+ * @author		Kevin Archibald <www.kevinsspace.ca/contact/>
+ * Testimonial Basics is distributed under the terms of the GNU GPL
+ */
 jQuery(document).ready(function(){
 	
 	jQuery('.katb_rotate').each(function(i, obj) {

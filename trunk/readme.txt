@@ -3,8 +3,8 @@ Contributors: kevinhaig
 Donate link: http://kevinsspace.ca/testimonial-basics/
 Tags: testimonial,testimonials,praise,user comments,widgets,translation ready
 Requires at least: 3.9
-Tested up to: 4.1.4
-Stable tag: 4.1.4
+Tested up to: 4.1.1
+Stable tag: 4.1.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/quick-guide-gplv3.html
 
@@ -73,6 +73,12 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 5. Testimonials Example Page
 
 == Changelog ==
+= 4.1.5 =
+* added height: auto; to avatar styles.
+* Revamped schema for the new set up and tested every layout for the content and widgets with the structured data testing tool
+* Modified the content display code separating the ratings display from within the title block to its own function and block
+* Added some slight css changes to accommodate the content display changes
+* Updated copyright to 2015
 
 = 4.1.4 =
 * fixed css bug carrying formatted title color to unformatted display in the widget rotator display

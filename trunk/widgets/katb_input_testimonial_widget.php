@@ -1,12 +1,17 @@
 <?php
-/*
+/**
 Plugin Name: Testimonial Basics Input Widget
 Plugin URI: http://kevinsspace.ca/testimonial-basics-wordpress-plugin/
 Description: A plugin to input a testimonial
-Version: 4.1.4
+Version: 4.1.5
 Author: Kevin Archibald
 Author URI: http://kevinsspace.ca/
 License: GPLv3
+ * @package		Testimonial Basics WordPress Plugin
+ * @copyright	Copyright (c) 2015, Kevin Archibald
+ * @license		http://www.gnu.org/licenses/quick-guide-gplv3.html  GNU Public License
+ * @author		Kevin Archibald <www.kevinsspace.ca/contact/>
+ * Testimonial Basics is distributed under the terms of the GNU GPL
 */
 /** ----------- Session Start ----------------------------------------------
  * Start session if not already started. The session is required

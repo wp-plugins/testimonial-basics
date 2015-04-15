@@ -6,9 +6,10 @@
  * It loads the custom styles used in the content display area 
  *
  * @package		Testimonial Basics WordPress Plugin
- * @copyright	Copyright (c) 2012, Kevin Archibald
+ * @copyright	Copyright (c) 2015, Kevin Archibald
  * @license		http://www.gnu.org/licenses/quick-guide-gplv3.html  GNU Public License
  * @author		Kevin Archibald <www.kevinsspace.ca/contact/>
+ * Testimonial Basics is distributed under the terms of the GNU GPL
  */
 
 /* Get the user choices for the plugin options */
