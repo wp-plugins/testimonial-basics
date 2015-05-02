@@ -131,7 +131,8 @@ function katb_get_option_parameters() {
 			'section' => 'general',
 			'tab' => 'general',
 			'default' => '#EACB1E',
-			'class' => 'hexcolor'
+			'class' => 'ka_color'
+			//'class' => 'nohtml'
 		),
 		'katb_star_shadow_color' => array(
 			'name' => 'katb_star_shadow_color',
@@ -141,7 +142,7 @@ function katb_get_option_parameters() {
 			'section' => 'general',
 			'tab' => 'general',
 			'default' => '#000000',
-			'class' => 'hexcolor'
+			'class' => 'ka_color'
 		),
 		'katb_enable_rotator' => array(
 			'name' => 'katb_enable_rotator',
@@ -980,7 +981,7 @@ function katb_get_option_parameters() {
 			'section' => 'content_custom_formats',
 			'tab' => 'content_display',
 			'default' => '#EDEDED',
-			'class' => 'hexcolor'
+			'class' => 'ka_color'
 		),
 		'katb_testimonial_box_color' => array(
 			'name' => 'katb_testimonial_box_color',
@@ -990,7 +991,7 @@ function katb_get_option_parameters() {
 			'section' => 'content_custom_formats',
 			'tab' => 'content_display',
 			'default' => '#DBDBDB',
-			'class' => 'hexcolor'
+			'class' => 'ka_color'
 		),
 		'katb_testimonial_box_font_color' => array(
 			'name' => 'katb_testimonial_box_font_color',
@@ -1000,7 +1001,7 @@ function katb_get_option_parameters() {
 			'section' => 'content_custom_formats',
 			'tab' => 'content_display',
 			'default' => '#000000',
-			'class' => 'hexcolor'
+			'class' => 'ka_color'
 		),		
 		'katb_author_location_color' => array(
 			'name' => 'katb_author_location_color',
@@ -1010,7 +1011,7 @@ function katb_get_option_parameters() {
 			'section' => 'content_custom_formats',
 			'tab' => 'content_display',
 			'default' => '#000000',
-			'class' => 'hexcolor'
+			'class' => 'ka_color'
 		),		
 		'katb_website_link_color' => array(
 			'name' => 'katb_website_link_color',
@@ -1020,7 +1021,7 @@ function katb_get_option_parameters() {
 			'section' => 'content_custom_formats',
 			'tab' => 'content_display',
 			'default' => '#3384E8',
-			'class' => 'hexcolor'
+			'class' => 'ka_color'
 		),
 		'katb_website_link_hover_color' => array(
 			'name' => 'katb_website_link_hover_color',
@@ -1030,7 +1031,7 @@ function katb_get_option_parameters() {
 			'section' => 'content_custom_formats',
 			'tab' => 'content_display',
 			'default' => '#FFFFFF',
-			'class' => 'hexcolor'
+			'class' => 'ka_color'
 		),
 //Widget
 		'katb_widget_layout_option' => array(
@@ -1293,7 +1294,7 @@ function katb_get_option_parameters() {
 			'section' => 'widget_custom_formats',
 			'tab' => 'widget_display',
 			'default' => '#EDEDED',
-			'class' => 'hexcolor'
+			'class' => 'ka_color'
 		),
 		'katb_widget_divider_color' => array(
 			'name' => 'katb_widget_divider_color',
@@ -1303,7 +1304,7 @@ function katb_get_option_parameters() {
 			'section' => 'widget_custom_formats',
 			'tab' => 'widget_display',
 			'default' => '#CECECE',
-			'class' => 'hexcolor'
+			'class' => 'ka_color'
 		),
 		'katb_widget_font_color' => array(
 			'name' => 'katb_widget_font_color',
@@ -1313,7 +1314,7 @@ function katb_get_option_parameters() {
 			'section' => 'widget_custom_formats',
 			'tab' => 'widget_display',
 			'default' => '#000000',
-			'class' => 'hexcolor'
+			'class' => 'ka_color'
 		),
 		'katb_widget_author_location_color' => array(
 			'name' => 'katb_widget_author_location_color',
@@ -1323,7 +1324,7 @@ function katb_get_option_parameters() {
 			'section' => 'widget_custom_formats',
 			'tab' => 'widget_display',
 			'default' => '#000000',
-			'class' => 'hexcolor'
+			'class' => 'ka_color'
 		),
 		'katb_widget_website_link_color' => array(
 			'name' => 'katb_widget_website_link_color',
@@ -1333,7 +1334,7 @@ function katb_get_option_parameters() {
 			'section' => 'widget_custom_formats',
 			'tab' => 'widget_display',
 			'default' => '#3384E8',
-			'class' => 'hexcolor'
+			'class' => 'ka_color'
 		),
 		'katb_widget_website_link_hover_color' => array(
 			'name' => 'katb_widget_website_link_hover_color',
@@ -1343,7 +1344,7 @@ function katb_get_option_parameters() {
 			'section' => 'widget_custom_formats',
 			'tab' => 'widget_display',
 			'default' => '#FFFFFF',
-			'class' => 'hexcolor'
+			'class' => 'ka_color'
 		),																																				
 	);
 		

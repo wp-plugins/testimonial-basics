@@ -457,6 +457,7 @@ function katb_setting_callback( $option ) { //Callback for get_settings_field()
 	$fieldtype = $option['type'];
 	$fieldname = 'katb_testimonial_basics_options[' . $optionname . ']';
 	$katb_input_class = $option['class'];
+	//echo '<script>alert("'.$katb_input_class.'");</script>';
 	
 	// Output checkbox form field markup
 	if ( 'checkbox' == $fieldtype ) {
@@ -499,9 +500,12 @@ function katb_setting_callback( $option ) { //Callback for get_settings_field()
 	} 
 	// Output text input form field markup
 	else if ( 'text' == $fieldtype ) {
-		if ($katb_input_class == 'html') { ?>
+		
+		if ( $katb_input_class == 'html' ) { ?>
 			<input id="<?php echo $optionname; ?>" class="katb_options <?php echo $katb_input_class ?>" type="text" name="<?php echo $fieldname; ?>" value="<?php echo stripcslashes( esc_html( $katb_options[$optionname] ) ); ?>" />
-		<?php } else { ?>	
+		<?php } elseif ( $katb_input_class == 'ka_color' ) { ?>
+			<input id="<?php echo $optionname; ?>" class="katb_options hexcolor" type="text" name="<?php echo $fieldname; ?>" value="<?php echo stripcslashes( esc_html( $katb_options[$optionname] ) ); ?>" />
+		<?php } else { ?>
 			<input id="<?php echo $optionname; ?>" class="katb_options <?php echo $katb_input_class ?>" type="text" name="<?php echo $fieldname; ?>" value="<?php echo stripcslashes( wp_filter_nohtml_kses( $katb_options[$optionname] ) ); ?>" />
 		<?php }
 	}
