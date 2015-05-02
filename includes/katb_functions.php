@@ -132,7 +132,6 @@ function katb_get_option_parameters() {
 			'tab' => 'general',
 			'default' => '#EACB1E',
 			'class' => 'ka_color'
-			//'class' => 'nohtml'
 		),
 		'katb_star_shadow_color' => array(
 			'name' => 'katb_star_shadow_color',

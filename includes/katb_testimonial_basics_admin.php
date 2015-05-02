@@ -1548,7 +1548,7 @@ function katb_validate_options( $input ) {
 						);						
 					}
 				}
-				else if ( 'hexcolor' == $optiondetails['class'] ) {
+				else if ( 'ka_color' == $optiondetails['class'] ) {
 					$valid_input[$setting] = trim($valid_input[$setting]); // trim whitespace
 					if ($valid_input[$setting] == "") $valid_input[$setting] = $option_defaults[$setting];
 					if(substr($valid_input[$setting],0,1) !== '#'){$valid_input[$setting] = '#' . $valid_input[$setting];}
