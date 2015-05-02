@@ -3,8 +3,8 @@ Contributors: kevinhaig
 Donate link: http://kevinsspace.ca/testimonial-basics/
 Tags: testimonial,testimonials,praise,user comments,widgets,translation ready
 Requires at least: 3.9
-Tested up to: 4.1.1
-Stable tag: 4.1.5
+Tested up to: 4.2.1
+Stable tag: 4.1.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/quick-guide-gplv3.html
 
@@ -73,6 +73,10 @@ Users are not allowed to upload photos because it is a security issue. Use of gr
 5. Testimonials Example Page
 
 == Changelog ==
+
+= 4.1.6 =
+* color picker stopped working after WordPress 4.2 upgrade, had to change the option class to ka_color because hexcolor was causing problems with the jQuery selector
+
 = 4.1.5 =
 * added height: auto; to avatar styles.
 * Revamped schema for the new set up and tested every layout for the content and widgets with the structured data testing tool
